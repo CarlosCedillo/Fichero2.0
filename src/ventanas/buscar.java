@@ -27,7 +27,7 @@ public class buscar extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        buttonGroup2 = new javax.swing.ButtonGroup();
+        busqueda = new javax.swing.ButtonGroup();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
@@ -62,6 +62,7 @@ public class buscar extends javax.swing.JFrame {
             }
         });
 
+        busqueda.add(rb_texto);
         rb_texto.setText("Texto Ficha");
         rb_texto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -69,6 +70,7 @@ public class buscar extends javax.swing.JFrame {
             }
         });
 
+        busqueda.add(rb_1subTema);
         rb_1subTema.setText("1er Sub Tema");
         rb_1subTema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -76,16 +78,21 @@ public class buscar extends javax.swing.JFrame {
             }
         });
 
+        busqueda.add(rb_tema);
         rb_tema.setText("Tema");
 
+        busqueda.add(rb_2subTema);
         rb_2subTema.setText("2do Sub Tema");
 
+        busqueda.add(rb_subTema);
         rb_subTema.setText("Sub Tema");
         rb_subTema.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 rb_subTemaActionPerformed(evt);
             }
         });
+
+        jTextField2.setEditable(false);
 
         jButton1.setText(">");
 
@@ -95,9 +102,17 @@ public class buscar extends javax.swing.JFrame {
 
         jLabel4.setText("Sub Tema");
 
+        jTextField3.setEditable(false);
+
+        jTextField4.setEditable(false);
+
         jLabel5.setText("1er Sub Tema");
 
         jLabel6.setText("2do Sub Tema");
+
+        jTextField5.setEditable(false);
+
+        jTextField6.setEditable(false);
 
         jButton3.setText("Buscar");
 
@@ -107,6 +122,9 @@ public class buscar extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 689, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(21, 21, 21)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -151,10 +169,6 @@ public class buscar extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(588, 588, 588)
                         .addComponent(jButton3)))
-                .addGap(46, 46, 46))
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -184,12 +198,12 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(jTextField4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel6)
                     .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                .addGap(32, 32, 32)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
                     .addComponent(jButton2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addComponent(jLabel2)
                 .addContainerGap())
         );
@@ -205,13 +219,13 @@ public class buscar extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_rb_textoActionPerformed
 
-    private void rb_subTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_subTemaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_rb_subTemaActionPerformed
-
     private void rb_1subTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_1subTemaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rb_1subTemaActionPerformed
+
+    private void rb_subTemaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_subTemaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rb_subTemaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -249,7 +263,7 @@ public class buscar extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.ButtonGroup buttonGroup2;
+    private javax.swing.ButtonGroup busqueda;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
