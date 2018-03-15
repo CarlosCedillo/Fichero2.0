@@ -7,6 +7,7 @@ public class inicio extends javax.swing.JFrame {
      */
     public inicio() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -73,7 +74,9 @@ public class inicio extends javax.swing.JFrame {
 
     private void btn_buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_buscarActionPerformed
         // TODO add your handling code here:
+        
         buscar jFrame = new buscar();
+        this.setVisible(false);
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_btn_buscarActionPerformed
