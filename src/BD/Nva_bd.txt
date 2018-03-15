@@ -1,0 +1,39 @@
+Fechas - (
+no_ficha (id)
+texto
+categoria(Tema)
+categoria1(?)
+categoria2(?)
+categoria3(?)
+fuente)
+
+Categorias -(
+id
+nombre)
+
+subcategorias1 -(
+id
+id_categ
+nombre
+)
+
+subcategorias2 -(
+id
+id_subcateg1
+nombre
+)
+
+subcategorias3 -(
+id
+id_subcateg2
+nombre
+)
+
+Fuentes-(
+id
+nombre
+)
+
+
+
+	
