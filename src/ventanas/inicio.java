@@ -75,6 +75,7 @@ public class inicio extends javax.swing.JFrame {
         
         buscar jFrame = new buscar();
         this.setVisible(false);
+        System.out.println("Click en Buscar... Abriendo ventana");
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_btn_buscarActionPerformed

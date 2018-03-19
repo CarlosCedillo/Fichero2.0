@@ -274,6 +274,7 @@ public class buscar extends javax.swing.JFrame {
         inicio jFrame = new inicio();
         this.setVisible(false);
         jFrame.setVisible(true);
+        System.out.println("Regresando a inicio");
         
     }//GEN-LAST:event_jButton3ActionPerformed
 

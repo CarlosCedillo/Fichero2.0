@@ -36,7 +36,7 @@ public class crear extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addGap(0, 432, Short.MAX_VALUE)
+                .addContainerGap(432, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
