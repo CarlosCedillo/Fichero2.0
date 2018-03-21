@@ -9,24 +9,29 @@ fuente)
 
 Categorias -(
 id
-nombre)
+nombre
+activo
+)
 
 subcategorias1 -(
 id
 id_categ
 nombre
+activo
 )
 
 subcategorias2 -(
 id
 id_subcateg1
 nombre
+activo
 )
 
 subcategorias3 -(
 id
 id_subcateg2
 nombre
+activo
 )
 
 Fuentes-(
