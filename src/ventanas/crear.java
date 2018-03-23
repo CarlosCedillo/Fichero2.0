@@ -275,7 +275,35 @@ public class crear extends javax.swing.JFrame {
             lblMensaje.setText("Correcto");
             
             siguienteID();
-            System.out.println(nvoId);
+            //System.out.println(nvoId);
+            System.out.println(" Ejecutando: INSERT INTO fichas "
+                    + "(id, text, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
+                    + "VALUES ("+ nvoId +", "+ txtFicha.getText() +", "+ cbCategoria.getSelectedItem() +", "+ 0 +", "+ 0 +", "+ 0 +", "+ cbFuente.getSelectedItem() +")...");
+            
+            
+            try {
+            conexion = ConexionBD.obtenerConexion();
+            String sql = "INSERT INTO fichas "
+                    + "(id, texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+            
+            String categoria = (String) cbCategoria.getSelectedItem();
+            String fuente = (String) cbFuente.getSelectedItem();
+            
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                preparedStatement.setInt(1, nvoId);
+                preparedStatement.setString(2, txtFicha.getText());
+                preparedStatement.setString(3, categoria);
+                preparedStatement.setInt(4, 0);
+                preparedStatement.setInt(5, 0);
+                preparedStatement.setInt(6, 0);
+                preparedStatement.setString(7, fuente);
+            preparedStatement.executeQuery();
+            
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getMessage());
+        }
             
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
