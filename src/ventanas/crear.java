@@ -1,14 +1,12 @@
 package ventanas;
 
 import conexion.ConexionBD;
-import java.awt.Dialog;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 import tablas.Categorias;
 import tablas.Fuentes;
 import tablas.SubCategorias1;
@@ -31,15 +29,6 @@ public class crear extends javax.swing.JFrame {
         cbFuente.addItem("--Seleccione--");
         enlistarFuentes();
         
-        cbSub1.addItem("--Seleccione--");
-        enlistarSub1();
-        
-        cbSub2.addItem("--Seleccione--");
-        enlistarSub2();
-        
-        cbSub3.addItem("--Seleccione--");
-        enlistarSub3();
-        
     }
     
     @SuppressWarnings("unchecked")
@@ -53,19 +42,20 @@ public class crear extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         btnGuardar = new javax.swing.JButton();
         lblCategoria = new javax.swing.JLabel();
-        cbCategoria = new javax.swing.JComboBox();
         lblSub1 = new javax.swing.JLabel();
         cbSub1 = new javax.swing.JComboBox();
         lblSub3 = new javax.swing.JLabel();
         cbSub3 = new javax.swing.JComboBox();
         lblSub2 = new javax.swing.JLabel();
-        cbSub2 = new javax.swing.JComboBox();
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         lblFuente = new javax.swing.JLabel();
         cbFuente = new javax.swing.JComboBox();
         jButton3 = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
+        lblMensaje = new javax.swing.JLabel();
+        cbCategoria = new javax.swing.JComboBox();
+        cbSub5 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -91,12 +81,6 @@ public class crear extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria");
 
-        cbCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbCategoriaActionPerformed(evt);
-            }
-        });
-
         lblSub1.setText("Sub Categoria 1");
 
         cbSub1.addActionListener(new java.awt.event.ActionListener() {
@@ -114,12 +98,6 @@ public class crear extends javax.swing.JFrame {
         });
 
         lblSub2.setText("Sub Categoria 2");
-
-        cbSub2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSub2ActionPerformed(evt);
-            }
-        });
 
         jButton1.setText("+");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -139,8 +117,25 @@ public class crear extends javax.swing.JFrame {
         });
 
         jButton3.setText("+");
+        jButton3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton3ActionPerformed(evt);
+            }
+        });
 
         jButton4.setText("-");
+
+        cbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCategoriaActionPerformed(evt);
+            }
+        });
+
+        cbSub5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbSub5ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -167,8 +162,8 @@ public class crear extends javax.swing.JFrame {
                                         .addComponent(lblSub2))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addComponent(cbSub5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -188,11 +183,12 @@ public class crear extends javax.swing.JFrame {
                                     .addComponent(jButton3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(jButton4)
-                                    .addGap(0, 0, Short.MAX_VALUE)))))
+                                    .addGap(18, 18, 18)
+                                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(71, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -200,23 +196,24 @@ public class crear extends javax.swing.JFrame {
                 .addGap(37, 37, 37)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblCategoria)
-                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub1)
                     .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(jButton2)
+                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSub2)
-                    .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub3)
-                    .addComponent(cbSub3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbSub3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cbSub5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
                     .addComponent(jButton3)
-                    .addComponent(jButton4))
+                    .addComponent(jButton4)
+                    .addComponent(lblMensaje))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -249,13 +246,35 @@ public class crear extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
-        String textoFicha = txtFicha.getText();
-        cbCategoria
-        cbFuente
-        cbSub1
-        cbSub2
-        cbSub3
-                
+        
+        if( cbCategoria.getSelectedItem() == "--Seleccione--" || cbFuente.getSelectedItem() == "--Seleccione--" ){
+            lblMensaje.setForeground(Color.RED);
+            lblMensaje.setText("Debe delecionar una categoria y una fuente");
+        }else{
+            lblMensaje.setForeground(Color.blue);
+            lblMensaje.setText("Correcto");
+
+            /*try {
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "INSERT INTO fichas (id, texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente)"
+                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                preparedStatement.setInt(1, );
+                preparedStatement.setString(2, );
+                preparedStatement.setInt(3, );
+                preparedStatement.setInt(4, );
+                preparedStatement.setInt(5, );
+                preparedStatement.setInt(6, );
+                preparedStatement.setInt(7, );
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+            
+            resultSet = preparedStatement.executeQuery();*/
+            
+        }
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -267,15 +286,11 @@ public class crear extends javax.swing.JFrame {
         System.out.println("Regresando a inicio");
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCategoriaActionPerformed
-
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        agregarCategorias jFrame = new agregarCategorias();
+        /*agregarCategorias jFrame = new agregarCategorias();
         System.out.println("Click en agrrgar Categoria... Abriendo ventana");
-        jFrame.setVisible(true);
+        jFrame.setVisible(true);*/
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbSub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub3ActionPerformed
@@ -290,17 +305,17 @@ public class crear extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbFuenteActionPerformed
 
-    private void cbSub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub2ActionPerformed
+    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSub2ActionPerformed
+    }//GEN-LAST:event_jButton3ActionPerformed
 
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new crear().setVisible(true);
-            }
-        });
-    }
+    private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCategoriaActionPerformed
+
+    private void cbSub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSub5ActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -308,8 +323,8 @@ public class crear extends javax.swing.JFrame {
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbFuente;
     private javax.swing.JComboBox cbSub1;
-    private javax.swing.JComboBox cbSub2;
     private javax.swing.JComboBox cbSub3;
+    private javax.swing.JComboBox cbSub5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
@@ -319,6 +334,7 @@ public class crear extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblFuente;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblSub1;
     private javax.swing.JLabel lblSub2;
     private javax.swing.JLabel lblSub3;
@@ -361,75 +377,6 @@ public class crear extends javax.swing.JFrame {
                 fuentes.setId(resultSet.getInt("id"));
                 fuentes.setNombre(resultSet.getString("nombre"));
                 cbFuente.addItem(fuentes);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
-        }
-    }
-    
-    private void enlistarSub1() {
-        
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM subCategorias1;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                SubCategorias1 subCategorias1 = new SubCategorias1();
-                subCategorias1.setId(resultSet.getInt("id"));
-                subCategorias1.setIdCategoria(resultSet.getInt("idCategoria"));
-                subCategorias1.setNombre(resultSet.getString("nombre"));
-                subCategorias1.setActivo(resultSet.getBoolean("activo"));
-                cbCategoria.addItem(subCategorias1);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
-        }
-    }
-    
-    private void enlistarSub2() {
-        
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM subCategorias2;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                SubCategorias2 subCategorias2 = new SubCategorias2();
-                subCategorias2.setId(resultSet.getInt("id"));
-                subCategorias2.setIdSubCategoria1(resultSet.getInt("idSubCategoria1"));
-                subCategorias2.setNombre(resultSet.getString("nombre"));
-                subCategorias2.setActivo(resultSet.getBoolean("activo"));
-                cbCategoria.addItem(subCategorias2);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
-        }
-    }
-    
-    private void enlistarSub3() {
-        
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM subCategorias3;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                SubCategorias3 subCategorias3 = new SubCategorias3();
-                subCategorias3.setId(resultSet.getInt("id"));
-                subCategorias3.setIdSubCategoria2(resultSet.getInt("idSubCategoria2"));
-                subCategorias3.setNombre(resultSet.getString("nombre"));
-                subCategorias3.setActivo(resultSet.getBoolean("activo"));
-                cbCategoria.addItem(subCategorias3);
             }
             
         } catch (SQLException ex) {
