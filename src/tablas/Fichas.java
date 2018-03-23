@@ -4,12 +4,11 @@ public class Fichas {
     
     private Integer id;
     private String texto;
-    //private Integer categoria;
-    private String categoria;
+    private Integer categoria;
     private Integer subCategoia1;
     private Integer subCategoia2;
     private Integer subCategoia3;
-    private String fuente;
+    private Integer fuente;
 
     public Integer getId() {
         return id;
@@ -27,11 +26,11 @@ public class Fichas {
         this.texto = texto;
     }
 
-    public String getCategoria() {
+    public Integer getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(String categoria) {
+    public void setCategoria(Integer categoria) {
         this.categoria = categoria;
     }
     
@@ -59,11 +58,11 @@ public class Fichas {
         this.subCategoia3 = subCategoia3;
     }
 
-    public String getFuente() {
+    public Integer getFuente() {
         return fuente;
     }
 
-    public void setFuente(String fuente) {
+    public void setFuente(Integer fuente) {
         this.fuente = fuente;
     }
 
