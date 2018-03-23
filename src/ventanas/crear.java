@@ -6,8 +6,12 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
+import tablas.Fichas;
 import tablas.Fuentes;
 import tablas.SubCategorias1;
 import tablas.SubCategorias2;
@@ -16,6 +20,7 @@ import tablas.SubCategorias3;
 public class crear extends javax.swing.JFrame {
     
     Connection conexion = null;
+    Integer nvoId = 0;
 
     public crear() {
         initComponents();
@@ -81,7 +86,7 @@ public class crear extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria");
 
-        lblSub1.setText("Sub Categoria 1");
+        lblSub1.setText("*Sub Categoria 1");
 
         cbSub1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -94,7 +99,7 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        lblSub3.setText("Sub Categoria 3");
+        lblSub3.setText("*Sub Categoria 3");
 
         cbSub3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -102,7 +107,7 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        lblSub2.setText("Sub Categoria 2");
+        lblSub2.setText("*Sub Categoria 2");
 
         jButton1.setText("+");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -262,35 +267,17 @@ public class crear extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        if( cbCategoria.getSelectedItem() == "--Seleccione--" || cbFuente.getSelectedItem() == "--Seleccione--" ){
+        if( cbCategoria.getSelectedItem() == "--Seleccione--" || cbFuente.getSelectedItem() == "--Seleccione--" || txtFicha.getText().isEmpty()){
             lblMensaje.setForeground(Color.RED);
-            lblMensaje.setText("Debe delecionar una categoria y una fuente");
+            lblMensaje.setText("Debe llenar todos los campos");
         }else{
             lblMensaje.setForeground(Color.blue);
             lblMensaje.setText("Correcto");
-
-            /*try {
-                conexion = ConexionBD.obtenerConexion();
-                ResultSet resultSet;
-                String sql = "INSERT INTO fichas (id, texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente)"
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-                preparedStatement.setInt(1, );
-                preparedStatement.setString(2, );
-                preparedStatement.setInt(3, );
-                preparedStatement.setInt(4, );
-                preparedStatement.setInt(5, );
-                preparedStatement.setInt(6, );
-                preparedStatement.setInt(7, );
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
             
-            
-            resultSet = preparedStatement.executeQuery();*/
+            siguienteID();
+            System.out.println(nvoId);
             
         }
-        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -335,7 +322,7 @@ public class crear extends javax.swing.JFrame {
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         // TODO add your handling code here:
         
-        if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
+        /*if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
             
         }else{
             Categorias categorias  = (Categorias) cbCategoria.getSelectedItem();
@@ -362,11 +349,14 @@ public class crear extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.err.println(ex.getErrorCode());
             }
-        }
+        }*/
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
         // TODO add your handling code here:
+        //Aqui ahora
+        
+        
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
     private void cbSub5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub5ItemStateChanged
@@ -433,6 +423,27 @@ public class crear extends javax.swing.JFrame {
                 fuentes.setId(resultSet.getInt("id"));
                 fuentes.setNombre(resultSet.getString("nombre"));
                 cbFuente.addItem(fuentes);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+    }
+        
+    private void siguienteID() {
+        
+        Integer maxId;
+        
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String sql = "SELECT MAX(id) FROM fichas;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                maxId = resultSet.getInt(1);
+                nvoId = maxId + 1;
             }
             
         } catch (SQLException ex) {

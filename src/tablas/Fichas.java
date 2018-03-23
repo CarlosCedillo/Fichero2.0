@@ -4,7 +4,8 @@ public class Fichas {
     
     private Integer id;
     private String texto;
-    private Integer categoria;
+    //private Integer categoria;
+    private String categoria;
     private Integer subCategoia1;
     private Integer subCategoia2;
     private Integer subCategoia3;
@@ -26,14 +27,14 @@ public class Fichas {
         this.texto = texto;
     }
 
-    public Integer getCategoria() {
+    public String getCategoria() {
         return categoria;
     }
 
-    public void setCategoria(Integer categoria) {
+    public void setCategoria(String categoria) {
         this.categoria = categoria;
     }
-
+    
     public Integer getSubCategoia1() {
         return subCategoia1;
     }
@@ -65,7 +66,11 @@ public class Fichas {
     public void setFuente(String fuente) {
         this.fuente = fuente;
     }
-    
+
+    @Override
+    public String toString() {
+        return id.toString() ;
+    }
     
     
 }

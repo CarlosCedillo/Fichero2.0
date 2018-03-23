@@ -195,7 +195,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblSub1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 1"/>
+            <Property name="text" type="java.lang.String" value="*Sub Categoria 1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbSub1">
@@ -211,7 +211,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblSub3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 3"/>
+            <Property name="text" type="java.lang.String" value="*Sub Categoria 3"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JComboBox" name="cbSub3">
@@ -226,7 +226,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblSub2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 2"/>
+            <Property name="text" type="java.lang.String" value="*Sub Categoria 2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JButton" name="jButton1">
