@@ -83,6 +83,11 @@ public class crear extends javax.swing.JFrame {
 
         lblSub1.setText("Sub Categoria 1");
 
+        cbSub1.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbSub1ItemStateChanged(evt);
+            }
+        });
         cbSub1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSub1ActionPerformed(evt);
@@ -136,6 +141,11 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
+        cbSub5.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbSub5ItemStateChanged(evt);
+            }
+        });
         cbSub5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbSub5ActionPerformed(evt);
@@ -354,6 +364,14 @@ public class crear extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cbCategoriaItemStateChanged
+
+    private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSub1ItemStateChanged
+
+    private void cbSub5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub5ItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbSub5ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
