@@ -125,6 +125,11 @@ public class crear extends javax.swing.JFrame {
 
         jButton4.setText("-");
 
+        cbCategoria.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbCategoriaItemStateChanged(evt);
+            }
+        });
         cbCategoria.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbCategoriaActionPerformed(evt);
@@ -316,6 +321,39 @@ public class crear extends javax.swing.JFrame {
     private void cbSub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub5ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSub5ActionPerformed
+
+    private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
+        // TODO add your handling code here:
+        
+        if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
+            
+        }else{
+            Categorias categorias  = (Categorias) cbCategoria.getSelectedItem();
+            
+            try {
+                cbSub1.removeAllItems();
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ categorias.getId() +";";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                cbSub1.addItem("--Seleccione--");
+                
+                while (resultSet.next()) {
+                    SubCategorias1 subCategorias1 = new SubCategorias1();
+                    subCategorias1.setId(resultSet.getInt("id"));
+                    subCategorias1.setIdCategoria(resultSet.getInt("idCategoria"));
+                    subCategorias1.setNombre(resultSet.getString("nombre"));
+                    subCategorias1.setActivo(resultSet.getBoolean("activo"));
+                    cbSub1.addItem(subCategorias1);
+                }
+                
+            } catch (SQLException ex) {
+                System.err.println(ex.getErrorCode());
+            }
+        }
+    }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
