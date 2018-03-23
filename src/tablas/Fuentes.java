@@ -13,13 +13,20 @@ public class Fuentes {
         this.id = id;
     }
 
-    public String getName() {
+    public String getNombre() {
         return nombre;
     }
 
-    public void setName(String name) {
+    public void setNombre(String name) {
         this.nombre = name;
     }
+
+    @Override
+    public String toString() {
+        return nombre ;
+    }
+    
+    
     
     
     

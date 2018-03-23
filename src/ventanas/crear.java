@@ -10,6 +10,10 @@ import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import tablas.Categorias;
+import tablas.Fuentes;
+import tablas.SubCategorias1;
+import tablas.SubCategorias2;
+import tablas.SubCategorias3;
 
 public class crear extends javax.swing.JFrame {
     
@@ -22,7 +26,19 @@ public class crear extends javax.swing.JFrame {
         Connection conexion = null;
         
         cbCategoria.addItem("--Seleccione--");
-        enlistarCategoria();
+        enlistarCategorias();
+        
+        cbFuente.addItem("--Seleccione--");
+        enlistarFuentes();
+        
+        cbSub1.addItem("--Seleccione--");
+        enlistarSub1();
+        
+        cbSub2.addItem("--Seleccione--");
+        enlistarSub2();
+        
+        cbSub3.addItem("--Seleccione--");
+        enlistarSub3();
         
     }
     
@@ -233,6 +249,14 @@ public class crear extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
+        String textoFicha = txtFicha.getText();
+        cbCategoria
+        cbFuente
+        cbSub1
+        cbSub2
+        cbSub3
+                
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -301,7 +325,7 @@ public class crear extends javax.swing.JFrame {
     private javax.swing.JTextArea txtFicha;
     // End of variables declaration//GEN-END:variables
 
-    private void enlistarCategoria() {
+    private void enlistarCategorias() {
         
         try {
             conexion = ConexionBD.obtenerConexion();
@@ -321,7 +345,95 @@ public class crear extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.err.println(ex.getErrorCode());
         }
+    }
+    
+    private void enlistarFuentes() {
         
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String sql = "SELECT * FROM fuentes;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                Fuentes fuentes = new Fuentes();
+                fuentes.setId(resultSet.getInt("id"));
+                fuentes.setNombre(resultSet.getString("nombre"));
+                cbFuente.addItem(fuentes);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+    }
+    
+    private void enlistarSub1() {
         
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String sql = "SELECT * FROM subCategorias1;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                SubCategorias1 subCategorias1 = new SubCategorias1();
+                subCategorias1.setId(resultSet.getInt("id"));
+                subCategorias1.setIdCategoria(resultSet.getInt("idCategoria"));
+                subCategorias1.setNombre(resultSet.getString("nombre"));
+                subCategorias1.setActivo(resultSet.getBoolean("activo"));
+                cbCategoria.addItem(subCategorias1);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+    }
+    
+    private void enlistarSub2() {
+        
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String sql = "SELECT * FROM subCategorias2;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                SubCategorias2 subCategorias2 = new SubCategorias2();
+                subCategorias2.setId(resultSet.getInt("id"));
+                subCategorias2.setIdSubCategoria1(resultSet.getInt("idSubCategoria1"));
+                subCategorias2.setNombre(resultSet.getString("nombre"));
+                subCategorias2.setActivo(resultSet.getBoolean("activo"));
+                cbCategoria.addItem(subCategorias2);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+    }
+    
+    private void enlistarSub3() {
+        
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String sql = "SELECT * FROM subCategorias3;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                SubCategorias3 subCategorias3 = new SubCategorias3();
+                subCategorias3.setId(resultSet.getInt("id"));
+                subCategorias3.setIdSubCategoria2(resultSet.getInt("idSubCategoria2"));
+                subCategorias3.setNombre(resultSet.getString("nombre"));
+                subCategorias3.setActivo(resultSet.getBoolean("activo"));
+                cbCategoria.addItem(subCategorias3);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
     }
 }
