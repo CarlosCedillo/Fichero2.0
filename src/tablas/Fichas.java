@@ -1,6 +1,6 @@
 package tablas;
 
-public class fichas {
+public class Fichas {
     
     private Integer id;
     private String texto;
