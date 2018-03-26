@@ -16,7 +16,7 @@ public class ConexionBD {
             if(conexion == null){
                 Class.forName(driver);
                 conexion = DriverManager.getConnection(url);
-                JOptionPane.showMessageDialog(null, "Conexion establecida   ");
+//                JOptionPane.showMessageDialog(null, "Conexion establecida   ");
             }
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -25,7 +25,7 @@ public class ConexionBD {
         return conexion;
     }
     
-    public static void main(String[] args) {
-        Connection cn = ConexionBD.obtenerConexion();
-    }
+//    public static void main(String[] args) {
+//        Connection cn = ConexionBD.obtenerConexion();
+//    }
 }
