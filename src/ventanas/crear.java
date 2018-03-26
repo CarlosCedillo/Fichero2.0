@@ -281,7 +281,7 @@ public class crear extends javax.swing.JFrame {
                     + "VALUES ("+ nvoId +", "+ txtFicha.getText() +", "+ cbCategoria.getSelectedItem() +", "+ 0 +", "+ 0 +", "+ 0 +", "+ cbFuente.getSelectedItem() +")...");
             
             
-            try {
+            /*try {
             conexion = ConexionBD.obtenerConexion();
             String sql = "INSERT INTO fichas "
                     + "(id, texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
@@ -303,7 +303,7 @@ public class crear extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
-        }
+        }*/
             
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
