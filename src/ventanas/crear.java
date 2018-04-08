@@ -86,7 +86,7 @@ public class crear extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria");
 
-        lblSub1.setText("*Sub Categoria 1");
+        lblSub1.setText("Sub Categoria 1");
 
         cbSub1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -99,7 +99,7 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        lblSub3.setText("*Sub Categoria 3");
+        lblSub3.setText("Sub Categoria 3");
 
         cbSub3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -107,7 +107,7 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        lblSub2.setText("*Sub Categoria 2");
+        lblSub2.setText("Sub Categoria 2");
 
         jButton1.setText("+");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -274,36 +274,10 @@ public class crear extends javax.swing.JFrame {
             lblMensaje.setForeground(Color.blue);
             lblMensaje.setText("Correcto");
             
-            siguienteID();
-            //System.out.println(nvoId);
-            System.out.println(" Ejecutando: INSERT INTO fichas "
-                    + "(id, text, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
-                    + "VALUES ("+ nvoId +", "+ txtFicha.getText() +", "+ cbCategoria.getSelectedItem() +", "+ 0 +", "+ 0 +", "+ 0 +", "+ cbFuente.getSelectedItem() +")...");
+            Categorias categoria = (Categorias) cbCategoria.getSelectedItem();
+            Fuentes fuente = (Fuentes) cbFuente.getSelectedItem();
             
             
-            /*try {
-            conexion = ConexionBD.obtenerConexion();
-            String sql = "INSERT INTO fichas "
-                    + "(id, texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
-                    + "VALUES (?, ?, ?, ?, ?, ?, ?)";
-            
-            String categoria = (String) cbCategoria.getSelectedItem();
-            String fuente = (String) cbFuente.getSelectedItem();
-            
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-                preparedStatement.setInt(1, nvoId);
-                preparedStatement.setString(2, txtFicha.getText());
-                preparedStatement.setString(3, categoria);
-                preparedStatement.setInt(4, 0);
-                preparedStatement.setInt(5, 0);
-                preparedStatement.setInt(6, 0);
-                preparedStatement.setString(7, fuente);
-            preparedStatement.executeQuery();
-            
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }*/
             
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -350,7 +324,7 @@ public class crear extends javax.swing.JFrame {
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         // TODO add your handling code here:
         
-        /*if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
+        if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
             
         }else{
             Categorias categorias  = (Categorias) cbCategoria.getSelectedItem();
@@ -377,14 +351,11 @@ public class crear extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.err.println(ex.getErrorCode());
             }
-        }*/
+        }
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
         // TODO add your handling code here:
-        //Aqui ahora
-        
-        
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
     private void cbSub5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub5ItemStateChanged
@@ -451,27 +422,6 @@ public class crear extends javax.swing.JFrame {
                 fuentes.setId(resultSet.getInt("id"));
                 fuentes.setNombre(resultSet.getString("nombre"));
                 cbFuente.addItem(fuentes);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
-        }
-    }
-        
-    private void siguienteID() {
-        
-        Integer maxId;
-        
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT MAX(id) FROM fichas;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                maxId = resultSet.getInt(1);
-                nvoId = maxId + 1;
             }
             
         } catch (SQLException ex) {
