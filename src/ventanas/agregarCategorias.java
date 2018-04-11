@@ -17,8 +17,10 @@ public class agregarCategorias extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Categorias");
+        jLabel1.setText("Árbol de categorias");
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("Categorias");
+        treeCategorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane1.setViewportView(treeCategorias);
 
         jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");

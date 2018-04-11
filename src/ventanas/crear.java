@@ -31,6 +31,10 @@ public class crear extends javax.swing.JFrame {
         cbCategoria.addItem("--Seleccione--");
         enlistarCategorias();
         
+        cbSub1.disable();
+        cbSub2.disable();
+        cbSub3.disable();
+        
         cbFuente.addItem("--Seleccione--");
         enlistarFuentes();
         
@@ -60,7 +64,7 @@ public class crear extends javax.swing.JFrame {
         jButton4 = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox();
-        cbSub5 = new javax.swing.JComboBox();
+        cbSub2 = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -146,14 +150,14 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        cbSub5.addItemListener(new java.awt.event.ItemListener() {
+        cbSub2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                cbSub5ItemStateChanged(evt);
+                cbSub2ItemStateChanged(evt);
             }
         });
-        cbSub5.addActionListener(new java.awt.event.ActionListener() {
+        cbSub2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSub5ActionPerformed(evt);
+                cbSub2ActionPerformed(evt);
             }
         });
 
@@ -183,7 +187,7 @@ public class crear extends javax.swing.JFrame {
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(cbSub5, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                        .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
@@ -226,7 +230,7 @@ public class crear extends javax.swing.JFrame {
                     .addComponent(lblSub2)
                     .addComponent(lblSub3)
                     .addComponent(cbSub3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(cbSub5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -271,14 +275,72 @@ public class crear extends javax.swing.JFrame {
             lblMensaje.setForeground(Color.RED);
             lblMensaje.setText("Debe llenar todos los campos");
         }else{
-            lblMensaje.setForeground(Color.blue);
-            lblMensaje.setText("Correcto");
             
             Categorias categoria = (Categorias) cbCategoria.getSelectedItem();
             Fuentes fuente = (Fuentes) cbFuente.getSelectedItem();
+            SubCategorias1 subCategorias1 = (SubCategorias1) cbSub1.getSelectedItem();
+            SubCategorias2 subCategorias2 = (SubCategorias2) cbSub2.getSelectedItem();
+            SubCategorias3 subCategorias3 = (SubCategorias3) cbSub3.getSelectedItem();
+            Integer subCat1 = 0, subCat2 = 0, subCat3 = 0;
+                    
+            if (cbSub1.getSelectedItem()==null || cbSub1.getSelectedItem() == "--Seleccione--"){
+                subCat1 = 0;
+            }else{
+                subCat1 = subCategorias1.getId();
+            }
             
+            if (cbSub2.getSelectedItem()==null || cbSub2.getSelectedItem() == "--Seleccione--"){
+                subCat2 = 0;
+            }else{
+                subCat1 = subCategorias2.getId();
+            }
             
+            if (cbSub3.getSelectedItem()==null || cbSub3.getSelectedItem() == "--Seleccione--"){
+                subCat3 = 0;
+            }else{
+                subCat3 = subCategorias3.getId();
+            }
             
+            System.out.println("Ejecutando: INSERT INTO fichas "
+                    + "(texto, categoria, subCategoia1, subCategoia2, subCategoia3, fuente) "
+                    + "VALUES ('"+txtFicha.getText()+"', '"+categoria.getId()+"', '"+subCat1+"', "
+                            + "'"+subCat2+"', '"+subCat3+"', '"+fuente.getId()+"')");
+            
+            conexion = ConexionBD.obtenerConexion();
+            Statement statement = null;
+            PreparedStatement preparedStatement;
+            boolean guardado = false;
+            
+            try {
+                
+                ConexionBD.obtenerConexion();
+                preparedStatement = conexion.prepareStatement("INSERT INTO "
+                        + "fichas (texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
+                        + "VALUES (?, ?, ?, ?, ?, ?)");
+                preparedStatement.setString(1, txtFicha.getText());
+                preparedStatement.setInt(2, categoria.getId());
+                preparedStatement.setInt(3, subCat1);
+                preparedStatement.setInt(4, subCat2);
+                preparedStatement.setInt(5, subCat3);
+                preparedStatement.setInt(6, fuente.getId());
+                preparedStatement.executeUpdate();
+                
+                conexion = ConexionBD.cerrarConexion();
+                guardado = true;
+                
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if( guardado == true ){
+                lblMensaje.setForeground(Color.blue);
+                lblMensaje.setText("Correcto");
+            }else{
+                lblMensaje.setForeground(Color.red);
+                lblMensaje.setText("No se pudo guardar la ficha");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -317,12 +379,12 @@ public class crear extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbCategoriaActionPerformed
 
-    private void cbSub5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub5ActionPerformed
+    private void cbSub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub2ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSub5ActionPerformed
+    }//GEN-LAST:event_cbSub2ActionPerformed
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
-        // TODO add your handling code here:
+     /*   // TODO add your handling code here:
         
         if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
             
@@ -337,6 +399,7 @@ public class crear extends javax.swing.JFrame {
                 PreparedStatement preparedStatement = conexion.prepareStatement(sql);
                 resultSet = preparedStatement.executeQuery();
                 
+                //cbSub1.enable();
                 cbSub1.addItem("--Seleccione--");
                 
                 while (resultSet.next()) {
@@ -349,18 +412,24 @@ public class crear extends javax.swing.JFrame {
                 }
                 
             } catch (SQLException ex) {
-                System.err.println(ex.getErrorCode());
+                System.err.println(ex.getMessage());
             }
-        }
+        }*/
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
         // TODO add your handling code here:
+        
+        if ( cbSub1.getSelectedItem() == "--Seleccione--" ){
+        }else{
+            
+        }
+        
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
-    private void cbSub5ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub5ItemStateChanged
+    private void cbSub2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub2ItemStateChanged
         // TODO add your handling code here:
-    }//GEN-LAST:event_cbSub5ItemStateChanged
+    }//GEN-LAST:event_cbSub2ItemStateChanged
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
@@ -368,8 +437,8 @@ public class crear extends javax.swing.JFrame {
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbFuente;
     private javax.swing.JComboBox cbSub1;
+    private javax.swing.JComboBox cbSub2;
     private javax.swing.JComboBox cbSub3;
-    private javax.swing.JComboBox cbSub5;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;

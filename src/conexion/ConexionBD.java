@@ -8,7 +8,7 @@ import javax.swing.JOptionPane;
 public class ConexionBD {
     static Connection conexion = null;
     static String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    static String url = "jdbc:ucanaccess://C:\\Users\\Carlos Cedillo\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
+    static String url = "jdbc:ucanaccess://C:\\Users\\CarlosCedillo\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
     //static String url = "jdbc:ucanaccess://C:\\Users\\CaGeCeAl\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
     
     public static Connection obtenerConexion() {
@@ -22,6 +22,15 @@ public class ConexionBD {
             ex.printStackTrace();
             conexion = null;
         }
+        return conexion;
+    }
+    
+    public static Connection cerrarConexion() throws ClassNotFoundException {
+        
+        if( conexion != null ){
+            conexion = null;
+        }
+        
         return conexion;
     }
     

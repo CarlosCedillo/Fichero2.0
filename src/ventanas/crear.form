@@ -77,7 +77,7 @@
                                       <EmptySpace max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
                                           <Component id="cbFuente" min="-2" pref="160" max="-2" attributes="0"/>
-                                          <Component id="cbSub5" min="-2" pref="160" max="-2" attributes="0"/>
+                                          <Component id="cbSub2" min="-2" pref="160" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -134,7 +134,7 @@
                       <Component id="lblSub2" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSub3" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbSub3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbSub5" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbSub2" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -283,15 +283,15 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbCategoriaActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JComboBox" name="cbSub5">
+        <Component class="javax.swing.JComboBox" name="cbSub2">
           <Properties>
             <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
               <StringArray count="0"/>
             </Property>
           </Properties>
           <Events>
-            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbSub5ItemStateChanged"/>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbSub5ActionPerformed"/>
+            <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="cbSub2ItemStateChanged"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cbSub2ActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
