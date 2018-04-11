@@ -22,11 +22,9 @@ public class crear extends javax.swing.JFrame {
     Connection conexion = null;
     Integer nvoId = 0;
 
-    public crear() {
+    public crear() throws ClassNotFoundException {
         initComponents();
         this.setLocationRelativeTo(null);
-        
-        Connection conexion = null;
         
         cbCategoria.addItem("--Seleccione--");
         enlistarCategorias();
@@ -335,8 +333,16 @@ public class crear extends javax.swing.JFrame {
             }
             
             if( guardado == true ){
-                lblMensaje.setForeground(Color.blue);
-                lblMensaje.setText("Correcto");
+                
+                JOptionPane.showMessageDialog(null, "Ficha correctamente guardada");
+                
+                txtFicha.setText("");
+                cbCategoria.setSelectedIndex(0);
+                cbSub1.disable();
+                cbSub2.disable();
+                cbSub3.disable();
+                cbFuente.setSelectedIndex(0);
+                
             }else{
                 lblMensaje.setForeground(Color.red);
                 lblMensaje.setText("No se pudo guardar la ficha");
@@ -455,7 +461,7 @@ public class crear extends javax.swing.JFrame {
     private javax.swing.JTextArea txtFicha;
     // End of variables declaration//GEN-END:variables
 
-    private void enlistarCategorias() {
+    private void enlistarCategorias() throws ClassNotFoundException {
         
         try {
             conexion = ConexionBD.obtenerConexion();
@@ -463,6 +469,7 @@ public class crear extends javax.swing.JFrame {
             String sql = "SELECT * FROM categorias;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
+            conexion = ConexionBD.cerrarConexion();
             
             while (resultSet.next()) {
                 Categorias categorias = new Categorias();
@@ -477,7 +484,7 @@ public class crear extends javax.swing.JFrame {
         }
     }
     
-    private void enlistarFuentes() {
+    private void enlistarFuentes() throws ClassNotFoundException {
         
         try {
             conexion = ConexionBD.obtenerConexion();
@@ -485,6 +492,7 @@ public class crear extends javax.swing.JFrame {
             String sql = "SELECT * FROM fuentes;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
+            conexion = ConexionBD.cerrarConexion();
             
             while (resultSet.next()) {
                 Fuentes fuentes = new Fuentes();
