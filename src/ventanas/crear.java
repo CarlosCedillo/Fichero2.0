@@ -6,12 +6,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
-import tablas.Fichas;
 import tablas.Fuentes;
 import tablas.SubCategorias1;
 import tablas.SubCategorias2;
@@ -305,7 +303,6 @@ public class crear extends javax.swing.JFrame {
                             + "'"+subCat2+"', '"+subCat3+"', '"+fuente.getId()+"')");
             
             conexion = ConexionBD.obtenerConexion();
-            Statement statement = null;
             PreparedStatement preparedStatement;
             boolean guardado = false;
             
