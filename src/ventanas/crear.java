@@ -18,7 +18,6 @@ import tablas.SubCategorias3;
 public class crear extends javax.swing.JFrame {
     
     Connection conexion = null;
-    Integer nvoId = 0;
 
     public crear() throws ClassNotFoundException {
         initComponents();
@@ -279,19 +278,19 @@ public class crear extends javax.swing.JFrame {
             SubCategorias3 subCategorias3 = (SubCategorias3) cbSub3.getSelectedItem();
             Integer subCat1 = 0, subCat2 = 0, subCat3 = 0;
                     
-            if (cbSub1.getSelectedItem()==null || cbSub1.getSelectedItem() == "--Seleccione--"){
+            if (cbSub1.getSelectedItem()==null || cbSub1.getSelectedIndex()== 0){
                 subCat1 = 0;
             }else{
                 subCat1 = subCategorias1.getId();
             }
             
-            if (cbSub2.getSelectedItem()==null || cbSub2.getSelectedItem() == "--Seleccione--"){
+            if (cbSub2.getSelectedItem()==null || cbSub2.getSelectedIndex()== 0){
                 subCat2 = 0;
             }else{
                 subCat1 = subCategorias2.getId();
             }
             
-            if (cbSub3.getSelectedItem()==null || cbSub3.getSelectedItem() == "--Seleccione--"){
+            if (cbSub3.getSelectedItem()==null || cbSub3.getSelectedIndex()== 0){
                 subCat3 = 0;
             }else{
                 subCat3 = subCategorias3.getId();
@@ -335,8 +334,11 @@ public class crear extends javax.swing.JFrame {
                 
                 txtFicha.setText("");
                 cbCategoria.setSelectedIndex(0);
+                cbSub1.removeAllItems();
                 cbSub1.disable();
+                cbSub2.removeAllItems();
                 cbSub2.disable();
+                cbSub3.removeAllItems();
                 cbSub3.disable();
                 cbFuente.setSelectedIndex(0);
                 
@@ -387,7 +389,7 @@ public class crear extends javax.swing.JFrame {
     }//GEN-LAST:event_cbSub2ActionPerformed
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
-     /*   // TODO add your handling code here:
+        // TODO add your handling code here:
         
         if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
             
@@ -402,7 +404,7 @@ public class crear extends javax.swing.JFrame {
                 PreparedStatement preparedStatement = conexion.prepareStatement(sql);
                 resultSet = preparedStatement.executeQuery();
                 
-                //cbSub1.enable();
+                cbSub1.enable();
                 cbSub1.addItem("--Seleccione--");
                 
                 while (resultSet.next()) {
@@ -417,7 +419,7 @@ public class crear extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.err.println(ex.getMessage());
             }
-        }*/
+        }
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
