@@ -1,5 +1,8 @@
 package ventanas;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 public class inicio extends javax.swing.JFrame {
 
     public inicio() {
@@ -80,7 +83,12 @@ public class inicio extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        crear jFrame = new crear();
+        crear jFrame = null;
+        try {
+            jFrame = new crear();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         System.out.println("Click en Crear... Abriendo ventana");
         jFrame.setVisible(true);
