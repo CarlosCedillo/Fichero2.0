@@ -51,15 +51,14 @@ public class crear extends javax.swing.JFrame {
         lblSub3 = new javax.swing.JLabel();
         cbSub3 = new javax.swing.JComboBox();
         lblSub2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
         lblFuente = new javax.swing.JLabel();
         cbFuente = new javax.swing.JComboBox();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
         lblMensaje = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox();
         cbSub2 = new javax.swing.JComboBox();
+        btnModCat = new javax.swing.JButton();
+        btnModFue = new javax.swing.JButton();
+        btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -108,15 +107,6 @@ public class crear extends javax.swing.JFrame {
 
         lblSub2.setText("Sub Categoria 2");
 
-        jButton1.setText("+");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
-        jButton2.setText("-");
-
         lblFuente.setText("Fuente");
 
         cbFuente.addActionListener(new java.awt.event.ActionListener() {
@@ -124,15 +114,6 @@ public class crear extends javax.swing.JFrame {
                 cbFuenteActionPerformed(evt);
             }
         });
-
-        jButton3.setText("+");
-        jButton3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton3ActionPerformed(evt);
-            }
-        });
-
-        jButton4.setText("-");
 
         cbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -156,6 +137,22 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
+        btnModCat.setText("Mofificar");
+
+        btnModFue.setText("Mofificar");
+        btnModFue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModFueActionPerformed(evt);
+            }
+        });
+
+        btnLimpiar.setText("Limpiar");
+        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLimpiarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -164,7 +161,9 @@ public class crear extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                         .addGroup(jPanel2Layout.createSequentialGroup()
-                            .addGap(480, 480, 480)
+                            .addContainerGap()
+                            .addComponent(btnLimpiar)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnRegresar)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(btnGuardar))
@@ -185,29 +184,25 @@ public class crear extends javax.swing.JFrame {
                                         .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jButton1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblSub1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnModFue)
+                                    .addGap(25, 25, 25)
+                                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(lblSub3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cbSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(jButton3)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                                    .addComponent(btnModCat)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(lblSub1)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jButton4)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                                    .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(71, Short.MAX_VALUE))
+                .addContainerGap(83, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -217,9 +212,8 @@ public class crear extends javax.swing.JFrame {
                     .addComponent(lblCategoria)
                     .addComponent(lblSub1)
                     .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2)
-                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnModCat))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSub2)
@@ -230,15 +224,15 @@ public class crear extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(lblMensaje))
+                    .addComponent(lblMensaje)
+                    .addComponent(btnModFue))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(btnGuardar))
+                    .addComponent(btnGuardar)
+                    .addComponent(btnLimpiar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -270,82 +264,7 @@ public class crear extends javax.swing.JFrame {
             lblMensaje.setForeground(Color.RED);
             lblMensaje.setText("Debe llenar todos los campos");
         }else{
-            
-            Categorias categoria = (Categorias) cbCategoria.getSelectedItem();
-            Fuentes fuente = (Fuentes) cbFuente.getSelectedItem();
-            SubCategorias1 subCategorias1 = (SubCategorias1) cbSub1.getSelectedItem();
-            SubCategorias2 subCategorias2 = (SubCategorias2) cbSub2.getSelectedItem();
-            SubCategorias3 subCategorias3 = (SubCategorias3) cbSub3.getSelectedItem();
-            Integer subCat1 = 0, subCat2 = 0, subCat3 = 0;
-                    
-            if (cbSub1.getSelectedItem()==null || cbSub1.getSelectedIndex()== 0){
-                subCat1 = 0;
-            }else{
-                subCat1 = subCategorias1.getId();
-            }
-            
-            if (cbSub2.getSelectedItem()==null || cbSub2.getSelectedIndex()== 0){
-                subCat2 = 0;
-            }else{
-                subCat1 = subCategorias2.getId();
-            }
-            
-            if (cbSub3.getSelectedItem()==null || cbSub3.getSelectedIndex()== 0){
-                subCat3 = 0;
-            }else{
-                subCat3 = subCategorias3.getId();
-            }
-            
-            System.out.println("Ejecutando: INSERT INTO fichas "
-                    + "(texto, categoria, subCategoia1, subCategoia2, subCategoia3, fuente) "
-                    + "VALUES ('"+txtFicha.getText()+"', '"+categoria.getId()+"', '"+subCat1+"', "
-                            + "'"+subCat2+"', '"+subCat3+"', '"+fuente.getId()+"')");
-            
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            boolean guardado = false;
-            
-            try {
-                
-                ConexionBD.obtenerConexion();
-                preparedStatement = conexion.prepareStatement("INSERT INTO "
-                        + "fichas (texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
-                        + "VALUES (?, ?, ?, ?, ?, ?)");
-                preparedStatement.setString(1, txtFicha.getText());
-                preparedStatement.setInt(2, categoria.getId());
-                preparedStatement.setInt(3, subCat1);
-                preparedStatement.setInt(4, subCat2);
-                preparedStatement.setInt(5, subCat3);
-                preparedStatement.setInt(6, fuente.getId());
-                preparedStatement.executeUpdate();
-                
-                conexion = ConexionBD.cerrarConexion();
-                guardado = true;
-                
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
-            }
-            
-            if( guardado == true ){
-                
-                JOptionPane.showMessageDialog(null, "Ficha correctamente guardada");
-                
-                txtFicha.setText("");
-                cbCategoria.setSelectedIndex(0);
-                cbSub1.removeAllItems();
-                cbSub1.disable();
-                cbSub2.removeAllItems();
-                cbSub2.disable();
-                cbSub3.removeAllItems();
-                cbSub3.disable();
-                cbFuente.setSelectedIndex(0);
-                
-            }else{
-                lblMensaje.setForeground(Color.red);
-                lblMensaje.setText("No se pudo guardar la ficha");
-            }
+        
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -356,13 +275,6 @@ public class crear extends javax.swing.JFrame {
         jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-        /*agregarCategorias jFrame = new agregarCategorias();
-        System.out.println("Click en agrrgar Categoria... Abriendo ventana");
-        jFrame.setVisible(true);*/
-    }//GEN-LAST:event_jButton1ActionPerformed
 
     private void cbSub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub3ActionPerformed
         // TODO add your handling code here:
@@ -375,10 +287,6 @@ public class crear extends javax.swing.JFrame {
     private void cbFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFuenteActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbFuenteActionPerformed
-
-    private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton3ActionPerformed
 
     private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
         // TODO add your handling code here:
@@ -425,10 +333,10 @@ public class crear extends javax.swing.JFrame {
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
         // TODO add your handling code here:
         
-        if ( cbSub1.getSelectedItem() == "--Seleccione--" ){
-        }else{
-            
+        if( cbSub1.getSelectedItem() == "" ){
+        
         }
+        
         
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
@@ -436,18 +344,31 @@ public class crear extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_cbSub2ItemStateChanged
 
+    private void btnModFueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModFueActionPerformed
+        // TODO add your handling code here:
+        
+        listarFuente jframe = new listarFuente();
+        this.setVisible(false);
+        System.out.println("Abriendo ventana de modificacion de fuentes");
+        jframe.setVisible(true);
+        
+    }//GEN-LAST:event_btnModFueActionPerformed
+
+    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnLimpiarActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnLimpiar;
+    private javax.swing.JButton btnModCat;
+    private javax.swing.JButton btnModFue;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbFuente;
     private javax.swing.JComboBox cbSub1;
     private javax.swing.JComboBox cbSub2;
     private javax.swing.JComboBox cbSub3;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
