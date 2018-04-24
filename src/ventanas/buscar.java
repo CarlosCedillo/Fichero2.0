@@ -1,7 +1,28 @@
 package ventanas;
 
-public class buscar extends javax.swing.JFrame {
+import conexion.ConexionBD;
+import java.awt.Color;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import tablas.Categorias;
+import tablas.Fichas;
+import tablas.Fuentes;
+import tablas.SubCategorias1;
+import tablas.SubCategorias2;
+import tablas.SubCategorias3;
 
+public class buscar extends javax.swing.JFrame {
+    
+    Connection conexion = null;
+    String tabla, var;
+    ResultSet resultSet;
+    
     public buscar() {
         initComponents();
         this.setLocationRelativeTo(null);
@@ -19,10 +40,11 @@ public class buscar extends javax.swing.JFrame {
         rbuTexto = new javax.swing.JRadioButton();
         rbuCategoria = new javax.swing.JRadioButton();
         rbuSub2 = new javax.swing.JRadioButton();
-        tbuSub1 = new javax.swing.JRadioButton();
+        rbuSub1 = new javax.swing.JRadioButton();
         rbuSub3 = new javax.swing.JRadioButton();
         rbuFuente = new javax.swing.JRadioButton();
-        jRadioButton1 = new javax.swing.JRadioButton();
+        rbuTodo = new javax.swing.JRadioButton();
+        lblMensaje = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
@@ -48,6 +70,11 @@ public class buscar extends javax.swing.JFrame {
         lblBuscar.setText("Buscar");
 
         btnBuscar.setText("Buscar");
+        btnBuscar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBuscarActionPerformed(evt);
+            }
+        });
 
         filtros.add(rbuTexto);
         rbuTexto.setText("Texto");
@@ -58,8 +85,8 @@ public class buscar extends javax.swing.JFrame {
         filtros.add(rbuSub2);
         rbuSub2.setText("Sub Categoria 2");
 
-        filtros.add(tbuSub1);
-        tbuSub1.setText("Sub Categoria 1");
+        filtros.add(rbuSub1);
+        rbuSub1.setText("Sub Categoria 1");
 
         filtros.add(rbuSub3);
         rbuSub3.setText("Sub Categoria 3");
@@ -67,8 +94,8 @@ public class buscar extends javax.swing.JFrame {
         filtros.add(rbuFuente);
         rbuFuente.setText("Fuente");
 
-        filtros.add(jRadioButton1);
-        jRadioButton1.setText("Todo");
+        filtros.add(rbuTodo);
+        rbuTodo.setText("Todo");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -86,24 +113,25 @@ public class buscar extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rbuSub1)
+                                .addGap(18, 18, 18)
+                                .addComponent(rbuSub3))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rbuSub2)
                                 .addGap(18, 18, 18)
                                 .addComponent(rbuFuente))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(tbuSub1)
-                                .addGap(18, 18, 18)
-                                .addComponent(rbuSub3)
-                                .addGap(18, 18, 18)
-                                .addComponent(jRadioButton1))))
+                            .addComponent(lblMensaje))
+                        .addGap(18, 18, 18)
+                        .addComponent(rbuTodo))
                     .addComponent(txtBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar)
-                .addGap(106, 106, 106))
+                .addGap(118, 118, 118))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 13, Short.MAX_VALUE)
+                .addGap(0, 16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblBuscar)
                     .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -111,14 +139,17 @@ public class buscar extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbuTexto)
-                    .addComponent(tbuSub1)
+                    .addComponent(rbuSub1)
                     .addComponent(rbuSub3)
-                    .addComponent(jRadioButton1))
+                    .addComponent(rbuTodo))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbuCategoria)
                     .addComponent(rbuSub2)
-                    .addComponent(rbuFuente)))
+                    .addComponent(rbuFuente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(lblMensaje)
+                .addGap(11, 11, 11))
         );
 
         lblNumero.setText("No. de Ficha");
@@ -147,8 +178,18 @@ public class buscar extends javax.swing.JFrame {
         jScrollPane1.setViewportView(txtFicha);
 
         btnSig.setText(">");
+        btnSig.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSigActionPerformed(evt);
+            }
+        });
 
         btnAnt.setText("<");
+        btnAnt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAntActionPerformed(evt);
+            }
+        });
 
         lblFuente.setText("Fuente");
 
@@ -166,32 +207,6 @@ public class buscar extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(17, 17, 17)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblNumero)
-                    .addComponent(lblSub2))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addComponent(txtSub2)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblSub3)
-                    .addComponent(lblCategoria))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                    .addComponent(txtSub3))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(lblSub1)
-                    .addComponent(lblFuente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(0, 0, Short.MAX_VALUE))
-            .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(59, 59, 59)
@@ -202,13 +217,38 @@ public class buscar extends javax.swing.JFrame {
                         .addComponent(btnSig))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(350, 350, 350)
-                        .addComponent(btnRegresar)))
-                .addGap(42, 42, 42))
+                        .addComponent(btnRegresar))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(25, 25, 25)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblNumero)
+                            .addComponent(lblSub2))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(txtSub2)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSub3)
+                            .addComponent(lblCategoria))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtCategoria)
+                            .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblSub1)
+                            .addComponent(lblFuente))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(26, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -224,10 +264,10 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
                     .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 37, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnRegresar)
                         .addContainerGap())
@@ -252,11 +292,11 @@ public class buscar extends javax.swing.JFrame {
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(12, 12, 12)
+                .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblInfo))
         );
 
@@ -272,6 +312,28 @@ public class buscar extends javax.swing.JFrame {
         System.out.println("Regresando a inicio");
         
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
+        // TODO add your handling code here:
+        
+        if( rbuTexto.isSelected() == false || txtBuscar.getText().isEmpty()){
+            lblMensaje.setForeground(Color.RED);
+            lblMensaje.setText("Debe llenar todos los campos");
+        }else{
+            lblMensaje.setText("");
+            var = txtBuscar.getText();
+            buscarTexto(var);
+        }
+        
+    }//GEN-LAST:event_btnBuscarActionPerformed
+
+    private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnSigActionPerformed
+
+    private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAntActionPerformed
 
     public static void main(String args[]) {
 
@@ -290,22 +352,23 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.ButtonGroup filtros;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JRadioButton jRadioButton1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscar;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblFuente;
     private javax.swing.JLabel lblInfo;
+    private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblSub1;
     private javax.swing.JLabel lblSub2;
     private javax.swing.JLabel lblSub3;
     private javax.swing.JRadioButton rbuCategoria;
     private javax.swing.JRadioButton rbuFuente;
+    private javax.swing.JRadioButton rbuSub1;
     private javax.swing.JRadioButton rbuSub2;
     private javax.swing.JRadioButton rbuSub3;
     private javax.swing.JRadioButton rbuTexto;
-    private javax.swing.JRadioButton tbuSub1;
+    private javax.swing.JRadioButton rbuTodo;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextArea txtFicha;
@@ -315,4 +378,29 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSub2;
     private javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
+
+    private void buscarTexto(String var) {
+        
+        System.out.println("Ejecutando: )");
+            
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            boolean guardado = false;
+            
+            try {
+                
+                ConexionBD.obtenerConexion();
+                preparedStatement = conexion.prepareStatement("");
+                preparedStatement.executeUpdate();
+                
+                conexion = ConexionBD.cerrarConexion();
+                guardado = true;
+                
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        
+    }
 }
