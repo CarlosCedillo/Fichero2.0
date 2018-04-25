@@ -25,6 +25,7 @@ public class buscar extends javax.swing.JFrame {
     
     public buscar() {
         initComponents();
+        setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
     }
 
@@ -381,7 +382,7 @@ public class buscar extends javax.swing.JFrame {
 
     private void buscarTexto(String var) {
         
-        System.out.println("Ejecutando: )");
+        System.out.println("Ejecutando: ");
             
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;

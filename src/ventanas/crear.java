@@ -21,6 +21,7 @@ public class crear extends javax.swing.JFrame {
 
     public crear() throws ClassNotFoundException {
         initComponents();
+        setTitle("Fichero 2.0 / Crear ");
         this.setLocationRelativeTo(null);
         
         cbCategoria.addItem("--Seleccione--");
@@ -56,8 +57,8 @@ public class crear extends javax.swing.JFrame {
         lblMensaje = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox();
         cbSub2 = new javax.swing.JComboBox();
-        btnModCat = new javax.swing.JButton();
-        btnModFue = new javax.swing.JButton();
+        btnCategorias = new javax.swing.JButton();
+        btnFuentes = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -137,12 +138,12 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        btnModCat.setText("Mofificar");
+        btnCategorias.setText("Categorias");
 
-        btnModFue.setText("Mofificar");
-        btnModFue.addActionListener(new java.awt.event.ActionListener() {
+        btnFuentes.setText("Fuentes");
+        btnFuentes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModFueActionPerformed(evt);
+                btnFuentesActionPerformed(evt);
             }
         });
 
@@ -184,21 +185,24 @@ public class crear extends javax.swing.JFrame {
                                         .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnModFue)
-                                    .addGap(25, 25, 25)
-                                    .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                     .addGap(0, 0, Short.MAX_VALUE)
                                     .addComponent(lblSub3)
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                     .addComponent(cbSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                    .addComponent(btnModCat)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(lblSub1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(btnFuentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(lblSub1)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addGap(12, 12, 12)
+                                            .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
@@ -213,7 +217,7 @@ public class crear extends javax.swing.JFrame {
                     .addComponent(lblSub1)
                     .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(cbCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnModCat))
+                    .addComponent(btnCategorias))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSub2)
@@ -225,7 +229,7 @@ public class crear extends javax.swing.JFrame {
                     .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
                     .addComponent(lblMensaje)
-                    .addComponent(btnModFue))
+                    .addComponent(btnFuentes))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -297,7 +301,7 @@ public class crear extends javax.swing.JFrame {
     }//GEN-LAST:event_cbSub2ActionPerformed
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
-        // TODO add your handling code here:
+        // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
         
         if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
             
@@ -325,44 +329,101 @@ public class crear extends javax.swing.JFrame {
                 }
                 
             } catch (SQLException ex) {
-                System.err.println(ex.getMessage());
+                System.out.println(ex.getMessage());
             }
         }
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
-        // TODO add your handling code here:
+        // Esto es para cuando se seleccione una subcategoria1 se activen las subcategorias2 correspondientes
         
-        if( cbSub1.getSelectedItem() == "" ){
-        
+        if( cbSub1.isEnabled() == true && cbSub1.getSelectedIndex() > 0 ){
+            
+            SubCategorias1 subCategorias1  = (SubCategorias1) cbSub1.getSelectedItem();
+            
+            try {
+                cbSub2.removeAllItems();
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ subCategorias1.getId() +";";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                cbSub2.enable();
+                cbSub2.addItem("--Seleccione--");
+                    
+                while ( resultSet.next()) {
+                    SubCategorias2 subCategorias2 = new SubCategorias2();
+                    subCategorias2.setId(resultSet.getInt("id"));
+                    subCategorias2.setIdSubCategoria1(resultSet.getInt("idSubCategoria1"));
+                    subCategorias2.setNombre(resultSet.getString("nombre"));
+                    subCategorias2.setActivo(resultSet.getBoolean("activo"));
+                    cbSub2.addItem(subCategorias2);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
-        
         
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
     private void cbSub2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub2ItemStateChanged
-        // TODO add your handling code here:
+        // Esto es para cuando se seleccione una subcategoria2 se activen las subcategorias3 correspondientes
+        
+        if( cbSub2.isEnabled() == true && cbSub2.getSelectedIndex() > 0 ){
+            
+            SubCategorias2 subCategorias2  = (SubCategorias2) cbSub2.getSelectedItem();
+            
+            try {
+                cbSub3.removeAllItems();
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ subCategorias2.getId() +";";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                cbSub3.enable();
+                cbSub3.addItem("--Seleccione--");
+                    
+                while ( resultSet.next()) {
+                    SubCategorias3 subCategorias3 = new SubCategorias3();
+                    subCategorias3.setId(resultSet.getInt("id"));
+                    subCategorias3.setIdSubCategoria2(resultSet.getInt("idSubCategoria2"));
+                    subCategorias3.setNombre(resultSet.getString("nombre"));
+                    subCategorias3.setActivo(resultSet.getBoolean("activo"));
+                    cbSub3.addItem(subCategorias3);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+        
     }//GEN-LAST:event_cbSub2ItemStateChanged
 
-    private void btnModFueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModFueActionPerformed
+    private void btnFuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuentesActionPerformed
         // TODO add your handling code here:
         
-        listarFuente jframe = new listarFuente();
+        listarFuente jframe = null;
+        try {
+            jframe = new listarFuente();
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.setVisible(false);
         System.out.println("Abriendo ventana de modificacion de fuentes");
         jframe.setVisible(true);
         
-    }//GEN-LAST:event_btnModFueActionPerformed
+    }//GEN-LAST:event_btnFuentesActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCategorias;
+    private javax.swing.JButton btnFuentes;
     private javax.swing.JButton btnGuardar;
     private javax.swing.JButton btnLimpiar;
-    private javax.swing.JButton btnModCat;
-    private javax.swing.JButton btnModFue;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbFuente;

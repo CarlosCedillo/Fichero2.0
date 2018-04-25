@@ -4,6 +4,7 @@ public class agregarCategorias extends javax.swing.JFrame {
 
     public agregarCategorias() {
         initComponents();
+        setTitle("Fichero 2.0 / Categorias");
     }
 
     @SuppressWarnings("unchecked")

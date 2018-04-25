@@ -7,6 +7,7 @@ public class inicio extends javax.swing.JFrame {
 
     public inicio() {
         initComponents();
+        setTitle("Fichero 2.0");
         this.setLocationRelativeTo(null);
     }
 
@@ -23,7 +24,7 @@ public class inicio extends javax.swing.JFrame {
 
         jLabel1.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
 
-        jLabel2.setText("Bienvenido a Fichero 2.0");
+        jLabel2.setText("Bienvenido");
 
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
@@ -76,7 +77,7 @@ public class inicio extends javax.swing.JFrame {
         
         buscar jFrame = new buscar();
         this.setVisible(false);
-        System.out.println("Click en Buscar... Abriendo ventana");
+        System.out.println("Cerrando ventana Inicio y abriendo ventana Buscar");
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -90,7 +91,7 @@ public class inicio extends javax.swing.JFrame {
             Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
-        System.out.println("Click en Crear... Abriendo ventana");
+        System.out.println("Cerrando ventana Inicio y abriendo ventana Crear");
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
