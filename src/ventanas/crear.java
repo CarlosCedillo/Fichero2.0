@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -139,6 +140,11 @@ public class crear extends javax.swing.JFrame {
         });
 
         btnCategorias.setText("Categorias");
+        btnCategorias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCategoriasActionPerformed(evt);
+            }
+        });
 
         btnFuentes.setText("Fuentes");
         btnFuentes.addActionListener(new java.awt.event.ActionListener() {
@@ -264,11 +270,92 @@ public class crear extends javax.swing.JFrame {
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
-        if( cbCategoria.getSelectedItem() == "--Seleccione--" || cbFuente.getSelectedItem() == "--Seleccione--" || txtFicha.getText().isEmpty()){
+        if( cbCategoria.getSelectedIndex()== 0 || cbFuente.getSelectedIndex()== 0 || txtFicha.getText().isEmpty()){
+            
             lblMensaje.setForeground(Color.RED);
             lblMensaje.setText("Debe llenar todos los campos");
+            
         }else{
-        
+            
+            Categorias categoria = (Categorias) cbCategoria.getSelectedItem();
+            Fuentes fuente = (Fuentes) cbFuente.getSelectedItem();
+            Integer sub1, sub2, sub3;
+            
+           if( cbSub1.getSelectedIndex() > 0 ){
+               SubCategorias1 subCategorias1 = (SubCategorias1) cbSub1.getSelectedItem();
+               sub1 = subCategorias1.getId();
+           }else{
+               sub1 = 0;
+           }
+           
+           if( cbSub2.getSelectedIndex() > 0 ){
+               SubCategorias2 subCategorias2 = (SubCategorias2) cbSub2.getSelectedItem();
+               sub2 = subCategorias2.getId();
+           }else{
+               sub2 = 0;
+           }
+           
+           if( cbSub3.getSelectedIndex() > 0 ){
+               SubCategorias3 subCategorias3 = (SubCategorias3) cbSub3.getSelectedItem();
+               sub3 = subCategorias3.getId();
+           }else{
+               sub3 = 0;
+           }
+            
+            System.out.println("Ejecutando: INSERT INTO fichas "
+                    + "(texto, categoria, subCategoia1, subCategoia2, subCategoia3, fuente) "
+                    + "VALUES ('"+ txtFicha.getText() +"', '"+ categoria.getId() +"', '"+ sub1 +"', "
+                            + "'"+ sub2 +"', '"+ sub3 +"', '"+fuente.getId()+"')");
+            
+            conexion = ConexionBD.obtenerConexion();
+            Statement statement = null;
+            PreparedStatement preparedStatement;
+            boolean guardado = false;
+            
+            try {
+                
+                ConexionBD.obtenerConexion();
+                preparedStatement = conexion.prepareStatement("INSERT INTO "
+                        + "fichas (texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
+                        + "VALUES (?, ?, ?, ?, ?, ?)");
+                preparedStatement.setString(1, txtFicha.getText());
+                preparedStatement.setInt(2, categoria.getId());
+                preparedStatement.setInt(3, sub1);
+                preparedStatement.setInt(4, sub2);
+                preparedStatement.setInt(5, sub3);
+                preparedStatement.setInt(6, fuente.getId());
+                preparedStatement.executeUpdate();
+                
+                conexion = ConexionBD.cerrarConexion();
+                guardado = true;
+                
+            } catch (SQLException e) {
+                System.err.println(e.getMessage());
+            } catch (ClassNotFoundException ex) {
+                Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            if( guardado == true ){
+                
+                JOptionPane.showMessageDialog(null, "Ficha correctamente guardada");
+                
+                txtFicha.setText("");
+                cbCategoria.setSelectedIndex(0);
+                
+                cbSub1.disable();
+                
+                cbSub2.disable();
+                
+                cbSub3.disable();
+                
+                cbFuente.setSelectedIndex(0);
+                
+                lblMensaje.setText("");
+                
+            }else{
+                lblMensaje.setForeground(Color.red);
+                lblMensaje.setText("No se pudo guardar la ficha");
+            }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
 
@@ -401,7 +488,7 @@ public class crear extends javax.swing.JFrame {
     }//GEN-LAST:event_cbSub2ItemStateChanged
 
     private void btnFuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuentesActionPerformed
-        // TODO add your handling code here:
+        // Para desactivar esa ventana y activa la de fuentes
         
         listarFuente jframe = null;
         try {
@@ -416,8 +503,33 @@ public class crear extends javax.swing.JFrame {
     }//GEN-LAST:event_btnFuentesActionPerformed
 
     private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
-        // TODO add your handling code here:
+        // Deja todo como al princiopio
+        
+        cbCategoria.setSelectedIndex(0);
+        
+        cbSub1.setSelectedIndex(-1);
+        cbSub1.disable();
+        
+        cbSub2.setSelectedIndex(-1);
+        cbSub2.disable();
+        
+        cbSub3.setSelectedIndex(-1);
+        cbSub3.disable();
+        
+        cbFuente.setSelectedIndex(0);
+        
+        txtFicha.setText("");
     }//GEN-LAST:event_btnLimpiarActionPerformed
+
+    private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
+        // Para desactivar esa ventana y activa la de fuentes
+        
+        listarCategorias jframe = new listarCategorias();
+        this.setVisible(false);
+        System.out.println("Abriendo ventana de modificacion de categorias");
+        jframe.setVisible(true);
+        
+    }//GEN-LAST:event_btnCategoriasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
@@ -444,6 +556,8 @@ public class crear extends javax.swing.JFrame {
 
     private void enlistarCategorias() throws ClassNotFoundException {
         
+        //Consulta la bd y enlista categorias
+        
         try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
@@ -466,6 +580,8 @@ public class crear extends javax.swing.JFrame {
     }
     
     private void enlistarFuentes() throws ClassNotFoundException {
+        
+        //Consulta la bd y enlista fuentes
         
         try {
             conexion = ConexionBD.obtenerConexion();
