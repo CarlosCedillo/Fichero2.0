@@ -176,12 +176,9 @@ public class listarFuente extends javax.swing.JFrame {
             
             if( guardado == true ){
                 JOptionPane.showMessageDialog(null, "Fuente guardada");
-                this.setVisible(false);
-                try {
-                    new listarFuente().setVisible(true);
-                } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(listarFuente.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                
+                actualizar();
+                
             }else{
                 JOptionPane.showMessageDialog(null, "Fuente no guardada");
             }
@@ -237,5 +234,15 @@ public class listarFuente extends javax.swing.JFrame {
             System.out.println(ex.getErrorCode());
         }
     
+    }
+
+    private void actualizar() {
+        this.setVisible(false);
+        
+        try {
+            new listarFuente().setVisible(true);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(listarFuente.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 }
