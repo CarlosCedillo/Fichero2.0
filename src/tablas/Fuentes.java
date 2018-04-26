@@ -25,9 +25,4 @@ public class Fuentes {
     public String toString() {
         return nombre ;
     }
-    
-    
-    
-    
-    
 }

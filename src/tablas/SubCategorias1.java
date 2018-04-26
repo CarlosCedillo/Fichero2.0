@@ -43,7 +43,4 @@ public class SubCategorias1 {
     public String toString() {
         return nombre ;
     }
-    
-    
-    
 }

@@ -34,7 +34,4 @@ public class Categorias {
     public String toString() {
         return nombre ;
     }
-    
-    
-    
 }
