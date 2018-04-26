@@ -5,13 +5,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumn;
 import javax.swing.table.TableColumnModel;
+import javax.swing.text.TableView;
 import tablas.Fuentes;
 
 public class listarFuente extends javax.swing.JFrame {
@@ -21,31 +25,7 @@ public class listarFuente extends javax.swing.JFrame {
         setTitle("Fichero 2.0 / Fuentes");
         this.setLocationRelativeTo(null);
         
-        
-        Connection conexion = null;
-        
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String dts[] = new String[2];
-            DefaultTableModel modelo = (DefaultTableModel) tblFuentes.getModel();
-            
-            String sql = "SELECT * FROM fuentes;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            conexion = ConexionBD.cerrarConexion();
-            
-            while (resultSet.next()) {
-                dts[0] = resultSet.getString(1);
-                dts[1] = resultSet.getString(2);
-                modelo.addRow(dts);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
-        }
-        
-        
+        listarFuentes();
     }
 
     @SuppressWarnings("unchecked")
@@ -60,7 +40,6 @@ public class listarFuente extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
         btnNuevo = new javax.swing.JButton();
-        btnMod = new javax.swing.JButton();
 
         jFormattedTextField1.setText("jFormattedTextField1");
 
@@ -87,10 +66,6 @@ public class listarFuente extends javax.swing.JFrame {
             }
         });
         jScrollPane1.setViewportView(tblFuentes);
-        if (tblFuentes.getColumnModel().getColumnCount() > 0) {
-            tblFuentes.getColumnModel().getColumn(0).setResizable(false);
-            tblFuentes.getColumnModel().getColumn(1).setResizable(false);
-        }
 
         jLabel1.setText("Listado de Fuentes");
 
@@ -107,8 +82,6 @@ public class listarFuente extends javax.swing.JFrame {
                 btnNuevoActionPerformed(evt);
             }
         });
-
-        btnMod.setText("Modificar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -127,8 +100,7 @@ public class listarFuente extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(btnMod, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(btnNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGap(30, 30, 30))))
         );
         layout.setVerticalGroup(
@@ -142,10 +114,8 @@ public class listarFuente extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnNuevo)
                         .addGap(18, 18, 18)
-                        .addComponent(btnMod)
-                        .addGap(18, 18, 18)
                         .addComponent(btnRegresar)
-                        .addGap(0, 97, Short.MAX_VALUE)))
+                        .addGap(0, 140, Short.MAX_VALUE)))
                 .addGap(18, 18, 18)
                 .addComponent(jLabel3))
         );
@@ -168,6 +138,54 @@ public class listarFuente extends javax.swing.JFrame {
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
         // TODO add your handling code here:
+        
+        String nombre = JOptionPane.showInputDialog(null, "Nombre de la nueva Fuente");
+        
+        if( nombre == null ){
+        }
+        
+        if( nombre.isEmpty() ){
+            JOptionPane.showMessageDialog(null, "No se ingeso una fuente");
+        }else{
+            
+            System.out.println("Guardando fuente: " + nombre );
+            
+            Connection conexion = ConexionBD.obtenerConexion();
+            Statement statement = null;
+            PreparedStatement preparedStatement;
+            boolean guardado = false;
+            
+            try {
+                
+                ConexionBD.obtenerConexion();
+                preparedStatement = conexion.prepareStatement("INSERT INTO fuentes (nombre) VALUES (?)");
+                preparedStatement.setString(1, nombre);
+                preparedStatement.executeUpdate();
+                
+                guardado = true;
+                System.out.println("Fuente " + nombre + " giardada" );
+                
+                conexion = ConexionBD.cerrarConexion();
+                
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+            if( guardado == true ){
+                JOptionPane.showMessageDialog(null, "Fuente guardada");
+                this.setVisible(false);
+                try {
+                    new listarFuente().setVisible(true);
+                } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(listarFuente.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                JOptionPane.showMessageDialog(null, "Fuente no guardada");
+            }
+        }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     public static void main(String args[]) {
@@ -184,7 +202,6 @@ public class listarFuente extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnMod;
     private javax.swing.JButton btnNuevo;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JFormattedTextField jFormattedTextField1;
@@ -194,4 +211,31 @@ public class listarFuente extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblFuentes;
     // End of variables declaration//GEN-END:variables
+
+    private void listarFuentes() throws ClassNotFoundException {
+        
+        Connection conexion = null;
+        
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String dts[] = new String[2];
+            DefaultTableModel modelo = (DefaultTableModel) tblFuentes.getModel();
+            
+            String sql = "SELECT * FROM fuentes;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            conexion = ConexionBD.cerrarConexion();
+            
+            while (resultSet.next()) {
+                dts[0] = resultSet.getString(1);
+                dts[1] = resultSet.getString(2);
+                modelo.addRow(dts);
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getErrorCode());
+        }
+    
+    }
 }
