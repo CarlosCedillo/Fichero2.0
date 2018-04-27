@@ -24,10 +24,10 @@
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" attributes="0">
-              <EmptySpace max="32767" attributes="0"/>
-              <Component id="btnBuscar" min="-2" pref="131" max="-2" attributes="0"/>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="btnCrear" min="-2" pref="131" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="65" max="-2" attributes="0"/>
+              <Component id="btnBuscar" pref="131" max="32767" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
+              <Component id="btnCrear" pref="131" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="54" max="-2" attributes="0"/>
           </Group>
           <Group type="102" attributes="0">
@@ -42,14 +42,14 @@
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
           <Group type="102" alignment="0" attributes="0">
-              <EmptySpace max="-2" attributes="0"/>
+              <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" pref="16" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+              <EmptySpace type="unrelated" min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="2" attributes="0">
-                  <Component id="btnBuscar" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="btnCrear" alignment="2" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="btnBuscar" alignment="2" max="32767" attributes="0"/>
+                  <Component id="btnCrear" alignment="2" pref="38" max="32767" attributes="0"/>
               </Group>
-              <EmptySpace pref="44" max="32767" attributes="0"/>
+              <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
           </Group>
       </Group>
