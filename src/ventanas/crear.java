@@ -390,7 +390,7 @@ public class crear extends javax.swing.JFrame {
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
         
-        if( cbCategoria.getSelectedItem() == "--Seleccione--" ){
+        if( cbCategoria.getSelectedIndex() == 0 ){
             
         }else{
             Categorias categorias  = (Categorias) cbCategoria.getSelectedItem();
