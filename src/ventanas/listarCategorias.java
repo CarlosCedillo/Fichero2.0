@@ -207,15 +207,15 @@ public class listarCategorias extends javax.swing.JFrame {
                     break;
                     
                     case 2:
-                        //modificarSubCategoria1(nombre);
+                        modificarSubCategoria1(nombre);
                     break;
                     
                     case 3:
-                        //modificarSubCategoria2(nombre);
+                        modificarSubCategoria2(nombre);
                     break;
                     
                     case 4:
-                        //modificarSubCategoria3(nombre);
+                        modificarSubCategoria3(nombre);
                     break;
                     
                 }
@@ -613,7 +613,7 @@ public class listarCategorias extends javax.swing.JFrame {
                 Integer categoriaId = categorias.getId();
                 String categoriaNombte = categorias.getNombre();
                 
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                //Ahora hay que obtener el nuevo nombre de la categoria
         
                 String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
                 Boolean modificado = true;
@@ -661,11 +661,229 @@ public class listarCategorias extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-        
     }
 
+    private void modificarSubCategoria1(String nombre) {
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id, nombre FROM subCategorias1 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias1.setId(resultSet.getInt(("id")));
+                subCategorias1.setNombre(resultSet.getString(("nombre")));
+                
+                Integer categoriaId = subCategorias1.getId();
+                String categoriaNombte = subCategorias1.getNombre();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+        
+                String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
+                Boolean modificado = true;
+
+                if( nvoNombre.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+                    
+                    if( nvoNombre.equals(categoriaNombte) ){
+                        JOptionPane.showMessageDialog(null, "Ya tiene ese nombre");
+                    }else{
+
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET nombre = ? WHERE id = ?");
+                            preparedStatement.setString(1, nvoNombre);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 1 " + categoriaNombte + " modificada a " + nvoNombre);
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 1 modificada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 1 no modificada");
+                        }
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void modificarSubCategoria2(String nombre) {
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id, nombre FROM subcategorias2 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias2.setId(resultSet.getInt(("id")));
+                subCategorias2.setNombre(resultSet.getString(("nombre")));
+                
+                Integer categoriaId = subCategorias2.getId();
+                String categoriaNombte = subCategorias2.getNombre();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria2
+        
+                String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
+                Boolean modificado = true;
+
+                if( nvoNombre.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+                    
+                    if( nvoNombre.equals(categoriaNombte) ){
+                        JOptionPane.showMessageDialog(null, "Ya tiene ese nombre");
+                    }else{
+
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subcategorias2 SET nombre = ? WHERE id = ?");
+                            preparedStatement.setString(1, nvoNombre);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 2 " + categoriaNombte + " modificada a " + nvoNombre);
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 2 modificada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 2 no modificada");
+                        }
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void modificarSubCategoria3(String nombre) {
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id, nombre FROM subcategorias3 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias2.setId(resultSet.getInt(("id")));
+                subCategorias2.setNombre(resultSet.getString(("nombre")));
+                
+                Integer categoriaId = subCategorias2.getId();
+                String categoriaNombte = subCategorias2.getNombre();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria3
+        
+                String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
+                Boolean modificado = true;
+
+                if( nvoNombre.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+                    
+                    if( nvoNombre.equals(categoriaNombte) ){
+                        JOptionPane.showMessageDialog(null, "Ya tiene ese nombre");
+                    }else{
+
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subcategorias3 SET nombre = ? WHERE id = ?");
+                            preparedStatement.setString(1, nvoNombre);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 3 " + categoriaNombte + " modificada a " + nvoNombre);
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 3 modificada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 3 no modificada");
+                        }
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
     private void actualizar() {
-        this.setVisible(false);
+        this.dispose();
         new listarCategorias().setVisible(true);
     }
 }
