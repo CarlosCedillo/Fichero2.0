@@ -6,16 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.HashSet;
-import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import tablas.Categorias;
-import tablas.Fichas;
-import tablas.Fuentes;
-import tablas.SubCategorias1;
-import tablas.SubCategorias2;
-import tablas.SubCategorias3;
 
 public class buscar extends javax.swing.JFrame {
     
@@ -317,9 +309,12 @@ public class buscar extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
-        if( rbuTexto.isSelected() == false || txtBuscar.getText().isEmpty()){
+        if( rbuTexto.isSelected() == false || rbuCategoria.isSelected() == false || rbuSub1.isSelected() == false || rbuSub2.isSelected() == false ||
+            rbuSub3.isSelected() == false || rbuFuente.isSelected() == false || rbuTodo.isSelected() == false || txtBuscar.getText().isEmpty()){
+            
             lblMensaje.setForeground(Color.RED);
             lblMensaje.setText("Debe llenar todos los campos");
+            
         }else{
             lblMensaje.setText("");
             var = txtBuscar.getText();

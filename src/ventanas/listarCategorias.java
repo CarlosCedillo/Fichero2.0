@@ -87,6 +87,11 @@ public class listarCategorias extends javax.swing.JFrame {
             }
         });
 
+        treeCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                treeCategoriasMouseClicked(evt);
+            }
+        });
         jScrollPane2.setViewportView(treeCategorias);
 
         btnAgregar.setText("Agregar");
@@ -123,8 +128,7 @@ public class listarCategorias extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(btnAgregar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnRegresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(btnRegresar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
@@ -149,6 +153,7 @@ public class listarCategorias extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here
         DefaultMutableTreeNode agregar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        String nombre = agregar.toString();
         
         if( agregar != null ){
             
@@ -159,18 +164,15 @@ public class listarCategorias extends javax.swing.JFrame {
                 break;
                 
                 case 1:
-                    String nombre1 = agregar.toString();
-                    agregarSubCateroria1(nombre1);
+                    agregarSubCateroria1(nombre);
                 break;
                 
                 case 2:
-                    String nombre2 = agregar.toString();
-                    agregarSubCateroria2(nombre2);
+                    agregarSubCateroria2(nombre);
                 break;
                 
                 case 3:
-                    String nombre3 = agregar.toString();
-                    agregarSubCateroria3(nombre3);
+                    agregarSubCateroria3(nombre);
                 break;
                 
                 case 4:
@@ -184,6 +186,47 @@ public class listarCategorias extends javax.swing.JFrame {
         
         
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void treeCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeCategoriasMouseClicked
+        // TODO add your handling code here:
+        
+        DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        String nombre = modificar.toString();
+        
+        if( evt.getClickCount() == 2 ){
+            
+            if( modificar != null ){
+                
+                switch( modificar.getLevel() ){
+                    
+                    case 0:
+                    break;
+                    
+                    case 1:
+                        modificarCategoria(nombre);
+                    break;
+                    
+                    case 2:
+                        //modificarSubCategoria1(nombre);
+                    break;
+                    
+                    case 3:
+                        //modificarSubCategoria2(nombre);
+                    break;
+                    
+                    case 4:
+                        //modificarSubCategoria3(nombre);
+                    break;
+                    
+                }
+                
+            
+            }else{
+                JOptionPane.showMessageDialog(null, "No se selecciono algo");
+            }
+            
+        }
+    }//GEN-LAST:event_treeCategoriasMouseClicked
 
     public static void main(String args[]) {
         
@@ -545,11 +588,84 @@ public class listarCategorias extends javax.swing.JFrame {
         
     }
     
-    private void actualizar() {
+    private void modificarCategoria(String nombre) {
         
-        this.setVisible(false);
-        new listarCategorias().setVisible(true);
+        System.out.println("Va a agregar una subcategoria1 a la Cateroria " + nombre);
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id, nombre FROM categorias WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                categorias.setId(resultSet.getInt(("id")));
+                categorias.setNombre(resultSet.getString(("nombre")));
+                
+                Integer categoriaId = categorias.getId();
+                String categoriaNombte = categorias.getNombre();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+        
+                String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
+                Boolean modificado = true;
+
+                if( nvoNombre.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+                    
+                    if( nvoNombre.equals(categoriaNombte) ){
+                        JOptionPane.showMessageDialog(null, "Ya tiene ese nombre");
+                    }else{
+
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE categorias SET nombre = ? WHERE id = ?");
+                            preparedStatement.setString(1, nvoNombre);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Categoria " + categoriaNombte + " modificada a " + nvoNombre);
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Categoria modificada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Categoria no modificada");
+                        }
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
         
     }
-    
+
+    private void actualizar() {
+        this.setVisible(false);
+        new listarCategorias().setVisible(true);
+    }
 }
