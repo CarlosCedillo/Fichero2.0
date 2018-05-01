@@ -288,7 +288,7 @@ public class listarFuente extends javax.swing.JFrame {
         try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
-            String dts[] = new String[2];
+            String datos[] = new String[2];
             DefaultTableModel modelo = (DefaultTableModel) tblFuentes.getModel();
             
             String sql = "SELECT * FROM fuentes;";
@@ -297,9 +297,9 @@ public class listarFuente extends javax.swing.JFrame {
             conexion = ConexionBD.cerrarConexion();
             
             while (resultSet.next()) {
-                dts[0] = resultSet.getString(1);
-                dts[1] = resultSet.getString(2);
-                modelo.addRow(dts);
+                datos[0] = resultSet.getString(1);
+                datos[1] = resultSet.getString(2);
+                modelo.addRow(datos);
             }
             
         } catch (SQLException ex) {
@@ -309,12 +309,13 @@ public class listarFuente extends javax.swing.JFrame {
     }
 
     private void actualizar() {
-        this.setVisible(false);
         
+        this.setVisible(false);
         try {
             new listarFuente().setVisible(true);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(listarFuente.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
+        
     }
 }

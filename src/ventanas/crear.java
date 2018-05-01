@@ -93,49 +93,22 @@ public class crear extends javax.swing.JFrame {
                 cbSub1ItemStateChanged(evt);
             }
         });
-        cbSub1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSub1ActionPerformed(evt);
-            }
-        });
 
         lblSub3.setText("Sub Categoria 3");
-
-        cbSub3.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSub3ActionPerformed(evt);
-            }
-        });
 
         lblSub2.setText("Sub Categoria 2");
 
         lblFuente.setText("Fuente");
-
-        cbFuente.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbFuenteActionPerformed(evt);
-            }
-        });
 
         cbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbCategoriaItemStateChanged(evt);
             }
         });
-        cbCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbCategoriaActionPerformed(evt);
-            }
-        });
 
         cbSub2.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbSub2ItemStateChanged(evt);
-            }
-        });
-        cbSub2.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbSub2ActionPerformed(evt);
             }
         });
 
@@ -366,26 +339,6 @@ public class crear extends javax.swing.JFrame {
         jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
     }//GEN-LAST:event_btnRegresarActionPerformed
-
-    private void cbSub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub3ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSub3ActionPerformed
-
-    private void cbSub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSub1ActionPerformed
-
-    private void cbFuenteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbFuenteActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbFuenteActionPerformed
-
-    private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCategoriaActionPerformed
-
-    private void cbSub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbSub2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbSub2ActionPerformed
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes

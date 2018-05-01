@@ -8,7 +8,8 @@ import javax.swing.JOptionPane;
 public class ConexionBD {
     static Connection conexion = null;
     static String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    static String url = "jdbc:ucanaccess://C:\\Users\\CarlosCedillo\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
+    static String bd = "C:\\Users\\CarlosCedillo\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
+    static String url = "jdbc:ucanaccess://"+bd;
     //static String url = "jdbc:ucanaccess://C:\\Users\\CaGeCeAl\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
     
     public static Connection obtenerConexion() {

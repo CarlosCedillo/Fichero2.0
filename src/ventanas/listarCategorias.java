@@ -5,7 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
+import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import tablas.Categorias;
@@ -20,6 +20,7 @@ public class listarCategorias extends javax.swing.JFrame {
     DefaultMutableTreeNode nodo;                                                //Categorias
     DefaultMutableTreeNode subNodo1;                                            //Sub Categorias1
     DefaultMutableTreeNode subNodo2;                                            //Sub Categorias2
+    DefaultMutableTreeNode subNodo3;                                            //Sub Categorias3
     Categorias categorias = new Categorias();
     SubCategorias1 subCategorias1 = new SubCategorias1();
     SubCategorias2 subCategorias2 = new SubCategorias2();
@@ -31,7 +32,6 @@ public class listarCategorias extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         
         conexion = ConexionBD.obtenerConexion();
-        Statement statement = null;
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
@@ -72,7 +72,7 @@ public class listarCategorias extends javax.swing.JFrame {
         btnRegresar = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         treeCategorias = new javax.swing.JTree();
-        jButton1 = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -89,10 +89,10 @@ public class listarCategorias extends javax.swing.JFrame {
 
         jScrollPane2.setViewportView(treeCategorias);
 
-        jButton1.setText("Agregar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnAgregarActionPerformed(evt);
             }
         });
 
@@ -105,13 +105,13 @@ public class listarCategorias extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(btnRegresar)
-                            .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(15, 15, 15)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                     .addComponent(jLabel1))
                 .addGap(19, 19, 19))
-            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 428, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -121,11 +121,11 @@ public class listarCategorias extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
-                        .addGap(192, 192, 192)
+                        .addComponent(btnAgregar)
+                        .addGap(18, 18, 18)
                         .addComponent(btnRegresar)
-                        .addGap(0, 86, Short.MAX_VALUE))
-                    .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
         );
@@ -146,9 +146,44 @@ public class listarCategorias extends javax.swing.JFrame {
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        // TODO add your handling code here
+        DefaultMutableTreeNode agregar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        
+        if( agregar != null ){
+            
+            switch( agregar.getLevel() ){
+                
+                case 0:
+                    agregarCateroria();
+                break;
+                
+                case 1:
+                    String nombre1 = agregar.toString();
+                    agregarSubCateroria1(nombre1);
+                break;
+                
+                case 2:
+                    String nombre2 = agregar.toString();
+                    agregarSubCateroria2(nombre2);
+                break;
+                
+                case 3:
+                    String nombre3 = agregar.toString();
+                    agregarSubCateroria3(nombre3);
+                break;
+                
+                case 4:
+                    JOptionPane.showMessageDialog(null, "No se puede agregar");
+                break;
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se selecciono algo");
+        }
+        
+        
+    }//GEN-LAST:event_btnAgregarActionPerformed
 
     public static void main(String args[]) {
         
@@ -160,8 +195,8 @@ public class listarCategorias extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane2;
@@ -170,9 +205,10 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void obtenerSub1(Integer idCat) {
         
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
         try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
             String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ idCat +";";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
@@ -199,9 +235,10 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void obtenerSub2(Integer idSubCat1) {
         
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
         try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
             String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ idSubCat1 +";";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
@@ -226,22 +263,23 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void obtenerSub3(Integer idSubCat2) {
 
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
         try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
+            
             String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ idSubCat2 +";";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
                 
             while ( resultSet.next()) {
                 
-                subCategorias3 = new SubCategorias3();
                 subCategorias3.setId(resultSet.getInt("id"));
                 subCategorias3.setIdSubCategoria2(resultSet.getInt("idSubCategoria2"));
                 subCategorias3.setNombre(resultSet.getString("nombre"));
                 subCategorias3.setActivo(resultSet.getBoolean("activo"));
                 
-                DefaultMutableTreeNode subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre());
+                subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre());
                 subNodo2.add(subNodo3);
                 
             }
@@ -250,4 +288,268 @@ public class listarCategorias extends javax.swing.JFrame {
         }
     }
 
+    private void agregarCateroria() {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        boolean guardado = false;
+        
+        String categoria = JOptionPane.showInputDialog("Nombre de la Categoriaa");
+        
+        if( categoria.isEmpty()){
+            JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+        }else{
+            
+            //Hay que comprobar que el nombre no existe ya!!!
+        
+            try {
+                
+                ConexionBD.obtenerConexion();
+                preparedStatement = conexion.prepareStatement("INSERT INTO categorias (nombre, activo) VALUES (?,?)");
+                preparedStatement.setString(1, categoria);
+                preparedStatement.setBoolean(2, true);
+                preparedStatement.executeUpdate();
+                
+                guardado = true;
+                System.out.println("Categoria giardada" );
+                
+                conexion = ConexionBD.cerrarConexion();
+                
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+                
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+            if( guardado == true ){
+                JOptionPane.showMessageDialog(null, "Categoria guardada");
+                
+                actualizar();
+                
+            }else{
+                JOptionPane.showMessageDialog(null, "Categoria no guardada");
+            }
+        }
+    }
+
+    private void agregarSubCateroria1(String nombre) {
+        
+        System.out.println("Va a agregar una subcategoria1 a la Cateroria " + nombre);
+        
+        //Primero hay que obtener el id de la categoria seleccionada
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM categorias WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                categorias.setId(resultSet.getInt(("id")));
+                Integer categoriaId = categorias.getId();
+                
+                //Ahora hay que obtener el nombre de la subcategoria1
+        
+                String subSategoria1 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 1");
+                Boolean guardado = true;
+
+                if( subSategoria1.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+
+                    //Hay que comprobar que el nombre no existe ya!!!
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("INSERT INTO subCategorias1 (idCategoria, nombre, activo) VALUES (?,?,?)");
+                        preparedStatement.setInt(1, categoriaId);
+                        preparedStatement.setString(2, subSategoria1);
+                        preparedStatement.setBoolean(3, true);
+                        preparedStatement.executeUpdate();
+
+                        guardado = true;
+                        System.out.println("Sub categoria 1 giardada" );
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( guardado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 guardada");
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no guardada");
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void agregarSubCateroria2(String nombre2) {
+        
+        System.out.println("Va a agregar una subcategoria2 a la Subcateroria1 " + nombre2);
+        
+        //Primero hay que obtener el id de la Subcategoria1 seleccionada
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM subCategorias1 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre2);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias1.setId(resultSet.getInt(("id")));
+                Integer subCategoria1Id = subCategorias1.getId();
+                
+                //Ahora hay que obtener el nombre de la subcategoria2
+        
+                String subSategoria2 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 2");
+                Boolean guardado = true;
+
+                if( subSategoria2.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+
+                    //Hay que comprobar que el nombre no existe ya!!!
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("INSERT INTO subcategorias2 (idSubCategoria1, nombre, activo) VALUES (?,?,?)");
+                        preparedStatement.setInt(1, subCategoria1Id);
+                        preparedStatement.setString(2, subSategoria2);
+                        preparedStatement.setBoolean(3, true);
+                        preparedStatement.executeUpdate();
+
+                        guardado = true;
+                        System.out.println("Sub categoria 2 giardada" );
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( guardado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 guardada");
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no guardada");
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+
+    private void agregarSubCateroria3(String nombre3) {
+        
+        System.out.println("Va a agregar una subcategoria3 a la Subcateroria2 " + nombre3);
+        
+        //Primero hay que obtener el id de la Subcategoria2 seleccionada
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM subcategorias2 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre3);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias2.setId(resultSet.getInt(("id")));
+                Integer subCategoria2Id = subCategorias2.getId();
+                
+                //Ahora hay que obtener el nombre de la subcategoria2
+        
+                String subSategoria2 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 3");
+                Boolean guardado = true;
+
+                if( subSategoria2.isEmpty()){
+                    JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+                }else{
+
+                    //Hay que comprobar que el nombre no existe ya!!!
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("INSERT INTO subcategorias3 (idSubCategoria2, nombre, activo) VALUES (?,?,?)");
+                        preparedStatement.setInt(1, subCategoria2Id);
+                        preparedStatement.setString(2, subSategoria2);
+                        preparedStatement.setBoolean(3, true);
+                        preparedStatement.executeUpdate();
+
+                        guardado = true;
+                        System.out.println("Sub categoria 3 giardada" );
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( guardado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 guardada");
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no guardada");
+                    }
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+    
+    private void actualizar() {
+        
+        this.setVisible(false);
+        new listarCategorias().setVisible(true);
+        
+    }
+    
 }
