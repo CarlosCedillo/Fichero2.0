@@ -1,5 +1,6 @@
 package conexion;
 
+import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import javax.swing.JOptionPane;
@@ -8,9 +9,9 @@ import javax.swing.JOptionPane;
 public class ConexionBD {
     static Connection conexion = null;
     static String driver = "net.ucanaccess.jdbc.UcanaccessDriver";
-    static String bd = "C:\\Users\\CarlosCedillo\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
-    static String url = "jdbc:ucanaccess://"+bd;
-    //static String url = "jdbc:ucanaccess://C:\\Users\\CaGeCeAl\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
+    //static String urlBD = "C:\\Users\\CarlosCedillo\\Documents\\NetBeansProjects\\Fichero2.0\\src\\BD\\fichero2.0.accdb";
+    static  File urlBD = new File("src/BD/fichero2.0.accdb");
+    static String url = "jdbc:ucanaccess://"+urlBD;
     
     public static Connection obtenerConexion() {
         try {
@@ -23,7 +24,7 @@ public class ConexionBD {
             ex.printStackTrace();
             conexion = null;
         }
-        return conexion;
+            return conexion;
     }
     
     public static Connection cerrarConexion() throws ClassNotFoundException {

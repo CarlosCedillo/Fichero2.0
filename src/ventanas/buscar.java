@@ -8,12 +8,28 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import tablas.Categorias;
+import tablas.Fichas;
+import tablas.Fuentes;
+import tablas.SubCategorias1;
+import tablas.SubCategorias2;
+import tablas.SubCategorias3;
 
 public class buscar extends javax.swing.JFrame {
     
     Connection conexion = null;
-    String tabla, var;
+    String tabla, par;
     ResultSet resultSet;
+    
+    Categorias categorias = new Categorias();
+    Fichas fichas = new Fichas();
+    Fuentes fuentes = new Fuentes();
+    SubCategorias1 subCategorias1 = new SubCategorias1();
+    SubCategorias2 subCategorias2 = new SubCategorias2();
+    SubCategorias3 subCategorias3 = new SubCategorias3();
     
     public buscar() {
         initComponents();
@@ -37,25 +53,25 @@ public class buscar extends javax.swing.JFrame {
         rbuSub3 = new javax.swing.JRadioButton();
         rbuFuente = new javax.swing.JRadioButton();
         rbuTodo = new javax.swing.JRadioButton();
-        lblMensaje = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
         txtNumero = new javax.swing.JTextField();
-        txtCategoria = new javax.swing.JTextField();
         lblSub1 = new javax.swing.JLabel();
         lblSub2 = new javax.swing.JLabel();
-        txtSub1 = new javax.swing.JTextField();
-        txtSub2 = new javax.swing.JTextField();
         lblSub3 = new javax.swing.JLabel();
-        txtSub3 = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtFicha = new javax.swing.JTextArea();
         btnSig = new javax.swing.JButton();
         btnAnt = new javax.swing.JButton();
         lblFuente = new javax.swing.JLabel();
-        txtFuente = new javax.swing.JTextField();
         btnRegresar = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
+        txtCategoria = new javax.swing.JTextField();
+        txtSub1 = new javax.swing.JTextField();
+        txtSub2 = new javax.swing.JTextField();
+        txtSub3 = new javax.swing.JTextField();
+        txtFuente = new javax.swing.JTextField();
         lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -95,7 +111,7 @@ public class buscar extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(174, Short.MAX_VALUE)
                 .addComponent(lblBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -112,8 +128,7 @@ public class buscar extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rbuSub2)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbuFuente))
-                            .addComponent(lblMensaje))
+                                .addComponent(rbuFuente)))
                         .addGap(18, 18, 18)
                         .addComponent(rbuTodo))
                     .addComponent(txtBuscar))
@@ -140,9 +155,7 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(rbuCategoria)
                     .addComponent(rbuSub2)
                     .addComponent(rbuFuente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(lblMensaje)
-                .addGap(11, 11, 11))
+                .addGap(18, 18, 18))
         );
 
         lblNumero.setText("No. de Ficha");
@@ -151,19 +164,11 @@ public class buscar extends javax.swing.JFrame {
 
         txtNumero.setEditable(false);
 
-        txtCategoria.setEditable(false);
-
         lblSub1.setText("Sub Categoria 1");
 
         lblSub2.setText("Sub Categoria 2");
 
-        txtSub1.setEditable(false);
-
-        txtSub2.setEditable(false);
-
         lblSub3.setText("Sub Categoria 3");
-
-        txtSub3.setEditable(false);
 
         txtFicha.setEditable(false);
         txtFicha.setColumns(20);
@@ -186,14 +191,29 @@ public class buscar extends javax.swing.JFrame {
 
         lblFuente.setText("Fuente");
 
-        txtFuente.setEditable(false);
-
         btnRegresar.setText("Regresar");
         btnRegresar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRegresarActionPerformed(evt);
             }
         });
+
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+
+        txtCategoria.setEditable(false);
+
+        txtSub1.setEditable(false);
+
+        txtSub2.setEditable(false);
+
+        txtSub3.setEditable(false);
+
+        txtFuente.setEditable(false);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -202,41 +222,44 @@ public class buscar extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addComponent(btnAnt)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSig))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(350, 350, 350)
-                        .addComponent(btnRegresar))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(25, 25, 25)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblNumero)
                             .addComponent(lblSub2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(txtSub2)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                            .addComponent(txtSub2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSub3)
                             .addComponent(lblCategoria))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(txtCategoria)
-                            .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(txtSub3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(lblSub1)
                             .addComponent(lblFuente))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(26, Short.MAX_VALUE))
+                            .addComponent(txtSub1)
+                            .addComponent(txtFuente)))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(59, 59, 59)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnRegresar)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnModificar))
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addComponent(btnAnt)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnSig)))
+                .addGap(26, 26, 26))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -247,29 +270,31 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria)
                     .addComponent(lblSub1)
-                    .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSub3)
-                    .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub2)
-                    .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
+                    .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegresar)
-                        .addContainerGap())
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnAnt)
-                        .addGap(96, 96, 96))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnSig)
-                        .addGap(96, 96, 96))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(121, 121, 121)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnSig)
+                            .addComponent(btnAnt))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnRegresar)
+                    .addComponent(btnModificar))
+                .addContainerGap())
         );
 
         lblInfo.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
@@ -308,28 +333,37 @@ public class buscar extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
-        
-        if( rbuTexto.isSelected() == false || rbuCategoria.isSelected() == false || rbuSub1.isSelected() == false || rbuSub2.isSelected() == false ||
-            rbuSub3.isSelected() == false || rbuFuente.isSelected() == false || rbuTodo.isSelected() == false || txtBuscar.getText().isEmpty()){
-            
-            lblMensaje.setForeground(Color.RED);
-            lblMensaje.setText("Debe llenar todos los campos");
-            
+        if( txtBuscar.getText().isEmpty() ){
+            JOptionPane.showMessageDialog(null, "Debe llenar el campo de texto");
         }else{
-            lblMensaje.setText("");
-            var = txtBuscar.getText();
-            buscarTexto(var);
+            par = txtBuscar.getText();
+            buscarTexto(par);
         }
-        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
         // TODO add your handling code here:
+        try {
+            resultSet.next();
+            mostrar(resultSet);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_btnSigActionPerformed
 
     private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
         // TODO add your handling code here:
+        try {
+            resultSet.previous();
+            mostrar(resultSet);
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_btnAntActionPerformed
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     public static void main(String args[]) {
 
@@ -343,6 +377,7 @@ public class buscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnt;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSig;
     private javax.swing.ButtonGroup filtros;
@@ -353,7 +388,6 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblFuente;
     private javax.swing.JLabel lblInfo;
-    private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblNumero;
     private javax.swing.JLabel lblSub1;
     private javax.swing.JLabel lblSub2;
@@ -375,28 +409,35 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
 
-    private void buscarTexto(String var) {
+    private void buscarTexto(String par) {
         
-        System.out.println("Ejecutando: ");
-            
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            boolean guardado = false;
-            
-            try {
-                
-                ConexionBD.obtenerConexion();
-                preparedStatement = conexion.prepareStatement("");
-                preparedStatement.executeUpdate();
-                
-                conexion = ConexionBD.cerrarConexion();
-                guardado = true;
-                
-            } catch (SQLException e) {
-                System.err.println(e.getMessage());
-            } catch (ClassNotFoundException ex) {
-                Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
-            }
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
         
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'");
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            resultSet.next();
+            mostrar(resultSet);
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    public void mostrar(ResultSet resultSet) throws SQLException {
+        txtNumero.setText(resultSet.getString(1));
+        txtFicha.setText(resultSet.getString(2));
+        txtCategoria.setText(resultSet.getString(3));
+        txtSub1.setText(resultSet.getString(4));
+        txtSub2.setText(resultSet.getString(5));
+        txtSub3.setText(resultSet.getString(6));
+        txtFuente.setText(resultSet.getString(7));
     }
 }
