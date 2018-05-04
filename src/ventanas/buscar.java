@@ -1,14 +1,12 @@
 package ventanas;
 
 import conexion.ConexionBD;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import tablas.Categorias;
@@ -434,10 +432,119 @@ public class buscar extends javax.swing.JFrame {
     public void mostrar(ResultSet resultSet) throws SQLException {
         txtNumero.setText(resultSet.getString(1));
         txtFicha.setText(resultSet.getString(2));
-        txtCategoria.setText(resultSet.getString(3));
-        txtSub1.setText(resultSet.getString(4));
-        txtSub2.setText(resultSet.getString(5));
-        txtSub3.setText(resultSet.getString(6));
-        txtFuente.setText(resultSet.getString(7));
+        
+        Integer categoriaId = Integer.valueOf(resultSet.getString(3));
+        mostrarCategoria(categoriaId);
+        
+        Integer sub1Id = Integer.valueOf(resultSet.getString(4));
+        mostrarSubcategoria1(sub1Id);
+        
+        Integer sub2Id = Integer.valueOf(resultSet.getString(5));
+        mostrarSubcategoria2(sub2Id);
+        
+        Integer sub3Id = Integer.valueOf(resultSet.getString(6));
+        mostrarSubcategoria3(sub3Id);
+        
+        Integer fuenteId = Integer.valueOf(resultSet.getString(7));
+        mostrarFuentes(fuenteId);
+        
+    }
+
+    private void mostrarCategoria(Integer categoriaId) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT nombre FROM categorias WHERE id = "+categoriaId+"";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            resultSet.next();
+            categorias.setNombre(resultSet.getString("nombre"));
+            txtCategoria.setText(categorias.getNombre());
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void mostrarSubcategoria1(Integer sub1Id) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
+        try {
+            String sql = "SELECT nombre FROM subCategorias1 WHERE id = "+ sub1Id +";";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+                
+            resultSet.next();
+            subCategorias1.setNombre(resultSet.getString("nombre"));
+            txtSub1.setText(subCategorias1.getNombre());
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void mostrarSubcategoria2(Integer sub2Id) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
+        try {
+            String sql = "SELECT nombre FROM subCategorias2 WHERE id = "+ sub2Id +";";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+                
+            resultSet.next();
+            subCategorias2.setNombre(resultSet.getString("nombre"));
+            txtSub2.setText(subCategorias2.getNombre());
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void mostrarSubcategoria3(Integer sub3Id) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
+        try {
+            String sql = "SELECT nombre FROM subCategorias3 WHERE id = "+ sub3Id +";";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+                
+            resultSet.next();
+            subCategorias3.setNombre(resultSet.getString("nombre"));
+            txtSub3.setText(subCategorias3.getNombre());
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void mostrarFuentes(Integer fuenteId) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        ResultSet resultSet;
+        
+        try {
+            String sql = "SELECT nombre FROM fuentes WHERE id = "+ fuenteId +";";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+                
+            resultSet.next();
+            fuentes.setNombre(resultSet.getString("nombre"));
+            txtFuente.setText(fuentes.getNombre());
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }
