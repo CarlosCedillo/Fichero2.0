@@ -5,10 +5,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
 import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
@@ -50,7 +49,6 @@ public class buscar extends javax.swing.JFrame {
         rbuSub1 = new javax.swing.JRadioButton();
         rbuSub3 = new javax.swing.JRadioButton();
         rbuFuente = new javax.swing.JRadioButton();
-        rbuTodo = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
@@ -101,9 +99,6 @@ public class buscar extends javax.swing.JFrame {
         filtros.add(rbuFuente);
         rbuFuente.setText("Fuente");
 
-        filtros.add(rbuTodo);
-        rbuTodo.setText("Todo");
-
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -112,7 +107,7 @@ public class buscar extends javax.swing.JFrame {
                 .addContainerGap(174, Short.MAX_VALUE)
                 .addComponent(lblBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(rbuCategoria)
@@ -126,10 +121,8 @@ public class buscar extends javax.swing.JFrame {
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(rbuSub2)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbuFuente)))
-                        .addGap(18, 18, 18)
-                        .addComponent(rbuTodo))
-                    .addComponent(txtBuscar))
+                                .addComponent(rbuFuente))))
+                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnBuscar)
                 .addGap(118, 118, 118))
@@ -146,8 +139,7 @@ public class buscar extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbuTexto)
                     .addComponent(rbuSub1)
-                    .addComponent(rbuSub3)
-                    .addComponent(rbuTodo))
+                    .addComponent(rbuSub3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbuCategoria)
@@ -342,21 +334,21 @@ public class buscar extends javax.swing.JFrame {
     private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
         // TODO add your handling code here:
         try {
-            resultSet.next();
-            mostrar(resultSet);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+            
+            Boolean accion = resultSet.next();
+            
+           if( accion == false ){
+                JOptionPane.showMessageDialog(null, "Ya es el ultimo registro");
+            }else{
+                mostrar(resultSet);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btnSigActionPerformed
 
     private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
         // TODO add your handling code here:
-        try {
-            resultSet.previous();
-            mostrar(resultSet);
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
-        }
     }//GEN-LAST:event_btnAntActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
@@ -396,7 +388,6 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbuSub2;
     private javax.swing.JRadioButton rbuSub3;
     private javax.swing.JRadioButton rbuTexto;
-    private javax.swing.JRadioButton rbuTodo;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextArea txtFicha;
@@ -436,14 +427,20 @@ public class buscar extends javax.swing.JFrame {
         Integer categoriaId = Integer.valueOf(resultSet.getString(3));
         mostrarCategoria(categoriaId);
         
-        Integer sub1Id = Integer.valueOf(resultSet.getString(4));
-        mostrarSubcategoria1(sub1Id);
+        if( !resultSet.getString(4).isEmpty() ){
+            Integer sub1Id = Integer.valueOf(resultSet.getString(4));
+            mostrarSubcategoria1(sub1Id);
+        }
         
-        Integer sub2Id = Integer.valueOf(resultSet.getString(5));
-        mostrarSubcategoria2(sub2Id);
+        if( !resultSet.getString(5).isEmpty() ){
+            Integer sub2Id = Integer.valueOf(resultSet.getString(5));
+            mostrarSubcategoria2(sub2Id);
+        }
         
-        Integer sub3Id = Integer.valueOf(resultSet.getString(6));
-        mostrarSubcategoria3(sub3Id);
+        if( !resultSet.getString(6).isEmpty() ){
+            Integer sub3Id = Integer.valueOf(resultSet.getString(6));
+            mostrarSubcategoria3(sub3Id);
+        }
         
         Integer fuenteId = Integer.valueOf(resultSet.getString(7));
         mostrarFuentes(fuenteId);

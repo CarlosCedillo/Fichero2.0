@@ -55,7 +55,7 @@
                   <EmptySpace pref="174" max="32767" attributes="0"/>
                   <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
                   <EmptySpace max="-2" attributes="0"/>
-                  <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                  <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Component id="rbuCategoria" alignment="0" min="-2" max="-2" attributes="0"/>
@@ -74,10 +74,8 @@
                                   <Component id="rbuFuente" min="-2" max="-2" attributes="0"/>
                               </Group>
                           </Group>
-                          <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="rbuTodo" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="txtBuscar" max="32767" attributes="0"/>
+                      <Component id="txtBuscar" min="-2" pref="378" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Component id="btnBuscar" min="-2" max="-2" attributes="0"/>
@@ -99,7 +97,6 @@
                       <Component id="rbuTexto" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rbuSub1" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rbuSub3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rbuTodo" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
@@ -174,14 +171,6 @@
               <ComponentRef name="filtros"/>
             </Property>
             <Property name="text" type="java.lang.String" value="Fuente"/>
-          </Properties>
-        </Component>
-        <Component class="javax.swing.JRadioButton" name="rbuTodo">
-          <Properties>
-            <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
-              <ComponentRef name="filtros"/>
-            </Property>
-            <Property name="text" type="java.lang.String" value="Todo"/>
           </Properties>
         </Component>
       </SubComponents>
