@@ -1,8 +1,6 @@
 package ventanas;
 
-import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import conexion.ConexionBD;
-import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -49,11 +47,6 @@ public class listarCategorias extends javax.swing.JFrame {
                 categorias.setId(resultSet.getInt("id"));
                 categorias.setNombre(resultSet.getString("nombre"));
                 categorias.setActivo(resultSet.getBoolean("activo"));
-                
-                Boolean activo = categorias.isActivo();
-                
-                if( activo == false ){
-                }
                 
                 nodo = new DefaultMutableTreeNode(categorias.getNombre());
                 raiz.add(nodo);
@@ -147,15 +140,15 @@ public class listarCategorias extends javax.swing.JFrame {
                                         .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addContainerGap())
                                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                            .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                                            .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addGap(19, 19, 19))))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(btnDesactivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(btnActivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        .addComponent(btnDesactivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(btnActivar, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE))))))))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -170,11 +163,11 @@ public class listarCategorias extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(btnModificar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnRegresar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnActivar)
                         .addGap(18, 18, 18)
-                        .addComponent(btnDesactivar))
+                        .addComponent(btnDesactivar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegresar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
@@ -268,7 +261,7 @@ public class listarCategorias extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "No se selecciono algo");
         }
-        
+       
         
     }//GEN-LAST:event_btnModificarActionPerformed
 
@@ -366,6 +359,8 @@ public class listarCategorias extends javax.swing.JFrame {
     private javax.swing.JTree treeCategorias;
     // End of variables declaration//GEN-END:variables
 
+    //Obtener - Listar
+    
     private void obtenerSub1(Integer idCat) {
         
         conexion = ConexionBD.obtenerConexion();
@@ -450,6 +445,8 @@ public class listarCategorias extends javax.swing.JFrame {
              System.out.println(ex.getMessage());
         }
     }
+    
+    //Agregar
 
     private void agregarCateroria() {
         
@@ -707,6 +704,8 @@ public class listarCategorias extends javax.swing.JFrame {
         }
         
     }
+    
+    //Modificar
     
     private void modificarCategoria(String nombre) {
         
@@ -1001,6 +1000,8 @@ public class listarCategorias extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
+    
+    //Actualizar
     
     private void actualizar() {
         this.dispose();
