@@ -35,6 +35,8 @@ public class crear extends javax.swing.JFrame {
         cbFuente.addItem("--Seleccione--");
         enlistarFuentes();
         
+        txtFicha.setLineWrap(true);
+        
     }
     
     @SuppressWarnings("unchecked")
@@ -103,6 +105,11 @@ public class crear extends javax.swing.JFrame {
         cbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbCategoriaItemStateChanged(evt);
+            }
+        });
+        cbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCategoriaActionPerformed(evt);
             }
         });
 
@@ -484,6 +491,10 @@ public class crear extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
+    private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCategoriaActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnFuentes;
@@ -514,7 +525,7 @@ public class crear extends javax.swing.JFrame {
         try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
-            String sql = "SELECT * FROM categorias;";
+            String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             conexion = ConexionBD.cerrarConexion();

@@ -1,6 +1,8 @@
 package ventanas;
 
+import com.sun.org.apache.xml.internal.resolver.helpers.PublicId;
 import conexion.ConexionBD;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -38,7 +40,7 @@ public class listarCategorias extends javax.swing.JFrame {
         try {
             
             ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM categorias";
+            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
             preparedStatement = conexion.prepareCall(sql);
             resultSet = preparedStatement.executeQuery();
             
@@ -47,6 +49,11 @@ public class listarCategorias extends javax.swing.JFrame {
                 categorias.setId(resultSet.getInt("id"));
                 categorias.setNombre(resultSet.getString("nombre"));
                 categorias.setActivo(resultSet.getBoolean("activo"));
+                
+                Boolean activo = categorias.isActivo();
+                
+                if( activo == false ){
+                }
                 
                 nodo = new DefaultMutableTreeNode(categorias.getNombre());
                 raiz.add(nodo);
@@ -74,6 +81,8 @@ public class listarCategorias extends javax.swing.JFrame {
         treeCategorias = new javax.swing.JTree();
         btnAgregar = new javax.swing.JButton();
         btnModificar = new javax.swing.JButton();
+        btnDesactivar = new javax.swing.JButton();
+        btnActivar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -88,11 +97,6 @@ public class listarCategorias extends javax.swing.JFrame {
             }
         });
 
-        treeCategorias.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                treeCategoriasMouseClicked(evt);
-            }
-        });
         jScrollPane2.setViewportView(treeCategorias);
 
         btnAgregar.setText("Agregar");
@@ -109,6 +113,20 @@ public class listarCategorias extends javax.swing.JFrame {
             }
         });
 
+        btnDesactivar.setText("Desactivar");
+        btnDesactivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnDesactivarActionPerformed(evt);
+            }
+        });
+
+        btnActivar.setText("Activar");
+        btnActivar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnActivarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -121,16 +139,23 @@ public class listarCategorias extends javax.swing.JFrame {
                         .addGap(19, 19, 19))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jScrollPane2)
-                        .addGap(15, 15, 15)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap())
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
-                                    .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addGap(19, 19, 19))))))
+                                .addGap(15, 15, 15)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addGroup(layout.createSequentialGroup()
+                                        .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addContainerGap())
+                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                            .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, 89, Short.MAX_VALUE)
+                                            .addComponent(btnModificar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addGap(19, 19, 19))))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGap(18, 18, 18)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(btnDesactivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addComponent(btnActivar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
             .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, 433, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
@@ -146,7 +171,10 @@ public class listarCategorias extends javax.swing.JFrame {
                         .addComponent(btnModificar)
                         .addGap(18, 18, 18)
                         .addComponent(btnRegresar)
-                        .addGap(0, 0, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnActivar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnDesactivar))
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 334, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2))
@@ -171,9 +199,10 @@ public class listarCategorias extends javax.swing.JFrame {
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         // TODO add your handling code here
         DefaultMutableTreeNode agregar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-        String nombre = agregar.toString();
         
         if( agregar != null ){
+            
+            String nombre = agregar.toString();
             
             switch( agregar.getLevel() ){
                 
@@ -205,49 +234,116 @@ public class listarCategorias extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnAgregarActionPerformed
 
-    private void treeCategoriasMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_treeCategoriasMouseClicked
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         // TODO add your handling code here:
-        
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
         String nombre = modificar.toString();
         
-        if( evt.getClickCount() == 2 ){
-            
-            if( modificar != null ){
+        if( modificar != null ){
                 
-                switch( modificar.getLevel() ){
+            switch( modificar.getLevel() ){
                     
-                    case 0:
-                    break;
+                case 0:
+                    JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
+                break;
                     
-                    case 1:
-                        modificarCategoria(nombre);
-                    break;
+                case 1:
+                    modificarCategoria(nombre);
+                break;
                     
-                    case 2:
-                        modificarSubCategoria1(nombre);
-                    break;
+                case 2:
+                    modificarSubCategoria1(nombre);
+                break;
                     
-                    case 3:
-                        modificarSubCategoria2(nombre);
-                    break;
+                case 3:
+                    modificarSubCategoria2(nombre);
+                break;
                     
-                    case 4:
-                        modificarSubCategoria3(nombre);
-                    break;
+                case 4:
+                    modificarSubCategoria3(nombre);
+                break;
                     
-                }
-            
-            }else{
-                JOptionPane.showMessageDialog(null, "No se selecciono algo");
             }
             
+        }else{
+            JOptionPane.showMessageDialog(null, "No se selecciono algo");
         }
-    }//GEN-LAST:event_treeCategoriasMouseClicked
-
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        
+        
     }//GEN-LAST:event_btnModificarActionPerformed
+
+    private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
+        // TODO add your handling code here:
+        DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        String nombre = modificar.toString();
+        
+        if( modificar != null ){
+                
+            switch( modificar.getLevel() ){
+                    
+                case 0:
+                    JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
+                break;
+                    
+                case 1:
+                    desactivarCategoria(nombre);
+                break;
+                    
+                case 2:
+                    desactivarSubCategoria1(nombre);
+                break;
+                    
+                case 3:
+                    desactivarSubCategoria2(nombre);
+                break;
+                    
+                case 4:
+                    desactivarSubCategoria3(nombre);
+                break;
+                    
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se selecciono algo");
+        }
+        
+    }//GEN-LAST:event_btnDesactivarActionPerformed
+
+    private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
+        // TODO add your handling code here:
+        DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        String nombre = modificar.toString();
+        
+        if( modificar != null ){
+                
+            switch( modificar.getLevel() ){
+                    
+                case 0:
+                    JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
+                break;
+                    
+                case 1:
+                    activarCategoria(nombre);
+                break;
+                    
+                case 2:
+                    activarSubCategoria1(nombre);
+                break;
+                    
+                case 3:
+                    activarSubCategoria2(nombre);
+                break;
+                    
+                case 4:
+                    activarSubCategoria3(nombre);
+                break;
+                    
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se selecciono algo");
+        }
+    }//GEN-LAST:event_btnActivarActionPerformed
 
     public static void main(String args[]) {
         
@@ -259,7 +355,9 @@ public class listarCategorias extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnActivar;
     private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnDesactivar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JLabel jLabel1;
@@ -907,5 +1005,553 @@ public class listarCategorias extends javax.swing.JFrame {
     private void actualizar() {
         this.dispose();
         new listarCategorias().setVisible(true);
+    }
+    
+    //Desactivaciones
+
+    private void desactivarCategoria(String nombre) {
+        System.out.println("Va a desactivar la cateroria " + nombre);
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM categorias WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                categorias.setId(resultSet.getInt(("id")));
+                categorias.setNombre(resultSet.getString(("nombre")));
+                categorias.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = categorias.getId();
+                String categoriaNombte = categorias.getNombre();
+                Boolean status = categorias.isActivo();
+                
+                //Ahora hay cambiar el atrubuto de activo a false (Primero hay que comprobas que esta activo...)
+                
+                if( status == true ){
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, false);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Categoria " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Categoria desactivada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Categoria no desactivada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Categoria ya desactivada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void desactivarSubCategoria1(String nombre) {
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM subCategorias1 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias1.setId(resultSet.getInt(("id")));
+                subCategorias1.setNombre(resultSet.getString(("nombre")));
+                subCategorias1.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = subCategorias1.getId();
+                String categoriaNombte = subCategorias1.getNombre();
+                Boolean status = subCategorias1.isActivo();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                
+                if( status == true ){
+        
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, false);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Sub categoria 1 " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 desactivada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no desactivada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sub categoria 1 ya desactivada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+
+    private void desactivarSubCategoria2(String nombre) {
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM subCategorias2 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias2.setId(resultSet.getInt(("id")));
+                subCategorias2.setNombre(resultSet.getString(("nombre")));
+                subCategorias2.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = subCategorias2.getId();
+                String categoriaNombte = subCategorias2.getNombre();
+                Boolean status = subCategorias2.isActivo();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                
+                if( status == true ){
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, false);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Sub categoria 2 " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 desactivada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no desactivada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sub categoria 2 ya desactivada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void desactivarSubCategoria3(String nombre) {
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM subCategorias3 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias3.setId(resultSet.getInt(("id")));
+                subCategorias3.setNombre(resultSet.getString(("nombre")));
+                subCategorias3.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = subCategorias3.getId();
+                String categoriaNombte = subCategorias3.getNombre();
+                Boolean status = subCategorias3.isActivo();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                
+                if( status == true ){
+        
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias3 SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, false);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Sub categoria 3 " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 desactivada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no desactivada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sub categoria 3 ya desactivada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    //Activaciones
+
+    private void activarCategoria(String nombre) {
+        System.out.println("Va a desactivar la cateroria " + nombre);
+        
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM categorias WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                categorias.setId(resultSet.getInt(("id")));
+                categorias.setNombre(resultSet.getString(("nombre")));
+                categorias.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = categorias.getId();
+                String categoriaNombte = categorias.getNombre();
+                Boolean status = categorias.isActivo();
+                
+                //Ahora hay cambiar el atrubuto de activo a false (Primero hay que comprobas que esta activo...)
+                
+                if( status == false ){
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, true);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Categoria " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Categoria activada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Categoria no activada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Categoria ya activada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void activarSubCategoria1(String nombre) {
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM subCategorias1 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias1.setId(resultSet.getInt(("id")));
+                subCategorias1.setNombre(resultSet.getString(("nombre")));
+                subCategorias1.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = subCategorias1.getId();
+                String categoriaNombte = subCategorias1.getNombre();
+                Boolean status = subCategorias1.isActivo();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                
+                if( status == false ){
+        
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, true);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Sub categoria 1 " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 activada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no activada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sub categoria 1 ya activada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void activarSubCategoria2(String nombre) {
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM subCategorias2 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias2.setId(resultSet.getInt(("id")));
+                subCategorias2.setNombre(resultSet.getString(("nombre")));
+                subCategorias2.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = subCategorias2.getId();
+                String categoriaNombte = subCategorias2.getNombre();
+                Boolean status = subCategorias2.isActivo();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                
+                if( status == false ){
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, true);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Sub categoria 2 " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 activada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no activada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sub categoria 2 ya activada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void activarSubCategoria3(String nombre) {
+        //Primero hay que obtener el id
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM subCategorias3 WHERE nombre = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                subCategorias3.setId(resultSet.getInt(("id")));
+                subCategorias3.setNombre(resultSet.getString(("nombre")));
+                subCategorias3.setActivo(resultSet.getBoolean("activo"));
+                
+                Integer categoriaId = subCategorias3.getId();
+                String categoriaNombte = subCategorias3.getNombre();
+                Boolean status = subCategorias3.isActivo();
+                
+                //Ahora hay que obtener el nuevo nombre de la subcategoria1
+                
+                if( status == false ){
+        
+                    Boolean modificado = true;
+
+                    try {
+
+                        ConexionBD.obtenerConexion();
+                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias3 SET activo = ? WHERE id = ?");
+                        preparedStatement.setBoolean(1, true);
+                        preparedStatement.setInt(2, categoriaId);
+                        preparedStatement.executeUpdate();
+
+                        modificado = true;
+                        System.out.println("Sub categoria 3 " + categoriaNombte + " desactivada");
+
+                        conexion = ConexionBD.cerrarConexion();
+
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+
+                    } catch (ClassNotFoundException ex) {
+                        System.out.println(ex.getMessage());
+                    }
+
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 activada" );
+
+                        actualizar();
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no activada");
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Sub categoria 3 ya activada");
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 }

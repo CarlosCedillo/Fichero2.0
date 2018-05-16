@@ -85,6 +85,11 @@ public class listarFuente extends javax.swing.JFrame {
         });
 
         btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,6 +250,60 @@ public class listarFuente extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_tblFuentesMouseClicked
+
+    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+        // TODO add your handling code here:
+        DefaultTableModel modeloFuente  = (DefaultTableModel) tblFuentes.getModel();
+        
+            String nombre = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(),1));
+            String id = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(), 0));
+        
+            System.out.println("Fuente a modificar: "+nombre);
+            
+            String nvoNombre = JOptionPane.showInputDialog(null, "Mofificar fuente: "+nombre);
+            
+            if( nvoNombre.isEmpty() == true || nvoNombre.equals(nombre) ){
+                JOptionPane.showMessageDialog(null, "No se modifico Fuente "+nombre);
+            }else{
+                
+                conexion = ConexionBD.obtenerConexion();
+                Statement statement = null;
+                PreparedStatement preparedStatement;
+                boolean mofificado = false;
+                
+                System.out.println("Modificando fuente de "+ nombre + " a "+ nvoNombre );
+            
+                try {
+
+                    Integer columnaId = Integer.parseInt(id);
+
+                    ConexionBD.obtenerConexion();
+                    preparedStatement = conexion.prepareStatement("UPDATE fuentes SET nombre = ? WHERE id = ?");
+                    preparedStatement.setString(1, nvoNombre);
+                    preparedStatement.setInt(2, columnaId);
+                    preparedStatement.executeUpdate();
+
+                    mofificado = true;
+
+                    conexion = ConexionBD.cerrarConexion();
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+
+                } catch (ClassNotFoundException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+                if( mofificado == true ){
+
+                    JOptionPane.showMessageDialog(null, "Fuente modificada");
+                    actualizar();
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "Fuente no modificada");
+                }
+            }
+    }//GEN-LAST:event_btnModificarActionPerformed
 
     public static void main(String args[]) {
 
