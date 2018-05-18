@@ -351,8 +351,15 @@ public class listarCategorias extends javax.swing.JFrame {
                 categorias.setNombre(resultSet.getString("nombre"));
                 categorias.setActivo(resultSet.getBoolean("activo"));
                 
-                nodo = new DefaultMutableTreeNode(categorias.getNombre());
-                raiz.add(nodo);
+                Boolean activo = categorias.isActivo();
+                
+                if( activo == true ){
+                    nodo = new DefaultMutableTreeNode(categorias.getNombre() + " - Activado");
+                    raiz.add(nodo);
+                }else{
+                    nodo = new DefaultMutableTreeNode(categorias.getNombre() + " - Desactivado");
+                    raiz.add(nodo);
+                }
                 
                 obtenerSub1(categorias.getId());
                 
@@ -384,8 +391,15 @@ public class listarCategorias extends javax.swing.JFrame {
                 subCategorias1.setNombre(resultSet.getString("nombre"));
                 subCategorias1.setActivo(resultSet.getBoolean("activo"));
                 
-                subNodo1 = new DefaultMutableTreeNode(subCategorias1.getNombre());
-                nodo.add(subNodo1);
+                Boolean activo = subCategorias1.isActivo();
+                
+                if( activo == true ){
+                    subNodo1 = new DefaultMutableTreeNode(subCategorias1.getNombre() + " - Activado");
+                    nodo.add(subNodo1); 
+                }else{
+                    subNodo1 = new DefaultMutableTreeNode(subCategorias1.getNombre() + " - Desactivado");
+                    nodo.add(subNodo1);
+                }
                 
                 obtenerSub2(subCategorias1.getId());
                 
@@ -413,8 +427,15 @@ public class listarCategorias extends javax.swing.JFrame {
                 subCategorias2.setNombre(resultSet.getString("nombre"));
                 subCategorias2.setActivo(resultSet.getBoolean("activo"));
                 
-                subNodo2 = new DefaultMutableTreeNode(subCategorias2.getNombre());
-                subNodo1.add(subNodo2);
+                Boolean activo = subCategorias2.isActivo();
+                
+                if( activo == true ){
+                    subNodo2 = new DefaultMutableTreeNode(subCategorias2.getNombre() + " - Activado");
+                    subNodo1.add(subNodo2);
+                }else{
+                    subNodo2 = new DefaultMutableTreeNode(subCategorias2.getNombre() + " - Desactivado");
+                    subNodo1.add(subNodo2);
+                }
                 
                 obtenerSub3(subCategorias2.getId());
                 
@@ -442,8 +463,15 @@ public class listarCategorias extends javax.swing.JFrame {
                 subCategorias3.setNombre(resultSet.getString("nombre"));
                 subCategorias3.setActivo(resultSet.getBoolean("activo"));
                 
-                subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre());
-                subNodo2.add(subNodo3);
+                Boolean activo = subCategorias3.isActivo();
+                
+                if( activo == true ){
+                    subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre() + " - Activado");
+                    subNodo2.add(subNodo3);
+                }else{
+                    subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre() + " - Desactivado");
+                    subNodo2.add(subNodo3);
+                }
                 
             }
         } catch (SQLException ex) {
@@ -1015,549 +1043,633 @@ public class listarCategorias extends javax.swing.JFrame {
     
     //Desactivaciones
 
-    private void desactivarCategoria(String nombre) {
-        System.out.println("Va a desactivar la cateroria " + nombre);
+    private void desactivarCategoria(String nombreCompleto) {
         
-        //Primero hay que obtener el id
+        Integer localizado = nombreCompleto.indexOf(" - Activado");
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
+        if( localizado > 0 ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM categorias WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                categorias.setId(resultSet.getInt(("id")));
-                categorias.setNombre(resultSet.getString(("nombre")));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = categorias.getId();
-                String categoriaNombte = categorias.getNombre();
-                Boolean status = categorias.isActivo();
-                
-                //Ahora hay cambiar el atrubuto de activo a false (Primero hay que comprobas que esta activo...)
-                
-                if( status == true ){
-                    Boolean modificado = true;
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a desactivar la cateroria " + nombre);
+            //Primero hay que obtener el id
 
-                    try {
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
 
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, false);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
+            try {
 
-                        modificado = true;
-                        System.out.println("Categoria " + categoriaNombte + " desactivada");
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM categorias WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
 
-                        conexion = ConexionBD.cerrarConexion();
+                while( resultSet.next() ){
+                    categorias.setId(resultSet.getInt(("id")));
+                    categorias.setNombre(resultSet.getString(("nombre")));
+                    categorias.setActivo(resultSet.getBoolean("activo"));
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    Integer categoriaId = categorias.getId();
+                    String categoriaNombte = categorias.getNombre();
+                    Boolean status = categorias.isActivo();
 
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Categoria desactivada" );
+                    //Ahora hay cambiar el atrubuto de activo a false (Primero hay que comprobas que esta activo...)
 
-                        actualizar();
+                    if( status == true ){
+                        Boolean modificado = true;
 
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, false);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Categoria " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Categoria desactivada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Categoria no desactivada");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Categoria no desactivada");
+                        JOptionPane.showMessageDialog(null, "Categoria ya desactivada");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Categoria ya desactivada");
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
     }
 
-    private void desactivarSubCategoria1(String nombre) {
+    private void desactivarSubCategoria1(String nombreCompleto) {
         
-        //Primero hay que obtener el id
+        Integer localizado = nombreCompleto.indexOf(" - Activado");
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
+        if( localizado > 0 ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM subCategorias1 WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a desactivar la sub cateroria 1 " + nombre);
             
-            while( resultSet.next() ){
-                subCategorias1.setId(resultSet.getInt(("id")));
-                subCategorias1.setNombre(resultSet.getString(("nombre")));
-                subCategorias1.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = subCategorias1.getId();
-                String categoriaNombte = subCategorias1.getNombre();
-                Boolean status = subCategorias1.isActivo();
-                
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
-                
-                if( status == true ){
-        
-                    Boolean modificado = true;
+            //Primero hay que obtener el id
 
-                    try {
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
 
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, false);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
+            try {
 
-                        modificado = true;
-                        System.out.println("Sub categoria 1 " + categoriaNombte + " desactivada");
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM subCategorias1 WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
 
-                        conexion = ConexionBD.cerrarConexion();
+                while( resultSet.next() ){
+                    subCategorias1.setId(resultSet.getInt(("id")));
+                    subCategorias1.setNombre(resultSet.getString(("nombre")));
+                    subCategorias1.setActivo(resultSet.getBoolean("activo"));
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
+                    Integer categoriaId = subCategorias1.getId();
+                    String categoriaNombte = subCategorias1.getNombre();
+                    Boolean status = subCategorias1.isActivo();
 
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    //Ahora hay que obtener el nuevo nombre de la subcategoria1
 
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 desactivada" );
+                    if( status == true ){
 
-                        actualizar();
+                        Boolean modificado = true;
 
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, false);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 1 " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 1 desactivada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 1 no desactivada");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no desactivada");
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 ya desactivada");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Sub categoria 1 ya desactivada");
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-    }
-
-    private void desactivarSubCategoria2(String nombre) {
-        //Primero hay que obtener el id
-        
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM subCategorias2 WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                subCategorias2.setId(resultSet.getInt(("id")));
-                subCategorias2.setNombre(resultSet.getString(("nombre")));
-                subCategorias2.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = subCategorias2.getId();
-                String categoriaNombte = subCategorias2.getNombre();
-                Boolean status = subCategorias2.isActivo();
-                
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
-                
-                if( status == true ){
-                    Boolean modificado = true;
-
-                    try {
-
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, false);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
-
-                        modificado = true;
-                        System.out.println("Sub categoria 2 " + categoriaNombte + " desactivada");
-
-                        conexion = ConexionBD.cerrarConexion();
-
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 2 desactivada" );
-
-                        actualizar();
-
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no desactivada");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Sub categoria 2 ya desactivada");
-                }
-            }
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
     }
 
-    private void desactivarSubCategoria3(String nombre) {
-        //Primero hay que obtener el id
+    private void desactivarSubCategoria2(String nombreCompleto) {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Integer localizado = nombreCompleto.indexOf(" - Activado");
         
-        try {
+        if( localizado > 0 ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM subCategorias3 WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a desactivar la sub  cateroria 2 " + nombre);
             
-            while( resultSet.next() ){
-                subCategorias3.setId(resultSet.getInt(("id")));
-                subCategorias3.setNombre(resultSet.getString(("nombre")));
-                subCategorias3.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = subCategorias3.getId();
-                String categoriaNombte = subCategorias3.getNombre();
-                Boolean status = subCategorias3.isActivo();
-                
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
-                
-                if( status == true ){
-        
-                    Boolean modificado = true;
+            //Primero hay que obtener el id
 
-                    try {
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
 
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias3 SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, false);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
+            try {
 
-                        modificado = true;
-                        System.out.println("Sub categoria 3 " + categoriaNombte + " desactivada");
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM subCategorias2 WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
 
-                        conexion = ConexionBD.cerrarConexion();
+                while( resultSet.next() ){
+                    subCategorias2.setId(resultSet.getInt(("id")));
+                    subCategorias2.setNombre(resultSet.getString(("nombre")));
+                    subCategorias2.setActivo(resultSet.getBoolean("activo"));
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
+                    Integer categoriaId = subCategorias2.getId();
+                    String categoriaNombte = subCategorias2.getNombre();
+                    Boolean status = subCategorias2.isActivo();
 
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    //Ahora hay que obtener el nuevo nombre de la subcategoria1
 
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 3 desactivada" );
+                    if( status == true ){
+                        Boolean modificado = true;
 
-                        actualizar();
+                        try {
 
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, false);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 2 " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 2 desactivada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 2 no desactivada");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no desactivada");
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 ya desactivada");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Sub categoria 3 ya desactivada");
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
+        }
+    }
+
+    private void desactivarSubCategoria3(String nombreCompleto) {
+        
+        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        
+        if( localizado > 0 ){
+            
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a desactivar la sub cateroria 3 " + nombre);
+            
+            //Primero hay que obtener el id
+
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+
+            try {
+
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM subCategorias3 WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
+
+                while( resultSet.next() ){
+                    subCategorias3.setId(resultSet.getInt(("id")));
+                    subCategorias3.setNombre(resultSet.getString(("nombre")));
+                    subCategorias3.setActivo(resultSet.getBoolean("activo"));
+
+                    Integer categoriaId = subCategorias3.getId();
+                    String categoriaNombte = subCategorias3.getNombre();
+                    Boolean status = subCategorias3.isActivo();
+
+                    //Ahora hay que obtener el nuevo nombre de la subcategoria1
+
+                    if( status == true ){
+
+                        Boolean modificado = true;
+
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias3 SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, false);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 3 " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 3 desactivada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 3 no desactivada");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 ya desactivada");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
     }
     
     //Activaciones
 
-    private void activarCategoria(String nombre) {
-        System.out.println("Va a desactivar la cateroria " + nombre);
+    private void activarCategoria(String nombreCompleto) {
         
-        //Primero hay que obtener el id
+        Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
+        if( localizado > 0 ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM categorias WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                categorias.setId(resultSet.getInt(("id")));
-                categorias.setNombre(resultSet.getString(("nombre")));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = categorias.getId();
-                String categoriaNombte = categorias.getNombre();
-                Boolean status = categorias.isActivo();
-                
-                //Ahora hay cambiar el atrubuto de activo a false (Primero hay que comprobas que esta activo...)
-                
-                if( status == false ){
-                    Boolean modificado = true;
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a activar la cateroria " + nombre);
+            //Primero hay que obtener el id
 
-                    try {
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
 
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, true);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
+            try {
 
-                        modificado = true;
-                        System.out.println("Categoria " + categoriaNombte + " desactivada");
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM categorias WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
 
-                        conexion = ConexionBD.cerrarConexion();
+                while( resultSet.next() ){
+                    categorias.setId(resultSet.getInt(("id")));
+                    categorias.setNombre(resultSet.getString(("nombre")));
+                    categorias.setActivo(resultSet.getBoolean("activo"));
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    Integer categoriaId = categorias.getId();
+                    String categoriaNombte = categorias.getNombre();
+                    Boolean status = categorias.isActivo();
 
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Categoria activada" );
+                    //Ahora hay cambiar el atrubuto de activo a false (Primero hay que comprobas que esta activo...)
 
-                        actualizar();
+                    if( status == false ){
+                        Boolean modificado = true;
 
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, true);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Categoria " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Categoria activada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Categoria no activada");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Categoria no activada");
+                        JOptionPane.showMessageDialog(null, "Categoria ya activada");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Categoria ya activada");
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
     }
 
-    private void activarSubCategoria1(String nombre) {
-        //Primero hay que obtener el id
+    private void activarSubCategoria1(String nombreCompleto) {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
-        try {
+        if( localizado > 0 ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM subCategorias1 WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                subCategorias1.setId(resultSet.getInt(("id")));
-                subCategorias1.setNombre(resultSet.getString(("nombre")));
-                subCategorias1.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = subCategorias1.getId();
-                String categoriaNombte = subCategorias1.getNombre();
-                Boolean status = subCategorias1.isActivo();
-                
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
-                
-                if( status == false ){
-        
-                    Boolean modificado = true;
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a activar la sub cateroria 1 " + nombre);
+            //Primero hay que obtener el id
 
-                    try {
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
 
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, true);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
+            try {
 
-                        modificado = true;
-                        System.out.println("Sub categoria 1 " + categoriaNombte + " desactivada");
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM subCategorias1 WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
 
-                        conexion = ConexionBD.cerrarConexion();
+                while( resultSet.next() ){
+                    subCategorias1.setId(resultSet.getInt(("id")));
+                    subCategorias1.setNombre(resultSet.getString(("nombre")));
+                    subCategorias1.setActivo(resultSet.getBoolean("activo"));
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
+                    Integer categoriaId = subCategorias1.getId();
+                    String categoriaNombte = subCategorias1.getNombre();
+                    Boolean status = subCategorias1.isActivo();
 
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    //Ahora hay que obtener el nuevo nombre de la subcategoria1
 
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 activada" );
+                    if( status == false ){
 
-                        actualizar();
+                        Boolean modificado = true;
 
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, true);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 1 " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 1 activada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 1 no activada");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no activada");
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 ya activada");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Sub categoria 1 ya activada");
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
+        }
+        
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+    }
+
+    private void activarSubCategoria2(String nombreCompleto) {
+        
+        Integer localizado = nombreCompleto.indexOf(" - Desactivado");
+        
+        if( localizado > 0 ){
+            
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a activar la sub cateroria 2 " + nombre);
+            //Primero hay que obtener el id
+
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+
+            try {
+
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM subCategorias2 WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
+
+                while( resultSet.next() ){
+                    subCategorias2.setId(resultSet.getInt(("id")));
+                    subCategorias2.setNombre(resultSet.getString(("nombre")));
+                    subCategorias2.setActivo(resultSet.getBoolean("activo"));
+
+                    Integer categoriaId = subCategorias2.getId();
+                    String categoriaNombte = subCategorias2.getNombre();
+                    Boolean status = subCategorias2.isActivo();
+
+                    //Ahora hay que obtener el nuevo nombre de la subcategoria1
+
+                    if( status == false ){
+                        Boolean modificado = true;
+
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, true);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 2 " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 2 activada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 2 no activada");
+                        }
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 ya activada");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
     }
 
-    private void activarSubCategoria2(String nombre) {
-        //Primero hay que obtener el id
+    private void activarSubCategoria3(String nombreCompleto) {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
-        try {
+        if( localizado > 0 ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM subCategorias2 WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                subCategorias2.setId(resultSet.getInt(("id")));
-                subCategorias2.setNombre(resultSet.getString(("nombre")));
-                subCategorias2.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = subCategorias2.getId();
-                String categoriaNombte = subCategorias2.getNombre();
-                Boolean status = subCategorias2.isActivo();
-                
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
-                
-                if( status == false ){
-                    Boolean modificado = true;
+            String nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("Va a desactivar la sub cateroria 3 " + nombre);
+            //Primero hay que obtener el id
 
-                    try {
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
 
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, true);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
+            try {
 
-                        modificado = true;
-                        System.out.println("Sub categoria 2 " + categoriaNombte + " desactivada");
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM subCategorias3 WHERE nombre = ?";
+                preparedStatement = conexion.prepareCall(sql);
+                preparedStatement.setString(1, nombre);
+                resultSet = preparedStatement.executeQuery();
 
-                        conexion = ConexionBD.cerrarConexion();
+                while( resultSet.next() ){
+                    subCategorias3.setId(resultSet.getInt(("id")));
+                    subCategorias3.setNombre(resultSet.getString(("nombre")));
+                    subCategorias3.setActivo(resultSet.getBoolean("activo"));
 
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
+                    Integer categoriaId = subCategorias3.getId();
+                    String categoriaNombte = subCategorias3.getNombre();
+                    Boolean status = subCategorias3.isActivo();
 
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
+                    //Ahora hay que obtener el nuevo nombre de la subcategoria1
 
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 2 activada" );
+                    if( status == false ){
 
-                        actualizar();
+                        Boolean modificado = true;
 
+                        try {
+
+                            ConexionBD.obtenerConexion();
+                            preparedStatement = conexion.prepareStatement("UPDATE subCategorias3 SET activo = ? WHERE id = ?");
+                            preparedStatement.setBoolean(1, true);
+                            preparedStatement.setInt(2, categoriaId);
+                            preparedStatement.executeUpdate();
+
+                            modificado = true;
+                            System.out.println("Sub categoria 3 " + categoriaNombte + " desactivada");
+
+                            conexion = ConexionBD.cerrarConexion();
+
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+
+                        } catch (ClassNotFoundException ex) {
+                            System.out.println(ex.getMessage());
+                        }
+
+                        if( modificado == true ){
+                            JOptionPane.showMessageDialog(null, "Sub categoria 3 activada" );
+
+                            actualizar();
+
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Sub categoria 3 no activada");
+                        }
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no activada");
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 ya activada");
                     }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Sub categoria 2 ya activada");
                 }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
             }
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    private void activarSubCategoria3(String nombre) {
-        //Primero hay que obtener el id
-        
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM subCategorias3 WHERE nombre = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                subCategorias3.setId(resultSet.getInt(("id")));
-                subCategorias3.setNombre(resultSet.getString(("nombre")));
-                subCategorias3.setActivo(resultSet.getBoolean("activo"));
-                
-                Integer categoriaId = subCategorias3.getId();
-                String categoriaNombte = subCategorias3.getNombre();
-                Boolean status = subCategorias3.isActivo();
-                
-                //Ahora hay que obtener el nuevo nombre de la subcategoria1
-                
-                if( status == false ){
-        
-                    Boolean modificado = true;
-
-                    try {
-
-                        ConexionBD.obtenerConexion();
-                        preparedStatement = conexion.prepareStatement("UPDATE subCategorias3 SET activo = ? WHERE id = ?");
-                        preparedStatement.setBoolean(1, true);
-                        preparedStatement.setInt(2, categoriaId);
-                        preparedStatement.executeUpdate();
-
-                        modificado = true;
-                        System.out.println("Sub categoria 3 " + categoriaNombte + " desactivada");
-
-                        conexion = ConexionBD.cerrarConexion();
-
-                    } catch (SQLException ex) {
-                        System.out.println(ex.getMessage());
-
-                    } catch (ClassNotFoundException ex) {
-                        System.out.println(ex.getMessage());
-                    }
-
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 3 activada" );
-
-                        actualizar();
-
-                    }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no activada");
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Sub categoria 3 ya activada");
-                }
-            }
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        }else{
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
     }
 }
