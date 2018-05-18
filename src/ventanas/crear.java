@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -105,11 +104,6 @@ public class crear extends javax.swing.JFrame {
         cbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbCategoriaItemStateChanged(evt);
-            }
-        });
-        cbCategoria.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cbCategoriaActionPerformed(evt);
             }
         });
 
@@ -288,7 +282,6 @@ public class crear extends javax.swing.JFrame {
                             + "'"+ sub2 +"', '"+ sub3 +"', '"+fuente.getId()+"')");
             
             conexion = ConexionBD.obtenerConexion();
-            Statement statement = null;
             PreparedStatement preparedStatement;
             boolean guardado = false;
             
@@ -490,10 +483,6 @@ public class crear extends javax.swing.JFrame {
         jframe.setVisible(true);
         
     }//GEN-LAST:event_btnCategoriasActionPerformed
-
-    private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbCategoriaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnCategorias;
