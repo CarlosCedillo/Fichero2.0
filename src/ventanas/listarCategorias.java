@@ -31,36 +31,7 @@ public class listarCategorias extends javax.swing.JFrame {
         setTitle("Fichero 2.0 / Categorias");
         this.setLocationRelativeTo(null);
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                
-                categorias.setId(resultSet.getInt("id"));
-                categorias.setNombre(resultSet.getString("nombre"));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                
-                nodo = new DefaultMutableTreeNode(categorias.getNombre());
-                raiz.add(nodo);
-                
-                obtenerSub1(categorias.getId());
-                
-            }
-            
-            DefaultTreeModel modeloArbrol = new DefaultTreeModel(raiz);
-            this.treeCategorias.setModel(modeloArbrol);
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        obtenerCategorias();
     }
 
     @SuppressWarnings("unchecked")
@@ -360,6 +331,40 @@ public class listarCategorias extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     //Obtener - Listar
+    
+    private void obtenerCategorias() {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                
+                categorias.setId(resultSet.getInt("id"));
+                categorias.setNombre(resultSet.getString("nombre"));
+                categorias.setActivo(resultSet.getBoolean("activo"));
+                
+                nodo = new DefaultMutableTreeNode(categorias.getNombre());
+                raiz.add(nodo);
+                
+                obtenerSub1(categorias.getId());
+                
+            }
+            
+            DefaultTreeModel modeloArbrol = new DefaultTreeModel(raiz);
+            this.treeCategorias.setModel(modeloArbrol);
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
     
     private void obtenerSub1(Integer idCat) {
         

@@ -359,7 +359,7 @@ public class crear extends javax.swing.JFrame {
                 cbSub1.removeAllItems();
                 conexion = ConexionBD.obtenerConexion();
                 ResultSet resultSet;
-                String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ categorias.getId() +";";
+                String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ categorias.getId() +"  AND activo = true ORDER BY nombre ASC;";
                 PreparedStatement preparedStatement = conexion.prepareStatement(sql);
                 resultSet = preparedStatement.executeQuery();
                 
@@ -392,7 +392,7 @@ public class crear extends javax.swing.JFrame {
                 cbSub2.removeAllItems();
                 conexion = ConexionBD.obtenerConexion();
                 ResultSet resultSet;
-                String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ subCategorias1.getId() +";";
+                String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ subCategorias1.getId() +" AND activo = true ORDER BY nombre ASC;";
                 PreparedStatement preparedStatement = conexion.prepareStatement(sql);
                 resultSet = preparedStatement.executeQuery();
                 
@@ -425,7 +425,7 @@ public class crear extends javax.swing.JFrame {
                 cbSub3.removeAllItems();
                 conexion = ConexionBD.obtenerConexion();
                 ResultSet resultSet;
-                String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ subCategorias2.getId() +";";
+                String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ subCategorias2.getId() +" AND activo = true ORDER BY nombre ASC;";
                 PreparedStatement preparedStatement = conexion.prepareStatement(sql);
                 resultSet = preparedStatement.executeQuery();
                 
