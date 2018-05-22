@@ -17,7 +17,7 @@ public class buscar extends javax.swing.JFrame {
     
     Connection conexion = null;
     String tabla, par;
-    ResultSet resultSet;
+    ResultSet resultSet, resultSetId;
     
     Categorias categorias = new Categorias();
     Fichas fichas = new Fichas();
@@ -30,6 +30,7 @@ public class buscar extends javax.swing.JFrame {
         initComponents();
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
+        txtFicha.setLineWrap(true);
     }
 
     @SuppressWarnings("unchecked")
@@ -325,7 +326,31 @@ public class buscar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Debe llenar el campo de texto");
         }else{
             par = txtBuscar.getText();
-            buscarTexto(par);
+            if( rbuCategoria.isSelected() == true ){
+                buscarCategoria(par);
+            }else{
+                if( rbuFuente.isSelected() == true ){
+                    buscarFuente(par);
+                }else{
+                    if( rbuTexto.isSelected() == true ){
+                        buscarTexto(par);
+                    }else{
+                        if( rbuSub1.isSelected() == true ){
+                            buscarSub1(par);
+                        }else{
+                            if( rbuSub2.isSelected() == true ){
+                                buscarSub2(par);
+                            }else{
+                                if( rbuSub3.isSelected() == true ){
+                                    buscarSub3(par);
+                                }else{
+                                    JOptionPane.showMessageDialog(null, "Debe sekeccionar un filtro");
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }//GEN-LAST:event_btnBuscarActionPerformed
 
@@ -413,6 +438,191 @@ public class buscar extends javax.swing.JFrame {
             resultSet.next();
             mostrar(resultSet);
             
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void buscarCategoria(String par) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM categorias WHERE nombre LIKE '%"+par+"%'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSetId = preparedStatement.executeQuery();
+            
+            resultSetId.next();
+            categorias.setId(resultSetId.getInt("id"));
+            Integer Id = categorias.getId();
+            
+            System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria LIKE '%"+par+"%'");
+        
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql2 = "SELECT * FROM fichas WHERE categoria LIKE '%"+Id+"%'";
+                    preparedStatement = conexion.prepareCall(sql2);
+                    resultSet = preparedStatement.executeQuery();
+
+                    resultSet.next();
+                    mostrar(resultSet);
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+     }
+
+    private void buscarFuente(String par) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM fuentes WHERE nombre LIKE '%"+par+"%'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSetId = preparedStatement.executeQuery();
+            
+            resultSetId.next();
+            fuentes.setId(resultSetId.getInt("id"));
+            Integer Id = fuentes.getId();
+            
+            System.out.println("Ejecutando: SELECT * FROM fichas WHERE fuente LIKE '%"+par+"%'");
+        
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
+                    preparedStatement = conexion.prepareCall(sql2);
+                    resultSet = preparedStatement.executeQuery();
+
+                    resultSet.next();
+                    mostrar(resultSet);
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void buscarSub1(String par) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM subCategorias1 WHERE nombre LIKE '%"+par+"%'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSetId = preparedStatement.executeQuery();
+            
+            resultSetId.next();
+            subCategorias1.setId(resultSetId.getInt("id"));
+            Integer Id = subCategorias1.getId();
+            
+            System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE fuente LIKE '%"+par+"%'");
+        
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
+                    preparedStatement = conexion.prepareCall(sql2);
+                    resultSet = preparedStatement.executeQuery();
+
+                    resultSet.next();
+                    mostrar(resultSet);
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void buscarSub2(String par) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM subCategorias1 WHERE nombre LIKE '%"+par+"%'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSetId = preparedStatement.executeQuery();
+            
+            resultSetId.next();
+            subCategorias2.setId(resultSetId.getInt("id"));
+            Integer Id = subCategorias2.getId();
+            
+            System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE fuente LIKE '%"+par+"%'");
+        
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
+                    preparedStatement = conexion.prepareCall(sql2);
+                    resultSet = preparedStatement.executeQuery();
+
+                    resultSet.next();
+                    mostrar(resultSet);
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+
+    private void buscarSub3(String par) {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT id FROM subCategorias1 WHERE nombre LIKE '%"+par+"%'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSetId = preparedStatement.executeQuery();
+            
+            resultSetId.next();
+            subCategorias3.setId(resultSetId.getInt("id"));
+            Integer Id = subCategorias3.getId();
+            
+            System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE fuente LIKE '%"+par+"%'");
+        
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
+                    preparedStatement = conexion.prepareCall(sql2);
+                    resultSet = preparedStatement.executeQuery();
+
+                    resultSet.next();
+                    mostrar(resultSet);
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+                
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
