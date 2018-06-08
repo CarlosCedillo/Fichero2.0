@@ -56,7 +56,6 @@ public class crear extends javax.swing.JFrame {
         lblSub2 = new javax.swing.JLabel();
         lblFuente = new javax.swing.JLabel();
         cbFuente = new javax.swing.JComboBox();
-        lblMensaje = new javax.swing.JLabel();
         cbCategoria = new javax.swing.JComboBox();
         cbSub2 = new javax.swing.JComboBox();
         btnCategorias = new javax.swing.JButton();
@@ -176,15 +175,10 @@ public class crear extends javax.swing.JFrame {
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(btnFuentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                             .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblSub1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(12, 12, 12)
-                                                .addComponent(lblMensaje, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                        .addComponent(lblSub1)
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                         .addGap(17, 17, 17))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
@@ -211,7 +205,6 @@ public class crear extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
-                    .addComponent(lblMensaje)
                     .addComponent(btnFuentes))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -249,8 +242,7 @@ public class crear extends javax.swing.JFrame {
         
         if( cbCategoria.getSelectedIndex()== 0 || cbFuente.getSelectedIndex()== 0 || txtFicha.getText().isEmpty()){
             
-            lblMensaje.setForeground(Color.RED);
-            lblMensaje.setText("Debe llenar todos los campos");
+            JOptionPane.showMessageDialog(null, "Debe llenar todos los campos");
             
         }else{
             
@@ -326,11 +318,8 @@ public class crear extends javax.swing.JFrame {
                 
                 cbFuente.setSelectedIndex(0);
                 
-                lblMensaje.setText("");
-                
             }else{
-                lblMensaje.setForeground(Color.red);
-                lblMensaje.setText("No se pudo guardar la ficha");
+                JOptionPane.showMessageDialog(null, "No se pudo guardar la ficha");
             }
         }
     }//GEN-LAST:event_btnGuardarActionPerformed
@@ -503,7 +492,6 @@ public class crear extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblCategoria;
     private javax.swing.JLabel lblFuente;
-    private javax.swing.JLabel lblMensaje;
     private javax.swing.JLabel lblSub1;
     private javax.swing.JLabel lblSub2;
     private javax.swing.JLabel lblSub3;

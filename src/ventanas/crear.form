@@ -98,18 +98,10 @@
                                               <Component id="btnFuentes" max="32767" attributes="0"/>
                                               <Component id="btnCategorias" max="32767" attributes="0"/>
                                           </Group>
-                                          <Group type="103" groupAlignment="0" attributes="0">
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace max="32767" attributes="0"/>
-                                                  <Component id="lblSub1" min="-2" max="-2" attributes="0"/>
-                                                  <EmptySpace max="-2" attributes="0"/>
-                                                  <Component id="cbSub1" min="-2" pref="160" max="-2" attributes="0"/>
-                                              </Group>
-                                              <Group type="102" attributes="0">
-                                                  <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
-                                                  <Component id="lblMensaje" max="32767" attributes="0"/>
-                                              </Group>
-                                          </Group>
+                                          <EmptySpace max="32767" attributes="0"/>
+                                          <Component id="lblSub1" min="-2" max="-2" attributes="0"/>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Component id="cbSub1" min="-2" pref="160" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
@@ -147,7 +139,6 @@
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="cbFuente" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblFuente" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="lblMensaje" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="btnFuentes" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -243,8 +234,6 @@
               <StringArray count="0"/>
             </Property>
           </Properties>
-        </Component>
-        <Component class="javax.swing.JLabel" name="lblMensaje">
         </Component>
         <Component class="javax.swing.JComboBox" name="cbCategoria">
           <Properties>
