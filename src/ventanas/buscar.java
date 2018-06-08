@@ -5,6 +5,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
 import tablas.Fichas;
@@ -67,6 +68,8 @@ public class buscar extends javax.swing.JFrame {
         txtSub2 = new javax.swing.JTextField();
         txtSub3 = new javax.swing.JTextField();
         txtFuente = new javax.swing.JTextField();
+        btnUltimo = new javax.swing.JButton();
+        btnPrimero = new javax.swing.JButton();
         lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -103,28 +106,33 @@ public class buscar extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(174, Short.MAX_VALUE)
+                .addGap(174, 174, 174)
                 .addComponent(lblBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(rbuCategoria)
-                            .addComponent(rbuTexto))
-                        .addGap(18, 18, 18)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rbuCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(9, 9, 9))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(rbuTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(19, 19, 19)))
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rbuSub1)
+                                .addComponent(rbuSub1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbuSub3))
+                                .addComponent(rbuSub3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rbuSub2)
+                                .addComponent(rbuSub2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addGap(18, 18, 18)
-                                .addComponent(rbuFuente))))
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 378, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(rbuFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(48, 48, 48)))
+                        .addGap(33, 33, 33))
+                    .addComponent(txtBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnBuscar)
-                .addGap(118, 118, 118))
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -204,51 +212,69 @@ public class buscar extends javax.swing.JFrame {
 
         txtFuente.setEditable(false);
 
+        btnUltimo.setText(">>");
+        btnUltimo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUltimoActionPerformed(evt);
+            }
+        });
+
+        btnPrimero.setText("<<");
+        btnPrimero.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnPrimeroActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(25, 25, 25)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblNumero)
+                    .addComponent(lblSub2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(25, 25, 25)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblNumero)
-                            .addComponent(lblSub2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(txtNumero, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
-                            .addComponent(txtSub2))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblSub3)
-                            .addComponent(lblCategoria))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtCategoria)
-                            .addComponent(txtSub3))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(lblSub1)
-                            .addComponent(lblFuente))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtSub1)
-                            .addComponent(txtFuente)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(59, 59, 59)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnRegresar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnModificar))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(btnAnt)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 600, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnSig)))
+                    .addComponent(txtNumero)
+                    .addComponent(txtSub2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblSub3)
+                    .addComponent(lblCategoria))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtCategoria)
+                    .addComponent(txtSub3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(lblSub1)
+                    .addComponent(lblFuente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtSub1)
+                    .addComponent(txtFuente))
                 .addGap(26, 26, 26))
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(44, 44, 44)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 413, Short.MAX_VALUE)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnPrimero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnAnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jScrollPane1)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(btnUltimo)
+                    .addComponent(btnSig, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(46, 46, 46))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -271,13 +297,17 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(30, 30, 30)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnSig)
                             .addComponent(btnAnt))
+                        .addGap(18, 18, 18)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(btnUltimo)
+                            .addComponent(btnPrimero))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
@@ -327,22 +357,46 @@ public class buscar extends javax.swing.JFrame {
         }else{
             par = txtBuscar.getText();
             if( rbuCategoria.isSelected() == true ){
-                buscarCategoria(par);
+                try {
+                    buscarCategoria(par);
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
             }else{
                 if( rbuFuente.isSelected() == true ){
-                    buscarFuente(par);
+                    try {
+                        buscarFuente(par);
+                    } catch (SQLException ex) {
+                        System.out.println(ex.getMessage());
+                    }
                 }else{
                     if( rbuTexto.isSelected() == true ){
-                        buscarTexto(par);
+                        try {
+                            buscarTexto(par);
+                        } catch (SQLException ex) {
+                            System.out.println(ex.getMessage());
+                        }
                     }else{
                         if( rbuSub1.isSelected() == true ){
-                            buscarSub1(par);
+                            try {
+                                buscarSub1(par);
+                            } catch (SQLException ex) {
+                                System.out.println(ex.getMessage());
+                            }
                         }else{
                             if( rbuSub2.isSelected() == true ){
-                                buscarSub2(par);
+                                try {
+                                    buscarSub2(par);
+                                } catch (SQLException ex) {
+                                    System.out.println(ex.getMessage());
+                                }
                             }else{
                                 if( rbuSub3.isSelected() == true ){
-                                    buscarSub3(par);
+                                    try {
+                                        buscarSub3(par);
+                                    } catch (SQLException ex) {
+                                        System.out.println(ex.getMessage());
+                                    }
                                 }else{
                                     JOptionPane.showMessageDialog(null, "Debe sekeccionar un filtro");
                                 }
@@ -355,7 +409,6 @@ public class buscar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
-        // TODO add your handling code here:
         try {
             
             Boolean accion = resultSet.next();
@@ -371,13 +424,76 @@ public class buscar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSigActionPerformed
 
     private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
-        // TODO add your handling code here:
+         try {
+            
+            Boolean accion = resultSet.previous();
+            
+           if( accion == false ){
+                JOptionPane.showMessageDialog(null, "Ya es el primeer registro");
+            }else{
+                mostrar(resultSet);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btnAntActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+        
+        if( !txtNumero.getText().isEmpty() ){
+            
+            try {
+            // TODO add your handling code here:
+            modificar jFrame = new modificar();
+            this.setVisible(true);
+            System.out.println("Va modificar la ficha");
+            jFrame.setVisible(true);
+            
+            modificar.txtId.setText(txtNumero.getText());
+            modificar.txtCategoria.setText(txtCategoria.getText());
+            modificar.txtSub1.setText(txtSub1.getText());
+            modificar.txtSub2.setText(txtSub2.getText());
+            modificar.txtSub3.setText(txtSub3.getText());
+            modificar.txtFuente.setText(txtFuente.getText());
+            modificar.txtFicha.setText(txtFicha.getText());
+            
+            } catch (ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }else{
+            JOptionPane.showMessageDialog(null, "No hay ficha que modificar");
+        }
     }//GEN-LAST:event_btnModificarActionPerformed
 
+    private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
+         try {
+            
+            Boolean accion = resultSet.last();
+            
+           if( accion == false ){
+                JOptionPane.showMessageDialog(null, "Ya es el ultimo registro");
+            }else{
+                mostrar(resultSet);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnUltimoActionPerformed
+
+    private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
+        try {
+            
+            Boolean accion = resultSet.first();
+            
+           if( accion == false ){
+                JOptionPane.showMessageDialog(null, "Ya es el primeer registro");
+            }else{
+                mostrar(resultSet);
+            }
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnPrimeroActionPerformed
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -391,8 +507,10 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JButton btnAnt;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnModificar;
+    private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSig;
+    private javax.swing.JButton btnUltimo;
     private javax.swing.ButtonGroup filtros;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
@@ -421,9 +539,12 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
 
-    private void buscarTexto(String par) {
+    private void buscarTexto(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
         System.out.println("Ejecutando: SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'");
@@ -433,7 +554,7 @@ public class buscar extends javax.swing.JFrame {
             ConexionBD.obtenerConexion();
             String sql = "SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'";
             preparedStatement = conexion.prepareCall(sql);
-            resultSet = preparedStatement.executeQuery();
+            resultSet = statement.executeQuery(sql);
             
             resultSet.next();
             mostrar(resultSet);
@@ -443,9 +564,12 @@ public class buscar extends javax.swing.JFrame {
         }
     }
     
-    private void buscarCategoria(String par) {
+    private void buscarCategoria(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
         try {
@@ -459,12 +583,12 @@ public class buscar extends javax.swing.JFrame {
             categorias.setId(resultSetId.getInt("id"));
             Integer Id = categorias.getId();
             
-            System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria LIKE '%"+par+"%'");
+            System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria = '%"+par+"%'");
         
                 try {
 
                     ConexionBD.obtenerConexion();
-                    String sql2 = "SELECT * FROM fichas WHERE categoria LIKE '%"+Id+"%'";
+                    String sql2 = "SELECT * FROM fichas WHERE categoria = '"+Id+"'";
                     preparedStatement = conexion.prepareCall(sql2);
                     resultSet = preparedStatement.executeQuery();
 
@@ -480,9 +604,12 @@ public class buscar extends javax.swing.JFrame {
         }
      }
 
-    private void buscarFuente(String par) {
+    private void buscarFuente(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
         try {
@@ -517,9 +644,12 @@ public class buscar extends javax.swing.JFrame {
         }
     }
 
-    private void buscarSub1(String par) {
+    private void buscarSub1(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
         try {
@@ -554,9 +684,12 @@ public class buscar extends javax.swing.JFrame {
         }
     }
 
-    private void buscarSub2(String par) {
+    private void buscarSub2(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
         try {
@@ -591,9 +724,12 @@ public class buscar extends javax.swing.JFrame {
         }
     }
 
-    private void buscarSub3(String par) {
+    private void buscarSub3(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
         try {
