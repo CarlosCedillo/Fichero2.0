@@ -460,6 +460,9 @@ public class buscar extends javax.swing.JFrame {
             } catch (ClassNotFoundException ex) {
                 System.out.println(ex.getMessage());
             }
+            
+            this.dispose();
+            
         }else{
             JOptionPane.showMessageDialog(null, "No hay ficha que modificar");
         }

@@ -23,12 +23,14 @@ public class modificar extends javax.swing.JFrame {
         setTitle("Fichero 2.0 / Modificar ");
         this.setLocationRelativeTo(null);
         
-        cbCategoria.addItem("--Seleccione--");
-        enlistarCategorias();
+//        cbCategoria.addItem("--Seleccione--");
+//        enlistarCategorias();
+//        
+//        cbFuente.addItem("--Seleccione--");
+//        enlistarFuentes();
         
-        cbFuente.addItem("--Seleccione--");
-        enlistarFuentes();
-        
+        cbCategoria.disable();
+        cbFuente.disable();
         cbSub1.disable();
         cbSub2.disable();
         cbSub3.disable();
@@ -292,7 +294,7 @@ public class modificar extends javax.swing.JFrame {
     private void cbSub2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub2ItemStateChanged
         // Esto es para cuando se seleccione una subcategoria2 se activen las subcategorias3 correspondientes
 
-        if( cbSub2.isEnabled() == true && cbSub2.getSelectedIndex() > 0 ){
+        /*if( cbSub2.isEnabled() == true && cbSub2.getSelectedIndex() > 0 ){
 
             SubCategorias2 subCategorias2  = (SubCategorias2) cbSub2.getSelectedItem();
 
@@ -318,14 +320,14 @@ public class modificar extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        }*/
 
     }//GEN-LAST:event_cbSub2ItemStateChanged
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
 
-        if( cbCategoria.getSelectedIndex() == 0 ){
+        /*if( cbCategoria.getSelectedIndex() == 0 ){
 
         }else{
             Categorias categorias  = (Categorias) cbCategoria.getSelectedItem();
@@ -353,13 +355,13 @@ public class modificar extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        }*/
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
         // Esto es para cuando se seleccione una subcategoria1 se activen las subcategorias2 correspondientes
 
-        if( cbSub1.isEnabled() == true && cbSub1.getSelectedIndex() > 0 ){
+        /*if( cbSub1.isEnabled() == true && cbSub1.getSelectedIndex() > 0 ){
 
             SubCategorias1 subCategorias1  = (SubCategorias1) cbSub1.getSelectedItem();
 
@@ -385,101 +387,54 @@ public class modificar extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }
+        }*/
 
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         // TODO add your handling code here:
         
+        String numText = txtId.getText();
+        Integer id = Integer.parseInt(numText);
+        String texto = txtFicha.getText();
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        boolean guardado = false;
+        
+        //Hay que comprobar que el nombre no existe ya!!!
+        
         try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM fichas WHERE id = "+ txtId.getText() +";";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+                
+            ConexionBD.obtenerConexion();
+            preparedStatement = conexion.prepareStatement("UPDATE fichas SET texto = ? WHERE id = ?");
+            preparedStatement.setString(1, texto);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+                
+            guardado = true;
+            System.out.println("Cambios guardaddos en la ficha "+id);
+              
             conexion = ConexionBD.cerrarConexion();
-            
-            resultSet.next();
-            fichas.setCategoria(resultSet.getInt("categoria"));
-            fichas.setSubCategoia1(resultSet.getInt("subCategoria1"));
-            fichas.setSubCategoia2(resultSet.getInt("subCategoria2"));
-            fichas.setSubCategoia3(resultSet.getInt("subCategoria3"));
-            fichas.setFuente(resultSet.getInt("fuente"));
-            fichas.setTexto(resultSet.getString("texto"));
-            
-            String oldTexto = fichas.getTexto();
-            Integer oldCate = fichas.getCategoria();
-            Integer oldSub1 = fichas.getSubCategoia1();
-            Integer oldSub2 = fichas.getSubCategoia2();
-            Integer oldSub3 = fichas.getSubCategoia3();
-            Integer oldFuen = fichas.getFuente();
-            
-            System.out.println("--- Informacion en la BD de la ficha "+ txtId.getText() +" ---");
-            System.out.println("Categoria: "+ oldCate);
-            System.out.println("Sub categoria 1: "+ oldSub1);
-            System.out.println("Sub categoria 2: "+ oldSub2);
-            System.out.println("Sub categoria 3: "+ oldSub3);
-            System.out.println("Fuente: "+ oldFuen);
-            System.out.println("Texto: "+ oldTexto);
-            
-            Categorias categoria = (Categorias) cbCategoria.getSelectedItem();
-            Fuentes fuente = (Fuentes) cbFuente.getSelectedItem();
-            
-            Integer nvaSub1, nvaSub2, nvaSub3, cont = 0;
-            String nvoTexto;
-            
-            if( cbCategoria.getSelectedIndex() == 0 ){
-                cont ++;
-            }
-            
-            if( cbSub1.getSelectedIndex() > 0 ){
-                SubCategorias1 subCategorias1 = (SubCategorias1) cbSub1.getSelectedItem();
-                nvaSub1 = subCategorias1.getId();
-            }else{
-                nvaSub1 = oldSub1;
-                cont ++;
-            }
-            
-            if( cbSub2.getSelectedIndex() > 0 ){
-                SubCategorias2 subCategorias2 = (SubCategorias2) cbSub2.getSelectedItem();
-                nvaSub2 = subCategorias2.getId();
-            }else{
-                nvaSub2 = oldSub2;
-                cont ++;
-            }
-            
-            if( cbSub3.getSelectedIndex() > 0 ){
-                SubCategorias3 subCategorias3 = (SubCategorias3) cbSub3.getSelectedItem();
-                nvaSub3 = subCategorias3.getId();
-            }else{
-                nvaSub3 = oldSub3;
-                cont ++;
-            }
-            
-            if( cbFuente.getSelectedIndex() == 0 ){
-                cont ++;
-            }
-            
-            if( txtFicha.getText().equals(oldTexto) ){
-                nvoTexto = txtFicha.getText();
-                cont ++;
-            }else{
-                nvoTexto = txtFicha.getText();
-            }
-            
-            System.out.println("--- Nueva Informacion para la ficha "+ txtId.getText() +" ---");
-            System.out.println("Categoria: "+ categoria.getId());
-            System.out.println("Sub categoria 1: "+ nvaSub1);
-            System.out.println("Sub categoria 2: "+ nvaSub2);
-            System.out.println("Sub categoria 3: "+ nvaSub3);
-            System.out.println("Fuente: "+ fuente.getId());
-            System.out.println("Texto: "+ nvoTexto);
-            System.out.println("Se contaron "+ cont + "cambios a la ficha "+ txtId.getText());
-            
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.err.println(ex.getMessage());
+                
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+                
+        } catch (ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
         }
+            
+        if( guardado == true ){
+            JOptionPane.showMessageDialog(null, "Ficha modificada");
+        }else{
+            JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios");
+        }
+        
+        this.dispose();
+        buscar jFrame = new buscar();
+        this.setVisible(false);
+        jFrame.setVisible(true);
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -524,7 +479,7 @@ public class modificar extends javax.swing.JFrame {
         
         //Consulta la bd y enlista categorias
         
-        try {
+        /*try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
             String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
@@ -542,14 +497,14 @@ public class modificar extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             System.err.println(ex.getErrorCode());
-        }
+        }*/
     }
     
     private void enlistarFuentes() throws ClassNotFoundException {
         
         //Consulta la bd y enlista fuentes
         
-        try {
+        /*try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
             String sql = "SELECT * FROM fuentes;";
@@ -566,7 +521,7 @@ public class modificar extends javax.swing.JFrame {
             
         } catch (SQLException ex) {
             System.err.println(ex.getErrorCode());
-        }
+        }*/
     }
 
 }
