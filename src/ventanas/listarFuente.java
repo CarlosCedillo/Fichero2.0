@@ -43,7 +43,7 @@ public class listarFuente extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel3.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
+        jLabel3.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
         tblFuentes.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -340,7 +340,7 @@ public class listarFuente extends javax.swing.JFrame {
             String datos[] = new String[2];
             DefaultTableModel modelo = (DefaultTableModel) tblFuentes.getModel();
             
-            String sql = "SELECT * FROM fuentes;";
+            String sql = "SELECT * FROM fuentes ;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             conexion = ConexionBD.cerrarConexion();

@@ -54,39 +54,33 @@
               <Group type="102" alignment="1" attributes="0">
                   <EmptySpace min="-2" pref="174" max="-2" attributes="0"/>
                   <Component id="lblBuscar" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
+                  <EmptySpace max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="0" attributes="0">
                               <Group type="102" alignment="0" attributes="0">
+                                  <Component id="rbuTexto" pref="58" max="32767" attributes="0"/>
+                                  <EmptySpace min="-2" pref="63" max="-2" attributes="0"/>
                                   <Component id="rbuCategoria" max="32767" attributes="0"/>
-                                  <EmptySpace min="9" pref="9" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="rbuTexto" max="32767" attributes="0"/>
-                                  <EmptySpace min="19" pref="19" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <Group type="103" groupAlignment="0" attributes="0">
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="rbuSub1" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-                                  <Component id="rbuSub3" max="32767" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="0" attributes="0">
-                                  <Component id="rbuSub2" max="32767" attributes="0"/>
-                                  <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
                                   <Component id="rbuFuente" max="32767" attributes="0"/>
-                                  <EmptySpace min="-2" pref="48" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
                               </Group>
+                              <Component id="txtBuscar" max="32767" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="33" max="-2" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="btnBuscar" min="-2" pref="80" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="txtBuscar" max="32767" attributes="0"/>
+                      <Group type="102" alignment="0" attributes="0">
+                          <Component id="rbuSub1" pref="124" max="32767" attributes="0"/>
+                          <EmptySpace max="-2" attributes="0"/>
+                          <Component id="rbuSub2" pref="106" max="32767" attributes="0"/>
+                          <EmptySpace type="separate" max="-2" attributes="0"/>
+                          <Component id="rbuSub3" max="32767" attributes="0"/>
+                          <EmptySpace min="-2" pref="216" max="-2" attributes="0"/>
+                      </Group>
                   </Group>
-                  <EmptySpace min="-2" max="-2" attributes="0"/>
-                  <Component id="btnBuscar" min="-2" pref="80" max="-2" attributes="0"/>
-                  <EmptySpace min="-2" pref="141" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -102,14 +96,14 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="rbuTexto" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rbuSub1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rbuSub3" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbuCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbuFuente" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="rbuCategoria" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="rbuSub2" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="rbuFuente" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbuSub1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="rbuSub3" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
               </Group>
@@ -425,7 +419,7 @@
     </Container>
     <Component class="javax.swing.JLabel" name="lblInfo">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fichero 2.0 creado por Carlos Gerado Cedillo Al&#xe1;ntar"/>
+        <Property name="text" type="java.lang.String" value="Fichero 2.0 creado por Carlos Gerado Cedillo Alc&#xe1;ntar"/>
       </Properties>
     </Component>
   </SubComponents>

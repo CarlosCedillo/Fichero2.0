@@ -29,7 +29,7 @@ public class modificar extends javax.swing.JFrame {
 //        cbFuente.addItem("--Seleccione--");
 //        enlistarFuentes();
         
-        cbCategoria.disable();
+        //cbCategoria.disable();
         cbFuente.disable();
         cbSub1.disable();
         cbSub2.disable();
@@ -74,7 +74,7 @@ public class modificar extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
+        jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
         txtFicha.setColumns(20);
         txtFicha.setRows(5);
@@ -113,6 +113,11 @@ public class modificar extends javax.swing.JFrame {
         cbCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 cbCategoriaItemStateChanged(evt);
+            }
+        });
+        cbCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbCategoriaActionPerformed(evt);
             }
         });
 
@@ -327,7 +332,7 @@ public class modificar extends javax.swing.JFrame {
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
         // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
 
-        /*if( cbCategoria.getSelectedIndex() == 0 ){
+        if( cbCategoria.getSelectedIndex() == 0 ){
 
         }else{
             Categorias categorias  = (Categorias) cbCategoria.getSelectedItem();
@@ -355,7 +360,7 @@ public class modificar extends javax.swing.JFrame {
             } catch (SQLException ex) {
                 System.out.println(ex.getMessage());
             }
-        }*/
+        }
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
@@ -441,7 +446,14 @@ public class modificar extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         System.out.println("Regresando a buscar");
+        buscar jframe = new buscar();
+        jframe.setVisible(true);
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void cbCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbCategoriaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;

@@ -23,7 +23,7 @@ public class inicio extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
+        jLabel1.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
         jLabel2.setText("Bienvenido");
 

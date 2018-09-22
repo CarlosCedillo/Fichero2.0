@@ -64,7 +64,7 @@ public class crear extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
+        jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
         txtFicha.setColumns(20);
         txtFicha.setRows(5);
