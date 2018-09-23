@@ -35,6 +35,7 @@ public class crear extends javax.swing.JFrame {
         enlistarFuentes();
         
         txtFicha.setLineWrap(true);
+        txtFicha.setWrapStyleWord(true);
         
     }
     
@@ -62,7 +63,7 @@ public class crear extends javax.swing.JFrame {
         btnFuentes = new javax.swing.JButton();
         btnLimpiar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
@@ -182,7 +183,7 @@ public class crear extends javax.swing.JFrame {
                         .addGap(17, 17, 17))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(69, 69, 69)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 582, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jScrollPane1)))
                 .addGap(83, 83, 83))
         );
         jPanel2Layout.setVerticalGroup(
@@ -326,9 +327,9 @@ public class crear extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        inicio jFrame = new inicio();
+        //inicio jFrame = new inicio();
         this.setVisible(false);
-        jFrame.setVisible(true);
+        //jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -530,7 +531,7 @@ public class crear extends javax.swing.JFrame {
         try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
-            String sql = "SELECT * FROM fuentes;";
+            String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             conexion = ConexionBD.cerrarConexion();

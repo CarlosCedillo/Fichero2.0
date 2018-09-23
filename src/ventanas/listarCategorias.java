@@ -48,7 +48,7 @@ public class listarCategorias extends javax.swing.JFrame {
         btnDesactivar = new javax.swing.JButton();
         btnActivar = new javax.swing.JButton();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel1.setText("Árbol de categorias");
 
@@ -379,7 +379,7 @@ public class listarCategorias extends javax.swing.JFrame {
         ResultSet resultSet;
         
         try {
-            String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ idCat +";";
+            String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ idCat +"  ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
                 
@@ -416,7 +416,7 @@ public class listarCategorias extends javax.swing.JFrame {
         ResultSet resultSet;
         
         try {
-            String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ idSubCat1 +";";
+            String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ idSubCat1 +"  ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
                     
@@ -452,7 +452,7 @@ public class listarCategorias extends javax.swing.JFrame {
         
         try {
             
-            String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ idSubCat2 +";";
+            String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ idSubCat2 +"  ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
                 

@@ -41,7 +41,7 @@ public class listarFuente extends javax.swing.JFrame {
 
         jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alántar");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         jLabel3.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
@@ -340,7 +340,7 @@ public class listarFuente extends javax.swing.JFrame {
             String datos[] = new String[2];
             DefaultTableModel modelo = (DefaultTableModel) tblFuentes.getModel();
             
-            String sql = "SELECT * FROM fuentes ;";
+            String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             conexion = ConexionBD.cerrarConexion();

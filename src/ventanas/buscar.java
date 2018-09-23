@@ -32,6 +32,8 @@ public class buscar extends javax.swing.JFrame {
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
         txtFicha.setLineWrap(true);
+        txtFicha.setWrapStyleWord(true);
+        
     }
 
     @SuppressWarnings("unchecked")
@@ -45,9 +47,6 @@ public class buscar extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         rbuTexto = new javax.swing.JRadioButton();
         rbuCategoria = new javax.swing.JRadioButton();
-        rbuSub2 = new javax.swing.JRadioButton();
-        rbuSub1 = new javax.swing.JRadioButton();
-        rbuSub3 = new javax.swing.JRadioButton();
         rbuFuente = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
@@ -72,7 +71,7 @@ public class buscar extends javax.swing.JFrame {
         btnPrimero = new javax.swing.JButton();
         lblInfo = new javax.swing.JLabel();
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
         lblBuscar.setText("Buscar");
 
@@ -88,15 +87,11 @@ public class buscar extends javax.swing.JFrame {
 
         filtros.add(rbuCategoria);
         rbuCategoria.setText("Categoria");
-
-        filtros.add(rbuSub2);
-        rbuSub2.setText("Sub Categoria 2");
-
-        filtros.add(rbuSub1);
-        rbuSub1.setText("Sub Categoria 1");
-
-        filtros.add(rbuSub3);
-        rbuSub3.setText("Sub Categoria 3");
+        rbuCategoria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rbuCategoriaActionPerformed(evt);
+            }
+        });
 
         filtros.add(rbuFuente);
         rbuFuente.setText("Fuente");
@@ -108,48 +103,37 @@ public class buscar extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(174, 174, 174)
                 .addComponent(lblBuscar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(rbuTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                                .addGap(63, 63, 63)
-                                .addComponent(rbuCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(56, 56, 56)
-                                .addComponent(rbuFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(33, 33, 33))
-                            .addComponent(txtBuscar))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 12, Short.MAX_VALUE)
+                        .addComponent(rbuTexto, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                        .addGap(63, 63, 63)
+                        .addComponent(rbuCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(56, 56, 56)
+                        .addComponent(rbuFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(39, 39, 39))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rbuSub1, javax.swing.GroupLayout.DEFAULT_SIZE, 124, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(rbuSub2, javax.swing.GroupLayout.DEFAULT_SIZE, 106, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbuSub3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(216, 216, 216))))
+                        .addComponent(txtBuscar)
+                        .addGap(18, 18, 18)))
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(141, 141, 141))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 16, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblBuscar)
-                    .addComponent(txtBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBuscar))
+                .addGap(16, 16, 16)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblBuscar)
+                        .addComponent(btnBuscar))
+                    .addComponent(txtBuscar))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(rbuTexto)
                     .addComponent(rbuCategoria)
                     .addComponent(rbuFuente))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rbuSub2)
-                    .addComponent(rbuSub1)
-                    .addComponent(rbuSub3))
-                .addGap(18, 18, 18))
+                .addGap(41, 41, 41))
         );
 
         lblNumero.setText("No. de Ficha");
@@ -294,7 +278,7 @@ public class buscar extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 209, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -339,9 +323,9 @@ public class buscar extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
         
-        inicio jFrame = new inicio();
+        //inicio jFrame = new inicio();
         this.setVisible(false);
-        jFrame.setVisible(true);
+        //jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
         
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -373,31 +357,7 @@ public class buscar extends javax.swing.JFrame {
                             System.out.println(ex.getMessage());
                         }
                     }else{
-                        if( rbuSub1.isSelected() == true ){
-                            try {
-                                buscarSub1(par);
-                            } catch (SQLException ex) {
-                                System.out.println(ex.getMessage());
-                            }
-                        }else{
-                            if( rbuSub2.isSelected() == true ){
-                                try {
-                                    buscarSub2(par);
-                                } catch (SQLException ex) {
-                                    System.out.println(ex.getMessage());
-                                }
-                            }else{
-                                if( rbuSub3.isSelected() == true ){
-                                    try {
-                                        buscarSub3(par);
-                                    } catch (SQLException ex) {
-                                        System.out.println(ex.getMessage());
-                                    }
-                                }else{
-                                    JOptionPane.showMessageDialog(null, "Debe sekeccionar un filtro");
-                                }
-                            }
-                        }
+                        JOptionPane.showMessageDialog(null, "Debe sekeccionar un filtro");
                     }
                 }
             }
@@ -493,6 +453,11 @@ public class buscar extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btnPrimeroActionPerformed
+
+    private void rbuCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbuCategoriaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbuCategoriaActionPerformed
+    
     public static void main(String args[]) {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -524,9 +489,6 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JLabel lblSub3;
     private javax.swing.JRadioButton rbuCategoria;
     private javax.swing.JRadioButton rbuFuente;
-    private javax.swing.JRadioButton rbuSub1;
-    private javax.swing.JRadioButton rbuSub2;
-    private javax.swing.JRadioButton rbuSub3;
     private javax.swing.JRadioButton rbuTexto;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoria;
@@ -538,6 +500,8 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
 
+    //Consultas de busqueda
+    
     private void buscarTexto(String par) throws SQLException {
         
         conexion = ConexionBD.obtenerConexion();
@@ -762,6 +726,8 @@ public class buscar extends javax.swing.JFrame {
             System.out.println(ex.getMessage());
         }
     }
+    
+    //Estas funciones son para imprimir lo que se encumetre de las fuunciones de busqueda
 
     public void mostrar(ResultSet resultSet) throws SQLException {
         txtNumero.setText(resultSet.getString(1));
@@ -817,17 +783,22 @@ public class buscar extends javax.swing.JFrame {
         conexion = ConexionBD.obtenerConexion();
         ResultSet resultSet;
         
-        try {
-            String sql = "SELECT nombre FROM subCategorias1 WHERE id = "+ sub1Id +";";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-                
-            resultSet.next();
-            subCategorias1.setNombre(resultSet.getString("nombre"));
-            txtSub1.setText(subCategorias1.getNombre());
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if(sub1Id == 0){
+            txtSub1.setText("");
+        }else{
+        
+            try {
+                String sql = "SELECT nombre FROM subCategorias1 WHERE id = "+ sub1Id +";";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+
+                resultSet.next();
+                subCategorias1.setNombre(resultSet.getString("nombre"));
+                txtSub1.setText(subCategorias1.getNombre());
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
@@ -836,17 +807,22 @@ public class buscar extends javax.swing.JFrame {
         conexion = ConexionBD.obtenerConexion();
         ResultSet resultSet;
         
-        try {
-            String sql = "SELECT nombre FROM subCategorias2 WHERE id = "+ sub2Id +";";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-                
-            resultSet.next();
-            subCategorias2.setNombre(resultSet.getString("nombre"));
-            txtSub2.setText(subCategorias2.getNombre());
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if(sub2Id == 0){
+            txtSub2.setText("");
+        }else{
+        
+            try {
+                String sql = "SELECT nombre FROM subCategorias2 WHERE id = "+ sub2Id +";";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+
+                resultSet.next();
+                subCategorias2.setNombre(resultSet.getString("nombre"));
+                txtSub2.setText(subCategorias2.getNombre());
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
@@ -855,17 +831,22 @@ public class buscar extends javax.swing.JFrame {
         conexion = ConexionBD.obtenerConexion();
         ResultSet resultSet;
         
-        try {
-            String sql = "SELECT nombre FROM subCategorias3 WHERE id = "+ sub3Id +";";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-                
-            resultSet.next();
-            subCategorias3.setNombre(resultSet.getString("nombre"));
-            txtSub3.setText(subCategorias3.getNombre());
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+        if(sub3Id == 0){
+            txtSub3.setText("");
+        }else{
+        
+            try {
+                String sql = "SELECT nombre FROM subCategorias3 WHERE id = "+ sub3Id +";";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+
+                resultSet.next();
+                subCategorias3.setNombre(resultSet.getString("nombre"));
+                txtSub3.setText(subCategorias3.getNombre());
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
         }
     }
 
