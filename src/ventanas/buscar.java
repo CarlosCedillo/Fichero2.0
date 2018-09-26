@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import javax.swing.JOptionPane;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
 import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
@@ -75,6 +77,12 @@ public class buscar extends javax.swing.JFrame {
 
         lblBuscar.setText("Buscar");
 
+        txtBuscar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtBuscarMouseClicked(evt);
+            }
+        });
+
         btnBuscar.setText("Buscar");
         btnBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -133,7 +141,7 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(rbuTexto)
                     .addComponent(rbuCategoria)
                     .addComponent(rbuFuente))
-                .addGap(41, 41, 41))
+                .addContainerGap())
         );
 
         lblNumero.setText("No. de Ficha");
@@ -278,7 +286,7 @@ public class buscar extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 208, Short.MAX_VALUE))
+                        .addComponent(jScrollPane1))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(121, 121, 121)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -288,7 +296,7 @@ public class buscar extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnUltimo)
                             .addComponent(btnPrimero))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 83, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
@@ -457,6 +465,11 @@ public class buscar extends javax.swing.JFrame {
     private void rbuCategoriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rbuCategoriaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_rbuCategoriaActionPerformed
+
+    private void txtBuscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtBuscarMouseClicked
+        // TODO add your handling code here:
+       // System.out.println("Has dado click :O");
+    }//GEN-LAST:event_txtBuscarMouseClicked
     
     public static void main(String args[]) {
 
@@ -510,7 +523,7 @@ public class buscar extends javax.swing.JFrame {
                 resultSet.CONCUR_READ_ONLY);
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'");
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE texto = '"+par+"'");
         
         try {
             
@@ -518,10 +531,14 @@ public class buscar extends javax.swing.JFrame {
             String sql = "SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'";
             preparedStatement = conexion.prepareCall(sql);
             resultSet = statement.executeQuery(sql);
-            
-            resultSet.next();
-            mostrar(resultSet);
-            
+
+//            if( resultSet.wasNull() ){
+//                JOptionPane.showMessageDialog(null, "No se encontro una ficha");
+//            }else{
+                resultSet.next();
+                mostrar(resultSet);
+//            }
+
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
@@ -529,202 +546,66 @@ public class buscar extends javax.swing.JFrame {
     
     private void buscarCategoria(String par) throws SQLException {
         
+        //Primero tengo que obteenr el id  de la categoria para poder buscarla en la tabla de fichas
         conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
+        PreparedStatement preparedStatementID;
+        ResultSet resultSetID;
         
         try {
             
             ConexionBD.obtenerConexion();
-            String sql = "SELECT id FROM categorias WHERE nombre LIKE '%"+par+"%'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSetId = preparedStatement.executeQuery();
+            String sqlID = "SELECT * FROM categorias WHERE nombre LIKE '%"+par+"%'";
+            preparedStatementID = conexion.prepareCall(sqlID);
+            resultSetID = preparedStatementID.executeQuery();
             
-            resultSetId.next();
-            categorias.setId(resultSetId.getInt("id"));
-            Integer Id = categorias.getId();
-            
-            System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria = '%"+par+"%'");
-        
-                try {
-
-                    ConexionBD.obtenerConexion();
-                    String sql2 = "SELECT * FROM fichas WHERE categoria = '"+Id+"'";
-                    preparedStatement = conexion.prepareCall(sql2);
-                    resultSet = preparedStatement.executeQuery();
-
-                    resultSet.next();
-                    mostrar(resultSet);
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
+//            resultSetID.next();
+                
+                
+                while( resultSetID.next()){
+                    categorias.setId(resultSetID.getInt("id"));
+                    Integer Id = categorias.getId();
+                    System.out.println(Id);
                 }
                 
+                //Ahora tengo que obtener las fichas que tengan esa categoria.
+//                Statement statement = conexion.createStatement(
+//                resultSet.TYPE_SCROLL_INSENSITIVE,
+//                resultSet.CONCUR_READ_ONLY);
+//                PreparedStatement preparedStatement;
+//
+//                System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria = '"+par+"'");
+//
+//                try {
+//
+//                    ConexionBD.obtenerConexion();
+//                    String sql = "SELECT * FROM fichas WHERE categoria = '"+Id+"'";
+//                    preparedStatement = conexion.prepareCall(sql);
+//                    resultSet = statement.executeQuery(sql);
+//                    
+//                    resultSet.next();
+//                    mostrar(resultSet);
+//
+//                } catch (SQLException ex) {
+//                    System.out.println(ex.getMessage());
+//                }
+//            
+            
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+        
      }
 
     private void buscarFuente(String par) throws SQLException {
-        
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT id FROM fuentes WHERE nombre LIKE '%"+par+"%'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSetId = preparedStatement.executeQuery();
-            
-            resultSetId.next();
-            fuentes.setId(resultSetId.getInt("id"));
-            Integer Id = fuentes.getId();
-            
-            System.out.println("Ejecutando: SELECT * FROM fichas WHERE fuente LIKE '%"+par+"%'");
-        
-                try {
-
-                    ConexionBD.obtenerConexion();
-                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
-                    preparedStatement = conexion.prepareCall(sql2);
-                    resultSet = preparedStatement.executeQuery();
-
-                    resultSet.next();
-                    mostrar(resultSet);
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     private void buscarSub1(String par) throws SQLException {
-        
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT id FROM subCategorias1 WHERE nombre LIKE '%"+par+"%'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSetId = preparedStatement.executeQuery();
-            
-            resultSetId.next();
-            subCategorias1.setId(resultSetId.getInt("id"));
-            Integer Id = subCategorias1.getId();
-            
-            System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE fuente LIKE '%"+par+"%'");
-        
-                try {
-
-                    ConexionBD.obtenerConexion();
-                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
-                    preparedStatement = conexion.prepareCall(sql2);
-                    resultSet = preparedStatement.executeQuery();
-
-                    resultSet.next();
-                    mostrar(resultSet);
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     private void buscarSub2(String par) throws SQLException {
-        
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT id FROM subCategorias1 WHERE nombre LIKE '%"+par+"%'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSetId = preparedStatement.executeQuery();
-            
-            resultSetId.next();
-            subCategorias2.setId(resultSetId.getInt("id"));
-            Integer Id = subCategorias2.getId();
-            
-            System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE fuente LIKE '%"+par+"%'");
-        
-                try {
-
-                    ConexionBD.obtenerConexion();
-                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
-                    preparedStatement = conexion.prepareCall(sql2);
-                    resultSet = preparedStatement.executeQuery();
-
-                    resultSet.next();
-                    mostrar(resultSet);
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
 
     private void buscarSub3(String par) throws SQLException {
-        
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT id FROM subCategorias1 WHERE nombre LIKE '%"+par+"%'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSetId = preparedStatement.executeQuery();
-            
-            resultSetId.next();
-            subCategorias3.setId(resultSetId.getInt("id"));
-            Integer Id = subCategorias3.getId();
-            
-            System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE fuente LIKE '%"+par+"%'");
-        
-                try {
-
-                    ConexionBD.obtenerConexion();
-                    String sql2 = "SELECT * FROM fichas WHERE fuente LIKE '%"+Id+"%'";
-                    preparedStatement = conexion.prepareCall(sql2);
-                    resultSet = preparedStatement.executeQuery();
-
-                    resultSet.next();
-                    mostrar(resultSet);
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-                }
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
     
     //Estas funciones son para imprimir lo que se encumetre de las fuunciones de busqueda
