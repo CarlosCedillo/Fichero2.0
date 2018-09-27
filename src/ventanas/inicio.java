@@ -78,7 +78,7 @@ public class inicio extends javax.swing.JFrame {
         
         buscar jFrame = new buscar();
         //this.setVisible(false);
-        System.out.println("Cerrando ventana Inicio y abriendo ventana Buscar");
+        System.out.println("Abriendo ventana Buscar");
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -92,7 +92,7 @@ public class inicio extends javax.swing.JFrame {
             Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         //this.setVisible(false);
-        System.out.println("Cerrando ventana Inicio y abriendo ventana Crear");
+        System.out.println("Abriendo ventana Crear");
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
