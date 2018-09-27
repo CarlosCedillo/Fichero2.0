@@ -8,6 +8,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
 import tablas.Fichas;
@@ -53,6 +55,7 @@ public class buscar extends javax.swing.JFrame {
         rbuCategoria = new javax.swing.JRadioButton();
         rbuFuente = new javax.swing.JRadioButton();
         cbBuscar = new javax.swing.JComboBox();
+        rbuNoficha = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
@@ -111,29 +114,39 @@ public class buscar extends javax.swing.JFrame {
             }
         });
 
+        filtros.add(rbuNoficha);
+        rbuNoficha.setText("No. de ficha");
+        rbuNoficha.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbuNofichaItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+            .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(174, 174, 174)
                 .addComponent(lblBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(rbuNoficha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
                         .addComponent(rbuTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(61, 61, 61)
+                        .addGap(18, 18, 18)
                         .addComponent(rbuCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(58, 58, 58)
+                        .addGap(18, 18, 18)
                         .addComponent(rbuFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(39, 39, 39))
+                        .addGap(230, 230, 230))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbBuscar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(cbBuscar, 0, 171, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar)
-                        .addGap(18, 18, 18)))
-                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(141, 141, 141))
+                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(141, 141, 141))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -145,17 +158,17 @@ public class buscar extends javax.swing.JFrame {
                             .addComponent(txtBuscar)
                             .addComponent(cbBuscar))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                .addComponent(rbuTexto)
-                                .addComponent(rbuFuente))
-                            .addComponent(rbuCategoria))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(rbuTexto)
+                            .addComponent(rbuFuente)
+                            .addComponent(rbuCategoria)
+                            .addComponent(rbuNoficha))
                         .addGap(18, 18, 18))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(lblBuscar)
                             .addComponent(btnBuscar))
-                        .addGap(48, 48, 48))))
+                        .addGap(41, 41, 41))))
         );
 
         lblNumero.setText("No. de Ficha");
@@ -260,26 +273,22 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(txtFuente))
                 .addGap(26, 26, 26))
             .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(51, 51, 51)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(44, 44, 44)
-                                .addComponent(btnPrimero))
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(18, 18, 18)
+                            .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(btnPrimero))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(jScrollPane1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnSig, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnUltimo))
+                    .addComponent(btnUltimo, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnSig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(40, 40, 40))
         );
         jPanel2Layout.setVerticalGroup(
@@ -303,27 +312,25 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(142, 142, 142)
-                                .addComponent(btnSig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnUltimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGap(1, 1, 1))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(143, 143, 143)
-                                .addComponent(btnAnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(btnPrimero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGap(127, 127, 127))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(30, 30, 30)
-                        .addComponent(jScrollPane1)
-                        .addGap(13, 13, 13)))
+                        .addComponent(jScrollPane1))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(128, 128, 128)
+                        .addComponent(btnSig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnUltimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(74, 74, 74))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(123, 123, 123)
+                        .addComponent(btnAnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnPrimero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGap(79, 79, 79)))
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
                     .addComponent(btnModificar))
-                .addContainerGap())
+                .addGap(30, 30, 30))
         );
 
         lblInfo.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
@@ -366,10 +373,18 @@ public class buscar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Debe llenar el campo de busqueda");
             }else{
                 if( rbuCategoria.isSelected() == true ){
-                    JOptionPane.showMessageDialog(null, "Busqueda por categoria");
+                    try {
+                        buscarCategoria();
+                    } catch (SQLException ex) {
+                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 }else{
                     if( rbuFuente.isSelected() == true ){
-                        JOptionPane.showMessageDialog(null, "Busqueda por fuente");
+                        try {
+                            buscarFuente();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
                     }
@@ -384,7 +399,16 @@ public class buscar extends javax.swing.JFrame {
                     Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
-                JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
+                if( rbuNoficha.isSelected() == true ){
+                    par = txtBuscar.getText();
+                    try {
+                        buscarNoficha(par);
+                                } catch (SQLException ex) {
+                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
+                }
             }
         }
         
@@ -485,7 +509,7 @@ public class buscar extends javax.swing.JFrame {
         txtBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        System.out.println("Buscando por Categorias");
+        System.out.println("Buscando por categorias");
         cbBuscar.setVisible(true);
         
         cbBuscar.removeAllItems();
@@ -502,7 +526,7 @@ public class buscar extends javax.swing.JFrame {
         txtBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        System.out.println("Buscando por Fuentes");
+        System.out.println("Buscando por fuentes");
         cbBuscar.setVisible(true);
         
         cbBuscar.removeAllItems();
@@ -517,7 +541,7 @@ public class buscar extends javax.swing.JFrame {
     private void rbuTextoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuTextoItemStateChanged
         // TODO add your handling code here:
         txtBuscar.setVisible(true);
-        System.out.println("Buscando por Fuentes");
+        System.out.println("Buscando por texto");
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
@@ -525,6 +549,17 @@ public class buscar extends javax.swing.JFrame {
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
         
     }//GEN-LAST:event_rbuTextoItemStateChanged
+
+    private void rbuNofichaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuNofichaItemStateChanged
+        // TODO add your handling code here:
+        txtBuscar.setVisible(true);
+        System.out.println("Buscando por Fuentes");
+        cbBuscar.setVisible(false);
+        txtBuscar.setText("");
+        
+        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+    }//GEN-LAST:event_rbuNofichaItemStateChanged
     
     public static void main(String args[]) {
 
@@ -558,6 +593,7 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JLabel lblSub3;
     private javax.swing.JRadioButton rbuCategoria;
     private javax.swing.JRadioButton rbuFuente;
+    private javax.swing.JRadioButton rbuNoficha;
     private javax.swing.JRadioButton rbuTexto;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoria;
@@ -569,7 +605,7 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
 
-    //Consultas de busqueda
+    //Buscar
     
     private void buscarTexto(String par) throws SQLException {
         
@@ -596,21 +632,107 @@ public class buscar extends javax.swing.JFrame {
         }
     }
     
-    private void buscarCategoria(String par) throws SQLException {
+    private void buscarCategoria() throws SQLException {
         
-        // fichas.categoria = categorias.id
+        // 1ro hay que obtener el id de la categoria seleccionada en el combo box
+        Categorias categoria = (Categorias) cbBuscar.getSelectedItem();
+        Integer categoriaId = categoria.getId();
+        String categoriaNombre = categoria.getNombre();
+        System.out.println("Buscando fichas con la categoria "+categoriaNombre+" con al id "+categoriaId);
         
+        //Ahora hay que buscar las ficha que tenga la caregoria guardada en categoriaId
+        conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria = '"+categoriaId+"'");
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM fichas WHERE categoria = '"+categoriaId+"'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSet = statement.executeQuery(sql);
+            
+            resultSet.next();
+            mostrar(resultSet);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
-    private void buscarFuente(String par) throws SQLException {}
-
-    private void buscarSub1(String par) throws SQLException {}
-
-    private void buscarSub2(String par) throws SQLException {}
-
-    private void buscarSub3(String par) throws SQLException {}
+    private void buscarFuente() throws SQLException {
     
-    //Estas funciones son para imprimir lo que se encumetre de las fuunciones de busqueda
+        // 1ro hay que obtener el id de la fuente seleccionada en el combo box
+        Fuentes fuentes = (Fuentes) cbBuscar.getSelectedItem();
+        Integer fuenteId = fuentes.getId();
+        String fuenteNombre = fuentes.getNombre();
+        System.out.println("Buscando fichas con la fuente "+fuenteNombre+" con al id "+fuenteId);
+        
+        //Ahora hay que buscar las ficha que tenga la caregoria guardada en categoriaId
+        conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE fuente = '"+fuenteId+"'");
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "SELECT * FROM fichas WHERE fuente = '"+fuenteId+"'";
+            preparedStatement = conexion.prepareCall(sql);
+            resultSet = statement.executeQuery(sql);
+            
+            resultSet.next();
+            mostrar(resultSet);
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    private void buscarNoficha(String par) throws SQLException{
+        //Al buscar una ficha por id, no se debe de aceptar letras, es decir que solo números
+        Pattern texto = Pattern.compile(".+[a-zA-ZñÑáéíóúÁÉÍÓÚ]+.?");
+        Matcher sip = texto.matcher(par);
+        
+        if( sip.matches() ){
+            JOptionPane.showMessageDialog(null, "Al buscar una ficha por No. de ficha, debe de escribir un numero ");
+        }else{
+            Integer fichaId = Integer.parseInt(par);
+            
+            conexion = ConexionBD.obtenerConexion();
+            Statement statement = conexion.createStatement(
+                    resultSet.TYPE_SCROLL_INSENSITIVE,
+                 resultSet.CONCUR_READ_ONLY);
+            PreparedStatement preparedStatement;
+        
+            System.out.println("Ejecutando: SELECT * FROM fichas WHERE id = '"+fichaId+"'");
+
+            try {
+
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM fichas WHERE id = '"+fichaId+"'";
+                preparedStatement = conexion.prepareCall(sql);
+                resultSet = statement.executeQuery(sql);
+
+                resultSet.next();
+                mostrar(resultSet);
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        }
+        
+    }
+    
+    //Mostrar
 
     public void mostrar(ResultSet resultSet) throws SQLException {
         txtNumero.setText(resultSet.getString(1));
@@ -752,7 +874,7 @@ public class buscar extends javax.swing.JFrame {
         }
     }
     
-    //Son clases para enlistar en los combos box
+    //Listar
 
     private void lisatrCategorias() {
         
