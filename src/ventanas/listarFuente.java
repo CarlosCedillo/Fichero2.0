@@ -152,7 +152,7 @@ public class listarFuente extends javax.swing.JFrame {
         
         String nombre = JOptionPane.showInputDialog(null, "Nombre de la nueva Fuente");
         
-        if( nombre.isEmpty() ){
+        if( nombre.isEmpty()){
             JOptionPane.showMessageDialog(null, "No se ingeso una fuente");
         }else{
             

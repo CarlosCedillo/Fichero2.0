@@ -21,7 +21,7 @@ public class inicio extends javax.swing.JFrame {
         btnBuscar = new javax.swing.JButton();
         btnCrear = new javax.swing.JButton();
         lblInfo = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -43,10 +43,10 @@ public class inicio extends javax.swing.JFrame {
 
         lblInfo.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
-        jButton1.setText("Eliminar");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                btnBorrarActionPerformed(evt);
             }
         });
 
@@ -64,7 +64,7 @@ public class inicio extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addComponent(btnCrear, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnBorrar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
@@ -76,7 +76,7 @@ public class inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnCrear, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 38, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 19, Short.MAX_VALUE)
                 .addComponent(lblInfo))
         );
@@ -107,14 +107,14 @@ public class inicio extends javax.swing.JFrame {
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-//        eliminar jFrame = null;
-//        jFrame = new eliminar();
-//        //this.setVisible(false);
-//        System.out.println("Abriendo ventana Eliminar");
-//        jFrame.setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+        borrar jFrame = null;
+        jFrame = new borrar();
+        //this.setVisible(false);
+        System.out.println("Abriendo ventana Eliminar");
+        jFrame.setVisible(true);
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -149,9 +149,9 @@ public class inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
     private javax.swing.JButton btnCrear;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel lblInfo;
     // End of variables declaration//GEN-END:variables

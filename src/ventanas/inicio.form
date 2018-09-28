@@ -34,7 +34,7 @@
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
               <Component id="btnCrear" max="32767" attributes="0"/>
               <EmptySpace type="separate" min="-2" max="-2" attributes="0"/>
-              <Component id="jButton1" max="32767" attributes="0"/>
+              <Component id="btnBorrar" max="32767" attributes="0"/>
               <EmptySpace min="-2" pref="60" max="-2" attributes="0"/>
           </Group>
       </Group>
@@ -48,7 +48,7 @@
               <Group type="103" groupAlignment="3" attributes="0">
                   <Component id="btnBuscar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
                   <Component id="btnCrear" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
-                  <Component id="jButton1" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
+                  <Component id="btnBorrar" alignment="3" min="-2" pref="38" max="-2" attributes="0"/>
               </Group>
               <EmptySpace pref="19" max="32767" attributes="0"/>
               <Component id="lblInfo" min="-2" max="-2" attributes="0"/>
@@ -83,12 +83,12 @@
         <Property name="text" type="java.lang.String" value="Fichero 2.0 creado por Carlos Gerado Cedillo Alc&#xe1;ntar"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JButton" name="jButton1">
+    <Component class="javax.swing.JButton" name="btnBorrar">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Eliminar"/>
+        <Property name="text" type="java.lang.String" value="Borrar"/>
       </Properties>
       <Events>
-        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBorrarActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
