@@ -18,7 +18,7 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class buscar extends javax.swing.JFrame {
+public class borrar extends javax.swing.JFrame {
     
     Connection conexion = null;
     String tabla, par;
@@ -31,7 +31,7 @@ public class buscar extends javax.swing.JFrame {
     SubCategorias2 subCategorias2 = new SubCategorias2();
     SubCategorias3 subCategorias3 = new SubCategorias3();
     
-    public buscar() {
+    public borrar() {
         initComponents();
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
@@ -69,7 +69,7 @@ public class buscar extends javax.swing.JFrame {
         btnAnt = new javax.swing.JButton();
         lblFuente = new javax.swing.JLabel();
         btnRegresar = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnBorrar = new javax.swing.JButton();
         txtCategoria = new javax.swing.JTextField();
         txtSub1 = new javax.swing.JTextField();
         txtSub2 = new javax.swing.JTextField();
@@ -211,10 +211,12 @@ public class buscar extends javax.swing.JFrame {
             }
         });
 
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+        btnBorrar.setBackground(new java.awt.Color(153, 0, 0));
+        btnBorrar.setForeground(new java.awt.Color(255, 255, 255));
+        btnBorrar.setText("Borrar");
+        btnBorrar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
+                btnBorrarActionPerformed(evt);
             }
         });
 
@@ -278,7 +280,7 @@ public class buscar extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(btnBorrar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -329,7 +331,7 @@ public class buscar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(btnModificar))
+                    .addComponent(btnBorrar))
                 .addGap(30, 30, 30))
         );
 
@@ -376,14 +378,14 @@ public class buscar extends javax.swing.JFrame {
                     try {
                         buscarCategoria();
                     } catch (SQLException ex) {
-                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     if( rbuFuente.isSelected() == true ){
                         try {
                             buscarFuente();
                         } catch (SQLException ex) {
-                            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -396,7 +398,7 @@ public class buscar extends javax.swing.JFrame {
                 try {
                     buscarTexto(par);
                 } catch (SQLException ex) {
-                    Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 if( rbuNoficha.isSelected() == true ){
@@ -404,7 +406,7 @@ public class buscar extends javax.swing.JFrame {
                     try {
                         buscarNoficha(par);
                                 } catch (SQLException ex) {
-                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -444,35 +446,25 @@ public class buscar extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnAntActionPerformed
 
-    private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
+    private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         
-        if( !txtNumero.getText().isEmpty() ){
+        if( txtNumero.getText().isEmpty() == true ){
+            JOptionPane.showMessageDialog(null, "No hay ficha para eliminar");
+        }else{
+            par = txtNumero.getText();
+            Integer confirmacion = JOptionPane.showConfirmDialog(null, "Esta apunto de borrar la ficha "+ par + " ¿Desea continuar?");
             
-            try {
-            // TODO add your handling code here:
-            modificar jFrame = new modificar();
-            this.setVisible(true);
-            System.out.println("Va modificar la ficha");
-            jFrame.setVisible(true);
-            
-            modificar.txtId.setText(txtNumero.getText());
-            modificar.txtCategoria.setText(txtCategoria.getText());
-            modificar.txtSub1.setText(txtSub1.getText());
-            modificar.txtSub2.setText(txtSub2.getText());
-            modificar.txtSub3.setText(txtSub3.getText());
-            modificar.txtFuente.setText(txtFuente.getText());
-            modificar.txtFicha.setText(txtFicha.getText());
-            
-            } catch (ClassNotFoundException ex) {
-                System.out.println(ex.getMessage());
+            if( confirmacion == 0 ){
+                try {
+                    borrarFicha(par);
+                } catch (SQLException ex) {
+                    Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             
-            this.dispose();
-            
-        }else{
-            JOptionPane.showMessageDialog(null, "No hay ficha que modificar");
         }
-    }//GEN-LAST:event_btnModificarActionPerformed
+        
+    }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
          try {
@@ -565,15 +557,15 @@ public class buscar extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new buscar().setVisible(true);
+                new borrar().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnt;
+    private javax.swing.JButton btnBorrar;
     private javax.swing.JButton btnBuscar;
-    private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnSig;
@@ -628,6 +620,7 @@ public class buscar extends javax.swing.JFrame {
             mostrar(resultSet);
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
             System.out.println(ex.getMessage());
         }
     }
@@ -660,6 +653,7 @@ public class buscar extends javax.swing.JFrame {
             mostrar(resultSet);
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
             System.out.println(ex.getMessage());
         }
     }
@@ -692,6 +686,7 @@ public class buscar extends javax.swing.JFrame {
             mostrar(resultSet);
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
             System.out.println(ex.getMessage());
         }
     }
@@ -702,7 +697,7 @@ public class buscar extends javax.swing.JFrame {
         Matcher sip = texto.matcher(par);
         
         if( sip.matches() ){
-            JOptionPane.showMessageDialog(null, "Al buscar una ficha por No. de ficha, debe de escribir un numero ");
+            JOptionPane.showMessageDialog(null, "Este tipo de busqueda no acepta letras");
         }else{
             Integer fichaId = Integer.parseInt(par);
             
@@ -725,11 +720,10 @@ public class buscar extends javax.swing.JFrame {
                 mostrar(resultSet);
 
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "No se encontro una ficha");
                 System.out.println(ex.getMessage());
             }
-            
         }
-        
     }
     
     //Mostrar
@@ -924,4 +918,31 @@ public class buscar extends javax.swing.JFrame {
             System.err.println(ex.getErrorCode());
         }
     }
+    
+    //borrar
+
+    private void borrarFicha(String par) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Ejecutando: DELETE * FROM fichas WHERE id = '"+par+"'");
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            String sql = "DELETE * FROM fichas WHERE id = '"+par+"'";
+            preparedStatement = conexion.prepareStatement(sql);
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp > 0 ){
+                JOptionPane.showMessageDialog(null, "Ficha "+par+" eliminada con éxito");
+            }
+
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+    
 }
