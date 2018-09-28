@@ -628,6 +628,7 @@ public class buscar extends javax.swing.JFrame {
             mostrar(resultSet);
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
             System.out.println(ex.getMessage());
         }
     }
@@ -660,6 +661,7 @@ public class buscar extends javax.swing.JFrame {
             mostrar(resultSet);
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
             System.out.println(ex.getMessage());
         }
     }
@@ -692,6 +694,7 @@ public class buscar extends javax.swing.JFrame {
             mostrar(resultSet);
 
         } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
             System.out.println(ex.getMessage());
         }
     }
@@ -702,7 +705,7 @@ public class buscar extends javax.swing.JFrame {
         Matcher sip = texto.matcher(par);
         
         if( sip.matches() ){
-            JOptionPane.showMessageDialog(null, "Al buscar una ficha por No. de ficha, debe de escribir un numero ");
+            JOptionPane.showMessageDialog(null, "Este tipo de busqueda no acepta letras");
         }else{
             Integer fichaId = Integer.parseInt(par);
             
@@ -725,11 +728,10 @@ public class buscar extends javax.swing.JFrame {
                 mostrar(resultSet);
 
             } catch (SQLException ex) {
+                JOptionPane.showMessageDialog(null, "No se encontro una ficha");
                 System.out.println(ex.getMessage());
             }
-            
         }
-        
     }
     
     //Mostrar
