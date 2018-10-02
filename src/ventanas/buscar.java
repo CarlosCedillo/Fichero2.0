@@ -959,5 +959,4 @@ public class buscar extends javax.swing.JFrame {
         highlighter.addHighlight(p0, p1, paiter);
         
     }
-    
 }
