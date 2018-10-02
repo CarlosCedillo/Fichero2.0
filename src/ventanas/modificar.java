@@ -3,14 +3,21 @@ package ventanas;
 import conexion.ConexionBD;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import javax.swing.JOptionPane;
+import tablas.Categorias;
 import tablas.Fichas;
+import tablas.SubCategorias1;
+import tablas.SubCategorias2;
+import tablas.SubCategorias3;
 
 public class modificar extends javax.swing.JFrame {
     
     Connection conexion = null;
     Fichas fichas = new Fichas();
+    String tabla, nombre;
 
     public modificar() throws ClassNotFoundException {
         initComponents();
@@ -43,11 +50,11 @@ public class modificar extends javax.swing.JFrame {
         lblNoFicha4 = new javax.swing.JLabel();
         txtFuente = new javax.swing.JTextField();
         lblNoFicha5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
+        btnModCat = new javax.swing.JButton();
+        btnModSub1 = new javax.swing.JButton();
+        btnModSub2 = new javax.swing.JButton();
+        btnModSub3 = new javax.swing.JButton();
+        btnModFue = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -94,15 +101,40 @@ public class modificar extends javax.swing.JFrame {
 
         lblNoFicha5.setText("Fuente");
 
-        jButton1.setText("Modificar");
+        btnModCat.setText("Modificar");
+        btnModCat.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModCatActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Modificar");
+        btnModSub1.setText("Modificar");
+        btnModSub1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModSub1ActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Modificar");
+        btnModSub2.setText("Modificar");
+        btnModSub2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModSub2ActionPerformed(evt);
+            }
+        });
 
-        jButton4.setText("Modificar");
+        btnModSub3.setText("Modificar");
+        btnModSub3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModSub3ActionPerformed(evt);
+            }
+        });
 
-        jButton5.setText("Modificar");
+        btnModFue.setText("Modificar");
+        btnModFue.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModFueActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
@@ -121,46 +153,45 @@ public class modificar extends javax.swing.JFrame {
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblNoFicha5)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblNoFicha4)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton5, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton4, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(lblNoFicha5)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblNoFicha2)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblNoFicha3)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblNoFicha1)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addComponent(lblNoFicha)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addGap(56, 56, 56)
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton3, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(127, 127, 127)
+                                .addComponent(lblNoFicha4)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblNoFicha2)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addComponent(lblNoFicha3)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(25, 25, 25)
+                                    .addComponent(lblNoFicha1)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtCategoria))
+                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(17, 17, 17)
+                                    .addComponent(lblNoFicha)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(txtId))))
+                        .addGap(62, 62, 62)
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnModFue)
+                                .addComponent(btnModSub3))
+                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(btnModCat)
+                                .addComponent(btnModSub2)
+                                .addComponent(btnModSub1)))
+                        .addGap(121, 121, 121)
                         .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, Short.MAX_VALUE))
@@ -178,27 +209,27 @@ public class modificar extends javax.swing.JFrame {
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNoFicha1)
-                            .addComponent(jButton1))
+                            .addComponent(btnModCat))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNoFicha2)
-                            .addComponent(jButton2))
+                            .addComponent(btnModSub1))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNoFicha3)
-                            .addComponent(jButton3))
+                            .addComponent(btnModSub2))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNoFicha4)
-                            .addComponent(jButton4))
+                            .addComponent(btnModSub3))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lblNoFicha5)
-                            .addComponent(jButton5))
+                            .addComponent(btnModFue))
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -216,9 +247,7 @@ public class modificar extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 574, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,48 +258,63 @@ public class modificar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
-        // TODO add your handling code here:
-
-        String numText = txtId.getText();
-        Integer id = Integer.parseInt(numText);
-        String texto = txtFicha.getText();
-
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        boolean guardado = false;
-
-        //Hay que comprobar que el nombre no existe ya!!!
-
         try {
+            
+            Integer fichaCategoriaId, fichaSub1Id, fichaSub2Id, fichaSub3Id, fichaFuenteId;
+            String fichaTexto, fichaIdT;
+            
+            fichaIdT = txtId.getText();
+            int fichaId = Integer.parseInt(fichaIdT);
+            fichaCategoriaId = obtenerCategoriaId(txtCategoria.getText());
+            fichaSub1Id = obtenerSub1Id(txtSub1.getText());
+            fichaSub2Id = obtenerSub2Id(txtSub2.getText());
+            fichaSub3Id = obtenerSub3Id(txtSub3.getText());
+            fichaFuenteId = obtenerFuenteId(txtFuente.getText());
+            fichaTexto = txtFicha.getText();
+            
+            
+            System.out.println("Informacion de la ficha "+fichaId+":");
+            System.out.println("Categoria: "+txtCategoria.getText()+" con id: "+fichaCategoriaId);
+            System.out.println("Sub categoria 1: "+txtSub1.getText()+" con id: "+fichaSub1Id);
+            System.out.println("Sub categoria 2: "+txtSub2.getText()+" con id: "+fichaSub2Id);
+            System.out.println("Sub categoria 3: "+txtSub3.getText()+" con id: "+fichaSub3Id);
+            System.out.println("Contenido / texto: "+fichaTexto);
+            System.out.println("Fuente: "+txtFuente.getText()+" con id: "+fichaFuenteId);
+            
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            Statement statement = conexion.createStatement();
+            boolean modificado = false;
 
-            ConexionBD.obtenerConexion();
-            preparedStatement = conexion.prepareStatement("UPDATE fichas SET texto = ? WHERE id = ?");
-            preparedStatement.setString(1, texto);
-            preparedStatement.setInt(2, id);
+            String sql = "UPDATE fichas SET texto = ?, categoria = ?, subCategoria1 = ?, subCategoria2 = ?, subCategoria3 = ?, fuente = ? WHERE id = ?";
+            preparedStatement = conexion.prepareCall(sql);
+            preparedStatement.setString(1, fichaTexto);
+            preparedStatement.setInt(2, fichaCategoriaId);
+            preparedStatement.setInt(3, fichaSub1Id);
+            preparedStatement.setInt(4, fichaSub2Id);
+            preparedStatement.setInt(5, fichaSub3Id);
+            preparedStatement.setInt(6, fichaFuenteId);
+            preparedStatement.setInt(7, fichaId);
             preparedStatement.executeUpdate();
-
-            guardado = true;
-            System.out.println("Cambios guardaddos en la ficha "+id);
-
+            
+            modificado = true;
             conexion = ConexionBD.cerrarConexion();
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        if( guardado == true ){
+            
             JOptionPane.showMessageDialog(null, "Ficha modificada");
-        }else{
-            JOptionPane.showMessageDialog(null, "No se pudo guardar los cambios");
+            this.dispose();
+            
+            buscar jFrame = new buscar();
+            System.out.println("Regresando a ventana Buscar");
+            jFrame.setVisible(true);
+            
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "Ficha no modificada");
+            System.out.println(ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "Ficha no modificada");
+            System.out.println(ex.getMessage());
         }
-
-        this.dispose();
-        buscar jFrame = new buscar();
-        this.setVisible(false);
-        jFrame.setVisible(true);
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -281,14 +325,296 @@ public class modificar extends javax.swing.JFrame {
         jframe.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
+    private void btnModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModCatActionPerformed
+        // TODO add your handling code here:
+        tabla = "categorias"; 
+        nombre = "";
+        Integer x;
+        
+        try {
+            
+            x = contarRegistros(tabla, nombre);
+            Object[] listaCategorias = new Object[x];
+            
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+
+            try {
+
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
+                preparedStatement = conexion.prepareCall(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                for( int i = 1; resultSet.next(); i++ ){
+                    Categorias categorias = new Categorias();
+                    categorias.setNombre(resultSet.getString("nombre"));
+                    String categoriaNombre = categorias.getNombre();
+                    listaCategorias[i] = categoriaNombre;
+                }
+                
+                listaCategorias[0] = "--Seleccione--";
+                Object selecCategorias = JOptionPane.showInputDialog(null,"Selecciona una categoria", "Modificar categoria",JOptionPane.QUESTION_MESSAGE,null,listaCategorias, listaCategorias[0]);
+                
+                if( selecCategorias.equals("--Seleccione--") ){
+                    JOptionPane.showMessageDialog(null, "Seleccione una opcion correcta");
+                }else{
+                    
+                    if ( selecCategorias.equals( txtCategoria.getText() ) ){
+                        System.out.println("No cambio la categoria... se conserva todo lo relacionado");
+                    }else{
+                        System.out.println("Cambio la categoria... Borrando sub categorias 1, 2 y 3");
+                        txtCategoria.setText(selecCategorias.toString());
+                        txtSub1.setText("");
+                        txtSub2.setText("");
+                        txtSub3.setText("");
+                    }
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }//GEN-LAST:event_btnModCatActionPerformed
+
+    private void btnModSub1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSub1ActionPerformed
+        // TODO add your handling code here:
+        tabla = "subCategorias1"; 
+        nombre = txtCategoria.getText();
+        Integer x;
+        
+        if( nombre.isEmpty() ){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una categoria primero");
+        }else{
+            
+            try {
+                
+                x = contarRegistros(tabla, nombre);
+                Object[] listaSub1 = new Object[x];
+
+                conexion = ConexionBD.obtenerConexion();
+                PreparedStatement preparedStatement;
+                ResultSet resultSet;
+
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql = "SELECT nombre FROM subCategorias1 WHERE idCategoria IN (SELECT id FROM categorias WHERE nombre = '"+nombre+"') ORDER BY nombre ASC;";
+                    preparedStatement = conexion.prepareCall(sql);
+                    resultSet = preparedStatement.executeQuery();
+
+                    for( int i = 1; resultSet.next(); i++ ){
+                        SubCategorias1 subCategorias1 = new SubCategorias1();
+                        subCategorias1.setNombre(resultSet.getString("nombre"));
+                        String sub1Nombre = subCategorias1.getNombre();
+                        listaSub1[i] = sub1Nombre;
+                    }
+
+                    listaSub1[0] = "--Seleccione--";
+                    Object selecSub1 = JOptionPane.showInputDialog(null,"Selecciona una sub categoria 1", "Modificar sub ategoria 1",JOptionPane.QUESTION_MESSAGE,null,listaSub1, listaSub1[0]);
+
+                    if( selecSub1.equals("--Seleccione--") ){
+                        JOptionPane.showMessageDialog(null, "Seleccione una opcion correcta");
+                    }else{
+
+                        if ( selecSub1.equals( txtCategoria.getText() ) ){
+                            System.out.println("No cambio la  sub categoria... se conserva todo lo relacionado");
+                        }else{
+                            System.out.println("Cambio la sub categoria 1... Borrando sub categorias 2 y 3");
+                            txtSub1.setText(selecSub1.toString());
+                            txtSub2.setText("");
+                            txtSub3.setText("");
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnModSub1ActionPerformed
+
+    private void btnModSub2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSub2ActionPerformed
+        // TODO add your handling code here:
+        tabla = "subCategorias2";
+        nombre = txtSub1.getText();
+        Integer x;
+        
+        if( nombre.isEmpty() ){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar una sub categoria 1 primero");
+        }else{
+        
+            try {
+                
+                x = contarRegistros(tabla, nombre);
+                Object[] listaSub2 = new Object[x];
+
+                conexion = ConexionBD.obtenerConexion();
+                PreparedStatement preparedStatement;
+                ResultSet resultSet;
+
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql = "SELECT nombre FROM subCategorias2 WHERE idSubCategoria1 IN (SELECT id FROM subCategorias1 WHERE nombre = '"+nombre+"') ORDER BY nombre ASC;";
+                    preparedStatement = conexion.prepareCall(sql);
+                    resultSet = preparedStatement.executeQuery();
+
+                    for( int i = 1; resultSet.next(); i++ ){
+                        SubCategorias2 subCategorias2 = new SubCategorias2();
+                        subCategorias2.setNombre(resultSet.getString("nombre"));
+                        String sub2Nombre = subCategorias2.getNombre();
+                        listaSub2[i] = sub2Nombre;
+                    }
+
+                    listaSub2[0] = "--Seleccione--";
+                    Object selecSub2 = JOptionPane.showInputDialog(null,"Selecciona una sub categoria 2", "Modificar sub categoria 2",JOptionPane.QUESTION_MESSAGE,null,listaSub2, listaSub2[0]);
+
+                    if( selecSub2.equals("--Seleccione--") ){
+                        JOptionPane.showMessageDialog(null, "Seleccione una opcion correcta");
+                    }else{
+
+                        if ( selecSub2.equals( txtCategoria.getText() ) ){
+                            System.out.println("No cambio la  sub categoria 2... se conserva todo lo relacionado");
+                        }else{
+                            System.out.println("Cambio la sub categoria 2... Borrando sub categorias 3");
+                            txtSub2.setText(selecSub2.toString());
+                            txtSub3.setText("");
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_btnModSub2ActionPerformed
+
+    private void btnModSub3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModSub3ActionPerformed
+        try {
+            // TODO add your handling code here:
+            tabla = "subCategorias3";
+            nombre = txtSub2.getText();
+            Integer x;
+            
+            if( nombre.isEmpty() ){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar una sub categoria 2 primero");
+            }else{
+                
+                x = contarRegistros(tabla, nombre);
+                Object[] listaSub3 = new Object[x];
+
+                conexion = ConexionBD.obtenerConexion();
+                PreparedStatement preparedStatement;
+                ResultSet resultSet;
+
+                try {
+
+                    ConexionBD.obtenerConexion();
+                    String sql = "SELECT nombre FROM subCategorias3 WHERE idSubCategoria2 IN (SELECT id FROM subCategorias2 WHERE nombre = '"+nombre+"') ORDER BY nombre ASC;";
+                    preparedStatement = conexion.prepareCall(sql);
+                    resultSet = preparedStatement.executeQuery();
+
+                    for( int i = 1; resultSet.next(); i++ ){
+                        SubCategorias3 subCategorias3 = new SubCategorias3();
+                        subCategorias3.setNombre(resultSet.getString("nombre"));
+                        String sub3Nombre = subCategorias3.getNombre();
+                        listaSub3[i] = sub3Nombre;
+                    }
+
+                    listaSub3[0] = "--Seleccione--";
+                    Object selecSub3 = JOptionPane.showInputDialog(null,"Selecciona una sub categoria 3", "Modificar sub categoria 3",JOptionPane.QUESTION_MESSAGE,null,listaSub3, listaSub3[0]);
+
+                    if( selecSub3.equals("--Seleccione--") ){
+                        JOptionPane.showMessageDialog(null, "Seleccione una opcion correcta");
+                    }else{
+
+                        if ( selecSub3.equals( txtCategoria.getText() ) ){
+                            System.out.println("No cambio la  sub categoria 3");
+                        }else{
+                            System.out.println("Cambio la sub categoria 3");
+                            txtSub3.setText(selecSub3.toString());
+                        }
+                    }
+
+                } catch (SQLException ex) {
+                    System.out.println(ex.getMessage());
+                }
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnModSub3ActionPerformed
+
+    private void btnModFueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModFueActionPerformed
+        // TODO add your handling code here:
+        tabla = "fuentes"; 
+        nombre = "";
+        Integer x;
+        
+        try {
+            
+            x = contarRegistros(tabla, nombre);
+            Object[] listarFuentes = new Object[x];
+            
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+
+            try {
+
+                ConexionBD.obtenerConexion();
+                String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
+                preparedStatement = conexion.prepareCall(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                for( int i = 1; resultSet.next(); i++ ){
+                    Categorias categorias = new Categorias();
+                    categorias.setNombre(resultSet.getString("nombre"));
+                    String categoriaNombre = categorias.getNombre();
+                    listarFuentes[i] = categoriaNombre;
+                }
+                
+                listarFuentes[0] = "--Seleccione--";
+                
+                Object selectFuente = JOptionPane.showInputDialog(null,"Selecciona una fuente", "Fuentes",JOptionPane.QUESTION_MESSAGE,null,listarFuentes, listarFuentes[0]);
+                
+                if( selectFuente.equals("--Seleccione--") ){
+                    JOptionPane.showMessageDialog(null, "Noupe");
+                }else{
+                    txtFuente.setText(selectFuente.toString());
+                }
+
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+            
+        } catch (SQLException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+    }//GEN-LAST:event_btnModFueActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnGuardar;
+    private javax.swing.JButton btnModCat;
+    private javax.swing.JButton btnModFue;
+    private javax.swing.JButton btnModSub1;
+    private javax.swing.JButton btnModSub2;
+    private javax.swing.JButton btnModSub3;
     private javax.swing.JButton btnRegresar;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
@@ -308,4 +634,179 @@ public class modificar extends javax.swing.JFrame {
     public static javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
 
+    private Integer contarRegistros(String tabla, String nombre) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        Statement statement = conexion.createStatement();
+        Integer noRegistros = 0;
+        
+        if( tabla == "fuentes" ){
+            
+            String sql1 = "SELECT COUNT(*) FROM "+tabla;
+            ResultSet resultSet1 = statement.executeQuery(sql1);
+        
+            if( resultSet1.next() ){
+                noRegistros = resultSet1.getInt(1);
+            }
+            
+            statement.close();
+                
+        }else{
+            
+            switch( tabla ){
+                
+                case "subCategorias1":
+                    
+                    String sql2 = "SELECT COUNT(nombre) FROM "+tabla+" WHERE idCategoria IN (SELECT id FROM categorias WHERE nombre = '"+nombre+"')";
+                    ResultSet resultSet2 = statement.executeQuery(sql2);
+
+                    if( resultSet2.next() ){
+                        noRegistros = resultSet2.getInt(1);
+                    }
+
+                    statement.close();
+                    
+                break;
+                
+                case "subCategorias2":
+                    
+                    String sql3 = "SELECT COUNT(nombre) FROM "+tabla+" WHERE idSubCategoria1 IN (SELECT id FROM subCategorias1 WHERE nombre = '"+nombre+"')";
+                    ResultSet resultSet3 = statement.executeQuery(sql3);
+
+                    if( resultSet3.next() ){
+                        noRegistros = resultSet3.getInt(1);
+                    }
+
+                    statement.close();
+                    
+                break;
+                
+                case "subCategorias3":
+                    
+                    String sql4 = "SELECT COUNT(nombre) FROM "+tabla+" WHERE idSubCategoria2 IN (SELECT id FROM subCategorias2 WHERE nombre = '"+nombre+"')";
+                    ResultSet resultSet4 = statement.executeQuery(sql4);
+
+                    if( resultSet4.next() ){
+                        noRegistros = resultSet4.getInt(1);
+                    }
+
+                    statement.close();
+                    
+                break;
+                
+                case "categorias":
+                    
+                    String sql1 = "SELECT COUNT(*) FROM "+tabla+" WHERE activo = true";
+                    ResultSet resultSet1 = statement.executeQuery(sql1);
+
+                    if( resultSet1.next() ){
+                        
+                        noRegistros = resultSet1.getInt(1);
+                        
+                    }
+                    
+                    statement.close();
+                    
+                break;
+                
+            }
+        }
+        return noRegistros + 1;
+    }
+
+    private Integer obtenerCategoriaId(String categoriaNombre) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        Statement statement = conexion.createStatement();
+        Integer idCategoria = 0;
+        
+        String sql = "SELECT id FROM categorias WHERE nombre = '"+categoriaNombre+"'";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if( resultSet.next() ){
+            idCategoria = resultSet.getInt(1);
+        }
+        
+        statement.close();
+        return  idCategoria;
+        
+    }
+
+    private Integer obtenerSub1Id(String sub1Nombre) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        Statement statement = conexion.createStatement();
+        Integer idSubCategoria1 = 0;
+        
+        String sql = "SELECT id FROM subCategorias1 WHERE nombre = '"+sub1Nombre+"'";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if( resultSet.next() ){
+            idSubCategoria1 = resultSet.getInt(1);
+        }
+        
+        statement.close();
+        return  idSubCategoria1;
+        
+    }
+
+    private Integer obtenerSub2Id(String sub2Nombre) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        Statement statement = conexion.createStatement();
+        Integer idSubCategoria2 = 0;
+        
+        String sql = "SELECT id FROM subCategorias2 WHERE nombre = '"+sub2Nombre+"'";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if( resultSet.next() ){
+            idSubCategoria2 = resultSet.getInt(1);
+        }
+        
+        statement.close();
+        return  idSubCategoria2;
+        
+    }
+
+    private Integer obtenerSub3Id(String sub3Nombre) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        Statement statement = conexion.createStatement();
+        Integer idSubCategoria3 = 0;
+        
+        String sql = "SELECT id FROM subCategorias3 WHERE nombre = '"+sub3Nombre+"'";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if( resultSet.next() ){
+            idSubCategoria3 = resultSet.getInt(1);
+        }
+        
+        statement.close();
+        return  idSubCategoria3;
+        
+    }
+
+    private Integer obtenerFuenteId(String fuenteNombre) throws SQLException {
+        
+        conexion = ConexionBD.obtenerConexion();
+        PreparedStatement preparedStatement;
+        Statement statement = conexion.createStatement();
+        Integer idFuente = 0;
+        
+        String sql = "SELECT id FROM fuentes WHERE nombre = '"+fuenteNombre+"'";
+        ResultSet resultSet = statement.executeQuery(sql);
+
+        if( resultSet.next() ){
+            idFuente = resultSet.getInt(1);
+        }
+        
+        statement.close();
+        return  idFuente;
+        
+    }
 }

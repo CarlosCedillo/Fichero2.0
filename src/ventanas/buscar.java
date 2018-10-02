@@ -1,6 +1,7 @@
 package ventanas;
 
 import conexion.ConexionBD;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,9 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
+import javax.swing.text.JTextComponent;
 import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
@@ -40,6 +44,27 @@ public class buscar extends javax.swing.JFrame {
         
         cbBuscar.setVisible(false);
         
+    }
+    
+    class miMarcaTexto extends DefaultHighlighter.DefaultHighlightPainter{
+            public miMarcaTexto(Color color){
+                super(color);
+            }
+            
+            Highlighter.HighlightPainter moMarcaTexto = new miMarcaTexto(Color.yellow);
+            
+            public void buscarPalabra(JTextComponent textoBuscar, String palabraAbuscar){
+            
+                try {
+                    
+                    Highlighter marcar = textoBuscar.getHighlighter();
+                    
+                    
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                }
+                
+            }
     }
 
     @SuppressWarnings("unchecked")
