@@ -1,7 +1,17 @@
 package ventanas;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfWriter;
 import conexion.ConexionBD;
 import java.awt.Color;
+import java.io.File;
+import java.io.FileOutputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +21,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -64,7 +75,7 @@ public class buscar extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
+        txtId = new javax.swing.JTextField();
         lblSub1 = new javax.swing.JLabel();
         lblSub2 = new javax.swing.JLabel();
         lblSub3 = new javax.swing.JLabel();
@@ -82,6 +93,7 @@ public class buscar extends javax.swing.JFrame {
         txtFuente = new javax.swing.JTextField();
         btnUltimo = new javax.swing.JButton();
         btnPrimero = new javax.swing.JButton();
+        btnExportar = new javax.swing.JButton();
         lblInfo = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -180,7 +192,7 @@ public class buscar extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoria");
 
-        txtNumero.setEditable(false);
+        txtId.setEditable(false);
 
         lblSub1.setText("Sub Categoria 1");
 
@@ -247,6 +259,13 @@ public class buscar extends javax.swing.JFrame {
             }
         });
 
+        btnExportar.setText("Exportar");
+        btnExportar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnExportarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -258,7 +277,7 @@ public class buscar extends javax.swing.JFrame {
                     .addComponent(lblSub2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNumero)
+                    .addComponent(txtId)
                     .addComponent(txtSub2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -281,15 +300,18 @@ public class buscar extends javax.swing.JFrame {
                 .addGap(51, 51, 51)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnModificar, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(btnExportar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnModificar)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPrimero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUltimo, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -302,7 +324,7 @@ public class buscar extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria)
                     .addComponent(lblSub1)
                     .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -334,7 +356,8 @@ public class buscar extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
-                    .addComponent(btnModificar))
+                    .addComponent(btnModificar)
+                    .addComponent(btnExportar))
                 .addGap(30, 30, 30))
         );
 
@@ -463,7 +486,7 @@ public class buscar extends javax.swing.JFrame {
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
         
-        if( !txtNumero.getText().isEmpty() ){
+        if( !txtId.getText().isEmpty() ){
             
             try {
             // TODO add your handling code here:
@@ -472,7 +495,7 @@ public class buscar extends javax.swing.JFrame {
             System.out.println("Va modificar la ficha");
             jFrame.setVisible(true);
             
-            modificar.txtId.setText(txtNumero.getText());
+            modificar.txtId.setText(txtId.getText());
             modificar.txtCategoria.setText(txtCategoria.getText());
             modificar.txtSub1.setText(txtSub1.getText());
             modificar.txtSub2.setText(txtSub2.getText());
@@ -536,7 +559,7 @@ public class buscar extends javax.swing.JFrame {
         cbBuscar.removeAllItems();
         lisatrCategorias();
         
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
         
         
@@ -553,7 +576,7 @@ public class buscar extends javax.swing.JFrame {
         cbBuscar.removeAllItems();
         listarFuentes();
         
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
         
         
@@ -566,7 +589,7 @@ public class buscar extends javax.swing.JFrame {
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
         
     }//GEN-LAST:event_rbuTextoItemStateChanged
@@ -578,9 +601,90 @@ public class buscar extends javax.swing.JFrame {
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
     }//GEN-LAST:event_rbuNofichaItemStateChanged
+
+    private void btnExportarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExportarActionPerformed
+        // TODO add your handling code here:
+        
+        JFileChooser exportar = new JFileChooser();
+        int eleccion = exportar.showSaveDialog(this);
+        String fichaId, fichaCategoria, fichaSub1, fichaSub2, fichaSub3, fichaTexto, fichaFuente;
+        
+        fichaId = txtId.getText();
+        fichaCategoria = txtCategoria.getText();
+        fichaSub1 = txtSub1.getText();
+        fichaSub2 = txtSub2.getText();
+        fichaSub3 = txtSub3.getText();
+        fichaTexto = txtFicha.getText();
+        fichaFuente = txtFuente.getText();
+        
+        if( eleccion == JFileChooser.APPROVE_OPTION ){
+            
+            File ruta = exportar.getSelectedFile();
+            
+            try {
+                
+                FileOutputStream archivo = new FileOutputStream(ruta+".pdf");
+                Document ficha = new Document();
+                PdfWriter.getInstance(ficha, archivo);
+                
+                //INICIO parametros de los parrafos
+                Paragraph espacio = new Paragraph("\n");
+                
+                Paragraph fuente = new Paragraph(fichaFuente);
+                fuente.setAlignment(Element.ALIGN_RIGHT);
+                
+                PdfPTable table = new PdfPTable(2);
+                PdfPCell cellOne = new PdfPCell(new Phrase("Categoria: "+fichaCategoria));
+                PdfPCell cellTwo = new PdfPCell(new Phrase("Sub categoria 1: " + fichaSub1));
+                PdfPCell cellThree = new PdfPCell(new Phrase("Sub categoria 2: " + fichaSub2));
+                PdfPCell cellFour = new PdfPCell(new Phrase("Sub categoria 3: " + fichaSub3));
+
+                cellOne.setBorder(Rectangle.NO_BORDER);
+                cellTwo.setBorder(Rectangle.NO_BORDER);
+                cellThree.setBorder(Rectangle.NO_BORDER);
+                cellFour.setBorder(Rectangle.NO_BORDER);
+
+                table.addCell(cellOne);
+                table.addCell(cellTwo);
+                table.addCell(cellThree);
+                table.addCell(cellFour);
+
+                
+                //FIN parametros de los parrafos
+                
+                ficha.open();
+                
+                //INICIO agragando parrafos
+                ficha.add(new Paragraph("No. de ficha: " + fichaId));
+                ficha.add(espacio);
+                
+                ficha.add(table);
+//                ficha.add(new Paragraph("Categoria: " + fichaCategoria));
+//                ficha.add(new Paragraph("Sub categoria 1: " + fichaSub1));
+//                ficha.add(new Paragraph("Sub categoria 2: " + fichaSub2));
+//                ficha.add(new Paragraph("Sub categoria 3: " + fichaSub3));
+        
+
+                ficha.add(espacio);
+                ficha.add(new Paragraph(fichaTexto));
+                ficha.add(espacio);
+                ficha.add(fuente);
+                //FIN agragando parrafos
+                
+                ficha.close();
+                
+                JOptionPane.showMessageDialog(null, "Ficha guardada con éxito");
+                
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        
+        }
+        
+    }//GEN-LAST:event_btnExportarActionPerformed
     
     public static void main(String args[]) {
 
@@ -594,6 +698,7 @@ public class buscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnt;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnPrimero;
     private javax.swing.JButton btnRegresar;
@@ -620,7 +725,7 @@ public class buscar extends javax.swing.JFrame {
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextArea txtFicha;
     private javax.swing.JTextField txtFuente;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtSub1;
     private javax.swing.JTextField txtSub2;
     private javax.swing.JTextField txtSub3;
@@ -758,7 +863,7 @@ public class buscar extends javax.swing.JFrame {
     //Mostrar
 
     public void mostrar(ResultSet resultSet) throws SQLException, BadLocationException {
-        txtNumero.setText(resultSet.getString(1));
+        txtId.setText(resultSet.getString(1));
         txtFicha.setText(resultSet.getString(2));
         
         Integer categoriaId = Integer.valueOf(resultSet.getString(3));
@@ -949,6 +1054,8 @@ public class buscar extends javax.swing.JFrame {
             System.err.println(ex.getErrorCode());
         }
     }
+    
+    //Marcar palabra en el texto de la ficha
 
     private void marcarBusqueda(String palabra, String texto) throws BadLocationException {
         
