@@ -1,6 +1,7 @@
 package ventanas;
 
 import conexion.ConexionBD;
+import java.awt.Color;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,6 +12,9 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
@@ -379,12 +383,16 @@ public class borrar extends javax.swing.JFrame {
                         buscarCategoria();
                     } catch (SQLException ex) {
                         Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     if( rbuFuente.isSelected() == true ){
                         try {
                             buscarFuente();
                         } catch (SQLException ex) {
+                            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (BadLocationException ex) {
                             Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }else{
@@ -399,6 +407,8 @@ public class borrar extends javax.swing.JFrame {
                     buscarTexto(par);
                 } catch (SQLException ex) {
                     Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 if( rbuNoficha.isSelected() == true ){
@@ -406,6 +416,8 @@ public class borrar extends javax.swing.JFrame {
                     try {
                         buscarNoficha(par);
                                 } catch (SQLException ex) {
+                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (BadLocationException ex) {
                         Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
@@ -428,6 +440,8 @@ public class borrar extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } catch (BadLocationException ex) {
+            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSigActionPerformed
 
@@ -443,6 +457,8 @@ public class borrar extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } catch (BadLocationException ex) {
+            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAntActionPerformed
 
@@ -478,6 +494,8 @@ public class borrar extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } catch (BadLocationException ex) {
+            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnUltimoActionPerformed
 
@@ -493,6 +511,8 @@ public class borrar extends javax.swing.JFrame {
             }
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
+        } catch (BadLocationException ex) {
+            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
@@ -599,7 +619,7 @@ public class borrar extends javax.swing.JFrame {
 
     //Buscar
     
-    private void buscarTexto(String par) throws SQLException {
+    private void buscarTexto(String par) throws SQLException, BadLocationException {
         
         conexion = ConexionBD.obtenerConexion();
         Statement statement = conexion.createStatement(
@@ -625,7 +645,7 @@ public class borrar extends javax.swing.JFrame {
         }
     }
     
-    private void buscarCategoria() throws SQLException {
+    private void buscarCategoria() throws SQLException, BadLocationException {
         
         // 1ro hay que obtener el id de la categoria seleccionada en el combo box
         Categorias categoria = (Categorias) cbBuscar.getSelectedItem();
@@ -658,7 +678,7 @@ public class borrar extends javax.swing.JFrame {
         }
     }
 
-    private void buscarFuente() throws SQLException {
+    private void buscarFuente() throws SQLException, BadLocationException {
     
         // 1ro hay que obtener el id de la fuente seleccionada en el combo box
         Fuentes fuentes = (Fuentes) cbBuscar.getSelectedItem();
@@ -691,7 +711,7 @@ public class borrar extends javax.swing.JFrame {
         }
     }
     
-    private void buscarNoficha(String par) throws SQLException{
+    private void buscarNoficha(String par) throws SQLException, BadLocationException{
         //Al buscar una ficha por id, no se debe de aceptar letras, es decir que solo números
         Pattern texto = Pattern.compile(".+[a-zA-ZñÑáéíóúÁÉÍÓÚ]+.?");
         Matcher sip = texto.matcher(par);
@@ -728,7 +748,7 @@ public class borrar extends javax.swing.JFrame {
     
     //Mostrar
 
-    public void mostrar(ResultSet resultSet) throws SQLException {
+    public void mostrar(ResultSet resultSet) throws SQLException, BadLocationException {
         txtNumero.setText(resultSet.getString(1));
         txtFicha.setText(resultSet.getString(2));
         
@@ -752,6 +772,8 @@ public class borrar extends javax.swing.JFrame {
         
         Integer fuenteId = Integer.valueOf(resultSet.getString(7));
         mostrarFuentes(fuenteId);
+        
+        marcarBusqueda(txtBuscar.getText(), txtFicha.getText());
         
     }
 
@@ -942,6 +964,17 @@ public class borrar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    
+        //Marcar palabra en el texto de la ficha
+
+    private void marcarBusqueda(String palabra, String texto) throws BadLocationException {
+        
+        Highlighter highlighter = txtFicha.getHighlighter();
+        Highlighter.HighlightPainter paiter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+        int p0 = texto.indexOf(palabra);
+        int p1 = p0 + palabra.length();
+        highlighter.addHighlight(p0, p1, paiter);
         
     }
     
