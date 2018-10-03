@@ -473,6 +473,7 @@ public class borrar extends javax.swing.JFrame {
             if( confirmacion == 0 ){
                 try {
                     borrarFicha(par);
+                    reiniciar();
                 } catch (SQLException ex) {
                     Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -976,6 +977,11 @@ public class borrar extends javax.swing.JFrame {
         int p1 = p0 + palabra.length();
         highlighter.addHighlight(p0, p1, paiter);
         
+    }
+
+    private void reiniciar() {
+        this.dispose();
+        new borrar().setVisible(true);
     }
     
 }
