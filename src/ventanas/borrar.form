@@ -140,7 +140,7 @@
             <Property name="buttonGroup" type="javax.swing.ButtonGroup" editor="org.netbeans.modules.form.RADComponent$ButtonGroupPropertyEditor">
               <ComponentRef name="filtros"/>
             </Property>
-            <Property name="text" type="java.lang.String" value="Categoria"/>
+            <Property name="text" type="java.lang.String" value="Categor&#xed;a"/>
           </Properties>
           <Events>
             <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="rbuCategoriaItemStateChanged"/>
@@ -303,7 +303,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblCategoria">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Categoria"/>
+            <Property name="text" type="java.lang.String" value="Categor&#xed;a"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtNumero">
@@ -313,17 +313,17 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblSub1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 1"/>
+            <Property name="text" type="java.lang.String" value="Sub Categor&#xed;a 1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSub2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 2"/>
+            <Property name="text" type="java.lang.String" value="Sub Categor&#xed;a 2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="lblSub3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 3"/>
+            <Property name="text" type="java.lang.String" value="Sub Categor&#xed;a 3"/>
           </Properties>
         </Component>
         <Container class="javax.swing.JScrollPane" name="jScrollPane1">

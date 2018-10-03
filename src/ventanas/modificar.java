@@ -83,19 +83,19 @@ public class modificar extends javax.swing.JFrame {
 
         txtCategoria.setEditable(false);
 
-        lblNoFicha1.setText("Categorias");
+        lblNoFicha1.setText("Categoría");
 
         txtSub1.setEditable(false);
 
-        lblNoFicha2.setText("Sub Categoria 1");
+        lblNoFicha2.setText("Sub Categoría 1");
 
         txtSub2.setEditable(false);
 
-        lblNoFicha3.setText("Sub Categoria 2");
+        lblNoFicha3.setText("Sub Categoría 2");
 
         txtSub3.setEditable(false);
 
-        lblNoFicha4.setText("Sub Categoria 3");
+        lblNoFicha4.setText("Sub Categoría 3");
 
         txtFuente.setEditable(false);
 
@@ -162,23 +162,25 @@ public class modificar extends javax.swing.JFrame {
                                 .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                 .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(lblNoFicha2)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addComponent(lblNoFicha3)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(25, 25, 25)
-                                    .addComponent(lblNoFicha1)
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtCategoria))
-                                .addGroup(jPanel2Layout.createSequentialGroup()
+                                    .addGap(0, 0, Short.MAX_VALUE)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(lblNoFicha2)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                            .addComponent(lblNoFicha3)
+                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
                                     .addGap(17, 17, 17)
-                                    .addComponent(lblNoFicha)
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                        .addComponent(lblNoFicha)
+                                        .addComponent(lblNoFicha1))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(txtId))))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(txtCategoria)
+                                        .addComponent(txtId)))))
                         .addGap(62, 62, 62)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)

@@ -84,9 +84,9 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        lblCategoria.setText("Categoria");
+        lblCategoria.setText("Categoría");
 
-        lblSub1.setText("Sub Categoria 1");
+        lblSub1.setText("Sub Categoría 1");
 
         cbSub1.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
@@ -94,9 +94,9 @@ public class crear extends javax.swing.JFrame {
             }
         });
 
-        lblSub3.setText("Sub Categoria 3");
+        lblSub3.setText("Sub Categoría 3");
 
-        lblSub2.setText("Sub Categoria 2");
+        lblSub2.setText("Sub Categoría 2");
 
         lblFuente.setText("Fuente");
 

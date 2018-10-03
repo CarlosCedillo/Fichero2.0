@@ -116,7 +116,7 @@ public class buscar extends javax.swing.JFrame {
         });
 
         filtros.add(rbuCategoria);
-        rbuCategoria.setText("Categoria");
+        rbuCategoria.setText("Categoría");
         rbuCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rbuCategoriaItemStateChanged(evt);
@@ -190,15 +190,15 @@ public class buscar extends javax.swing.JFrame {
 
         lblNumero.setText("No. de Ficha");
 
-        lblCategoria.setText("Categoria");
+        lblCategoria.setText("Categoría");
 
         txtId.setEditable(false);
 
-        lblSub1.setText("Sub Categoria 1");
+        lblSub1.setText("Sub Categoría 1");
 
-        lblSub2.setText("Sub Categoria 2");
+        lblSub2.setText("Sub Categoría 2");
 
-        lblSub3.setText("Sub Categoria 3");
+        lblSub3.setText("Sub Categoría 3");
 
         txtFicha.setEditable(false);
         txtFicha.setColumns(20);
@@ -637,10 +637,10 @@ public class buscar extends javax.swing.JFrame {
                 fuente.setAlignment(Element.ALIGN_RIGHT);
                 
                 PdfPTable table = new PdfPTable(2);
-                PdfPCell cellOne = new PdfPCell(new Phrase("Categoria: "+fichaCategoria));
-                PdfPCell cellTwo = new PdfPCell(new Phrase("Sub categoria 1: " + fichaSub1));
-                PdfPCell cellThree = new PdfPCell(new Phrase("Sub categoria 2: " + fichaSub2));
-                PdfPCell cellFour = new PdfPCell(new Phrase("Sub categoria 3: " + fichaSub3));
+                PdfPCell cellOne = new PdfPCell(new Phrase("Categoría: "+fichaCategoria));
+                PdfPCell cellTwo = new PdfPCell(new Phrase("Sub categoría 1: " + fichaSub1));
+                PdfPCell cellThree = new PdfPCell(new Phrase("Sub categoría 2: " + fichaSub2));
+                PdfPCell cellFour = new PdfPCell(new Phrase("Sub categoría 3: " + fichaSub3));
 
                 cellOne.setBorder(Rectangle.NO_BORDER);
                 cellTwo.setBorder(Rectangle.NO_BORDER);

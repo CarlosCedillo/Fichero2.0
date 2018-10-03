@@ -50,7 +50,7 @@ public class listarCategorias extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        jLabel1.setText("Árbol de categorias");
+        jLabel1.setText("Árbol de categoría");
 
         jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 

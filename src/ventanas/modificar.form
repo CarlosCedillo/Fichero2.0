@@ -60,27 +60,32 @@
                                   <Component id="txtSub3" min="-2" pref="158" max="-2" attributes="0"/>
                               </Group>
                               <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblNoFicha2" min="-2" max="-2" attributes="0"/>
+                                  <Group type="102" attributes="0">
+                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="lblNoFicha2" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtSub1" min="-2" pref="158" max="-2" attributes="0"/>
+                                          </Group>
+                                          <Group type="102" alignment="1" attributes="0">
+                                              <Component id="lblNoFicha3" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace max="-2" attributes="0"/>
+                                              <Component id="txtSub2" min="-2" pref="158" max="-2" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="1" attributes="0">
+                                          <Component id="lblNoFicha" min="-2" max="-2" attributes="0"/>
+                                          <Component id="lblNoFicha1" min="-2" max="-2" attributes="0"/>
+                                      </Group>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtSub1" min="-2" pref="158" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <Component id="lblNoFicha3" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="txtSub2" min="-2" pref="158" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
-                                      <Component id="lblNoFicha1" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtCategoria" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="1" attributes="0">
-                                      <EmptySpace min="17" pref="17" max="-2" attributes="0"/>
-                                      <Component id="lblNoFicha" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" max="-2" attributes="0"/>
-                                      <Component id="txtId" max="32767" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="txtCategoria" max="32767" attributes="0"/>
+                                          <Component id="txtId" max="32767" attributes="0"/>
+                                      </Group>
                                   </Group>
                               </Group>
                           </Group>
@@ -228,7 +233,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNoFicha1">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Categorias"/>
+            <Property name="text" type="java.lang.String" value="Categor&#xed;a"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSub1">
@@ -241,7 +246,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNoFicha2">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 1"/>
+            <Property name="text" type="java.lang.String" value="Sub Categor&#xed;a 1"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSub2">
@@ -254,7 +259,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNoFicha3">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 2"/>
+            <Property name="text" type="java.lang.String" value="Sub Categor&#xed;a 2"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtSub3">
@@ -267,7 +272,7 @@
         </Component>
         <Component class="javax.swing.JLabel" name="lblNoFicha4">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Sub Categoria 3"/>
+            <Property name="text" type="java.lang.String" value="Sub Categor&#xed;a 3"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JTextField" name="txtFuente">

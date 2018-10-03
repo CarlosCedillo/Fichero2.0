@@ -99,7 +99,7 @@ public class borrar extends javax.swing.JFrame {
         });
 
         filtros.add(rbuCategoria);
-        rbuCategoria.setText("Categoria");
+        rbuCategoria.setText("Categoría");
         rbuCategoria.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 rbuCategoriaItemStateChanged(evt);
@@ -173,15 +173,15 @@ public class borrar extends javax.swing.JFrame {
 
         lblNumero.setText("No. de Ficha");
 
-        lblCategoria.setText("Categoria");
+        lblCategoria.setText("Categoría");
 
         txtNumero.setEditable(false);
 
-        lblSub1.setText("Sub Categoria 1");
+        lblSub1.setText("Sub Categoría 1");
 
-        lblSub2.setText("Sub Categoria 2");
+        lblSub2.setText("Sub Categoría 2");
 
-        lblSub3.setText("Sub Categoria 3");
+        lblSub3.setText("Sub Categoría 3");
 
         txtFicha.setEditable(false);
         txtFicha.setColumns(20);
