@@ -1,6 +1,7 @@
 package ventanas;
 
 import conexion.ConexionBD;
+import dao.implementaciones.CategoriaDaoImp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -21,6 +22,8 @@ public class listarCategorias extends javax.swing.JFrame {
     DefaultMutableTreeNode subNodo1;                                            //Sub Categorias1
     DefaultMutableTreeNode subNodo2;                                            //Sub Categorias2
     DefaultMutableTreeNode subNodo3;                                            //Sub Categorias3
+    
+    CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
     Categorias categorias = new Categorias();
     SubCategorias1 subCategorias1 = new SubCategorias1();
     SubCategorias2 subCategorias2 = new SubCategorias2();
@@ -484,11 +487,6 @@ public class listarCategorias extends javax.swing.JFrame {
     private void agregarCateroria() {
         
         System.out.println("Va a agregar una cateroria");
-        
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        boolean guardado = false;
-        
         String categoria = JOptionPane.showInputDialog("Nombre de la Categoriaa");
         
         if( categoria.isEmpty()){
@@ -496,30 +494,13 @@ public class listarCategorias extends javax.swing.JFrame {
         }else{
             
             //Hay que comprobar que el nombre no existe ya!!!
-        
-            try {
-                
-                ConexionBD.obtenerConexion();
-                preparedStatement = conexion.prepareStatement("INSERT INTO categorias (nombre, activo) VALUES (?,?)");
-                preparedStatement.setString(1, categoria);
-                preparedStatement.setBoolean(2, true);
-                preparedStatement.executeUpdate();
-                
-                guardado = true;
-                System.out.println("Categoria giardada" );
-                
-                conexion = ConexionBD.cerrarConexion();
-                
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-                
-            } catch (ClassNotFoundException ex) {
-                System.out.println(ex.getMessage());
-            }
+            
+            boolean guardado = categoriaDaoImp.guardar(categoria);
+            
             
             if( guardado == true ){
-                JOptionPane.showMessageDialog(null, "Categoria guardada");
                 
+                JOptionPane.showMessageDialog(null, "Categoria guardada");
                 actualizar();
                 
             }else{
@@ -1093,13 +1074,6 @@ public class listarCategorias extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
         }
-    }
-    
-    //Actualizar
-    
-    private void actualizar() {
-        this.dispose();
-        new listarCategorias().setVisible(true);
     }
     
     //Desactivaciones
@@ -1732,5 +1706,12 @@ public class listarCategorias extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
+    }
+    
+    //Actualizar
+    
+    private void actualizar() {
+        this.dispose();
+        new listarCategorias().setVisible(true);
     }
 }

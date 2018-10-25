@@ -1,5 +1,8 @@
 package dao.implementaciones;
 
-public class FichaDaoImp {
-    
+import conexion.ConexionBD;
+import dao.interfaceses.FichaDao;
+
+public class FichaDaoImp extends ConexionBD implements FichaDao{
+
 }
