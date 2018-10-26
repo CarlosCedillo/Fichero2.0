@@ -6,14 +6,47 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import tablas.Categorias;
 
 public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
 
     @Override
     public Integer obtenerId(String nombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Integer categoriaId = 0;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        System.out.println("Obteniendo la id de la categoria "+nombre);
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            
+            preparedStatement = conexion.prepareCall("SELECT id FROM categorias WHERE nombre = ?");
+            preparedStatement.setString(1, nombre);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                Categorias categorias = new Categorias();
+                categorias.setId(resultSet.getInt("id"));
+                
+                categoriaId = categorias.getId();
+                
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return categoriaId;
+        
     }
     
     @Override

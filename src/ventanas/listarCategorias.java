@@ -511,6 +511,10 @@ public class listarCategorias extends javax.swing.JFrame {
             }else{
                 JOptionPane.showMessageDialog(null, "La categoria "+categoria+" ya existe");
             }
+            
+            
+            System.out.println(categoriaDaoImp.obtenerId(categoria));
+            
         }
     } //Ya
 
