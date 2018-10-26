@@ -493,21 +493,26 @@ public class listarCategorias extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
         }else{
             
-            //Hay que comprobar que el nombre no existe ya!!!
+            //Hay qur verqur no se repitan
+            boolean resultado = categoriaDaoImp.existe(categoria);
             
-            boolean guardado = categoriaDaoImp.guardar(categoria);
+            if( resultado == false ){
             
-            
-            if( guardado == true ){
-                
-                JOptionPane.showMessageDialog(null, "Categoria guardada");
-                actualizar();
-                
+                boolean guardado = categoriaDaoImp.guardar(categoria);
+
+                if( guardado == true ){
+
+                    JOptionPane.showMessageDialog(null, "Categoria guardada");
+                    actualizar();
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "Categoria no guardada");
+                }
             }else{
-                JOptionPane.showMessageDialog(null, "Categoria no guardada");
+                JOptionPane.showMessageDialog(null, "La categoria "+categoria+" ya existe");
             }
         }
-    }
+    } //Ya
 
     private void agregarSubCateroria1(String nombreCompleto) {
         
