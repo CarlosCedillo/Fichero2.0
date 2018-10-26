@@ -442,7 +442,7 @@ public class crear extends javax.swing.JFrame {
             Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
         }
         this.setVisible(false);
-        System.out.println("Abriendo ventana de modificacion de fuentes");
+        System.out.println("Abriendo ventana: modificacion de fuentes");
         jframe.setVisible(true);
         
     }//GEN-LAST:event_btnFuentesActionPerformed
@@ -464,6 +464,9 @@ public class crear extends javax.swing.JFrame {
         cbFuente.setSelectedIndex(0);
         
         txtFicha.setText("");
+        
+        System.out.println("Limpiando ventana crear");
+        
     }//GEN-LAST:event_btnLimpiarActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
@@ -471,7 +474,7 @@ public class crear extends javax.swing.JFrame {
         
         listarCategorias jframe = new listarCategorias();
         this.setVisible(false);
-        System.out.println("Abriendo ventana de modificacion de categorias");
+        System.out.println("Abriendo ventana: modificacion de categorias");
         jframe.setVisible(true);
         
     }//GEN-LAST:event_btnCategoriasActionPerformed
