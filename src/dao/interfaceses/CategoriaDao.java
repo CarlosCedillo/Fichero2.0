@@ -6,7 +6,7 @@ public interface CategoriaDao {
     public boolean existe(String nombre);
     
     public boolean guardar(String nombre);
-    public boolean modificar(Integer id);
+    public boolean modificar(Integer id, String nvoNombre, String vjoNombre);
     
     public boolean activar(Integer id);
     public boolean desactivar(Integer id);

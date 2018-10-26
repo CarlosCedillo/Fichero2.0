@@ -486,7 +486,7 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void agregarCateroria() {
         
-        System.out.println("Va a agregar una cateroria");
+        System.out.println("\nVa a agregar una cateroria");
         String categoria = JOptionPane.showInputDialog("Nombre de la Categoriaa");
         
         if( categoria.isEmpty()){
@@ -753,87 +753,50 @@ public class listarCategorias extends javax.swing.JFrame {
     
     private void modificarCategoria(String nombreCompleto) {
         
+        //Primero: Hay que obtener el nombre seleccionado (Sin estado activado) = nombre
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
             String nombre = nombreCompleto.substring(0,localizado);
         
-            System.out.println("Va a agregar una subcategoria1 a la Cateroria " + nombre);
+            System.out.println("\nVa a modificar la categoria " + nombre);
 
-            //Primero hay que obtener el id
+            //Segundo: hay que obtener el id de nombre = categoriaId
+            Integer categoriaId = categoriaDaoImp.obtenerId(nombre);
+            
+            //Tercero: hay que obtener el nuevo nombre = nvoNombre
+            String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+nombre);
 
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            ResultSet resultSet;
-
-            try {
-
-                ConexionBD.obtenerConexion();
-                String sql = "SELECT id, nombre FROM categorias WHERE nombre = ?";
-                preparedStatement = conexion.prepareCall(sql);
-                preparedStatement.setString(1, nombre);
-                resultSet = preparedStatement.executeQuery();
-
-                while( resultSet.next() ){
-                    categorias.setId(resultSet.getInt(("id")));
-                    categorias.setNombre(resultSet.getString(("nombre")));
-
-                    Integer categoriaId = categorias.getId();
-                    String categoriaNombte = categorias.getNombre();
-
-                    //Ahora hay que obtener el nuevo nombre de la categoria
-
-                    String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
-                    Boolean modificado = true;
-
-                    if( nvoNombre.isEmpty()){
-                        JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+            //Cuarto: Hay que comprobar que nvoNombre no este vacio
+            if( nvoNombre.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+            }else{
+                
+                //Quinto: Hay qie ver que el nvoNombre no exista 
+                boolean existe = categoriaDaoImp.existe(nvoNombre);
+                
+                if( existe ==  false){
+                    
+                    //Sexto: modificar la categoria nombre a nvoNombre
+                    boolean modificado = categoriaDaoImp.modificar(categoriaId, nvoNombre, nombre);
+                    
+                    //Septimo: comprobar que si se modifico
+                    if( modificado == true ){
+                        JOptionPane.showMessageDialog(null, "Categoria modificada");
+                        actualizar();
                     }else{
-
-                        if( nvoNombre.equals(categoriaNombte) ){
-                            JOptionPane.showMessageDialog(null, "Ya tiene ese nombre");
-                        }else{
-
-                            try {
-
-                                ConexionBD.obtenerConexion();
-                                preparedStatement = conexion.prepareStatement("UPDATE categorias SET nombre = ? WHERE id = ?");
-                                preparedStatement.setString(1, nvoNombre);
-                                preparedStatement.setInt(2, categoriaId);
-                                preparedStatement.executeUpdate();
-
-                                modificado = true;
-                                System.out.println("Categoria " + categoriaNombte + " modificada a " + nvoNombre);
-
-                                conexion = ConexionBD.cerrarConexion();
-
-                            } catch (SQLException ex) {
-                                System.out.println(ex.getMessage());
-
-                            } catch (ClassNotFoundException ex) {
-                                System.out.println(ex.getMessage());
-                            }
-
-                            if( modificado == true ){
-                                JOptionPane.showMessageDialog(null, "Categoria modificada" );
-
-                                actualizar();
-
-                            }else{
-                                JOptionPane.showMessageDialog(null, "Categoria no modificada");
-                            }
-                        }
+                        JOptionPane.showMessageDialog(null, "Categoria no modificada");
                     }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "La categoria "+nvoNombre+" ya existe");
                 }
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
             }
             
         }else{
-            JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
+            JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
         }    
-    }
+    } //Ya
 
     private void modificarSubCategoria1(String nombreCompleto) {
         

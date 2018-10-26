@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import tablas.Categorias;
 
 public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
@@ -20,6 +22,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         ResultSet resultSet;
         
         System.out.println("Obteniendo la id de la categoria "+nombre);
+        System.out.println("Ejecutando: SELECT id FROM categorias WHERE nombre = '"+nombre+"'");
         
         try {
             
@@ -60,6 +63,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         ResultSet resultSet;
         
         System.out.println("Comprobando si la categoria "+nombre+" existe");
+        System.out.println("Ejecutando: SELECT * FROM categorias WHERE nombre = '"+nombre+"'");
         
         try {
             
@@ -102,6 +106,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
+        System.out.println("Guardando la categoria "+nombre);
         System.out.println("Ejecutando: INSERT INTO categorias (nombre, activo) VALUES ('"+nombre+"', true)");
         
         try {
@@ -122,12 +127,41 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         } catch (SQLException | ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+        
         return guardado;
+        
     }
 
     @Override
-    public boolean modificar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public boolean modificar(Integer categoriaId, String nvoNombre, String vjoNombre) {
+        
+        boolean modificado = false;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Modificando la categoria "+vjoNombre+" a "+nvoNombre);
+        System.out.println("Ejecutando: UPDATE categorias SET nombre = ? WHERE id = ?");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            preparedStatement = conexion.prepareStatement("UPDATE categorias SET nombre = ? WHERE id = ?");
+            preparedStatement.setString(1, nvoNombre);
+            preparedStatement.setInt(2, categoriaId);
+            preparedStatement.executeUpdate();
+
+            modificado = true;
+
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+
+            } catch (SQLException | ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+        }
+        
+        return modificado;
+        
     }
 
     @Override
