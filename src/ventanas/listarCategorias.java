@@ -1048,13 +1048,14 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void desactivarCategoria(String nombreCompleto) {
         
+        //Primero hay que obtener el nombre real = nombre
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
             
             String nombre = nombreCompleto.substring(0,localizado);
             System.out.println("Va a desactivar la cateroria " + nombre);
-            //Primero hay que obtener el id
+            //Segundo hay que obtener el id
 
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
