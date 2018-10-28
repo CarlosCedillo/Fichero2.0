@@ -1,4 +1,4 @@
-package dao.implementaciones;
+    package dao.implementaciones;
 
 import conexion.ConexionBD;
 import dao.interfaceses.CategoriaDao;
