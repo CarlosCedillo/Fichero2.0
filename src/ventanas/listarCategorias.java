@@ -13,6 +13,9 @@ import tablas.Categorias;
 import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
+import dao.implementaciones.SubCategoria1DaoImp;
+import dao.implementaciones.SubCategoria2DaoImp;
+import dao.implementaciones.SubCategoria3DaoImp;
 
 public class listarCategorias extends javax.swing.JFrame {
     
@@ -23,11 +26,18 @@ public class listarCategorias extends javax.swing.JFrame {
     DefaultMutableTreeNode subNodo2;                                            //Sub Categorias2
     DefaultMutableTreeNode subNodo3;                                            //Sub Categorias3
     
-    CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
     Categorias categorias = new Categorias();
+    CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+    
     SubCategorias1 subCategorias1 = new SubCategorias1();
+    SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+    
     SubCategorias2 subCategorias2 = new SubCategorias2();
+    SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+    
     SubCategorias3 subCategorias3 = new SubCategorias3();
+    SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+    
 
     public listarCategorias() {
         initComponents();
@@ -522,81 +532,54 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void agregarSubCateroria1(String nombreCompleto) {
         
+        //Primero: Obtener el nombre de la categoria a la que se va a agregar la sub categoria 1 = categoriaNombre
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
-            String nombre = nombreCompleto.substring(0,localizado);
-            System.out.println("Va a agregar una subcategoria1 a la Cateroria: " + nombre);
+            String categoriaNombre = nombreCompleto.substring(0,localizado);
+            System.out.println("\nVa a agregar una sub categoria 1 a la cateroria: " + categoriaNombre);
             
-            //Primero hay que obtener el id de la categoria seleccionada
+            //Segundo: Obtener el id de la Categoria
+            System.out.println("Obteniendo el id de la categoria "+categoriaNombre);
+            Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("El id de la categoria "+categoriaNombre+" es = "+categoriaId);
+            
+            //Tercero: Obtener el nombre de la Sub Categoria 1 = subSategoria1
+            String sub1Nombre = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 1");
 
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            ResultSet resultSet;
-
-            try {
-
-                ConexionBD.obtenerConexion();
-                String sql = "SELECT id FROM categorias WHERE nombre = ?";
-                preparedStatement = conexion.prepareCall(sql);
-                preparedStatement.setString(1, nombre);
-                resultSet = preparedStatement.executeQuery();
-
-                while( resultSet.next() ){
-                    categorias.setId(resultSet.getInt(("id")));
-                    Integer categoriaId = categorias.getId();
-
-                    //Ahora hay que obtener el nombre de la subcategoria1
-
-                    String subSategoria1 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 1");
-                    Boolean guardado = true;
-
-                    if( subSategoria1.isEmpty()){
-                        JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+            if( sub1Nombre.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+            }else{
+                
+                System.out.println("Va a agregar la sub categoria 1 "+sub1Nombre);
+                
+                //Cuarto: Comprobar que esa sub categoria 1 no exista ya en esa categoria
+                System.out.println("Comprobando que la sub categoria 1 "+sub1Nombre+" no exista en la categoria "+categoriaNombre);
+                boolean existe = subCategoria1DaoImp.existe(sub1Nombre, categoriaId);
+                
+                if( existe == false ){
+                    
+                    //Quinto: Guardar la sub categoria 1
+                    System.out.println("Guardado la sub categoria 1 "+sub1Nombre+" en la categoria "+categoriaNombre);
+                    boolean guardado = subCategoria1DaoImp.guardar(sub1Nombre, categoriaId);
+                    
+                    //Sexto: Comprobar que si se guardo
+                    if( guardado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 guardada");
+                        actualizar();
                     }else{
-
-                        //Hay que comprobar que el nombre no existe ya!!!
-
-                        try {
-
-                            ConexionBD.obtenerConexion();
-                            preparedStatement = conexion.prepareStatement("INSERT INTO subCategorias1 (idCategoria, nombre, activo) VALUES (?,?,?)");
-                            preparedStatement.setInt(1, categoriaId);
-                            preparedStatement.setString(2, subSategoria1);
-                            preparedStatement.setBoolean(3, true);
-                            preparedStatement.executeUpdate();
-
-                            guardado = true;
-                            System.out.println("Sub categoria 1 giardada" );
-
-                            conexion = ConexionBD.cerrarConexion();
-
-                        } catch (SQLException ex) {
-                            System.out.println(ex.getMessage());
-
-                        } catch (ClassNotFoundException ex) {
-                            System.out.println(ex.getMessage());
-                        }
-
-                        if( guardado == true ){
-                            JOptionPane.showMessageDialog(null, "Sub categoria 1 guardada");
-
-                            actualizar();
-
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Sub categoria 1 no guardada");
-                        }
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no guardada");
                     }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "La sub categoria 1 "+sub1Nombre+" ya existe en la categoria "+categoriaNombre);
                 }
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
             }
             
         }else{
             JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
         }
-    }
+    } //Ya
 
     private void agregarSubCateroria2(String nombreCompleto) {
         
