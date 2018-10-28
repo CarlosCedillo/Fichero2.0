@@ -50,6 +50,45 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
     }
     
     @Override
+    public String obtenerNombre(Integer id) {
+        
+        String categoriaNombre = "";
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        System.out.println("Ejecutando: SELECT nombre FROM categorias WHERE id = "+id+"");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            
+            preparedStatement = conexion.prepareCall("SELECT nombre FROM categorias WHERE id = ?");
+            preparedStatement.setInt(1, id);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                Categorias categorias = new Categorias();
+                categorias.setNombre(resultSet.getString("nombre"));
+                
+                categoriaNombre = categorias.getNombre();
+                
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return categoriaNombre;
+        
+    }
+    
+    @Override
     public boolean existe(String nombre) {
         
         boolean existe = false;
@@ -218,5 +257,5 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         return desactivado;
         
     }
-    
+
 }
