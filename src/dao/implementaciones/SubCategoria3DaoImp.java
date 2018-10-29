@@ -136,21 +136,21 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
     }
 
     @Override
-    public boolean guardar(String nombre, Integer sub3Id) {
+    public boolean guardar(String nombre, Integer sub2Id) {
         
         boolean guardado = false;
         
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: INSERT INTO subCategorias3 (idSubCategoria2, nombre, activo) VALUES ('"+sub3Id+"', "+nombre+"', true)");
+        System.out.println("Ejecutando: INSERT INTO subCategorias3 (idSubCategoria2, nombre, activo) VALUES ('"+sub2Id+"', "+nombre+"', true)");
         
         try {
                 
             conexion = ConexionBD.obtenerConexion();
             
             preparedStatement = conexion.prepareStatement("INSERT INTO subCategorias3 (idSubCategoria2, nombre, activo) VALUES (?,?,?)");
-            preparedStatement.setInt(1, sub3Id);
+            preparedStatement.setInt(1, sub2Id);
             preparedStatement.setString(2, nombre);
             preparedStatement.setBoolean(3, true);
             preparedStatement.executeUpdate();

@@ -582,6 +582,54 @@ public class listarCategorias extends javax.swing.JFrame {
     } //Ya
 
     private void agregarSubCateroria2(String nombreCompleto) {
+        
+        //Primero: Obtener el nombre de la sub categoria 2 a la que se va a agregar la sub categoria 2 = sub1Nombre
+        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        
+        if( localizado > 0 ){
+            String sub1Nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("\nVa a agregar una sub categoria 2 a la sub cateroria 1: " + sub1Nombre);
+            
+            //Segundo: Obtener el id de la sub categoria 1
+            System.out.println("Obteniendo el id de la sub categoria 1 "+sub1Nombre);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
+            System.out.println("El id de la sub categoria 1 "+sub1Nombre+" es = "+sub1Id);
+            
+            //Tercero: Obtener el nombre de la Sub Categoria 2 = subSategoria2
+            String subSategoria2 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 2");
+
+            if( subSategoria2.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+            }else{
+                
+                System.out.println("Va a agregar la sub categoria 2 "+subSategoria2);
+                
+                //Cuarto: Comprobar que esa sub categoria 2 no exista ya en esa sub categoria 1
+                System.out.println("Comprobando que la sub categoria 2 "+subSategoria2+" no exista en la sub categoria 1 "+sub1Nombre);
+                boolean existe = subCategoria2DaoImp.existe(subSategoria2, sub1Id);
+                
+                if( existe == false ){
+                    
+                    //Quinto: Guardar la sub categoria 2
+                    System.out.println("Guardado la sub categoria 2 "+subSategoria2+" en la sub categoria 1 "+sub1Nombre);
+                    boolean guardado = subCategoria2DaoImp.guardar(subSategoria2, sub1Id);
+                    
+                    //Sexto: Comprobar que si se guardo
+                    if( guardado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 guardada");
+                        actualizar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no guardada");
+                    }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "La sub categoria 2 "+subSategoria2+" ya existe en la sub categoria 1 "+sub1Nombre);
+                }
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
+        }        
     }
 
     private void agregarSubCateroria3(String nombreCompleto) {

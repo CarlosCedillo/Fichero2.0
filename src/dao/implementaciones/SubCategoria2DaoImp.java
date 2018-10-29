@@ -91,7 +91,7 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
     }
 
     @Override
-    public boolean existe(String nombre, Integer sub2Id) {
+    public boolean existe(String nombre, Integer sub1Id) {
         
         boolean existe = false;
         Integer registros = 0;
@@ -100,7 +100,7 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("Ejecutando: SELECT * FROM subCategorias2 WHERE nombre = '"+nombre+"' AND idSubCategoria1 = '"+sub2Id+"'");
+        System.out.println("Ejecutando: SELECT * FROM subCategorias2 WHERE nombre = '"+nombre+"' AND idSubCategoria1 = '"+sub1Id+"'");
         
         try {
             
@@ -108,7 +108,7 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
             
             preparedStatement = conexion.prepareCall("SELECT * FROM subCategorias2 WHERE nombre = ? AND idSubCategoria1 = ?");
             preparedStatement.setString(1, nombre);
-            preparedStatement.setInt(2, sub2Id);
+            preparedStatement.setInt(2, sub1Id);
             resultSet = preparedStatement.executeQuery();
             
             while( resultSet.next() ){
@@ -136,21 +136,21 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
     }
 
     @Override
-    public boolean guardar(String nombre, Integer sub2Id) {
+    public boolean guardar(String nombre, Integer sub1Id) {
         
         boolean guardado = false;
         
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: INSERT INTO subCategorias2 (idSubCategoria1, nombre, activo) VALUES ('"+sub2Id+"', "+nombre+"', true)");
+        System.out.println("Ejecutando: INSERT INTO subCategorias2 (idSubCategoria1, nombre, activo) VALUES ('"+sub1Id+"', "+nombre+"', true)");
         
         try {
                 
             conexion = ConexionBD.obtenerConexion();
             
-            preparedStatement = conexion.prepareStatement("INSERT INTO subCategorias2 (sub2Id, nombre, activo) VALUES (?,?,?)");
-            preparedStatement.setInt(1, sub2Id);
+            preparedStatement = conexion.prepareStatement("INSERT INTO subCategorias2 (idSubCategoria1, nombre, activo) VALUES (?,?,?)");
+            preparedStatement.setInt(1, sub1Id);
             preparedStatement.setString(2, nombre);
             preparedStatement.setBoolean(3, true);
             preparedStatement.executeUpdate();
