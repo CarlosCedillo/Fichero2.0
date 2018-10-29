@@ -630,7 +630,7 @@ public class listarCategorias extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
         }        
-    }
+    } //Ya
 
     private void agregarSubCateroria3(String nombreCompleto) {
     }
