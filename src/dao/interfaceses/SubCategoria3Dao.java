@@ -6,7 +6,7 @@ public interface SubCategoria3Dao {
     public String obtenerNombre(Integer id);
     public boolean existe(String nombre, Integer sub2Id);
     
-    public boolean guardar(String nombre, Integer sub3Id);
+    public boolean guardar(String nombre, Integer sub2Id);
     public boolean modificar(Integer id, String nvoNombre);
     
     public boolean activar(Integer id);

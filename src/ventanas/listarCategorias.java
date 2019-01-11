@@ -583,7 +583,7 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void agregarSubCateroria2(String nombreCompleto) {
         
-        //Primero: Obtener el nombre de la sub categoria 2 a la que se va a agregar la sub categoria 2 = sub1Nombre
+        //Primero: Obtener el nombre de la sub categoria 1 a la que se va a agregar la sub categoria 2 = sub1Nombre
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
@@ -633,7 +633,67 @@ public class listarCategorias extends javax.swing.JFrame {
     } //Ya
 
     private void agregarSubCateroria3(String nombreCompleto) {
-    }
+        
+        //Primero: Obtener el nombre de la sub categoria 2 a la que se va a agregar la sub categoria 3 = sub2Nombre
+        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        
+        if( localizado > 0 ){
+            String sub2Nombre = nombreCompleto.substring(0,localizado);
+            System.out.println("\nVa a agregar una sub categoria 3 a la sub cateroria 2: " + sub2Nombre);
+            
+            //1.1: Obtener el nombre del padre de la sub categoria 2 (nombre de la Sub categoria 1) = sub1Nombre
+            DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+            String sub1NombreCompleto = arbol.getParent().toString();
+            
+            Integer localizandoSub1 = sub1NombreCompleto.indexOf(" - Activado");
+            String sub1Nombre = sub1NombreCompleto.substring(0,localizandoSub1);
+            
+            //1.2: Obtener el id de la Sub categoria 1 = sub1Id
+            System.out.println("Obteniendo el id de la sub categoria 1 "+sub1Nombre);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
+            System.out.println("El id de la sub categoria 1 "+sub1Nombre+" es = "+sub1Id);
+            
+            //Segundo: Obtener el id de la sub categoria 2
+            System.out.println("Obteniendo el id de la sub categoria 2 "+sub2Nombre);
+            Integer sub2Id = subCategoria2DaoImp.obtenerIdEspecial(sub2Nombre, sub1Id);
+            System.out.println("El id de la sub categoria 2 "+sub2Nombre+" es = "+sub2Id);
+            
+            //Tercero: Obtener el nombre de ña sub categoria 3 = subSategoria3
+            String subSategoria3 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 3");
+
+            if( subSategoria3.isEmpty()){
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
+            }else{
+                
+                System.out.println("Va a agregar la sub categoria 3 "+subSategoria3);
+                
+                //Cuarto: Comprobar que esa sub categoria 3 no exista ya en esa sub categoria 2
+                System.out.println("Comprobando que la sub categoria 3 "+subSategoria3+" no exista en la sub categoria 2 "+sub2Nombre);
+                boolean existe = subCategoria3DaoImp.existe(subSategoria3, sub2Id);
+                
+                if( existe == false ){
+                    
+                    //Quinto: Guardar la sub categoria 3
+                    System.out.println("Guardado la sub categoria 3 "+subSategoria3+" en la sub categoria 2 "+sub2Nombre);
+                    boolean guardado = subCategoria3DaoImp.guardar(subSategoria3, sub2Id);
+                    
+                    //Sexto: Comprobar que si se guardo
+                    if( guardado == true ){
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 guardada");
+                        actualizar();
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no guardada");
+                    }
+                    
+                }else{
+                    JOptionPane.showMessageDialog(null, "La sub categoria 3 "+subSategoria3+" ya existe en la sub categoria 2 "+sub2Nombre);
+                }
+            }
+            
+        }else{
+            JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
+        }  
+    } //Ya
     
     //Modificar
     

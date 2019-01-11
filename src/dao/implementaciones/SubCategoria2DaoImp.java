@@ -50,6 +50,46 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
         return sub2Id;
         
     }
+    
+    @Override
+    public Integer obtenerIdEspecial(String nombre, Integer sub1Id) {
+        
+        Integer sub2Id = 0;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        System.out.println("Ejecutando: SELECT id FROM subCategorias2 WHERE nombre = '"+nombre+"' AND idSubCategoria1 = '"+sub1Id+"'");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            
+            preparedStatement = conexion.prepareCall("SELECT id FROM subCategorias2 WHERE nombre = ? AND idSubCategoria1 = ?");
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setInt(2, sub1Id);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                SubCategorias2 subCategorias2 = new SubCategorias2();
+                subCategorias2.setId(resultSet.getInt("id"));
+                
+                sub2Id = subCategorias2.getId();
+                
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return sub2Id;
+        
+    }
 
     @Override
     public String obtenerNombre(Integer id) {
@@ -183,5 +223,5 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
     public boolean desactivar(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }
