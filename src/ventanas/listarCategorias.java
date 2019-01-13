@@ -162,15 +162,8 @@ public class listarCategorias extends javax.swing.JFrame {
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
-        crear jFrame = null;
-        try {
-            jFrame = new crear();
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-        this.setVisible(false);
-        System.out.println("Regresando a crear");
-        jFrame.setVisible(true);
+        this.dispose();
+        System.out.println("Cerrar ventana categorias");
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
@@ -1517,7 +1510,7 @@ public class listarCategorias extends javax.swing.JFrame {
         }
     }
     
-    //Actualizar
+    //Ayudas
     
     private void actualizar() {
         this.dispose();
