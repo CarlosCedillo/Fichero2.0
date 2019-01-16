@@ -34,7 +34,7 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class buscar extends javax.swing.JFrame {
+public class Buscar extends javax.swing.JFrame {
     
     Connection conexion = null;
     String tabla, par;
@@ -47,7 +47,7 @@ public class buscar extends javax.swing.JFrame {
     SubCategorias2 subCategorias2 = new SubCategorias2();
     SubCategorias3 subCategorias3 = new SubCategorias3();
     
-    public buscar() {
+    public Buscar() {
         initComponents();
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
@@ -404,18 +404,18 @@ public class buscar extends javax.swing.JFrame {
                     try {
                         buscarCategoria();
                     } catch (SQLException ex) {
-                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     if( rbuFuente.isSelected() == true ){
                         try {
                             buscarFuente();
                         } catch (SQLException ex) {
-                            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (BadLocationException ex) {
-                            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -428,9 +428,9 @@ public class buscar extends javax.swing.JFrame {
                 try {
                     buscarTexto(par);
                 } catch (SQLException ex) {
-                    Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 if( rbuNoficha.isSelected() == true ){
@@ -438,9 +438,9 @@ public class buscar extends javax.swing.JFrame {
                     try {
                         buscarNoficha(par);
                                 } catch (SQLException ex) {
-                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -463,7 +463,7 @@ public class buscar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSigActionPerformed
 
@@ -480,7 +480,7 @@ public class buscar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAntActionPerformed
 
@@ -490,18 +490,18 @@ public class buscar extends javax.swing.JFrame {
             
             try {
             // TODO add your handling code here:
-            modificar jFrame = new modificar();
+            Modificar jFrame = new Modificar();
             this.setVisible(true);
             System.out.println("Va modificar la ficha");
             jFrame.setVisible(true);
             
-            modificar.txtId.setText(txtId.getText());
-            modificar.txtCategoria.setText(txtCategoria.getText());
-            modificar.txtSub1.setText(txtSub1.getText());
-            modificar.txtSub2.setText(txtSub2.getText());
-            modificar.txtSub3.setText(txtSub3.getText());
-            modificar.txtFuente.setText(txtFuente.getText());
-            modificar.txtFicha.setText(txtFicha.getText());
+            Modificar.txtId.setText(txtId.getText());
+            Modificar.txtCategoria.setText(txtCategoria.getText());
+            Modificar.txtSub1.setText(txtSub1.getText());
+            Modificar.txtSub2.setText(txtSub2.getText());
+            Modificar.txtSub3.setText(txtSub3.getText());
+            Modificar.txtFuente.setText(txtFuente.getText());
+            Modificar.txtFicha.setText(txtFicha.getText());
             
             } catch (ClassNotFoundException ex) {
                 System.out.println(ex.getMessage());
@@ -527,7 +527,7 @@ public class buscar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnUltimoActionPerformed
 
@@ -544,7 +544,7 @@ public class buscar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(buscar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
@@ -690,7 +690,7 @@ public class buscar extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new buscar().setVisible(true);
+                new Buscar().setVisible(true);
             }
         });
     }

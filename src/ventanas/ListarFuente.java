@@ -11,11 +11,11 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
-public class listarFuente extends javax.swing.JFrame {
+public class ListarFuente extends javax.swing.JFrame {
     
     Connection conexion = null;
     
-    public listarFuente() throws ClassNotFoundException {
+    public ListarFuente() throws ClassNotFoundException {
         initComponents();
         setTitle("Fichero 2.0 / Fuentes");
         this.setLocationRelativeTo(null);
@@ -303,9 +303,9 @@ public class listarFuente extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 try {
-                    new listarFuente().setVisible(true);
+                    new ListarFuente().setVisible(true);
                 } catch (ClassNotFoundException ex) {
-                    Logger.getLogger(listarFuente.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(ListarFuente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
         });
@@ -354,7 +354,7 @@ public class listarFuente extends javax.swing.JFrame {
         
         this.setVisible(false);
         try {
-            new listarFuente().setVisible(true);
+            new ListarFuente().setVisible(true);
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
         }

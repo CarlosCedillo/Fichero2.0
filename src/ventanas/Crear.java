@@ -14,11 +14,11 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class crear extends javax.swing.JFrame {
+public class Crear extends javax.swing.JFrame {
     
     Connection conexion = null;
 
-    public crear() throws ClassNotFoundException {
+    public Crear() throws ClassNotFoundException {
         initComponents();
         setTitle("Fichero 2.0 / Crear ");
         this.setLocationRelativeTo(null);
@@ -253,6 +253,7 @@ public class crear extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+        
         // TODO add your handling code here:
         
         if( cbCategoria.getSelectedIndex()== 0 || cbFuente.getSelectedIndex()== 0 || txtFicha.getText().isEmpty()){
@@ -315,7 +316,7 @@ public class crear extends javax.swing.JFrame {
             } catch (SQLException e) {
                 System.err.println(e.getMessage());
             } catch (ClassNotFoundException ex) {
-                Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
             }
             
             if( guardado == true ){
@@ -337,6 +338,7 @@ public class crear extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "No se pudo guardar la ficha");
             }
         }
+        
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
@@ -450,11 +452,11 @@ public class crear extends javax.swing.JFrame {
     private void btnFuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuentesActionPerformed
         // Para desactivar esa ventana y activa la de fuentes
         
-        listarFuente jframe = null;
+        ListarFuente jframe = null;
         try {
-            jframe = new listarFuente();
+            jframe = new ListarFuente();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
         }
         System.out.println("Abriendo ventana: modificacion de fuentes");
         jframe.setVisible(true);
@@ -486,9 +488,9 @@ public class crear extends javax.swing.JFrame {
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         // Para desactivar esa ventana y activa la de fuentes
         
-        listarCategorias jframe = new listarCategorias();
+        ListarCategorias listarCategorias = new ListarCategorias();
         System.out.println("Abriendo ventana: modificacion de categorias");
-        jframe.setVisible(true);
+        listarCategorias.setVisible(true);
         
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
@@ -497,11 +499,11 @@ public class crear extends javax.swing.JFrame {
             // TODO add your handling code here:
             this.dispose();
             
-            crear jframe = new crear();
+            Crear jframe = new Crear();
             System.out.println("Actualizando crear fichas");
             jframe.setVisible(true);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(crear.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         

@@ -3,9 +3,9 @@ package ventanas;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class inicio extends javax.swing.JFrame {
+public class Inicio extends javax.swing.JFrame {
 
-    public inicio() {
+    public Inicio() {
         initComponents();
         setTitle("Fichero 2.0");
         this.setLocationRelativeTo(null);
@@ -111,7 +111,7 @@ public class inicio extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
-        buscar jFrame = new buscar();
+        Buscar jFrame = new Buscar();
         //this.setVisible(false);
         System.out.println("Abriendo ventana: Buscar");
         jFrame.setVisible(true);
@@ -120,11 +120,11 @@ public class inicio extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        crear jFrame = null;
+        Crear jFrame = null;
         try {
-            jFrame = new crear();
+            jFrame = new Crear();
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         //this.setVisible(false);
         System.out.println("Abriendo ventana: Crear");
@@ -133,8 +133,8 @@ public class inicio extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        borrar jFrame = null;
-        jFrame = new borrar();
+        Borrar jFrame = null;
+        jFrame = new Borrar();
         //this.setVisible(false);
         System.out.println("Abriendo ventana: Eliminar");
         jFrame.setVisible(true);
@@ -142,8 +142,8 @@ public class inicio extends javax.swing.JFrame {
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         // TODO add your handling code here:
-        listarCategorias jFrame = null;
-        jFrame = new listarCategorias();
+        ListarCategorias jFrame = null;
+        jFrame = new ListarCategorias();
         //this.setVisible(false);
         System.out.println("Abriendo ventana: categorías");
         jFrame.setVisible(true);
@@ -152,13 +152,13 @@ public class inicio extends javax.swing.JFrame {
     private void btnFuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuentesActionPerformed
         try {
             // TODO add your handling code here:
-            listarFuente jFrame = null;
-            jFrame = new listarFuente();
+            ListarFuente jFrame = null;
+            jFrame = new ListarFuente();
             //this.setVisible(false);
             System.out.println("Abriendo ventana: fuentes");
             jFrame.setVisible(true);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(inicio.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         
     }//GEN-LAST:event_btnFuentesActionPerformed
@@ -177,20 +177,21 @@ public class inicio extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Inicio.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new inicio().setVisible(true);
+                new Inicio().setVisible(true);
             }
         });
     }

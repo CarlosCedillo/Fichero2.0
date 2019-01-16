@@ -22,7 +22,7 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class borrar extends javax.swing.JFrame {
+public class Borrar extends javax.swing.JFrame {
     
     Connection conexion = null;
     String tabla, par;
@@ -35,7 +35,7 @@ public class borrar extends javax.swing.JFrame {
     SubCategorias2 subCategorias2 = new SubCategorias2();
     SubCategorias3 subCategorias3 = new SubCategorias3();
     
-    public borrar() {
+    public Borrar() {
         initComponents();
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
@@ -382,18 +382,18 @@ public class borrar extends javax.swing.JFrame {
                     try {
                         buscarCategoria();
                     } catch (SQLException ex) {
-                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     if( rbuFuente.isSelected() == true ){
                         try {
                             buscarFuente();
                         } catch (SQLException ex) {
-                            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (BadLocationException ex) {
-                            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                         }
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -406,9 +406,9 @@ public class borrar extends javax.swing.JFrame {
                 try {
                     buscarTexto(par);
                 } catch (SQLException ex) {
-                    Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                 } catch (BadLocationException ex) {
-                    Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }else{
                 if( rbuNoficha.isSelected() == true ){
@@ -416,9 +416,9 @@ public class borrar extends javax.swing.JFrame {
                     try {
                         buscarNoficha(par);
                                 } catch (SQLException ex) {
-                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (BadLocationException ex) {
-                        Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
                     JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -441,7 +441,7 @@ public class borrar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnSigActionPerformed
 
@@ -458,7 +458,7 @@ public class borrar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnAntActionPerformed
 
@@ -475,7 +475,7 @@ public class borrar extends javax.swing.JFrame {
                     borrarFicha(par);
                     reiniciar();
                 } catch (SQLException ex) {
-                    Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
             
@@ -496,7 +496,7 @@ public class borrar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnUltimoActionPerformed
 
@@ -513,7 +513,7 @@ public class borrar extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         } catch (BadLocationException ex) {
-            Logger.getLogger(borrar.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
@@ -578,7 +578,7 @@ public class borrar extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new borrar().setVisible(true);
+                new Borrar().setVisible(true);
             }
         });
     }
@@ -981,7 +981,7 @@ public class borrar extends javax.swing.JFrame {
 
     private void reiniciar() {
         this.dispose();
-        new borrar().setVisible(true);
+        new Borrar().setVisible(true);
     }
     
 }

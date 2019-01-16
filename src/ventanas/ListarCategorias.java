@@ -17,7 +17,7 @@ import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
 
-public class listarCategorias extends javax.swing.JFrame {
+public class ListarCategorias extends javax.swing.JFrame {
     
     Connection conexion = null;
     DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Categorias");     //Raiz
@@ -39,7 +39,7 @@ public class listarCategorias extends javax.swing.JFrame {
     SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
     
 
-    public listarCategorias() {
+    public ListarCategorias() {
         initComponents();
         setTitle("Fichero 2.0 / Categorias");
         this.setLocationRelativeTo(null);
@@ -319,7 +319,7 @@ public class listarCategorias extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new listarCategorias().setVisible(true);
+                new ListarCategorias().setVisible(true);
             }
         });
     }
@@ -1514,6 +1514,6 @@ public class listarCategorias extends javax.swing.JFrame {
     
     private void actualizar() {
         this.dispose();
-        new listarCategorias().setVisible(true);
+        new ListarCategorias().setVisible(true);
     }
 }

@@ -13,13 +13,13 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class modificar extends javax.swing.JFrame {
+public class Modificar extends javax.swing.JFrame {
     
     Connection conexion = null;
     Fichas fichas = new Fichas();
     String tabla, nombre;
 
-    public modificar() throws ClassNotFoundException {
+    public Modificar() throws ClassNotFoundException {
         initComponents();
         setTitle("Fichero 2.0 / Modificar ");
         this.setLocationRelativeTo(null);
@@ -305,7 +305,7 @@ public class modificar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ficha modificada");
             this.dispose();
             
-            buscar jFrame = new buscar();
+            Buscar jFrame = new Buscar();
             System.out.println("Regresando a ventana Buscar");
             jFrame.setVisible(true);
             
@@ -323,8 +323,8 @@ public class modificar extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         System.out.println("Regresando a buscar");
-        buscar jframe = new buscar();
-        jframe.setVisible(true);
+        Buscar buscar = new Buscar();
+        buscar.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModCatActionPerformed
