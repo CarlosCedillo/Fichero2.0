@@ -67,11 +67,12 @@ public class Buscar extends javax.swing.JFrame {
         lblBuscar = new javax.swing.JLabel();
         txtBuscar = new javax.swing.JTextField();
         btnBuscar = new javax.swing.JButton();
-        rbuTexto = new javax.swing.JRadioButton();
-        rbuCategoria = new javax.swing.JRadioButton();
-        rbuFuente = new javax.swing.JRadioButton();
         cbBuscar = new javax.swing.JComboBox();
+        rbuFuente = new javax.swing.JRadioButton();
+        rbuCategoria = new javax.swing.JRadioButton();
+        rbuTexto = new javax.swing.JRadioButton();
         rbuNoficha = new javax.swing.JRadioButton();
+        rbuAvanzado = new javax.swing.JRadioButton();
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
@@ -107,11 +108,11 @@ public class Buscar extends javax.swing.JFrame {
             }
         });
 
-        filtros.add(rbuTexto);
-        rbuTexto.setText("Texto");
-        rbuTexto.addItemListener(new java.awt.event.ItemListener() {
+        filtros.add(rbuFuente);
+        rbuFuente.setText("Fuente");
+        rbuFuente.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                rbuTextoItemStateChanged(evt);
+                rbuFuenteItemStateChanged(evt);
             }
         });
 
@@ -123,11 +124,11 @@ public class Buscar extends javax.swing.JFrame {
             }
         });
 
-        filtros.add(rbuFuente);
-        rbuFuente.setText("Fuente");
-        rbuFuente.addItemListener(new java.awt.event.ItemListener() {
+        filtros.add(rbuTexto);
+        rbuTexto.setText("Texto");
+        rbuTexto.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                rbuFuenteItemStateChanged(evt);
+                rbuTextoItemStateChanged(evt);
             }
         });
 
@@ -139,31 +140,40 @@ public class Buscar extends javax.swing.JFrame {
             }
         });
 
+        filtros.add(rbuAvanzado);
+        rbuAvanzado.setText("Avanzado");
+        rbuAvanzado.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                rbuAvanzadoItemStateChanged(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(174, 174, 174)
+                .addGap(100, 100, 100)
                 .addComponent(lblBuscar)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(rbuNoficha, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbuTexto, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbuCategoria, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(rbuFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(230, 230, 230))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbBuscar, 0, 171, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(141, 141, 141))))
+                .addComponent(cbBuscar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(txtBuscar)
+                .addGap(18, 18, 18)
+                .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(100, 100, 100))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGap(193, 193, 193)
+                .addComponent(rbuNoficha)
+                .addGap(20, 20, 20)
+                .addComponent(rbuTexto)
+                .addGap(20, 20, 20)
+                .addComponent(rbuCategoria)
+                .addGap(20, 20, 20)
+                .addComponent(rbuFuente)
+                .addGap(20, 20, 20)
+                .addComponent(rbuAvanzado)
+                .addGap(193, 193, 193))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -174,18 +184,17 @@ public class Buscar extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(txtBuscar)
                             .addComponent(cbBuscar))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(rbuTexto)
-                            .addComponent(rbuFuente)
-                            .addComponent(rbuCategoria)
-                            .addComponent(rbuNoficha))
-                        .addGap(18, 18, 18))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(lblBuscar)
-                            .addComponent(btnBuscar))
-                        .addGap(41, 41, 41))))
+                        .addGap(8, 8, 8))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(lblBuscar)
+                        .addComponent(btnBuscar)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(rbuFuente)
+                    .addComponent(rbuNoficha)
+                    .addComponent(rbuTexto)
+                    .addComponent(rbuCategoria)
+                    .addComponent(rbuAvanzado))
+                .addGap(18, 18, 18))
         );
 
         lblNumero.setText("No. de Ficha");
@@ -271,7 +280,7 @@ public class Buscar extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblNumero)
                     .addComponent(lblSub2))
@@ -295,9 +304,9 @@ public class Buscar extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSub1)
                     .addComponent(txtFuente))
-                .addGap(26, 26, 26))
+                .addGap(30, 30, 30))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(0, 0, Short.MAX_VALUE)
@@ -311,12 +320,12 @@ public class Buscar extends javax.swing.JFrame {
                             .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPrimero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 575, Short.MAX_VALUE)))
+                        .addComponent(jScrollPane1)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUltimo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGap(50, 50, 50))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -358,7 +367,7 @@ public class Buscar extends javax.swing.JFrame {
                     .addComponent(btnRegresar)
                     .addComponent(btnModificar)
                     .addComponent(btnExportar))
-                .addGap(30, 30, 30))
+                .addGap(48, 48, 48))
         );
 
         lblInfo.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
@@ -685,6 +694,10 @@ public class Buscar extends javax.swing.JFrame {
         }
         
     }//GEN-LAST:event_btnExportarActionPerformed
+
+    private void rbuAvanzadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuAvanzadoItemStateChanged
+        // TODO add your handling code here:
+    }//GEN-LAST:event_rbuAvanzadoItemStateChanged
     
     public static void main(String args[]) {
 
@@ -717,6 +730,7 @@ public class Buscar extends javax.swing.JFrame {
     private javax.swing.JLabel lblSub1;
     private javax.swing.JLabel lblSub2;
     private javax.swing.JLabel lblSub3;
+    private javax.swing.JRadioButton rbuAvanzado;
     private javax.swing.JRadioButton rbuCategoria;
     private javax.swing.JRadioButton rbuFuente;
     private javax.swing.JRadioButton rbuNoficha;
