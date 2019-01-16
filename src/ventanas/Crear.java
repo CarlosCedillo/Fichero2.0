@@ -1,10 +1,12 @@
 package ventanas;
 
 import conexion.ConexionBD;
+import dao.implementaciones.CategoriaDaoImp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -18,7 +20,7 @@ public class Crear extends javax.swing.JFrame {
     
     Connection conexion = null;
 
-    public Crear() throws ClassNotFoundException {
+    public Crear() throws ClassNotFoundException, Exception {
         initComponents();
         setTitle("Fichero 2.0 / Crear ");
         this.setLocationRelativeTo(null);
@@ -504,6 +506,8 @@ public class Crear extends javax.swing.JFrame {
             jframe.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         
@@ -532,28 +536,14 @@ public class Crear extends javax.swing.JFrame {
     private javax.swing.JTextArea txtFicha;
     // End of variables declaration//GEN-END:variables
 
-    private void enlistarCategorias() throws ClassNotFoundException {
+    private void enlistarCategorias() throws ClassNotFoundException, Exception {
         
-        //Consulta la bd y enlista categorias
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        ArrayList<Categorias> listaCategorias = new ArrayList<>();
+        listaCategorias = categoriaDaoImp.listar();
         
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            conexion = ConexionBD.cerrarConexion();
-            
-            while (resultSet.next()) {
-                Categorias categorias = new Categorias();
-                categorias.setId(resultSet.getInt("id"));
-                categorias.setNombre(resultSet.getString("nombre"));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                cbCategoria.addItem(categorias);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+        for( int x = 0 ; x < listaCategorias.size() ; x++ ){
+            cbCategoria.addItem(listaCategorias.get(x));
         }
     }
     
