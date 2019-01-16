@@ -219,6 +219,10 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
                 listaCategorias.add(categorias);
             }
             
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
         } catch (SQLException ex) {
             System.err.println(ex.getErrorCode());
         }
