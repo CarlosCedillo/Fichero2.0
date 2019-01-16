@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import tablas.Categorias;
 
 public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
@@ -193,6 +194,36 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         }
         
         return modificado;
+        
+    }
+    
+    @Override
+    public ArrayList<Categorias> listar() throws Exception {
+        
+        Connection conexion = null;
+        ArrayList<Categorias> listaCategorias = new ArrayList<>();
+        
+        try {
+            conexion = ConexionBD.obtenerConexion();
+            ResultSet resultSet;
+            String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
+            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            conexion = ConexionBD.cerrarConexion();
+            
+            while (resultSet.next()) {
+                Categorias categorias = new Categorias();
+                categorias.setId(resultSet.getInt("id"));
+                categorias.setNombre(resultSet.getString("nombre"));
+                categorias.setActivo(resultSet.getBoolean("activo"));
+                listaCategorias.add(categorias);
+            }
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+        
+        return listaCategorias;
         
     }
 
