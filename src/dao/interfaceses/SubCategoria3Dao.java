@@ -1,5 +1,8 @@
 package dao.interfaceses;
 
+import java.util.ArrayList;
+import tablas.SubCategorias3;
+
 public interface SubCategoria3Dao {
     
     public Integer obtenerId(String nombre);
@@ -8,6 +11,7 @@ public interface SubCategoria3Dao {
     
     public boolean guardar(String nombre, Integer sub2Id);
     public boolean modificar(Integer id, String nvoNombre);
+    public ArrayList<SubCategorias3> listar() throws Exception;
     
     public boolean activar(Integer id);
     public boolean desactivar(Integer id);
