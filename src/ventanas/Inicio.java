@@ -120,15 +120,17 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        Crear jFrame = null;
+        Crear crear = null;
         try {
-            jFrame = new Crear();
+            crear = new Crear();
         } catch (ClassNotFoundException ex) {
+            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         //this.setVisible(false);
         System.out.println("Abriendo ventana: Crear");
-        jFrame.setVisible(true);
+        crear.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed

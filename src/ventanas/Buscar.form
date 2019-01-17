@@ -474,20 +474,24 @@
                           <Component id="cbCategoriaAvz" min="-2" pref="200" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                  <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" attributes="0">
                       <Group type="102" attributes="0">
                           <Component id="lblSub1Avz" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="cbSub1Avz" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="cbSub1Avz" pref="200" max="32767" attributes="0"/>
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Component id="lblSub3Avz" min="-2" max="-2" attributes="0"/>
                           <EmptySpace min="-2" pref="20" max="-2" attributes="0"/>
-                          <Component id="cbSub3Avz" min="-2" pref="200" max="-2" attributes="0"/>
+                          <Component id="cbSub3Avz" pref="200" max="32767" attributes="0"/>
+                      </Group>
+                      <Group type="102" alignment="1" attributes="0">
+                          <EmptySpace min="216" pref="216" max="-2" attributes="0"/>
+                          <Component id="btnBusquedaAbanzada" max="32767" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" pref="100" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -499,21 +503,22 @@
                       <Component id="lblCategoriaAvz" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbCategoriaAvz" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSub1Avz" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbSub1Avz" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbSub1Avz" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblSub2Avz" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbSub2Avz" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="lblSub3Avz" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="cbSub3Avz" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="cbSub3Avz" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="-2" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
                       <Component id="lblFuenteAvz" alignment="3" min="-2" max="-2" attributes="0"/>
                       <Component id="cbFuenteAvz" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="btnBusquedaAbanzada" alignment="3" max="32767" attributes="0"/>
                   </Group>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -602,6 +607,14 @@
           <AuxValues>
             <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value=""/>
           </AuxValues>
+        </Component>
+        <Component class="javax.swing.JButton" name="btnBusquedaAbanzada">
+          <Properties>
+            <Property name="text" type="java.lang.String" value="Buscar"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBusquedaAbanzadaActionPerformed"/>
+          </Events>
         </Component>
       </SubComponents>
     </Container>

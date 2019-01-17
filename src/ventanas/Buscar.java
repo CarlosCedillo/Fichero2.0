@@ -67,6 +67,9 @@ public class Buscar extends javax.swing.JFrame {
         lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
         lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
         lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
+        btnBusquedaAbanzada.setVisible(false);
+        
+        cbSub1Avz.disable(); cbSub2Avz.disable(); cbSub3Avz.disable();
         
     }
     
@@ -119,6 +122,7 @@ public class Buscar extends javax.swing.JFrame {
         cbSub3Avz = new javax.swing.JComboBox();
         lblFuenteAvz = new javax.swing.JLabel();
         cbFuenteAvz = new javax.swing.JComboBox();
+        btnBusquedaAbanzada = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -423,6 +427,13 @@ public class Buscar extends javax.swing.JFrame {
 
         lblFuenteAvz.setText("Fuente");
 
+        btnBusquedaAbanzada.setText("Buscar");
+        btnBusquedaAbanzada.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnBusquedaAbanzadaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout pnlAvanzasdoLayout = new javax.swing.GroupLayout(pnlAvanzasdo);
         pnlAvanzasdo.setLayout(pnlAvanzasdoLayout);
         pnlAvanzasdoLayout.setHorizontalGroup(
@@ -447,12 +458,15 @@ public class Buscar extends javax.swing.JFrame {
                     .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
                         .addComponent(lblSub1Avz)
                         .addGap(20, 20, 20)
-                        .addComponent(cbSub1Avz, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(cbSub1Avz, 0, 200, Short.MAX_VALUE))
                     .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
                         .addComponent(lblSub3Avz)
                         .addGap(20, 20, 20)
-                        .addComponent(cbSub3Avz, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(cbSub3Avz, 0, 200, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAvanzasdoLayout.createSequentialGroup()
+                        .addGap(216, 216, 216)
+                        .addComponent(btnBusquedaAbanzada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGap(100, 100, 100))
         );
         pnlAvanzasdoLayout.setVerticalGroup(
             pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -462,18 +476,19 @@ public class Buscar extends javax.swing.JFrame {
                     .addComponent(lblCategoriaAvz)
                     .addComponent(cbCategoriaAvz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub1Avz)
-                    .addComponent(cbSub1Avz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbSub1Avz))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSub2Avz)
                     .addComponent(cbSub2Avz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub3Avz)
-                    .addComponent(cbSub3Avz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbSub3Avz))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFuenteAvz)
-                    .addComponent(cbFuenteAvz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(cbFuenteAvz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnBusquedaAbanzada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -509,90 +524,23 @@ public class Buscar extends javax.swing.JFrame {
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         
-        if( rbuAvanzado.isSelected() == true ){
-            
-            if( cbCategoriaAvz.getSelectedIndex() <= 0 && cbFuenteAvz.getSelectedIndex() <= 0  ){
-                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una categoria o sub categoría 1, 2 o 3");
+        if( txtBuscar.getText().isEmpty() == true ){
+            if( cbBuscar.getSelectedIndex() <= 0 ){
+                JOptionPane.showMessageDialog(null, "Debe llenar el campo de busqueda");
             }else{
-                
-                String sub1, sub2, sub3;
-                
-                if( cbSub1Avz.getSelectedIndex() <= 0 ){
-                    sub1 = "--";
-                }else{
-                    sub1 = cbSub1Avz.getSelectedItem().toString();
-                }
-                
-                if( cbSub2Avz.getSelectedIndex() <= 0 ){
-                    sub2 = "--";
-                }else{
-                    sub2 = cbSub2Avz.getSelectedItem().toString();
-                }
-                
-                if( cbSub3Avz.getSelectedIndex() <= 0 ){
-                    sub3 = "--";
-                }else{
-                    sub3 = cbSub3Avz.getSelectedItem().toString();
-                }
-            
-                System.out.println("\nParametros de busqueda avanzada");
-                System.out.println("    Categoria = "+cbCategoriaAvz.getSelectedItem());
-                System.out.println("    Sub categoria 1 = "+sub1);
-                System.out.println("    Sub categoria 2 = "+sub2);
-                System.out.println("    Sub categoria 3 = "+sub3);
-                System.out.println("    Fuente = "+cbFuenteAvz.getSelectedItem());
-                
-                try {
-                    busquedaAvanzada(cbCategoriaAvz.getSelectedItem().toString(), sub1, sub2, sub3, cbFuenteAvz.getSelectedItem().toString());
-                } catch (Exception ex) {
-                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            
-            }
-            
-        }else{
-            if( txtBuscar.getText().isEmpty() == true ){
-                if( cbBuscar.getSelectedIndex() <= 0 ){
-                    JOptionPane.showMessageDialog(null, "Debe llenar el campo de busqueda");
-                }else{
-                    if( rbuCategoria.isSelected() == true ){
-                        try {
-                            buscarCategoria();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (BadLocationException ex) {
-                            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                    }else{
-                        if( rbuFuente.isSelected() == true ){
-                            try {
-                                buscarFuente();
-                            } catch (SQLException ex) {
-                                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                            } catch (BadLocationException ex) {
-                                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                            }
-                        }else{
-                            JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
-                        }
-                    }
-                }
-            }else{
-                if( rbuTexto.isSelected() == true ){
-                    par = txtBuscar.getText();
+                if( rbuCategoria.isSelected() == true ){
                     try {
-                        buscarTexto(par);
+                        buscarCategoria();
                     } catch (SQLException ex) {
                         Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (BadLocationException ex) {
                         Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
-                    if( rbuNoficha.isSelected() == true ){
-                        par = txtBuscar.getText();
+                    if( rbuFuente.isSelected() == true ){
                         try {
-                            buscarNoficha(par);
-                                    } catch (SQLException ex) {
+                            buscarFuente();
+                        } catch (SQLException ex) {
                             Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (BadLocationException ex) {
                             Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
@@ -600,6 +548,30 @@ public class Buscar extends javax.swing.JFrame {
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
                     }
+                }
+            }
+        }else{
+            if( rbuTexto.isSelected() == true ){
+                par = txtBuscar.getText();
+                try {
+                    buscarTexto(par);
+                } catch (SQLException ex) {
+                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (BadLocationException ex) {
+                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }else{
+                if( rbuNoficha.isSelected() == true ){
+                    par = txtBuscar.getText();
+                    try {
+                        buscarNoficha(par);
+                                } catch (SQLException ex) {
+                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    } catch (BadLocationException ex) {
+                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
                 }
             }
         }
@@ -729,9 +701,12 @@ public class Buscar extends javax.swing.JFrame {
             lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
             lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
             lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
+            btnBusquedaAbanzada.setVisible(false);
+            
+            btnBuscar.setEnabled(true);
             
         } catch (Exception ex) {
-            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         
     }//GEN-LAST:event_rbuCategoriaItemStateChanged
@@ -760,6 +735,9 @@ public class Buscar extends javax.swing.JFrame {
         lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
         lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
         lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
+        btnBusquedaAbanzada.setVisible(false);
+        
+        btnBuscar.setEnabled(true);
         
         
     }//GEN-LAST:event_rbuFuenteItemStateChanged
@@ -781,6 +759,9 @@ public class Buscar extends javax.swing.JFrame {
         lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
         lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
         lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
+        btnBusquedaAbanzada.setVisible(false);
+        
+        btnBuscar.setEnabled(true);
         
     }//GEN-LAST:event_rbuTextoItemStateChanged
 
@@ -801,6 +782,9 @@ public class Buscar extends javax.swing.JFrame {
         lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
         lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
         lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
+        btnBusquedaAbanzada.setVisible(false);
+        
+        btnBuscar.setEnabled(true);
         
     }//GEN-LAST:event_rbuNofichaItemStateChanged
 
@@ -894,8 +878,9 @@ public class Buscar extends javax.swing.JFrame {
             lblSub2Avz.setVisible(true); cbSub2Avz.setVisible(true);
             lblSub3Avz.setVisible(true); cbSub3Avz.setVisible(true);
             lblFuenteAvz.setVisible(true); cbFuenteAvz.setVisible(true);
+            btnBusquedaAbanzada.setVisible(true);
             
-            txtBuscar.disable(); cbBuscar.disable();
+            txtBuscar.disable(); cbBuscar.disable(); btnBuscar.setEnabled(false);
             
             cbCategoriaAvz.removeAllItems();
             
@@ -912,7 +897,7 @@ public class Buscar extends javax.swing.JFrame {
             listarFuentes();
             
         } catch (Exception ex) {
-            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
         }
         
     }//GEN-LAST:event_rbuAvanzadoItemStateChanged
@@ -1014,6 +999,49 @@ public class Buscar extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_cbSub2AvzItemStateChanged
+
+    private void btnBusquedaAbanzadaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBusquedaAbanzadaActionPerformed
+
+        if( cbCategoriaAvz.getSelectedIndex() <= 0 && cbFuenteAvz.getSelectedIndex() <= 0  ){
+            JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una categoria o sub categoría 1, 2 o 3");
+        }else{
+
+            String sub1, sub2, sub3;
+
+            if( cbSub1Avz.getSelectedIndex() <= 0 ){
+                sub1 = "--";
+            }else{
+                sub1 = cbSub1Avz.getSelectedItem().toString();
+            }
+
+            if( cbSub2Avz.getSelectedIndex() <= 0 ){
+                sub2 = "--";
+            }else{
+                sub2 = cbSub2Avz.getSelectedItem().toString();
+            }
+
+            if( cbSub3Avz.getSelectedIndex() <= 0 ){
+                sub3 = "--";
+            }else{
+                sub3 = cbSub3Avz.getSelectedItem().toString();
+            }
+
+            System.out.println("\nParametros de busqueda avanzada");
+            System.out.println("    Categoria = "+cbCategoriaAvz.getSelectedItem());
+            System.out.println("    Sub categoria 1 = "+sub1);
+            System.out.println("    Sub categoria 2 = "+sub2);
+            System.out.println("    Sub categoria 3 = "+sub3);
+            System.out.println("    Fuente = "+cbFuenteAvz.getSelectedItem());
+
+            try {
+                busquedaAvanzada(cbCategoriaAvz.getSelectedItem().toString(), sub1, sub2, sub3, cbFuenteAvz.getSelectedItem().toString());
+            } catch (Exception ex) {
+                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }//GEN-LAST:event_btnBusquedaAbanzadaActionPerformed
     
     public static void main(String args[]) {
 
@@ -1027,6 +1055,7 @@ public class Buscar extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAnt;
     private javax.swing.JButton btnBuscar;
+    private javax.swing.JButton btnBusquedaAbanzada;
     private javax.swing.JButton btnExportar;
     private javax.swing.JButton btnModificar;
     private javax.swing.JButton btnPrimero;
