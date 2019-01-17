@@ -9,6 +9,11 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import conexion.ConexionBD;
+import dao.implementaciones.CategoriaDaoImp;
+import dao.implementaciones.FuenteDaoImp;
+import dao.implementaciones.SubCategoria1DaoImp;
+import dao.implementaciones.SubCategoria2DaoImp;
+import dao.implementaciones.SubCategoria3DaoImp;
 import java.awt.Color;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -17,6 +22,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -104,15 +110,15 @@ public class Buscar extends javax.swing.JFrame {
         lblInfo = new javax.swing.JLabel();
         pnlAvanzasdo = new javax.swing.JPanel();
         lblCategoriaAvz = new javax.swing.JLabel();
-        cbCategoriaAvz = new javax.swing.JComboBox<>();
+        cbCategoriaAvz = new javax.swing.JComboBox();
         lblSub1Avz = new javax.swing.JLabel();
-        cbSub1Avz = new javax.swing.JComboBox<>();
+        cbSub1Avz = new javax.swing.JComboBox();
         lblSub2Avz = new javax.swing.JLabel();
-        cbSub2Avz = new javax.swing.JComboBox<>();
+        cbSub2Avz = new javax.swing.JComboBox();
         lblSub3Avz = new javax.swing.JLabel();
-        cbSub3Avz = new javax.swing.JComboBox<>();
+        cbSub3Avz = new javax.swing.JComboBox();
         lblFuenteAvz = new javax.swing.JLabel();
-        cbFuenteAvz = new javax.swing.JComboBox<>();
+        cbFuenteAvz = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -391,9 +397,27 @@ public class Buscar extends javax.swing.JFrame {
 
         lblCategoriaAvz.setText("Categoría");
 
+        cbCategoriaAvz.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbCategoriaAvzItemStateChanged(evt);
+            }
+        });
+
         lblSub1Avz.setText("Sub categoría 1");
 
+        cbSub1Avz.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbSub1AvzItemStateChanged(evt);
+            }
+        });
+
         lblSub2Avz.setText("Sub categoría 2");
+
+        cbSub2Avz.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                cbSub2AvzItemStateChanged(evt);
+            }
+        });
 
         lblSub3Avz.setText("Sub categoría 3");
 
@@ -477,34 +501,98 @@ public class Buscar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
         
-        //inicio jFrame = new inicio();
         this.setVisible(false);
-        //jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         
-        if( txtBuscar.getText().isEmpty() == true ){
-            if( cbBuscar.getSelectedIndex() <= 0 ){
-                JOptionPane.showMessageDialog(null, "Debe llenar el campo de busqueda");
+        if( rbuAvanzado.isSelected() == true ){
+            
+            if( cbCategoriaAvz.getSelectedIndex() <= 0 && cbFuenteAvz.getSelectedIndex() <= 0  ){
+                JOptionPane.showMessageDialog(null, "Debe seleccionar al menos una categoria o sub categoría 1, 2 o 3");
             }else{
-                if( rbuCategoria.isSelected() == true ){
+                
+                String sub1, sub2, sub3;
+                
+                if( cbSub1Avz.getSelectedIndex() <= 0 ){
+                    sub1 = "--";
+                }else{
+                    sub1 = cbSub1Avz.getSelectedItem().toString();
+                }
+                
+                if( cbSub2Avz.getSelectedIndex() <= 0 ){
+                    sub2 = "--";
+                }else{
+                    sub2 = cbSub2Avz.getSelectedItem().toString();
+                }
+                
+                if( cbSub3Avz.getSelectedIndex() <= 0 ){
+                    sub3 = "--";
+                }else{
+                    sub3 = cbSub3Avz.getSelectedItem().toString();
+                }
+            
+                System.out.println("\nParametros de busqueda avanzada");
+                System.out.println("    Categoria = "+cbCategoriaAvz.getSelectedItem());
+                System.out.println("    Sub categoria 1 = "+sub1);
+                System.out.println("    Sub categoria 2 = "+sub2);
+                System.out.println("    Sub categoria 3 = "+sub3);
+                System.out.println("    Fuente = "+cbFuenteAvz.getSelectedItem());
+                
+                try {
+                    busquedaAvanzada(cbCategoriaAvz.getSelectedItem().toString(), sub1, sub2, sub3, cbFuenteAvz.getSelectedItem().toString());
+                } catch (Exception ex) {
+                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            
+            }
+            
+        }else{
+            if( txtBuscar.getText().isEmpty() == true ){
+                if( cbBuscar.getSelectedIndex() <= 0 ){
+                    JOptionPane.showMessageDialog(null, "Debe llenar el campo de busqueda");
+                }else{
+                    if( rbuCategoria.isSelected() == true ){
+                        try {
+                            buscarCategoria();
+                        } catch (SQLException ex) {
+                            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        } catch (BadLocationException ex) {
+                            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }else{
+                        if( rbuFuente.isSelected() == true ){
+                            try {
+                                buscarFuente();
+                            } catch (SQLException ex) {
+                                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                            } catch (BadLocationException ex) {
+                                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                            }
+                        }else{
+                            JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
+                        }
+                    }
+                }
+            }else{
+                if( rbuTexto.isSelected() == true ){
+                    par = txtBuscar.getText();
                     try {
-                        buscarCategoria();
+                        buscarTexto(par);
                     } catch (SQLException ex) {
                         Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     } catch (BadLocationException ex) {
                         Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                     }
                 }else{
-                    if( rbuFuente.isSelected() == true ){
+                    if( rbuNoficha.isSelected() == true ){
+                        par = txtBuscar.getText();
                         try {
-                            buscarFuente();
-                        } catch (SQLException ex) {
+                            buscarNoficha(par);
+                                    } catch (SQLException ex) {
                             Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
                         } catch (BadLocationException ex) {
                             Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
@@ -514,32 +602,7 @@ public class Buscar extends javax.swing.JFrame {
                     }
                 }
             }
-        }else{
-            if( rbuTexto.isSelected() == true ){
-                par = txtBuscar.getText();
-                try {
-                    buscarTexto(par);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            }else{
-                if( rbuNoficha.isSelected() == true ){
-                    par = txtBuscar.getText();
-                    try {
-                        buscarNoficha(par);
-                                } catch (SQLException ex) {
-                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                }else{
-                    JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
-                }
-            }
         }
-        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
@@ -641,27 +704,35 @@ public class Buscar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void rbuCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuCategoriaItemStateChanged
-        // TODO add your handling code here:
-        cbBuscar.enable();
-        
-        txtBuscar.setVisible(false);
-        txtBuscar.setText("");
-        
-        System.out.println("Buscando por categorias");
-        cbBuscar.setVisible(true);
-        
-        cbBuscar.removeAllItems();
-        lisatrCategorias();
-        
-        txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
-        
-        lblCategoriaAvz.setVisible(false); cbCategoriaAvz.setVisible(false);
-        lblSub1Avz.setVisible(false); cbSub1Avz.setVisible(false);
-        lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
-        lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
-        lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
-        
+        try {
+            
+            // TODO add your handling code here:
+            cbBuscar.enable();
+            
+            txtBuscar.setVisible(false);
+            txtBuscar.setText("");
+            
+            System.out.println("Buscando por categorias");
+            cbBuscar.setVisible(true);
+            
+            cbBuscar.removeAllItems();
+            
+            cbBuscar.addItem("--Seleccione--");
+            cbBuscar.setSelectedIndex(0);
+            lisatrCategorias();
+            
+            txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+            
+            lblCategoriaAvz.setVisible(false); cbCategoriaAvz.setVisible(false);
+            lblSub1Avz.setVisible(false); cbSub1Avz.setVisible(false);
+            lblSub2Avz.setVisible(false); cbSub2Avz.setVisible(false);
+            lblSub3Avz.setVisible(false); cbSub3Avz.setVisible(false);
+            lblFuenteAvz.setVisible(false); cbFuenteAvz.setVisible(false);
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_rbuCategoriaItemStateChanged
 
@@ -676,6 +747,9 @@ public class Buscar extends javax.swing.JFrame {
         cbBuscar.setVisible(true);
         
         cbBuscar.removeAllItems();
+        
+        cbBuscar.addItem("--Seleccione--");
+        cbBuscar.setSelectedIndex(0);
         listarFuentes();
         
         txtId.setText(""); txtCategoria.setText(""); txtSub1.setText("");
@@ -813,17 +887,133 @@ public class Buscar extends javax.swing.JFrame {
 
     private void rbuAvanzadoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuAvanzadoItemStateChanged
         
-        lblCategoriaAvz.setVisible(true); cbCategoriaAvz.setVisible(true);
-        lblSub1Avz.setVisible(true); cbSub1Avz.setVisible(true);
-        lblSub2Avz.setVisible(true); cbSub2Avz.setVisible(true);
-        lblSub3Avz.setVisible(true); cbSub3Avz.setVisible(true);
-        lblFuenteAvz.setVisible(true); cbFuenteAvz.setVisible(true);
-        
-        txtBuscar.disable(); cbBuscar.disable();
-        
-        
+        try {
+            
+            lblCategoriaAvz.setVisible(true); cbCategoriaAvz.setVisible(true);
+            lblSub1Avz.setVisible(true); cbSub1Avz.setVisible(true);
+            lblSub2Avz.setVisible(true); cbSub2Avz.setVisible(true);
+            lblSub3Avz.setVisible(true); cbSub3Avz.setVisible(true);
+            lblFuenteAvz.setVisible(true); cbFuenteAvz.setVisible(true);
+            
+            txtBuscar.disable(); cbBuscar.disable();
+            
+            cbCategoriaAvz.removeAllItems();
+            
+            cbCategoriaAvz.addItem("--Seleccione--");
+            cbCategoriaAvz.setSelectedIndex(0);
+            
+            lisatrCategorias();
+            
+            cbFuenteAvz.removeAllItems();
+            
+            cbFuenteAvz.addItem("--Seleccione--");
+            cbFuenteAvz.setSelectedIndex(0);
+            
+            listarFuentes();
+            
+        } catch (Exception ex) {
+            Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
     }//GEN-LAST:event_rbuAvanzadoItemStateChanged
+
+    private void cbCategoriaAvzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaAvzItemStateChanged
+        // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
+        
+        if( cbCategoriaAvz.getSelectedIndex() == 0 ){
+            
+        }else{
+            Categorias categorias  = (Categorias) cbCategoriaAvz.getSelectedItem();
+            
+            try {
+                cbSub1Avz.removeAllItems();
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ categorias.getId() +"  AND activo = true ORDER BY nombre ASC;";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                cbSub1Avz.enable();
+                cbSub1Avz.addItem("--Seleccione--");
+                
+                while (resultSet.next()) {
+                    SubCategorias1 subCategorias1 = new SubCategorias1();
+                    subCategorias1.setId(resultSet.getInt("id"));
+                    subCategorias1.setIdCategoria(resultSet.getInt("idCategoria"));
+                    subCategorias1.setNombre(resultSet.getString("nombre"));
+                    subCategorias1.setActivo(resultSet.getBoolean("activo"));
+                    cbSub1Avz.addItem(subCategorias1);
+                }
+                
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_cbCategoriaAvzItemStateChanged
+
+    private void cbSub1AvzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1AvzItemStateChanged
+        // Esto es para cuando se seleccione una subcategoria1 se activen las subcategorias2 correspondientes
+        
+        if( cbSub1Avz.isEnabled() == true && cbSub1Avz.getSelectedIndex() > 0 ){
+            
+            SubCategorias1 subCategorias1  = (SubCategorias1) cbSub1Avz.getSelectedItem();
+            
+            try {
+                cbSub2Avz.removeAllItems();
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ subCategorias1.getId() +" AND activo = true ORDER BY nombre ASC;";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                cbSub2Avz.enable();
+                cbSub2Avz.addItem("--Seleccione--");
+                    
+                while ( resultSet.next()) {
+                    SubCategorias2 subCategorias2 = new SubCategorias2();
+                    subCategorias2.setId(resultSet.getInt("id"));
+                    subCategorias2.setIdSubCategoria1(resultSet.getInt("idSubCategoria1"));
+                    subCategorias2.setNombre(resultSet.getString("nombre"));
+                    subCategorias2.setActivo(resultSet.getBoolean("activo"));
+                    cbSub2Avz.addItem(subCategorias2);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_cbSub1AvzItemStateChanged
+
+    private void cbSub2AvzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub2AvzItemStateChanged
+        // Esto es para cuando se seleccione una subcategoria2 se activen las subcategorias3 correspondientes
+        
+        if( cbSub2Avz.isEnabled() == true && cbSub2Avz.getSelectedIndex() > 0 ){
+            
+            SubCategorias2 subCategorias2  = (SubCategorias2) cbSub2Avz.getSelectedItem();
+            
+            try {
+                cbSub3Avz.removeAllItems();
+                conexion = ConexionBD.obtenerConexion();
+                ResultSet resultSet;
+                String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ subCategorias2.getId() +" AND activo = true ORDER BY nombre ASC;";
+                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
+                resultSet = preparedStatement.executeQuery();
+                
+                cbSub3Avz.enable();
+                cbSub3Avz.addItem("--Seleccione--");
+                    
+                while ( resultSet.next()) {
+                    SubCategorias3 subCategorias3 = new SubCategorias3();
+                    subCategorias3.setId(resultSet.getInt("id"));
+                    subCategorias3.setIdSubCategoria2(resultSet.getInt("idSubCategoria2"));
+                    subCategorias3.setNombre(resultSet.getString("nombre"));
+                    subCategorias3.setActivo(resultSet.getBoolean("activo"));
+                    cbSub3Avz.addItem(subCategorias3);
+                }
+            } catch (SQLException ex) {
+                System.out.println(ex.getMessage());
+            }
+        }
+    }//GEN-LAST:event_cbSub2AvzItemStateChanged
     
     public static void main(String args[]) {
 
@@ -844,11 +1034,11 @@ public class Buscar extends javax.swing.JFrame {
     private javax.swing.JButton btnSig;
     private javax.swing.JButton btnUltimo;
     private javax.swing.JComboBox cbBuscar;
-    private javax.swing.JComboBox<String> cbCategoriaAvz;
-    private javax.swing.JComboBox<String> cbFuenteAvz;
-    private javax.swing.JComboBox<String> cbSub1Avz;
-    private javax.swing.JComboBox<String> cbSub2Avz;
-    private javax.swing.JComboBox<String> cbSub3Avz;
+    private javax.swing.JComboBox cbCategoriaAvz;
+    private javax.swing.JComboBox cbFuenteAvz;
+    private javax.swing.JComboBox cbSub1Avz;
+    private javax.swing.JComboBox cbSub2Avz;
+    private javax.swing.JComboBox cbSub3Avz;
     private javax.swing.ButtonGroup filtros;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblBuscar;
@@ -1011,6 +1201,86 @@ public class Buscar extends javax.swing.JFrame {
         }
     }
     
+    private void busquedaAvanzada(String categoria, String sub1, String sub2, String sub3, String fuente) throws Exception {
+        
+        String sql = "SELECT * FROM fichas WHERE";
+        
+        //1.- obtener el id de la categoria
+        System.out.println("\nObteniendo el id de la categoría "+categoria);
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        Integer categoriaId = categoriaDaoImp.obtenerId(categoria);
+        System.out.println("La categoría "+categoria+" tiene un id = "+categoriaId);
+        
+        if( categoriaId > 0 ){
+            sql = sql + " categoria = '"+categoriaId+"'";
+        }
+        
+        
+        //2.- Obtener el id de la fuente
+        System.out.println("\nObteniendo el id de la fuente "+fuente);
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+        Integer fuenteId = fuenteDaoImp.obtenerId(fuente);
+        System.out.println("La categoría "+fuente+" tiene un id = "+fuenteId);
+        
+        if( fuenteId > 0 ){
+            sql = sql + " AND fuente = '"+fuenteId+"'";
+        }
+        
+        //3.- Obtener el id de la sub categoria 1
+        System.out.println("\nObteniendo el id de la dub categoria 1 "+sub1);
+        SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+        Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1);
+        System.out.println("La sub categoria 1 "+sub1+" tiene un id = "+sub1Id);
+        
+        if( sub1Id > 0 ){
+            sql = sql + " AND subCategoria1 = '"+sub1Id+"'";
+        }
+        
+        //4.- Obtener el id de la sub categoria 2
+        System.out.println("\nObteniendo el id de la dub categoria 2 "+sub2);
+        SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+        Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2);
+        System.out.println("La sub categoria 2 "+sub2+" tiene un id = "+sub2Id);
+        
+        if( sub2Id > 0 ){
+            sql = sql + " AND subCategoria2 = '"+sub2Id+"'";
+        }
+        
+        //5.- Obtener el id de la sub categoria 3
+        System.out.println("\nObteniendo el id de la dub categoria 3 "+sub3);
+        SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+        Integer sub3Id = subCategoria3DaoImp.obtenerId(sub3);
+        System.out.println("La sub categoria 3 "+sub3+" tiene un id = "+sub3Id);
+        
+        if( sub3Id > 0 ){
+            sql = sql + " AND subCategoria3 = '"+sub3Id+"'";
+        }
+        
+        //6.- Hacer la consulta
+        conexion = ConexionBD.obtenerConexion();
+        Statement statement = conexion.createStatement(
+                resultSet.TYPE_SCROLL_INSENSITIVE,
+                resultSet.CONCUR_READ_ONLY);
+        PreparedStatement preparedStatement = null;
+        
+        System.out.println("\nEjecutando: "+sql);
+        
+        try {
+            
+            ConexionBD.obtenerConexion();
+            preparedStatement = conexion.prepareCall(sql);
+            resultSet = statement.executeQuery(sql);
+            
+            resultSet.next();
+            mostrar(resultSet);
+
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
+            System.out.println(ex.getMessage());
+        }
+        
+    }
+    
     //Mostrar
 
     public void mostrar(ResultSet resultSet) throws SQLException, BadLocationException {
@@ -1157,37 +1427,28 @@ public class Buscar extends javax.swing.JFrame {
     
     //Listar
 
-    private void lisatrCategorias() {
+    private void lisatrCategorias() throws Exception {
         
-        cbBuscar.addItem("--Seleccione--");
-        cbBuscar.setSelectedIndex(0);
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        ArrayList<Categorias> listaCategorias = new ArrayList<>();
+        listaCategorias = categoriaDaoImp.listar();
         
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+        for( int x = 0 ; x < listaCategorias.size() ; x++ ){
             
-            while (resultSet.next()) {
-                Categorias categorias = new Categorias();
-                categorias.setId(resultSet.getInt("id"));
-                categorias.setNombre(resultSet.getString("nombre"));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                cbBuscar.addItem(categorias);
+            if ( rbuCategoria.isSelected() == true ){
+                cbBuscar.addItem(listaCategorias.get(x));
+            }else{
+                if ( rbuAvanzado.isSelected() == true ){
+                    cbCategoriaAvz.addItem(listaCategorias.get(x));
+                }
             }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
         }
     }
 
     private void listarFuentes() {
         
-        cbBuscar.addItem("--Seleccione--");
-        cbBuscar.setSelectedIndex(0);
-        
         try {
+            
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
             String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
@@ -1195,10 +1456,18 @@ public class Buscar extends javax.swing.JFrame {
             resultSet = preparedStatement.executeQuery();
             
             while (resultSet.next()) {
+                
                 Fuentes fuentes = new Fuentes();
                 fuentes.setId(resultSet.getInt("id"));
                 fuentes.setNombre(resultSet.getString("nombre"));
-                cbBuscar.addItem(fuentes);
+                
+                if ( rbuFuente.isSelected() == true ){
+                    cbBuscar.addItem(fuentes);
+                }else{
+                    if ( rbuAvanzado.isSelected() == true ){
+                        cbFuenteAvz.addItem(fuentes);
+                    }
+                }
             }
             
         } catch (SQLException ex) {

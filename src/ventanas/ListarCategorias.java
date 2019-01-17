@@ -648,7 +648,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //Segundo: Obtener el id de la sub categoria 2
             System.out.println("Obteniendo el id de la sub categoria 2 "+sub2Nombre);
-            Integer sub2Id = subCategoria2DaoImp.obtenerIdEspecial(sub2Nombre, sub1Id);
+            Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
             System.out.println("El id de la sub categoria 2 "+sub2Nombre+" es = "+sub2Id);
             
             //Tercero: Obtener el nombre de ña sub categoria 3 = subSategoria3

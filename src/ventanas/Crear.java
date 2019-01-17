@@ -329,9 +329,7 @@ public class Crear extends javax.swing.JFrame {
                 cbCategoria.setSelectedIndex(0);
                 
                 cbSub1.disable();
-                
                 cbSub2.disable();
-                
                 cbSub3.disable();
                 
                 cbFuente.setSelectedIndex(0);
@@ -344,11 +342,10 @@ public class Crear extends javax.swing.JFrame {
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        //inicio jFrame = new inicio();
+        
         this.setVisible(false);
-        //jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
