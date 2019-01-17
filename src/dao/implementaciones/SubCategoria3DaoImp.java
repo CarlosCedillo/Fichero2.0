@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import tablas.SubCategorias3;
 
 public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
@@ -173,6 +174,11 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
     public boolean modificar(Integer id, String nvoNombre) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    @Override
+    public ArrayList<SubCategorias3> listar() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
 
     @Override
     public boolean activar(Integer id) {
@@ -183,5 +189,5 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
     public boolean desactivar(Integer id) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-    
+
 }

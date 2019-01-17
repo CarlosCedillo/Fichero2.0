@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import tablas.SubCategorias2;
 
 public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
@@ -52,7 +53,7 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
     }
     
     @Override
-    public Integer obtenerIdEspecial(String nombre, Integer sub1Id) {
+    public Integer obtenetIdAvanzado(String nombre, Integer sub1Id) {
         
         Integer sub2Id = 0;
         
@@ -211,6 +212,11 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
 
     @Override
     public boolean modificar(Integer id, String nvoNombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
+    @Override
+    public ArrayList<SubCategorias2> listar() throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
