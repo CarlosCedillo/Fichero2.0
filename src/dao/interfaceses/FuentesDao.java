@@ -11,7 +11,7 @@ public interface FuentesDao {
     
     //CRYD (Create, Read, Update, Delete)
     
-    public boolean guardar(Integer id, String nombre);
+    public boolean guardar(String nombre);
     
     public List<Fuentes> listar() throws Exception;
     
