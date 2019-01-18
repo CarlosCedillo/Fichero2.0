@@ -11,7 +11,7 @@ public interface SubCategoria3Dao {
     
     public boolean guardar(String nombre, Integer sub2Id);
     public boolean modificar(Integer id, String nvoNombre);
-    public List<SubCategorias3> listar() throws Exception;
+    public List<SubCategorias3> listar(Integer sub2Id) throws Exception;
     
     public boolean activar(Integer id);
     public boolean desactivar(Integer id);
