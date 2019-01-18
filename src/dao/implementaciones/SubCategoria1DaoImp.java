@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import tablas.SubCategorias1;
 
@@ -117,10 +118,8 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             }
             
             if( registros == 0 ){
-                System.out.println("Laa sub categorias 1 "+nombre+" no existe");
                 existe = false;
             }else{
-                System.out.println("Laa sub categorias 1 "+nombre+" si existe");
                 existe = true;
             }
             
@@ -157,7 +156,6 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             preparedStatement.executeUpdate();
                 
             guardado = true;
-            System.out.println("Sub categorias 1 giardada" );
                 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
@@ -202,8 +200,43 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
     }
     
     @Override
-    public List<SubCategorias1> listar() throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<SubCategorias1> listar(Integer categoriaId) throws Exception {
+        
+        Connection conexion = null;
+        List<SubCategorias1> listar = null;
+        listar = new ArrayList<>();
+        
+        System.out.println("\nEjecutando: SELECT * FROM subCategorias1 WHERE idCategoria = '"+categoriaId+"'");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+            
+            String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = '"+categoriaId+"'";
+            preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                SubCategorias1 subCategorias1 = new SubCategorias1();
+                subCategorias1.setId(resultSet.getInt("id"));
+                subCategorias1.setIdCategoria(resultSet.getInt("idCategoria"));
+                subCategorias1.setNombre(resultSet.getString("nombre"));
+                subCategorias1.setActivo(resultSet.getBoolean("activo"));
+                listar.add(subCategorias1);
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+        
+        return listar;
+        
     }
 
     @Override
