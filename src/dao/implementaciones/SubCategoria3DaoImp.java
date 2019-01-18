@@ -235,7 +235,7 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return listar;

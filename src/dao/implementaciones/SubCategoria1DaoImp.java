@@ -232,7 +232,7 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return listar;

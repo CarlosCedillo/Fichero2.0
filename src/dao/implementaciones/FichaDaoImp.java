@@ -75,9 +75,9 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
                 Fichas fichas = new Fichas();
                 fichas.setId(resultSet.getInt("id"));
                 fichas.setCategoria(resultSet.getInt("categoria"));
-                fichas.setSubCategoia1(resultSet.getInt("subCategoia1"));
-                fichas.setSubCategoia2(resultSet.getInt("subCategoia2"));
-                fichas.setSubCategoia3(resultSet.getInt("subCategoia3"));
+                fichas.setSubCategoia1(resultSet.getInt("subCategoria1"));
+                fichas.setSubCategoia2(resultSet.getInt("subCategoria2"));
+                fichas.setSubCategoia3(resultSet.getInt("subCategoria3"));
                 fichas.setFuente(resultSet.getInt("fuente"));
                 fichas.setTexto(resultSet.getString("texto"));
                 buscarNoFicha.add(fichas);
@@ -88,7 +88,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return buscarNoFicha;
@@ -118,9 +118,9 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
                 Fichas fichas = new Fichas();
                 fichas.setId(resultSet.getInt("id"));
                 fichas.setCategoria(resultSet.getInt("categoria"));
-                fichas.setSubCategoia1(resultSet.getInt("subCategoia1"));
-                fichas.setSubCategoia2(resultSet.getInt("subCategoia2"));
-                fichas.setSubCategoia3(resultSet.getInt("subCategoia3"));
+                fichas.setSubCategoia1(resultSet.getInt("subCategoria1"));
+                fichas.setSubCategoia2(resultSet.getInt("subCategoria2"));
+                fichas.setSubCategoia3(resultSet.getInt("subCategoria3"));
                 fichas.setFuente(resultSet.getInt("fuente"));
                 fichas.setTexto(resultSet.getString("texto"));
                 buscarTexto.add(fichas);
@@ -131,7 +131,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return buscarTexto;
@@ -161,9 +161,9 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
                 Fichas fichas = new Fichas();
                 fichas.setId(resultSet.getInt("id"));
                 fichas.setCategoria(resultSet.getInt("categoria"));
-                fichas.setSubCategoia1(resultSet.getInt("subCategoia1"));
-                fichas.setSubCategoia2(resultSet.getInt("subCategoia2"));
-                fichas.setSubCategoia3(resultSet.getInt("subCategoia3"));
+                fichas.setSubCategoia1(resultSet.getInt("subCategoria1"));
+                fichas.setSubCategoia2(resultSet.getInt("subCategoria2"));
+                fichas.setSubCategoia3(resultSet.getInt("subCategoria3"));
                 fichas.setFuente(resultSet.getInt("fuente"));
                 fichas.setTexto(resultSet.getString("texto"));
                 buscarCategoria.add(fichas);
@@ -174,7 +174,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return buscarCategoria;
@@ -204,9 +204,9 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
                 Fichas fichas = new Fichas();
                 fichas.setId(resultSet.getInt("id"));
                 fichas.setCategoria(resultSet.getInt("categoria"));
-                fichas.setSubCategoia1(resultSet.getInt("subCategoia1"));
-                fichas.setSubCategoia2(resultSet.getInt("subCategoia2"));
-                fichas.setSubCategoia3(resultSet.getInt("subCategoia3"));
+                fichas.setSubCategoia1(resultSet.getInt("subCategoria1"));
+                fichas.setSubCategoia2(resultSet.getInt("subCategoria2"));
+                fichas.setSubCategoia3(resultSet.getInt("subCategoria3"));
                 fichas.setFuente(resultSet.getInt("fuente"));
                 fichas.setTexto(resultSet.getString("texto"));
                 buscarFuente.add(fichas);
@@ -217,7 +217,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return buscarFuente;
@@ -267,9 +267,9 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
                 Fichas fichas = new Fichas();
                 fichas.setId(resultSet.getInt("id"));
                 fichas.setCategoria(resultSet.getInt("categoria"));
-                fichas.setSubCategoia1(resultSet.getInt("subCategoia1"));
-                fichas.setSubCategoia2(resultSet.getInt("subCategoia2"));
-                fichas.setSubCategoia3(resultSet.getInt("subCategoia3"));
+                fichas.setSubCategoia1(resultSet.getInt("subCategoria1"));
+                fichas.setSubCategoia2(resultSet.getInt("subCategoria2"));
+                fichas.setSubCategoia3(resultSet.getInt("subCategoria3"));
                 fichas.setFuente(resultSet.getInt("fuente"));
                 fichas.setTexto(resultSet.getString("texto"));
                 busquedaAvanzada.add(fichas);
@@ -280,7 +280,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return busquedaAvanzada;

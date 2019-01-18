@@ -149,7 +149,7 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return listaFuentes;

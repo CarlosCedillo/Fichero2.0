@@ -222,7 +222,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             resultSet.close();
             
         } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+            System.out.println(ex.getMessage());
         }
         
         return listaCategorias;

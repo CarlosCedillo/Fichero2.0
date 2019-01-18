@@ -5,6 +5,8 @@ import dao.implementaciones.FichaDaoImp;
 import dao.implementaciones.FuenteDaoImp;
 import java.awt.Color;
 import java.sql.SQLException;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -554,10 +556,11 @@ public class Borrar extends javax.swing.JFrame {
     private void buscarTexto(String par) throws Exception {
         
         FichaDaoImp fichaDaoImp = new FichaDaoImp();
+        List<Fichas> listaFichas = fichaDaoImp.buscarTexto(par);
         
-        for( Fichas fichas : fichaDaoImp.buscarTexto(par) ){
+        for( Fichas fichas : listaFichas ){
+            System.out.println(listaFichas.size());
         }
-        
     }
     
     private void buscarCategoria(String par) {
