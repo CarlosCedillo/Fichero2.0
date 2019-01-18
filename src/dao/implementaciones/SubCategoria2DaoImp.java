@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 import tablas.SubCategorias2;
 
@@ -212,22 +213,135 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
 
     @Override
     public boolean modificar(Integer id, String nvoNombre) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        boolean modificado = false;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Ejecutando: UPDATE subCategorias2 SET nombre = '"+nvoNombre+"' WHERE id = "+id);
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET nombre = ? WHERE id = ?");
+            preparedStatement.setString(1, nvoNombre);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+
+            modificado = true;
+
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+
+            } catch (SQLException | ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+        }
+        
+        return modificado;
+        
     }
     
     @Override
     public List<SubCategorias2> listar(Integer sub1Id) throws Exception {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Connection conexion = null;
+        List<SubCategorias2> listar = null;
+        listar = new ArrayList<>();
+        
+        System.out.println("\nEjecutando: SELECT * FROM subCategorias2 WHERE idSubCategoria1 = '"+sub1Id+"'");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            PreparedStatement preparedStatement;
+            ResultSet resultSet;
+            
+            String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = '"+sub1Id+"'";
+            preparedStatement = conexion.prepareStatement(sql);
+            resultSet = preparedStatement.executeQuery();
+            
+            while (resultSet.next()) {
+                SubCategorias2 subCategorias2 = new SubCategorias2();
+                subCategorias2.setId(resultSet.getInt("id"));
+                subCategorias2.setIdSubCategoria1(resultSet.getInt("idSubCategoria1"));
+                subCategorias2.setNombre(resultSet.getString("nombre"));
+                subCategorias2.setActivo(resultSet.getBoolean("activo"));
+                listar.add(subCategorias2);
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException ex) {
+            System.err.println(ex.getErrorCode());
+        }
+        
+        return listar;
+        
     }
 
     @Override
     public boolean activar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        boolean activado = false;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Ejecutando: UPDATE subCategorias2 SET activo = true WHERE id = '"+id+"'");
+        
+        try {
+
+            conexion = ConexionBD.obtenerConexion();
+            preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
+            preparedStatement.setBoolean(1, true);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+
+            activado = true;
+
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return activado;
+        
     }
 
     @Override
     public boolean desactivar(Integer id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        boolean desactivado = false;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        
+        System.out.println("Ejecutando: UPDATE subCategorias2 SET activo = false WHERE id = '"+id+"'");
+        
+        try {
+
+            conexion = ConexionBD.obtenerConexion();
+            preparedStatement = conexion.prepareStatement("UPDATE subCategorias2 SET activo = ? WHERE id = ?");
+            preparedStatement.setBoolean(1, false);
+            preparedStatement.setInt(2, id);
+            preparedStatement.executeUpdate();
+
+            desactivado = true;
+
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return desactivado;
+        
     }
 
 }
