@@ -537,7 +537,13 @@ public class Crear extends javax.swing.JFrame {
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
         
         for( Categorias categorias : categoriaDaoImp.listar() ){
-            cbCategoria.addItem(categorias.getNombre());
+            
+            Categorias temp = new Categorias();
+            temp.setId(categorias.getId());
+            temp.setNombre(categorias.getNombre());
+            temp.setActivo(categorias.isActivo());
+            cbCategoria.addItem(temp);
+            
         }
     }
     

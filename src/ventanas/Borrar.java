@@ -1,16 +1,12 @@
 package ventanas;
 
-import conexion.ConexionBD;
+import dao.implementaciones.CategoriaDaoImp;
+import dao.implementaciones.FichaDaoImp;
+import dao.implementaciones.FuenteDaoImp;
 import java.awt.Color;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
@@ -18,22 +14,8 @@ import javax.swing.text.Highlighter;
 import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
-import tablas.SubCategorias1;
-import tablas.SubCategorias2;
-import tablas.SubCategorias3;
 
 public class Borrar extends javax.swing.JFrame {
-    
-    Connection conexion = null;
-    String tabla, par;
-    ResultSet resultSet, resultSetId;
-    
-    Categorias categorias = new Categorias();
-    Fichas fichas = new Fichas();
-    Fuentes fuentes = new Fuentes();
-    SubCategorias1 subCategorias1 = new SubCategorias1();
-    SubCategorias2 subCategorias2 = new SubCategorias2();
-    SubCategorias3 subCategorias3 = new SubCategorias3();
     
     public Borrar() {
         initComponents();
@@ -145,9 +127,9 @@ public class Borrar extends javax.swing.JFrame {
                         .addComponent(rbuFuente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGap(230, 230, 230))
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(cbBuscar, 0, 171, Short.MAX_VALUE)
+                        .addComponent(cbBuscar, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(txtBuscar, javax.swing.GroupLayout.DEFAULT_SIZE, 144, Short.MAX_VALUE)
+                        .addComponent(txtBuscar)
                         .addGap(18, 18, 18)
                         .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(141, 141, 141))))
@@ -253,7 +235,7 @@ public class Borrar extends javax.swing.JFrame {
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(25, 25, 25)
+                .addGap(30, 30, 30)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(lblNumero)
                     .addComponent(lblSub2))
@@ -277,9 +259,9 @@ public class Borrar extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txtSub1)
                     .addComponent(txtFuente))
-                .addGap(26, 26, 26))
+                .addGap(30, 30, 30))
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(51, 51, 51)
+                .addGap(50, 50, 50)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -290,12 +272,12 @@ public class Borrar extends javax.swing.JFrame {
                             .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPrimero))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 590, Short.MAX_VALUE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUltimo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(40, 40, 40))
+                .addGap(50, 50, 50))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -346,8 +328,10 @@ public class Borrar extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(lblInfo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -363,11 +347,8 @@ public class Borrar extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
-        
-        //inicio jFrame = new inicio();
+
         this.setVisible(false);
-        //jFrame.setVisible(true);
         System.out.println("Regresando a inicio");
         
     }//GEN-LAST:event_btnRegresarActionPerformed
@@ -379,22 +360,16 @@ public class Borrar extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(null, "Debe llenar el campo de busqueda");
             }else{
                 if( rbuCategoria.isSelected() == true ){
-                    try {
-                        buscarCategoria();
-                    } catch (SQLException ex) {
-                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    
+                    String parametro = cbBuscar.getSelectedItem().toString();
+                    buscarCategoria(parametro);
+                    
                 }else{
                     if( rbuFuente.isSelected() == true ){
-                        try {
-                            buscarFuente();
-                        } catch (SQLException ex) {
-                            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                        } catch (BadLocationException ex) {
-                            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                        }
+                        
+                        String parametro = cbBuscar.getSelectedItem().toString();
+                        buscarFuente(parametro);
+                        
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
                     }
@@ -402,67 +377,40 @@ public class Borrar extends javax.swing.JFrame {
             }
         }else{
             if( rbuTexto.isSelected() == true ){
-                par = txtBuscar.getText();
                 try {
-                    buscarTexto(par);
-                } catch (SQLException ex) {
-                    Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                } catch (BadLocationException ex) {
-                    Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    
+                    String parametro = txtBuscar.getText();
+                    buscarTexto(parametro);
+                    
+                } catch (SQLException | BadLocationException ex) {
+                    System.out.println(ex.getMessage());
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
                 }
             }else{
                 if( rbuNoficha.isSelected() == true ){
-                    par = txtBuscar.getText();
-                    try {
-                        buscarNoficha(par);
-                                } catch (SQLException ex) {
-                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                    } catch (BadLocationException ex) {
-                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                    }
+                    
+                    String parametro = txtBuscar.getText();
+                    buscarNoficha(parametro);
+                    
                 }else{
                     JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
                 }
             }
         }
-        
     }//GEN-LAST:event_btnBuscarActionPerformed
 
     private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
-        try {
-            
-            Boolean accion = resultSet.next();
-            
-           if( accion == false ){
-                JOptionPane.showMessageDialog(null, "Ya es el ultimo registro");
-            }else{
-                mostrar(resultSet);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_btnSigActionPerformed
 
     private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
-         try {
-            
-            Boolean accion = resultSet.previous();
-            
-           if( accion == false ){
-                JOptionPane.showMessageDialog(null, "Ya es el primeer registro");
-            }else{
-                mostrar(resultSet);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         
     }//GEN-LAST:event_btnAntActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
+        
+        String par;
         
         if( txtNumero.getText().isEmpty() == true ){
             JOptionPane.showMessageDialog(null, "No hay ficha para eliminar");
@@ -484,75 +432,57 @@ public class Borrar extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
-         try {
-            
-            Boolean accion = resultSet.last();
-            
-           if( accion == false ){
-                JOptionPane.showMessageDialog(null, "Ya es el ultimo registro");
-            }else{
-                mostrar(resultSet);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+         
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
-        try {
-            
-            Boolean accion = resultSet.first();
-            
-           if( accion == false ){
-                JOptionPane.showMessageDialog(null, "Ya es el primeer registro");
-            }else{
-                mostrar(resultSet);
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        } catch (BadLocationException ex) {
-            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
     private void rbuCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuCategoriaItemStateChanged
-        // TODO add your handling code here:
-        txtBuscar.setVisible(false);
-        txtBuscar.setText("");
-        
-        System.out.println("Buscando por categorias");
-        cbBuscar.setVisible(true);
-        
-        cbBuscar.removeAllItems();
-        lisatrCategorias();
-        
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
-        
+        try {
+            
+            txtBuscar.setVisible(false);
+            txtBuscar.setText("");
+            
+            System.out.println("Buscando por categorias");
+            cbBuscar.setVisible(true);
+            
+            cbBuscar.removeAllItems();
+            lisatrCategorias();
+            
+            txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         
     }//GEN-LAST:event_rbuCategoriaItemStateChanged
 
     private void rbuFuenteItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuFuenteItemStateChanged
-        // TODO add your handling code here:
-        txtBuscar.setVisible(false);
-        txtBuscar.setText("");
-        
-        System.out.println("Buscando por fuentes");
-        cbBuscar.setVisible(true);
-        
-        cbBuscar.removeAllItems();
-        listarFuentes();
-        
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
-        
+        try {
+            
+            txtBuscar.setVisible(false);
+            txtBuscar.setText("");
+            
+            System.out.println("Buscando por fuentes");
+            cbBuscar.setVisible(true);
+            
+            cbBuscar.removeAllItems();
+            listarFuentes();
+            
+            txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         
     }//GEN-LAST:event_rbuFuenteItemStateChanged
 
     private void rbuTextoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuTextoItemStateChanged
-        // TODO add your handling code here:
+
         txtBuscar.setVisible(true);
         System.out.println("Buscando por texto");
         cbBuscar.setVisible(false);
@@ -564,7 +494,7 @@ public class Borrar extends javax.swing.JFrame {
     }//GEN-LAST:event_rbuTextoItemStateChanged
 
     private void rbuNofichaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuNofichaItemStateChanged
-        // TODO add your handling code here:
+        
         txtBuscar.setVisible(true);
         System.out.println("Buscando por Fuentes");
         cbBuscar.setVisible(false);
@@ -572,6 +502,7 @@ public class Borrar extends javax.swing.JFrame {
         
         txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+        
     }//GEN-LAST:event_rbuNofichaItemStateChanged
     
     public static void main(String args[]) {
@@ -620,325 +551,52 @@ public class Borrar extends javax.swing.JFrame {
 
     //Buscar
     
-    private void buscarTexto(String par) throws SQLException, BadLocationException {
+    private void buscarTexto(String par) throws Exception {
         
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
+        FichaDaoImp fichaDaoImp = new FichaDaoImp();
         
-        System.out.println("Ejecutando: SELECT * FROM fichas WHERE texto = '"+par+"'");
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM fichas WHERE texto LIKE '%"+par+"%'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSet = statement.executeQuery(sql);
-            
-            resultSet.next();
-            mostrar(resultSet);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
-            System.out.println(ex.getMessage());
+        for( Fichas fichas : fichaDaoImp.buscarTexto(par) ){
         }
+        
     }
     
-    private void buscarCategoria() throws SQLException, BadLocationException {
+    private void buscarCategoria(String par) {
         
-        // 1ro hay que obtener el id de la categoria seleccionada en el combo box
-        Categorias categoria = (Categorias) cbBuscar.getSelectedItem();
-        Integer categoriaId = categoria.getId();
-        String categoriaNombre = categoria.getNombre();
-        System.out.println("Buscando fichas con la categoria "+categoriaNombre+" con al id "+categoriaId);
         
-        //Ahora hay que buscar las ficha que tenga la caregoria guardada en categoriaId
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria = '"+categoriaId+"'");
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM fichas WHERE categoria = '"+categoriaId+"'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSet = statement.executeQuery(sql);
-            
-            resultSet.next();
-            mostrar(resultSet);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
-            System.out.println(ex.getMessage());
-        }
     }
 
-    private void buscarFuente() throws SQLException, BadLocationException {
-    
-        // 1ro hay que obtener el id de la fuente seleccionada en el combo box
-        Fuentes fuentes = (Fuentes) cbBuscar.getSelectedItem();
-        Integer fuenteId = fuentes.getId();
-        String fuenteNombre = fuentes.getNombre();
-        System.out.println("Buscando fichas con la fuente "+fuenteNombre+" con al id "+fuenteId);
+    private void buscarFuente(String par) {
         
-        //Ahora hay que buscar las ficha que tenga la caregoria guardada en categoriaId
-        conexion = ConexionBD.obtenerConexion();
-        Statement statement = conexion.createStatement(
-                resultSet.TYPE_SCROLL_INSENSITIVE,
-                resultSet.CONCUR_READ_ONLY);
-        PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: SELECT * FROM fichas WHERE fuente = '"+fuenteId+"'");
         
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM fichas WHERE fuente = '"+fuenteId+"'";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSet = statement.executeQuery(sql);
-            
-            resultSet.next();
-            mostrar(resultSet);
-
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "No se encontro una ficha");
-            System.out.println(ex.getMessage());
-        }
     }
     
-    private void buscarNoficha(String par) throws SQLException, BadLocationException{
-        //Al buscar una ficha por id, no se debe de aceptar letras, es decir que solo números
-        Pattern texto = Pattern.compile(".+[a-zA-ZñÑáéíóúÁÉÍÓÚ]+.?");
-        Matcher sip = texto.matcher(par);
+    private void buscarNoficha(String par) {
         
-        if( sip.matches() ){
-            JOptionPane.showMessageDialog(null, "Este tipo de busqueda no acepta letras");
-        }else{
-            Integer fichaId = Integer.parseInt(par);
-            
-            conexion = ConexionBD.obtenerConexion();
-            Statement statement = conexion.createStatement(
-                    resultSet.TYPE_SCROLL_INSENSITIVE,
-                 resultSet.CONCUR_READ_ONLY);
-            PreparedStatement preparedStatement;
         
-            System.out.println("Ejecutando: SELECT * FROM fichas WHERE id = '"+fichaId+"'");
-
-            try {
-
-                ConexionBD.obtenerConexion();
-                String sql = "SELECT * FROM fichas WHERE id = '"+fichaId+"'";
-                preparedStatement = conexion.prepareCall(sql);
-                resultSet = statement.executeQuery(sql);
-
-                resultSet.next();
-                mostrar(resultSet);
-
-            } catch (SQLException ex) {
-                JOptionPane.showMessageDialog(null, "No se encontro una ficha");
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
-    
-    //Mostrar
-
-    public void mostrar(ResultSet resultSet) throws SQLException, BadLocationException {
-        txtNumero.setText(resultSet.getString(1));
-        txtFicha.setText(resultSet.getString(2));
         
-        Integer categoriaId = Integer.valueOf(resultSet.getString(3));
-        mostrarCategoria(categoriaId);
-        
-        if( !resultSet.getString(4).isEmpty() ){
-            Integer sub1Id = Integer.valueOf(resultSet.getString(4));
-            mostrarSubcategoria1(sub1Id);
-        }
-        
-        if( !resultSet.getString(5).isEmpty() ){
-            Integer sub2Id = Integer.valueOf(resultSet.getString(5));
-            mostrarSubcategoria2(sub2Id);
-        }
-        
-        if( !resultSet.getString(6).isEmpty() ){
-            Integer sub3Id = Integer.valueOf(resultSet.getString(6));
-            mostrarSubcategoria3(sub3Id);
-        }
-        
-        Integer fuenteId = Integer.valueOf(resultSet.getString(7));
-        mostrarFuentes(fuenteId);
-        
-        marcarBusqueda(txtBuscar.getText(), txtFicha.getText());
-        
-    }
-
-    private void mostrarCategoria(Integer categoriaId) {
-        
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT nombre FROM categorias WHERE id = "+categoriaId+"";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            resultSet.next();
-            categorias.setNombre(resultSet.getString("nombre"));
-            txtCategoria.setText(categorias.getNombre());
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    private void mostrarSubcategoria1(Integer sub1Id) {
-        
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
-        
-        if(sub1Id == 0){
-            txtSub1.setText("");
-        }else{
-        
-            try {
-                String sql = "SELECT nombre FROM subCategorias1 WHERE id = "+ sub1Id +";";
-                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-                resultSet = preparedStatement.executeQuery();
-
-                resultSet.next();
-                subCategorias1.setNombre(resultSet.getString("nombre"));
-                txtSub1.setText(subCategorias1.getNombre());
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
-
-    private void mostrarSubcategoria2(Integer sub2Id) {
-        
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
-        
-        if(sub2Id == 0){
-            txtSub2.setText("");
-        }else{
-        
-            try {
-                String sql = "SELECT nombre FROM subCategorias2 WHERE id = "+ sub2Id +";";
-                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-                resultSet = preparedStatement.executeQuery();
-
-                resultSet.next();
-                subCategorias2.setNombre(resultSet.getString("nombre"));
-                txtSub2.setText(subCategorias2.getNombre());
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
-
-    private void mostrarSubcategoria3(Integer sub3Id) {
-        
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
-        
-        if(sub3Id == 0){
-            txtSub3.setText("");
-        }else{
-        
-            try {
-                String sql = "SELECT nombre FROM subCategorias3 WHERE id = "+ sub3Id +";";
-                PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-                resultSet = preparedStatement.executeQuery();
-
-                resultSet.next();
-                subCategorias3.setNombre(resultSet.getString("nombre"));
-                txtSub3.setText(subCategorias3.getNombre());
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-        }
-    }
-
-    private void mostrarFuentes(Integer fuenteId) {
-        
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
-        
-        try {
-            String sql = "SELECT nombre FROM fuentes WHERE id = "+ fuenteId +";";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-                
-            resultSet.next();
-            fuentes.setNombre(resultSet.getString("nombre"));
-            txtFuente.setText(fuentes.getNombre());
-                
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
     
     //Listar
 
-    private void lisatrCategorias() {
+    private void lisatrCategorias() throws Exception {
         
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
         cbBuscar.addItem("--Seleccione--");
-        cbBuscar.setSelectedIndex(0);
         
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                Categorias categorias = new Categorias();
-                categorias.setId(resultSet.getInt("id"));
-                categorias.setNombre(resultSet.getString("nombre"));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                cbBuscar.addItem(categorias);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+        for ( Categorias categorias : categoriaDaoImp.listar() ) {
+            cbBuscar.addItem(categorias.getNombre());
         }
     }
 
-    private void listarFuentes() {
+    private void listarFuentes() throws Exception {
         
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
         cbBuscar.addItem("--Seleccione--");
-        cbBuscar.setSelectedIndex(0);
         
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            
-            while (resultSet.next()) {
-                Fuentes fuentes = new Fuentes();
-                fuentes.setId(resultSet.getInt("id"));
-                fuentes.setNombre(resultSet.getString("nombre"));
-                cbBuscar.addItem(fuentes);
-            }
-            
-        } catch (SQLException ex) {
-            System.err.println(ex.getErrorCode());
+        for ( Fuentes fuentes : fuenteDaoImp.listar() ) {
+            cbBuscar.addItem(fuentes.getNombre());
         }
     }
     
@@ -946,25 +604,8 @@ public class Borrar extends javax.swing.JFrame {
 
     private void borrarFicha(String par) throws SQLException {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: DELETE * FROM fichas WHERE id = '"+par+"'");
         
-        try {
-            
-            ConexionBD.obtenerConexion();
-            String sql = "DELETE * FROM fichas WHERE id = '"+par+"'";
-            preparedStatement = conexion.prepareStatement(sql);
-            Integer comp = preparedStatement.executeUpdate();
-            
-            if( comp > 0 ){
-                JOptionPane.showMessageDialog(null, "Ficha "+par+" eliminada con éxito");
-            }
-
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
     }
     
         //Marcar palabra en el texto de la ficha
