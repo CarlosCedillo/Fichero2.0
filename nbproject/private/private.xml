@@ -2,6 +2,15 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/dao/implementaciones/FichaDaoImp.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/dao/implementaciones/FuenteDaoImp.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/ventanas/Crear.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/ventanas/Buscar.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/dao/implementaciones/CategoriaDaoImp.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/dao/implementaciones/SubCategoria1DaoImp.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/dao/implementaciones/SubCategoria3DaoImp.java</file>
+            <file>file:/C:/Users/cgca_/OneDrive/Documentos/Mis%20Documentos/NetBeansProjects/Fichero2.0/src/dao/implementaciones/SubCategoria2DaoImp.java</file>
+        </group>
     </open-files>
 </project-private>
