@@ -6,6 +6,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import tablas.Fuentes;
 
 public class FuenteDaoImp extends ConexionBD implements FuentesDao{
@@ -49,6 +50,21 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
         
         return fuenteId;
         
+    }
+
+    @Override
+    public boolean guardar(Integer id, String nombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<Fuentes> listar() throws Exception {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public boolean modificar(Integer id, String nvoNombre) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
