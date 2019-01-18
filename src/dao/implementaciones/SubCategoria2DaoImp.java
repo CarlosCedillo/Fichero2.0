@@ -216,7 +216,7 @@ public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
     }
     
     @Override
-    public List<SubCategorias2> listar() throws Exception {
+    public List<SubCategorias2> listar(Integer sub1Id) throws Exception {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
