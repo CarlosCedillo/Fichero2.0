@@ -1,4 +1,4 @@
-    package dao.implementaciones;
+package dao.implementaciones;
 
 import conexion.ConexionBD;
 import dao.interfaceses.CategoriaDao;
@@ -21,7 +21,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("Ejecutando: SELECT id FROM categorias WHERE nombre = '"+nombre+"'");
+        System.out.println("\nEjecutando: SELECT id FROM categorias WHERE nombre = '"+nombre+"'");
         
         try {
             
@@ -60,7 +60,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("Ejecutando: SELECT nombre FROM categorias WHERE id = "+id+"");
+        System.out.println("\nEjecutando: SELECT nombre FROM categorias WHERE id = "+id+"");
         
         try {
             
@@ -100,7 +100,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("Ejecutando: SELECT * FROM categorias WHERE nombre = '"+nombre+"'");
+        System.out.println("\nEjecutando: SELECT * FROM categorias WHERE nombre = '"+nombre+"'");
         
         try {
             
@@ -115,10 +115,8 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             }
             
             if( registros == 0 ){
-                System.out.println("Laa categoria "+nombre+" no existe");
                 existe = false;
             }else{
-                System.out.println("Laa categoria "+nombre+" si existe");
                 existe = true;
             }
             
@@ -142,7 +140,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: INSERT INTO categorias (nombre, activo) VALUES ('"+nombre+"', true)");
+        System.out.println("\nEjecutando: INSERT INTO categorias (nombre, activo) VALUES ('"+nombre+"', true)");
         
         try {
                 
@@ -154,7 +152,6 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             preparedStatement.executeUpdate();
                 
             guardado = true;
-            System.out.println("Categoria giardada" );
                 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
@@ -175,7 +172,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: UPDATE categorias SET nombre = '"+nvoNombre+"' WHERE id = "+categoriaId);
+        System.out.println("\nEjecutando: UPDATE categorias SET nombre = '"+nvoNombre+"' WHERE id = "+categoriaId);
         
         try {
             
@@ -211,7 +208,6 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
-            conexion = ConexionBD.cerrarConexion();
             
             while (resultSet.next()) {
                 Categorias categorias = new Categorias();
@@ -241,7 +237,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: UPDATE categorias SET activo = true WHERE id = '"+id+"'");
+        System.out.println("\nEjecutando: UPDATE categorias SET activo = true WHERE id = '"+id+"'");
         
         try {
 
@@ -272,7 +268,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("Ejecutando: UPDATE categorias SET activo = false WHERE id = '"+id+"'");
+        System.out.println("\nEjecutando: UPDATE categorias SET activo = false WHERE id = '"+id+"'");
         
         try {
 
