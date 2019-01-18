@@ -6,7 +6,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -536,11 +535,9 @@ public class Crear extends javax.swing.JFrame {
     private void enlistarCategorias() throws ClassNotFoundException, Exception {
         
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-        ArrayList<Categorias> listaCategorias = new ArrayList<>();
-        listaCategorias = categoriaDaoImp.listar();
         
-        for( int x = 0 ; x < listaCategorias.size() ; x++ ){
-            cbCategoria.addItem(listaCategorias.get(x));
+        for( Categorias categorias : categoriaDaoImp.listar() ){
+            cbCategoria.addItem(categorias.getNombre());
         }
     }
     

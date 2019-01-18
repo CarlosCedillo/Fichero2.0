@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 import tablas.Categorias;
 
 public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
@@ -198,10 +199,11 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
     }
     
     @Override
-    public ArrayList<Categorias> listar() throws Exception {
+    public List<Categorias> listar() throws Exception {
         
         Connection conexion = null;
-        ArrayList<Categorias> listaCategorias = new ArrayList<>();
+        List<Categorias> listaCategorias = null;
+        listaCategorias = new ArrayList<>();
         
         try {
             conexion = ConexionBD.obtenerConexion();

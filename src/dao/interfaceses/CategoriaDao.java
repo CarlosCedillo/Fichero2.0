@@ -1,6 +1,6 @@
 package dao.interfaceses;
 
-import java.util.ArrayList;
+import java.util.List;
 import tablas.Categorias;
 
 public interface CategoriaDao {
@@ -11,7 +11,7 @@ public interface CategoriaDao {
     
     public boolean guardar(String nombre);
     public boolean modificar(Integer id, String nvoNombre);
-    public ArrayList<Categorias> listar() throws Exception;
+    public List<Categorias> listar() throws Exception;
     
     public boolean activar(Integer id);
     public boolean desactivar(Integer id);

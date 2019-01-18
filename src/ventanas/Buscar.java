@@ -22,7 +22,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -835,22 +834,11 @@ public class Buscar extends javax.swing.JFrame {
                 table.addCell(cellThree);
                 table.addCell(cellFour);
 
-                
-                //FIN parametros de los parrafos
-                
                 ficha.open();
                 
-                //INICIO agragando parrafos
                 ficha.add(new Paragraph("No. de ficha: " + fichaId));
                 ficha.add(espacio);
-                
                 ficha.add(table);
-//                ficha.add(new Paragraph("Categoria: " + fichaCategoria));
-//                ficha.add(new Paragraph("Sub categoria 1: " + fichaSub1));
-//                ficha.add(new Paragraph("Sub categoria 2: " + fichaSub2));
-//                ficha.add(new Paragraph("Sub categoria 3: " + fichaSub3));
-        
-
                 ficha.add(espacio);
                 ficha.add(new Paragraph(fichaTexto));
                 ficha.add(espacio);
@@ -1459,16 +1447,14 @@ public class Buscar extends javax.swing.JFrame {
     private void lisatrCategorias() throws Exception {
         
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-        ArrayList<Categorias> listaCategorias = new ArrayList<>();
-        listaCategorias = categoriaDaoImp.listar();
         
-        for( int x = 0 ; x < listaCategorias.size() ; x++ ){
+        for( Categorias categorias : categoriaDaoImp.listar() ){
             
             if ( rbuCategoria.isSelected() == true ){
-                cbBuscar.addItem(listaCategorias.get(x));
+                cbBuscar.addItem(categorias.getNombre());
             }else{
                 if ( rbuAvanzado.isSelected() == true ){
-                    cbCategoriaAvz.addItem(listaCategorias.get(x));
+                    cbCategoriaAvz.addItem(categorias.getNombre());
                 }
             }
         }
