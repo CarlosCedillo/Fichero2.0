@@ -209,7 +209,7 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
         List<SubCategorias3> listar = null;
         listar = new ArrayList<>();
         
-        System.out.println("\nEjecutando: SELECT * FROM subCategorias3 WHERE idSubCategoria2 = '"+sub2Id+"'");
+        System.out.println("Ejecutando: SELECT * FROM subCategorias3 WHERE idSubCategoria2 = '"+sub2Id+"'");
         
         try {
             

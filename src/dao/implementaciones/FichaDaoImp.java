@@ -22,7 +22,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: INSERT INTO "
+        System.out.println("Ejecutando: INSERT INTO "
                 + "fichas (texto, categoria, subCategoria1, subCategoria2, subCategoria3, fuente) "
                 + "VALUES ('"+texto+"', '"+categoriaId+"', '"+sub1Id+"', '"+sub2Id+"', '"+sub3Id+"', '"+fuenteId+"')");
         
@@ -59,7 +59,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         List<Fichas> buscarNoFicha = null;
         buscarNoFicha = new ArrayList<>();
         
-        System.out.println("\nEjecutando: SELECT * FROM fichas WHERE id = '"+noFicha+"'");
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE id = '"+noFicha+"'");
         
         try {
             
@@ -102,7 +102,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         List<Fichas> buscarTexto = null;
         buscarTexto = new ArrayList<>();
         
-        System.out.println("\nEjecutando: SELECT * FROM fichas WHERE texto = '"+texto+"'");
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE texto = '"+texto+"'");
         
         try {
             
@@ -145,7 +145,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         List<Fichas> buscarCategoria = null;
         buscarCategoria = new ArrayList<>();
         
-        System.out.println("\nEjecutando: SELECT * FROM fichas WHERE categoria = '"+categoriaId+"'");
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE categoria = '"+categoriaId+"'");
         
         try {
             
@@ -188,7 +188,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         List<Fichas> buscarFuente = null;
         buscarFuente = new ArrayList<>();
         
-        System.out.println("\nEjecutando: SELECT * FROM fichas WHERE fuente = '"+fuenteId+"'");
+        System.out.println("Ejecutando: SELECT * FROM fichas WHERE fuente = '"+fuenteId+"'");
         
         try {
             
@@ -252,7 +252,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             sql = sql + " AND subCategoria1 = '"+sub3Id+"'";
         }
         
-        System.out.println("\nEjecutando: "+sql);
+        System.out.println("Ejecutando: "+sql);
         
         try {
             
@@ -295,7 +295,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: UPDATE fichas SET texto = '"+texto+"', categoria = '"+categoriaId+"', subCategoria1 = '"+sub1Id+"', "
+        System.out.println("Ejecutando: UPDATE fichas SET texto = '"+texto+"', categoria = '"+categoriaId+"', subCategoria1 = '"+sub1Id+"', "
                 + "subCategoria2 = '"+sub2Id+"', subCategoria3 = '"+sub3Id+"', fuente = '"+fuenteId+"' WHERE id = '"+id+"'");
         
         try {
@@ -334,7 +334,7 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: DELETE * FROM fichas WHERE id = '"+id+"'");
+        System.out.println("Ejecutando: DELETE * FROM fichas WHERE id = '"+id+"'");
         
         try {
             

@@ -21,7 +21,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("\nEjecutando: SELECT id FROM categorias WHERE nombre = '"+nombre+"'");
+        System.out.println("Ejecutando: SELECT id FROM categorias WHERE nombre = '"+nombre+"'");
         
         try {
             
@@ -60,7 +60,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("\nEjecutando: SELECT nombre FROM categorias WHERE id = "+id+"");
+        System.out.println("Ejecutando: SELECT nombre FROM categorias WHERE id = "+id+"");
         
         try {
             
@@ -100,7 +100,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         
-        System.out.println("\nEjecutando: SELECT * FROM categorias WHERE nombre = '"+nombre+"'");
+        System.out.println("Ejecutando: SELECT * FROM categorias WHERE nombre = '"+nombre+"'");
         
         try {
             
@@ -140,7 +140,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: INSERT INTO categorias (nombre, activo) VALUES ('"+nombre+"', true)");
+        System.out.println("Ejecutando: INSERT INTO categorias (nombre, activo) VALUES ('"+nombre+"', true)");
         
         try {
                 
@@ -172,7 +172,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: UPDATE categorias SET nombre = '"+nvoNombre+"' WHERE id = "+categoriaId);
+        System.out.println("Ejecutando: UPDATE categorias SET nombre = '"+nvoNombre+"' WHERE id = "+categoriaId);
         
         try {
             
@@ -237,7 +237,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: UPDATE categorias SET activo = true WHERE id = '"+id+"'");
+        System.out.println("Ejecutando: UPDATE categorias SET activo = true WHERE id = '"+id+"'");
         
         try {
 
@@ -268,7 +268,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: UPDATE categorias SET activo = false WHERE id = '"+id+"'");
+        System.out.println("Ejecutando: UPDATE categorias SET activo = false WHERE id = '"+id+"'");
         
         try {
 

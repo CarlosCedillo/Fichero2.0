@@ -100,7 +100,7 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: INSERT INTO fuentes (nombre) VALUES (?)");
+        System.out.println("Ejecutando: INSERT INTO fuentes (nombre) VALUES (?)");
         
         try {
                 
@@ -164,7 +164,7 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
         Connection conexion;
         PreparedStatement preparedStatement;
         
-        System.out.println("\nEjecutando: UPDATE fuentes SET nombre = '"+nvoNombre+"' WHERE id = "+id);
+        System.out.println("Ejecutando: UPDATE fuentes SET nombre = '"+nvoNombre+"' WHERE id = "+id);
         
         try {
             
