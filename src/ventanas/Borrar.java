@@ -2,18 +2,27 @@ package ventanas;
 
 import dao.implementaciones.CategoriaDaoImp;
 import dao.implementaciones.FuenteDaoImp;
+import dao.implementaciones.FichaDaoImp;
+import dao.implementaciones.SubCategoria1DaoImp;
+import dao.implementaciones.SubCategoria2DaoImp;
+import dao.implementaciones.SubCategoria3DaoImp;
+import java.util.List;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
+import tablas.Fichas;
 import tablas.Fuentes;
 
 public class Borrar extends javax.swing.JFrame {
+    
+    Integer indice, tottal;
+    List<Fichas> fichasLista;
     
     public Borrar() {
         initComponents();
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
-        txtFicha.setLineWrap(true);
-        txtFicha.setWrapStyleWord(true);
+        txtTexto.setLineWrap(true);
+        txtTexto.setWrapStyleWord(true);
         
         cbBuscar.setVisible(false);
         
@@ -36,12 +45,12 @@ public class Borrar extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
-        txtNumero = new javax.swing.JTextField();
+        txtNoFichas = new javax.swing.JTextField();
         lblSub1 = new javax.swing.JLabel();
         lblSub2 = new javax.swing.JLabel();
         lblSub3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        txtFicha = new javax.swing.JTextArea();
+        txtTexto = new javax.swing.JTextArea();
         btnSig = new javax.swing.JButton();
         btnAnt = new javax.swing.JButton();
         lblFuente = new javax.swing.JLabel();
@@ -152,7 +161,7 @@ public class Borrar extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoría");
 
-        txtNumero.setEditable(false);
+        txtNoFichas.setEditable(false);
 
         lblSub1.setText("Sub Categoría 1");
 
@@ -160,10 +169,10 @@ public class Borrar extends javax.swing.JFrame {
 
         lblSub3.setText("Sub Categoría 3");
 
-        txtFicha.setEditable(false);
-        txtFicha.setColumns(20);
-        txtFicha.setRows(5);
-        jScrollPane1.setViewportView(txtFicha);
+        txtTexto.setEditable(false);
+        txtTexto.setColumns(20);
+        txtTexto.setRows(5);
+        jScrollPane1.setViewportView(txtTexto);
 
         btnSig.setText(">");
         btnSig.addActionListener(new java.awt.event.ActionListener() {
@@ -232,7 +241,7 @@ public class Borrar extends javax.swing.JFrame {
                     .addComponent(lblSub2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNumero)
+                    .addComponent(txtNoFichas)
                     .addComponent(txtSub2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -276,7 +285,7 @@ public class Borrar extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNumero, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNoFichas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria)
                     .addComponent(lblSub1)
                     .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -391,20 +400,34 @@ public class Borrar extends javax.swing.JFrame {
 
     private void btnSigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSigActionPerformed
         
+        if( indice == tottal ){
+            JOptionPane.showMessageDialog(null, "Ya es la última ficha");
+        } else {
+            indice ++;
+            mostrar(fichasLista.get(indice));
+        }
+        
     }//GEN-LAST:event_btnSigActionPerformed
 
     private void btnAntActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAntActionPerformed
          
+        if( indice == 0 ){
+            JOptionPane.showMessageDialog(null, "Ya es la primera ficha");
+        }else{
+            indice --;
+            mostrar(fichasLista.get(indice));
+        }
+        
     }//GEN-LAST:event_btnAntActionPerformed
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         
         String parametro;
         
-        if( txtNumero.getText().isEmpty() == true ){
+        if( txtNoFichas.getText().isEmpty() == true ){
             JOptionPane.showMessageDialog(null, "No hay ficha para eliminar");
         }else{
-            parametro = txtNumero.getText();
+            parametro = txtNoFichas.getText();
             Integer confirmacion = JOptionPane.showConfirmDialog(null, "Esta apunto de borrar la ficha "+ parametro + " ¿Desea continuar?");
             
             if( confirmacion == 0 ){
@@ -418,9 +441,23 @@ public class Borrar extends javax.swing.JFrame {
 
     private void btnUltimoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUltimoActionPerformed
          
+        if( indice == tottal ){
+            JOptionPane.showMessageDialog(null, "Ya es la última ficha");
+        } else {
+            indice = tottal;
+            mostrar(fichasLista.get(indice));
+        }
+        
     }//GEN-LAST:event_btnUltimoActionPerformed
 
     private void btnPrimeroActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnPrimeroActionPerformed
+        
+        if( indice == 0 ){
+            JOptionPane.showMessageDialog(null, "Ya es la primera ficha");
+        }else{
+            indice = 0;
+            mostrar(fichasLista.get(indice));
+        }
         
     }//GEN-LAST:event_btnPrimeroActionPerformed
 
@@ -435,8 +472,8 @@ public class Borrar extends javax.swing.JFrame {
             cbBuscar.addItem("--Seleccione--");
             lisatrCategorias();
             
-            txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+            txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
             
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -455,8 +492,8 @@ public class Borrar extends javax.swing.JFrame {
             cbBuscar.addItem("--Seleccione--");
             listarFuentes();
             
-            txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+            txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
             
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
@@ -470,8 +507,8 @@ public class Borrar extends javax.swing.JFrame {
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+        txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
         
     }//GEN-LAST:event_rbuTextoItemStateChanged
 
@@ -481,8 +518,8 @@ public class Borrar extends javax.swing.JFrame {
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
-        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtFicha.setText("");
+        txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
         
     }//GEN-LAST:event_rbuNofichaItemStateChanged
     
@@ -522,12 +559,12 @@ public class Borrar extends javax.swing.JFrame {
     private javax.swing.JRadioButton rbuTexto;
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoria;
-    private javax.swing.JTextArea txtFicha;
     private javax.swing.JTextField txtFuente;
-    private javax.swing.JTextField txtNumero;
+    private javax.swing.JTextField txtNoFichas;
     private javax.swing.JTextField txtSub1;
     private javax.swing.JTextField txtSub2;
     private javax.swing.JTextField txtSub3;
+    private javax.swing.JTextArea txtTexto;
     // End of variables declaration//GEN-END:variables
 
     //Obtener - listar
@@ -569,8 +606,23 @@ public class Borrar extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    private void buscarTexto(String parametro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void buscarTexto(String parametro) throws Exception {
+        
+        System.out.println("\n--- Buscando por texto: "+parametro+" ---");
+        
+        FichaDaoImp fichaDaoImp = new FichaDaoImp();
+        fichasLista = fichaDaoImp.buscarTexto(parametro);
+        
+        if( fichasLista.isEmpty() ){
+            System.out.println("No hay fichas con texto "+parametro);
+            JOptionPane.showMessageDialog(null, "No hay fichas encontradas");
+        }else{
+            
+            indice = 0;
+            tottal = fichasLista.size() - 1;
+            mostrar(fichasLista.get(indice));
+            
+        }
     }
 
     private void buscarNoficha(String parametro) {
@@ -586,7 +638,105 @@ public class Borrar extends javax.swing.JFrame {
     //Actualizar
 
     private void actualizar() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Borrar borrar = new Borrar();
+        this.dispose();
+        borrar.setVisible(true);
+        
+    }
+    
+    //Mostrar
+
+    private void mostrar(Fichas ficha) {
+        
+        System.out.println("\n  --- Mostarndo la ficha número "+ficha.getId()+" ---");
+        
+        txtNoFichas.setText(ficha.getId().toString());
+        obtenerCategoriaNombre(ficha.getCategoria());
+        
+        if( ficha.getSubCategoia1() == 0 ){
+            txtSub1.setText("");
+        }else{
+            obtenerSub1Nombre(ficha.getSubCategoia1());
+        }
+        
+        if( ficha.getSubCategoia2() == 0 ){
+            txtSub2.setText("");
+        }else{
+            obtenerSub2Nombre(ficha.getSubCategoia2());
+        }
+        
+        if( ficha.getSubCategoia3() == 0 ){
+            txtSub3.setText("");
+        }else{
+            obtenerSub3Nombre(ficha.getSubCategoia3());
+        }
+        
+        obtenerFuenteNombre(ficha.getFuente());
+        txtTexto.setText(ficha.getTexto());
+        
+    }
+    
+    //Obtener los nombres de Categoria, SubCategoria1, 2 y 3 y Fuente
+
+    private void obtenerCategoriaNombre(Integer categoriaId) {
+        
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        
+        System.out.println("\nObteniendo el nombra de la categoria con id = "+categoriaId);
+        String categoriaNombre = categoriaDaoImp.obtenerNombre(categoriaId);
+        System.out.println("la categoria "+categoriaId+" tiene de nombre "+categoriaNombre);
+        
+        txtCategoria.setText(categoriaNombre);
+        
+    }
+
+    private void obtenerSub1Nombre(Integer subCategoia1Id) {
+        
+        SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+        
+        System.out.println("\nObteniendo el nombre de la sub categoria 1 con id = "+subCategoia1Id);
+        String sub1Nombre = subCategoria1DaoImp.obtenerNombre(subCategoia1Id);
+        System.out.println("la sub categoria 1 "+subCategoia1Id+" tiene de nombre "+sub1Nombre);
+        
+        txtSub1.setText(sub1Nombre);
+        
+    }
+
+    private void obtenerSub2Nombre(Integer subCategoia2Id) {
+        
+        SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+        
+        System.out.println("\nObteniendo el nombre de la sub categoria 2 con id = "+subCategoia2Id);
+        String sub2Nombre = subCategoria2DaoImp.obtenerNombre(subCategoia2Id);
+        System.out.println("la sub categoria 2 "+subCategoia2Id+" tiene de nombre "+sub2Nombre);
+        
+        txtSub2.setText(sub2Nombre);
+        
+    }
+
+    private void obtenerSub3Nombre(Integer subCategoia3Id) {
+        
+        SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+        
+        System.out.println("\nObteniendo el nombre de la sub categoria 3 con id = "+subCategoia3Id);
+        String sub3Nombre = subCategoria3DaoImp.obtenerNombre(subCategoia3Id);
+        System.out.println("la sub categoria 3 "+subCategoia3Id+" tiene de nombre "+sub3Nombre);
+        
+        txtSub3.setText(sub3Nombre);
+        
+    }
+
+    private void obtenerFuenteNombre(Integer fuenteId) {
+        
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+        
+        System.out.println("\nObteniendo el nombre de la fuente con id = "+fuenteId);
+        String fuenteNombre = fuenteDaoImp.obtenerNombre(fuenteId);
+        System.out.println("la fuente "+fuenteId+" tiene de nombre "+fuenteNombre);
+        
+        txtFuente.setText(fuenteNombre);
+        
     }
     
 }
