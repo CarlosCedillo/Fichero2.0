@@ -74,7 +74,7 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
             
             while( resultSet.next() ){
                 Fuentes fuentes = new Fuentes();
-                fuentes.setId(resultSet.getInt("id"));
+                fuentes.setNombre(resultSet.getString("nombre"));
                 
                 fuenteNombre = fuentes.getNombre();
                 
