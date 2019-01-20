@@ -53,7 +53,7 @@ public class Borrar extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         lblNumero = new javax.swing.JLabel();
         lblCategoria = new javax.swing.JLabel();
-        txtNoFichas = new javax.swing.JTextField();
+        txtNoFicha = new javax.swing.JTextField();
         lblSub1 = new javax.swing.JLabel();
         lblSub2 = new javax.swing.JLabel();
         lblSub3 = new javax.swing.JLabel();
@@ -169,7 +169,7 @@ public class Borrar extends javax.swing.JFrame {
 
         lblCategoria.setText("Categoría");
 
-        txtNoFichas.setEditable(false);
+        txtNoFicha.setEditable(false);
 
         lblSub1.setText("Sub Categoría 1");
 
@@ -249,7 +249,7 @@ public class Borrar extends javax.swing.JFrame {
                     .addComponent(lblSub2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtNoFichas)
+                    .addComponent(txtNoFicha)
                     .addComponent(txtSub2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
@@ -293,7 +293,7 @@ public class Borrar extends javax.swing.JFrame {
                 .addGap(24, 24, 24)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblNumero)
-                    .addComponent(txtNoFichas, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtNoFicha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblCategoria)
                     .addComponent(lblSub1)
                     .addComponent(txtCategoria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -462,10 +462,10 @@ public class Borrar extends javax.swing.JFrame {
         
         String parametro;
         
-        if( txtNoFichas.getText().isEmpty() == true ){
+        if( txtNoFicha.getText().isEmpty() == true ){
             JOptionPane.showMessageDialog(null, "No hay ficha para eliminar");
         }else{
-            parametro = txtNoFichas.getText();
+            parametro = txtNoFicha.getText();
             Integer confirmacion = JOptionPane.showConfirmDialog(null, "Va a borrar la ficha No. "+ parametro + " ¿Desea continuar?");
             
             if( confirmacion == 0 ){
@@ -521,7 +521,7 @@ public class Borrar extends javax.swing.JFrame {
             cbBuscar.addItem("--Seleccione--");
             lisatrCategorias();
             
-            txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtNoFicha.setText(""); txtCategoria.setText(""); txtSub1.setText("");
             txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
             
         } catch (Exception ex) {
@@ -541,7 +541,7 @@ public class Borrar extends javax.swing.JFrame {
             cbBuscar.addItem("--Seleccione--");
             listarFuentes();
             
-            txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+            txtNoFicha.setText(""); txtCategoria.setText(""); txtSub1.setText("");
             txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
             
         } catch (Exception ex) {
@@ -556,7 +556,7 @@ public class Borrar extends javax.swing.JFrame {
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtNoFicha.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
         
     }//GEN-LAST:event_rbuTextoItemStateChanged
@@ -567,7 +567,7 @@ public class Borrar extends javax.swing.JFrame {
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
-        txtNoFichas.setText(""); txtCategoria.setText(""); txtSub1.setText("");
+        txtNoFicha.setText(""); txtCategoria.setText(""); txtSub1.setText("");
         txtSub2.setText(""); txtSub3.setText(""); txtFuente.setText(""); txtTexto.setText("");
         
     }//GEN-LAST:event_rbuNofichaItemStateChanged
@@ -609,7 +609,7 @@ public class Borrar extends javax.swing.JFrame {
     private javax.swing.JTextField txtBuscar;
     private javax.swing.JTextField txtCategoria;
     private javax.swing.JTextField txtFuente;
-    private javax.swing.JTextField txtNoFichas;
+    private javax.swing.JTextField txtNoFicha;
     private javax.swing.JTextField txtSub1;
     private javax.swing.JTextField txtSub2;
     private javax.swing.JTextField txtSub3;
@@ -782,7 +782,7 @@ public class Borrar extends javax.swing.JFrame {
         
         System.out.println("\n  --- Mostarndo la ficha número "+ficha.getId()+" ---");
         
-        txtNoFichas.setText(ficha.getId().toString());
+        txtNoFicha.setText(ficha.getId().toString());
         obtenerCategoriaNombre(ficha.getCategoria());
         
         if( ficha.getSubCategoia1() == 0 ){

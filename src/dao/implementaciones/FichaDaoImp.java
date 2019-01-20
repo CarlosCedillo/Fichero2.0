@@ -245,11 +245,11 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
         }
         
         if( sub2Id > 0 ){
-            sql = sql + " AND subCategoria1 = '"+sub2Id+"'";
+            sql = sql + " AND subCategoria2 = '"+sub2Id+"'";
         }
         
         if( sub3Id > 0 ){
-            sql = sql + " AND subCategoria1 = '"+sub3Id+"'";
+            sql = sql + " AND subCategoria3 = '"+sub3Id+"'";
         }
         
         System.out.println("Ejecutando: "+sql);
