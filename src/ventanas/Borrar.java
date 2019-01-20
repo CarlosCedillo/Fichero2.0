@@ -1,20 +1,9 @@
 package ventanas;
 
 import dao.implementaciones.CategoriaDaoImp;
-import dao.implementaciones.FichaDaoImp;
 import dao.implementaciones.FuenteDaoImp;
-import java.awt.Color;
-import java.sql.SQLException;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DefaultHighlighter;
-import javax.swing.text.Highlighter;
 import tablas.Categorias;
-import tablas.Fichas;
 import tablas.Fuentes;
 
 public class Borrar extends javax.swing.JFrame {
@@ -384,8 +373,6 @@ public class Borrar extends javax.swing.JFrame {
                     String parametro = txtBuscar.getText();
                     buscarTexto(parametro);
                     
-                } catch (SQLException | BadLocationException ex) {
-                    System.out.println(ex.getMessage());
                 } catch (Exception ex) {
                     System.out.println(ex.getMessage());
                 }
@@ -412,21 +399,17 @@ public class Borrar extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         
-        String par;
+        String parametro;
         
         if( txtNumero.getText().isEmpty() == true ){
             JOptionPane.showMessageDialog(null, "No hay ficha para eliminar");
         }else{
-            par = txtNumero.getText();
-            Integer confirmacion = JOptionPane.showConfirmDialog(null, "Esta apunto de borrar la ficha "+ par + " ¿Desea continuar?");
+            parametro = txtNumero.getText();
+            Integer confirmacion = JOptionPane.showConfirmDialog(null, "Esta apunto de borrar la ficha "+ parametro + " ¿Desea continuar?");
             
             if( confirmacion == 0 ){
-                try {
-                    borrarFicha(par);
-                    reiniciar();
-                } catch (SQLException ex) {
-                    Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
-                }
+                borrarFicha(parametro);
+                actualizar();
             }
             
         }
@@ -446,11 +429,10 @@ public class Borrar extends javax.swing.JFrame {
             
             txtBuscar.setVisible(false);
             txtBuscar.setText("");
-            
-            System.out.println("Buscando por categorias");
             cbBuscar.setVisible(true);
             
             cbBuscar.removeAllItems();
+            cbBuscar.addItem("--Seleccione--");
             lisatrCategorias();
             
             txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
@@ -467,11 +449,10 @@ public class Borrar extends javax.swing.JFrame {
             
             txtBuscar.setVisible(false);
             txtBuscar.setText("");
-            
-            System.out.println("Buscando por fuentes");
             cbBuscar.setVisible(true);
             
             cbBuscar.removeAllItems();
+            cbBuscar.addItem("--Seleccione--");
             listarFuentes();
             
             txtNumero.setText(""); txtCategoria.setText(""); txtSub1.setText("");
@@ -486,7 +467,6 @@ public class Borrar extends javax.swing.JFrame {
     private void rbuTextoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuTextoItemStateChanged
 
         txtBuscar.setVisible(true);
-        System.out.println("Buscando por texto");
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
@@ -498,7 +478,6 @@ public class Borrar extends javax.swing.JFrame {
     private void rbuNofichaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_rbuNofichaItemStateChanged
         
         txtBuscar.setVisible(true);
-        System.out.println("Buscando por Fuentes");
         cbBuscar.setVisible(false);
         txtBuscar.setText("");
         
@@ -551,81 +530,63 @@ public class Borrar extends javax.swing.JFrame {
     private javax.swing.JTextField txtSub3;
     // End of variables declaration//GEN-END:variables
 
-    //Buscar
+    //Obtener - listar
     
-    private void buscarTexto(String par) throws Exception {
-        
-        FichaDaoImp fichaDaoImp = new FichaDaoImp();
-        List<Fichas> listaFichas = fichaDaoImp.buscarTexto(par);
-        
-        for( Fichas fichas : listaFichas ){
-            System.out.println(listaFichas.size());
-        }
-    }
-    
-    private void buscarCategoria(String par) {
-        
-        
-        
-    }
-
-    private void buscarFuente(String par) {
-        
-        
-        
-    }
-    
-    private void buscarNoficha(String par) {
-        
-        
-        
-    }
-    
-    //Listar
-
     private void lisatrCategorias() throws Exception {
         
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-        cbBuscar.addItem("--Seleccione--");
         
-        for ( Categorias categorias : categoriaDaoImp.listar() ) {
-            cbBuscar.addItem(categorias.getNombre());
+        for( Categorias categorias : categoriaDaoImp.listar() ){
+            Categorias temp = new Categorias();
+            temp.setId(categorias.getId());
+            temp.setNombre(categorias.getNombre());
+            temp.setActivo(categorias.isActivo());
+            cbBuscar.addItem(temp);
         }
     }
 
     private void listarFuentes() throws Exception {
         
         FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
-        cbBuscar.addItem("--Seleccione--");
         
-        for ( Fuentes fuentes : fuenteDaoImp.listar() ) {
-            cbBuscar.addItem(fuentes.getNombre());
+        for( Fuentes fuentes : fuenteDaoImp.listar() ){
+            
+            Fuentes temp = new Fuentes();
+            temp.setId(fuentes.getId());
+            temp.setNombre(fuentes.getNombre());
+            cbBuscar.addItem(temp);
+        
         }
     }
     
-    //borrar
+    //Buscar
 
-    private void borrarFicha(String par) throws SQLException {
-        
-        
-        
+    private void buscarCategoria(String parametro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void buscarFuente(String parametro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void buscarTexto(String parametro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    private void buscarNoficha(String parametro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
-        //Marcar palabra en el texto de la ficha
+    //Borrar
 
-    private void marcarBusqueda(String palabra, String texto) throws BadLocationException {
-        
-        Highlighter highlighter = txtFicha.getHighlighter();
-        Highlighter.HighlightPainter paiter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
-        int p0 = texto.indexOf(palabra);
-        int p1 = p0 + palabra.length();
-        highlighter.addHighlight(p0, p1, paiter);
-        
+    private void borrarFicha(String parametro) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+    
+    //Actualizar
 
-    private void reiniciar() {
-        this.dispose();
-        new Borrar().setVisible(true);
+    private void actualizar() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
     
 }
