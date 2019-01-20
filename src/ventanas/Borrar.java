@@ -6,8 +6,16 @@ import dao.implementaciones.FichaDaoImp;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
+import java.awt.Color;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.swing.JOptionPane;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.DefaultHighlighter;
+import javax.swing.text.Highlighter;
 import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
@@ -361,14 +369,26 @@ public class Borrar extends javax.swing.JFrame {
             }else{
                 if( rbuCategoria.isSelected() == true ){
                     
-                    String parametro = cbBuscar.getSelectedItem().toString();
-                    buscarCategoria(parametro);
+                    try {
+                        
+                        String parametro = cbBuscar.getSelectedItem().toString();
+                        buscarCategoria(parametro);
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
                 }else{
                     if( rbuFuente.isSelected() == true ){
                         
-                        String parametro = cbBuscar.getSelectedItem().toString();
-                        buscarFuente(parametro);
+                        try {
+                            
+                            String parametro = cbBuscar.getSelectedItem().toString();
+                            buscarFuente(parametro);
+                            
+                        } catch (Exception ex) {
+                            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        }
                         
                     }else{
                         JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -388,8 +408,14 @@ public class Borrar extends javax.swing.JFrame {
             }else{
                 if( rbuNoficha.isSelected() == true ){
                     
-                    String parametro = txtBuscar.getText();
-                    buscarNoficha(parametro);
+                    try {
+                        
+                        String parametro = txtBuscar.getText();
+                        buscarNoficha(parametro);
+                        
+                    } catch (Exception ex) {
+                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                     
                 }else{
                     JOptionPane.showMessageDialog(null, "Debe seleccionar un filtro");
@@ -403,8 +429,14 @@ public class Borrar extends javax.swing.JFrame {
         if( indice == tottal ){
             JOptionPane.showMessageDialog(null, "Ya es la última ficha");
         } else {
-            indice ++;
-            mostrar(fichasLista.get(indice));
+            try {
+                
+                indice ++;
+                mostrar(fichasLista.get(indice));
+                
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnSigActionPerformed
@@ -414,8 +446,14 @@ public class Borrar extends javax.swing.JFrame {
         if( indice == 0 ){
             JOptionPane.showMessageDialog(null, "Ya es la primera ficha");
         }else{
-            indice --;
-            mostrar(fichasLista.get(indice));
+            try {
+                
+                indice --;
+                mostrar(fichasLista.get(indice));
+                
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnAntActionPerformed
@@ -428,13 +466,12 @@ public class Borrar extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "No hay ficha para eliminar");
         }else{
             parametro = txtNoFichas.getText();
-            Integer confirmacion = JOptionPane.showConfirmDialog(null, "Esta apunto de borrar la ficha "+ parametro + " ¿Desea continuar?");
+            Integer confirmacion = JOptionPane.showConfirmDialog(null, "Va a borrar la ficha No. "+ parametro + " ¿Desea continuar?");
             
             if( confirmacion == 0 ){
                 borrarFicha(parametro);
                 actualizar();
             }
-            
         }
         
     }//GEN-LAST:event_btnBorrarActionPerformed
@@ -444,8 +481,14 @@ public class Borrar extends javax.swing.JFrame {
         if( indice == tottal ){
             JOptionPane.showMessageDialog(null, "Ya es la última ficha");
         } else {
-            indice = tottal;
-            mostrar(fichasLista.get(indice));
+            try {
+                
+                indice = tottal;
+                mostrar(fichasLista.get(indice));
+                
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnUltimoActionPerformed
@@ -455,8 +498,14 @@ public class Borrar extends javax.swing.JFrame {
         if( indice == 0 ){
             JOptionPane.showMessageDialog(null, "Ya es la primera ficha");
         }else{
-            indice = 0;
-            mostrar(fichasLista.get(indice));
+            try {
+                
+                indice = 0;
+                mostrar(fichasLista.get(indice));
+                
+            } catch (BadLocationException ex) {
+                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
         
     }//GEN-LAST:event_btnPrimeroActionPerformed
@@ -598,12 +647,58 @@ public class Borrar extends javax.swing.JFrame {
     
     //Buscar
 
-    private void buscarCategoria(String parametro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void buscarCategoria(String parametro) throws Exception {
+        
+        System.out.println("\n--- Buscando por categoria: "+parametro+" ---");
+        
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        
+        //1.- Obtener el id de la categoria
+        System.out.println("\nObteniendo el id de la categoria "+parametro);
+        Integer categoriaId = categoriaDaoImp.obtenerId(parametro);
+        System.out.println("la categoria "+parametro+" tiene de id = "+categoriaId);
+        
+        //2.- obtener las fichas con dicha categoriaId
+        FichaDaoImp fichaDaoImp = new FichaDaoImp();
+        fichasLista = fichaDaoImp.buscarCategoria(categoriaId);
+        
+        if( fichasLista.isEmpty() ){
+            System.out.println("No hay fichas con categoria "+parametro);
+            JOptionPane.showMessageDialog(null, "No hay fichas encontradas");
+        }else{
+            
+            indice = 0;
+            tottal = fichasLista.size() - 1;
+            mostrar(fichasLista.get(indice));
+            
+        }
     }
 
-    private void buscarFuente(String parametro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void buscarFuente(String parametro) throws Exception {
+        
+        System.out.println("\n--- Buscando por fuente: "+parametro+" ---");
+        
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+        
+        //1.- Obtener el id de la fuente
+        System.out.println("\nObteniendo el id de la fuente "+parametro);
+        Integer fuenteId = fuenteDaoImp.obtenerId(parametro);
+        System.out.println("la fuente "+parametro+" tiene de id = "+fuenteId);
+        
+        //2.- obtener las fichas con dicha fuenteId
+        FichaDaoImp fichaDaoImp = new FichaDaoImp();
+        fichasLista = fichaDaoImp.buscarFuente(fuenteId);
+        
+        if( fichasLista.isEmpty() ){
+            System.out.println("No hay fichas con fuente "+parametro);
+            JOptionPane.showMessageDialog(null, "No hay fichas encontradas");
+        }else{
+            
+            indice = 0;
+            tottal = fichasLista.size() - 1;
+            mostrar(fichasLista.get(indice));
+            
+        }
     }
 
     private void buscarTexto(String parametro) throws Exception {
@@ -625,14 +720,50 @@ public class Borrar extends javax.swing.JFrame {
         }
     }
 
-    private void buscarNoficha(String parametro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void buscarNoficha(String parametro) throws Exception {
+        
+        System.out.println("\n--- Buscando por número de ficha: "+parametro+" ---");
+        
+        //Esto evita que se ingrese cualquier cletra
+        Pattern texto = Pattern.compile(".+[a-zA-ZñÑáéíóúÁÉÍÓÚ]+.?");
+        Matcher sip = texto.matcher(parametro);
+        
+        if( sip.matches() ){
+            JOptionPane.showMessageDialog(null, "Este tipo de busqueda no acepta letras");
+        }else{
+            
+            Integer fichaId = Integer.parseInt(parametro);
+
+            FichaDaoImp fichaDaoImp = new FichaDaoImp();
+            fichasLista = fichaDaoImp.buscarNoFicha(fichaId);
+            
+            if( fichasLista.isEmpty() ){
+                System.out.println("No hay fichas con el número "+parametro);
+                JOptionPane.showMessageDialog(null, "No hay fichas encontradas");
+            }else{
+                
+                indice = 0;
+                tottal = fichasLista.size() - 1;
+                mostrar(fichasLista.get(indice));
+                
+            }
+        }
     }
     
     //Borrar
 
     private void borrarFicha(String parametro) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Integer fichaId = Integer.parseInt(parametro);
+        
+        FichaDaoImp fichaDaoImp = new FichaDaoImp();
+        Boolean borrado = fichaDaoImp.borrar(fichaId);
+        
+        if( borrado == true ){
+            JOptionPane.showMessageDialog(null, "Fiche No. "+parametro+" borrada");
+        }else{
+            JOptionPane.showMessageDialog(null, "Hubo un error al borrar la ficha "+parametro);
+        }
     }
     
     //Actualizar
@@ -647,7 +778,7 @@ public class Borrar extends javax.swing.JFrame {
     
     //Mostrar
 
-    private void mostrar(Fichas ficha) {
+    private void mostrar(Fichas ficha) throws BadLocationException {
         
         System.out.println("\n  --- Mostarndo la ficha número "+ficha.getId()+" ---");
         
@@ -675,6 +806,9 @@ public class Borrar extends javax.swing.JFrame {
         obtenerFuenteNombre(ficha.getFuente());
         txtTexto.setText(ficha.getTexto());
         
+        if(rbuTexto.isSelected() == true){
+            marcarBusqueda(txtBuscar.getText(), txtTexto.getText());
+        }
     }
     
     //Obtener los nombres de Categoria, SubCategoria1, 2 y 3 y Fuente
@@ -736,6 +870,18 @@ public class Borrar extends javax.swing.JFrame {
         System.out.println("la fuente "+fuenteId+" tiene de nombre "+fuenteNombre);
         
         txtFuente.setText(fuenteNombre);
+        
+    }
+    
+    //Resaltar palabra buscada
+    
+    private void marcarBusqueda(String palabra, String texto) throws BadLocationException {
+        
+        Highlighter highlighter = txtTexto.getHighlighter();
+        Highlighter.HighlightPainter paiter = new DefaultHighlighter.DefaultHighlightPainter(Color.YELLOW);
+        int p0 = texto.indexOf(palabra);
+        int p1 = p0 + palabra.length();
+        highlighter.addHighlight(p0, p1, paiter);
         
     }
     
