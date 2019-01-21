@@ -113,7 +113,7 @@ public class Inicio extends javax.swing.JFrame {
         
         Buscar jFrame = new Buscar();
         //this.setVisible(false);
-        System.out.println("Abriendo ventana: Buscar");
+        System.out.println("\n----- Abriendo ventana: Buscar -----");
         jFrame.setVisible(true);
         
     }//GEN-LAST:event_btnBuscarActionPerformed
@@ -129,7 +129,7 @@ public class Inicio extends javax.swing.JFrame {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         }
         //this.setVisible(false);
-        System.out.println("Abriendo ventana: Crear");
+        System.out.println("\n----- Abriendo ventana: Crear -----");
         crear.setVisible(true);
     }//GEN-LAST:event_btnCrearActionPerformed
 
@@ -138,7 +138,7 @@ public class Inicio extends javax.swing.JFrame {
         Borrar jFrame = null;
         jFrame = new Borrar();
         //this.setVisible(false);
-        System.out.println("Abriendo ventana: Eliminar");
+        System.out.println("\n----- Abriendo ventana: Eliminar -----");
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnBorrarActionPerformed
 
@@ -147,7 +147,7 @@ public class Inicio extends javax.swing.JFrame {
         ListarCategorias jFrame = null;
         jFrame = new ListarCategorias();
         //this.setVisible(false);
-        System.out.println("Abriendo ventana: categorías");
+        System.out.println("\n----- Abriendo ventana: categorías -----");
         jFrame.setVisible(true);
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
@@ -157,7 +157,7 @@ public class Inicio extends javax.swing.JFrame {
             ListarFuente jFrame = null;
             jFrame = new ListarFuente();
             //this.setVisible(false);
-            System.out.println("Abriendo ventana: fuentes");
+            System.out.println("\n----- Abriendo ventana: fuentes -----");
             jFrame.setVisible(true);
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);

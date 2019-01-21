@@ -505,7 +505,7 @@ public class Buscar extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         
         this.setVisible(false);
-        System.out.println("Regresando a inicio");
+        System.out.println("\n----- Cerrando ventana buscar -----");
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
