@@ -1321,7 +1321,7 @@ public class Buscar extends javax.swing.JFrame {
         System.out.println("Sub categoria 1: "+sub1Nombre+" con id = "+sub1Id);
         System.out.println("Sub categoria 2: "+sub2Nombre+" con id = "+sub2Id);
         System.out.println("Sub categoria 3: "+sub3Nombre+" con id = "+sub3Id);
-        System.out.println("Fuente: "+fuenteNombre+" id = "+fuenteId);
+        System.out.println("Fuente: "+fuenteNombre+" id = "+fuenteId+"\n");
         
         //6.- obtener la Lista de fichas
         
