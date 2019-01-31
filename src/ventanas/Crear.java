@@ -525,9 +525,15 @@ public class Crear extends javax.swing.JFrame {
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         
-        ListarCategorias listarCategorias = new ListarCategorias();
-        System.out.println("Abriendo ventana: modificacion de categorias");
-        listarCategorias.setVisible(true);
+        try {
+            
+            ListarCategorias listarCategorias = new ListarCategorias();
+            System.out.println("Abriendo ventana: modificacion de categorias");
+            listarCategorias.setVisible(true);
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
         
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
@@ -567,7 +573,10 @@ public class Crear extends javax.swing.JFrame {
             temp.setId(categorias.getId());
             temp.setNombre(categorias.getNombre());
             temp.setActivo(categorias.isActivo());
-            cbCategoria.addItem(temp);
+            
+            if( temp.isActivo() == true ){
+                cbCategoria.addItem(temp);
+            }
         }
     }
     

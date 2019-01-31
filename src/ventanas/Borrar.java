@@ -627,7 +627,10 @@ public class Borrar extends javax.swing.JFrame {
             temp.setId(categorias.getId());
             temp.setNombre(categorias.getNombre());
             temp.setActivo(categorias.isActivo());
-            cbBuscar.addItem(temp);
+            
+            if( temp.isActivo() == true ){
+                cbBuscar.addItem(temp);
+            }
         }
     }
 

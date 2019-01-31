@@ -1141,12 +1141,14 @@ public class Buscar extends javax.swing.JFrame {
             temp.setNombre(categorias.getNombre());
             temp.setActivo(categorias.isActivo());
             
-            if( rbuCategoria.isSelected() == true ){
+            if( temp.isActivo() == true ){
+                if( rbuCategoria.isSelected() == true ){
                 cbBuscar.addItem(temp);
-            }
-        
-            if( rbuAvanzado.isSelected() == true ){
-                cbCategoriaAvz.addItem(temp);
+                }
+
+                if( rbuAvanzado.isSelected() == true ){
+                    cbCategoriaAvz.addItem(temp);
+                }
             }
         }
     }

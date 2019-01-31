@@ -16,35 +16,30 @@ import tablas.SubCategorias3;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
+import java.util.Arrays;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.tree.TreeNode;
 
 public class ListarCategorias extends javax.swing.JFrame {
     
-    Connection conexion = null;
-    DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Categorias");     //Raiz
-    DefaultMutableTreeNode nodo;                                                //Categorias
-    DefaultMutableTreeNode subNodo1;                                            //Sub Categorias1
-    DefaultMutableTreeNode subNodo2;                                            //Sub Categorias2
-    DefaultMutableTreeNode subNodo3;                                            //Sub Categorias3
-    
-    Categorias categorias = new Categorias();
-    CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-    
-    SubCategorias1 subCategorias1 = new SubCategorias1();
-    SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-    
-    SubCategorias2 subCategorias2 = new SubCategorias2();
-    SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-    
-    SubCategorias3 subCategorias3 = new SubCategorias3();
-    SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-    
+    DefaultMutableTreeNode raiz = new DefaultMutableTreeNode("Árbol de categorías");    //Raiz
+    DefaultMutableTreeNode nodo;                                                        //Categorias
+    DefaultMutableTreeNode subNodo1;                                                    //Sub Categorias1
+    DefaultMutableTreeNode subNodo2;                                                    //Sub Categorias2
+    DefaultMutableTreeNode subNodo3;                                                    //Sub Categorias3
 
-    public ListarCategorias() {
+    public ListarCategorias() throws Exception {
         initComponents();
         setTitle("Fichero 2.0 / Categorias");
         this.setLocationRelativeTo(null);
         
         obtenerCategorias();
+        
+        for( int i = 0 ; i < treeCategorias.getRowCount() ; i++ ){
+            treeCategorias.expandRow(i);
+        }
     }
 
     @SuppressWarnings("unchecked")
@@ -74,6 +69,8 @@ public class ListarCategorias extends javax.swing.JFrame {
             }
         });
 
+        javax.swing.tree.DefaultMutableTreeNode treeNode1 = new javax.swing.tree.DefaultMutableTreeNode("No hay categorías encontradas");
+        treeCategorias.setModel(new javax.swing.tree.DefaultTreeModel(treeNode1));
         jScrollPane2.setViewportView(treeCategorias);
 
         btnAgregar.setText("Agregar");
@@ -161,40 +158,47 @@ public class ListarCategorias extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+
         this.dispose();
-        System.out.println("Cerrar ventana categorias");
+        System.out.println("\n----- Cerrar ventana categorias -----");
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
-        // TODO add your handling code here
+
         DefaultMutableTreeNode agregar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
         
         if( agregar != null ){
             
-            String nombre = agregar.toString();
-            
-            switch( agregar.getLevel() ){
+            try {
                 
-                case 0:
-                    agregarCateroria();
-                break;
+                String nombre = agregar.toString();
                 
-                case 1:
-                    agregarSubCateroria1(nombre);
-                break;
+                switch( agregar.getLevel() ){
+                    
+                    case 0:
+                        agregarCateroria();
+                        break;
+                        
+                    case 1:
+                        agregarSubCateroria1(nombre);
+                        break;
+                        
+                    case 2:
+                        agregarSubCateroria2(nombre);
+                        break;
+                        
+                    case 3:
+                        agregarSubCateroria3(nombre);
+                        break;
+                        
+                    case 4:
+                        JOptionPane.showMessageDialog(null, "No se puede agregar");
+                        break;
+                }
                 
-                case 2:
-                    agregarSubCateroria2(nombre);
-                break;
-                
-                case 3:
-                    agregarSubCateroria3(nombre);
-                break;
-                
-                case 4:
-                    JOptionPane.showMessageDialog(null, "No se puede agregar");
-                break;
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
             
         }else{
@@ -205,34 +209,40 @@ public class ListarCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
         String nombre = modificar.toString();
         
         if( modificar != null ){
+            
+             try {
                 
-            switch( modificar.getLevel() ){
-                    
-                case 0:
-                    JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
-                break;
-                    
-                case 1:
-                    modificarCategoria(nombre);
-                break;
-                    
-                case 2:
-                    modificarSubCategoria1(nombre);
-                break;
-                    
-                case 3:
-                    modificarSubCategoria2(nombre);
-                break;
-                    
-                case 4:
-                    modificarSubCategoria3(nombre);
-                break;
-                    
+                switch( modificar.getLevel() ){
+
+                    case 0:
+                        JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
+                    break;
+
+                    case 1:
+                        modificarCategoria(nombre);
+                    break;
+
+                    case 2:
+                        modificarSubCategoria1(nombre);
+                    break;
+
+                    case 3:
+                        modificarSubCategoria2(nombre);
+                    break;
+
+                    case 4:
+                        modificarSubCategoria3(nombre);
+                    break;
+
+                }
+                
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
             
         }else{
@@ -243,34 +253,40 @@ public class ListarCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModificarActionPerformed
 
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
-        // TODO add your handling code here:
+
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
         String nombre = modificar.toString();
         
         if( modificar != null ){
+            
+            try {
                 
-            switch( modificar.getLevel() ){
-                    
-                case 0:
-                    JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
-                break;
-                    
-                case 1:
-                    desactivarCategoria(nombre);
-                break;
-                    
-                case 2:
-                    desactivarSubCategoria1(nombre);
-                break;
-                    
-                case 3:
-                    desactivarSubCategoria2(nombre);
-                break;
-                    
-                case 4:
-                    desactivarSubCategoria3(nombre);
-                break;
-                    
+                switch( modificar.getLevel() ){
+
+                    case 0:
+                        JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
+                    break;
+
+                    case 1:
+                        desactivarCategoria(nombre);
+                    break;
+
+                    case 2:
+                        desactivarSubCategoria1(nombre);
+                    break;
+
+                    case 3:
+                        desactivarSubCategoria2(nombre);
+                    break;
+
+                    case 4:
+                        desactivarSubCategoria3(nombre);
+                    break;
+
+                }
+                
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
             
         }else{
@@ -280,34 +296,40 @@ public class ListarCategorias extends javax.swing.JFrame {
     }//GEN-LAST:event_btnDesactivarActionPerformed
 
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
-        // TODO add your handling code here:
+
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
         String nombre = modificar.toString();
         
         if( modificar != null ){
+            
+            try {
                 
-            switch( modificar.getLevel() ){
-                    
-                case 0:
-                    JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
-                break;
-                    
-                case 1:
-                    activarCategoria(nombre);
-                break;
-                    
-                case 2:
-                    activarSubCategoria1(nombre);
-                break;
-                    
-                case 3:
-                    activarSubCategoria2(nombre);
-                break;
-                    
-                case 4:
-                    activarSubCategoria3(nombre);
-                break;
-                    
+                switch( modificar.getLevel() ){
+
+                    case 0:
+                        JOptionPane.showMessageDialog(null, "No se puede modificar la raiz");
+                    break;
+
+                    case 1:
+                        activarCategoria(nombre);
+                    break;
+
+                    case 2:
+                        activarSubCategoria1(nombre);
+                    break;
+
+                    case 3:
+                        activarSubCategoria2(nombre);
+                    break;
+
+                    case 4:
+                        activarSubCategoria3(nombre);
+                    break;
+
+                }
+            
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
             
         }else{
@@ -319,7 +341,13 @@ public class ListarCategorias extends javax.swing.JFrame {
         
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new ListarCategorias().setVisible(true);
+                try {
+                    
+                    new ListarCategorias().setVisible(true);
+                    
+                } catch (Exception ex) {
+                    Logger.getLogger(ListarCategorias.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         });
     }
@@ -338,161 +366,126 @@ public class ListarCategorias extends javax.swing.JFrame {
 
     //Obtener - Listar
     
-    private void obtenerCategorias() {
+    private void obtenerCategorias() throws Exception {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        List<Categorias> listaCategorias = categoriaDaoImp.listar();
         
-        try {
+        for( Categorias categorias : listaCategorias ){
             
-            ConexionBD.obtenerConexion();
-            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
-            preparedStatement = conexion.prepareCall(sql);
-            resultSet = preparedStatement.executeQuery();
+            Categorias temp = new Categorias();
+            temp.setId(categorias.getId());
+            temp.setNombre(categorias.getNombre());
+            temp.setActivo(categorias.isActivo());
             
-            while( resultSet.next() ){
-                
-                categorias.setId(resultSet.getInt("id"));
-                categorias.setNombre(resultSet.getString("nombre"));
-                categorias.setActivo(resultSet.getBoolean("activo"));
-                
-                Boolean activo = categorias.isActivo();
-                
-                if( activo == true ){
-                    nodo = new DefaultMutableTreeNode(categorias.getNombre() + " - Activado");
-                    raiz.add(nodo);
-                }else{
-                    nodo = new DefaultMutableTreeNode(categorias.getNombre() + " - Desactivado");
-                    raiz.add(nodo);
-                }
-                
-                obtenerSub1(categorias.getId());
-                
+            Boolean activo = temp.isActivo();
+            
+            if( activo == true ){
+                nodo = new DefaultMutableTreeNode(temp.getNombre() + " - Activado");
+                raiz.add(nodo);
+            }else{
+                nodo = new DefaultMutableTreeNode(temp.getNombre() + " - Desactivado");
+                raiz.add(nodo);
             }
+            
+            obtenerSub1(temp.getId());
             
             DefaultTreeModel modeloArbrol = new DefaultTreeModel(raiz);
             this.treeCategorias.setModel(modeloArbrol);
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
         }
-    }
+    } //Ya
     
-    private void obtenerSub1(Integer idCat) {
+    private void obtenerSub1(Integer categoriaId) throws Exception {
         
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
+        SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+        List<SubCategorias1> listaSub1 = subCategoria1DaoImp.listar(categoriaId);
         
-        try {
-            String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = "+ idCat +"  ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
+        for( SubCategorias1 subCategorias1 : listaSub1 ){
                 
+            SubCategorias1 temp = new SubCategorias1();
+            temp.setId(subCategorias1.getId());
+            temp.setIdCategoria(subCategorias1.getIdCategoria());
+            temp.setNombre(subCategorias1.getNombre());
+            temp.setActivo(subCategorias1.isActivo());
                 
-            while (resultSet.next()) {
+            Boolean activo = subCategorias1.isActivo();
                 
-                subCategorias1.setId(resultSet.getInt("id"));
-                subCategorias1.setIdCategoria(resultSet.getInt("idCategoria"));
-                subCategorias1.setNombre(resultSet.getString("nombre"));
-                subCategorias1.setActivo(resultSet.getBoolean("activo"));
-                
-                Boolean activo = subCategorias1.isActivo();
-                
-                if( activo == true ){
-                    subNodo1 = new DefaultMutableTreeNode(subCategorias1.getNombre() + " - Activado");
-                    nodo.add(subNodo1); 
-                }else{
-                    subNodo1 = new DefaultMutableTreeNode(subCategorias1.getNombre() + " - Desactivado");
-                    nodo.add(subNodo1);
-                }
-                
-                obtenerSub2(subCategorias1.getId());
-                
+            if( activo == true ){
+                subNodo1 = new DefaultMutableTreeNode(temp.getNombre() + " - Activado");
+                nodo.add(subNodo1); 
+            }else{
+                subNodo1 = new DefaultMutableTreeNode(temp.getNombre() + " - Desactivado");
+                nodo.add(subNodo1);
             }
                 
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
+            obtenerSub2(temp.getId());
+                
         }
-    }
+    } //Ya
 
-    private void obtenerSub2(Integer idSubCat1) {
+    private void obtenerSub2(Integer sub1Id) throws Exception {
         
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
+        SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+        List<SubCategorias2> listaSub2 = subCategoria2DaoImp.listar(sub1Id);
         
-        try {
-            String sql = "SELECT * FROM subCategorias2 WHERE idSubCategoria1 = "+ idSubCat1 +"  ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-                    
-            while ( resultSet.next()) {
-                
-                subCategorias2.setId(resultSet.getInt("id"));
-                subCategorias2.setIdSubCategoria1(resultSet.getInt("idSubCategoria1"));
-                subCategorias2.setNombre(resultSet.getString("nombre"));
-                subCategorias2.setActivo(resultSet.getBoolean("activo"));
-                
-                Boolean activo = subCategorias2.isActivo();
-                
-                if( activo == true ){
-                    subNodo2 = new DefaultMutableTreeNode(subCategorias2.getNombre() + " - Activado");
-                    subNodo1.add(subNodo2);
-                }else{
-                    subNodo2 = new DefaultMutableTreeNode(subCategorias2.getNombre() + " - Desactivado");
-                    subNodo1.add(subNodo2);
-                }
-                
-                obtenerSub3(subCategorias2.getId());
-                
-            }
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
-    }
-
-    private void obtenerSub3(Integer idSubCat2) {
-
-        conexion = ConexionBD.obtenerConexion();
-        ResultSet resultSet;
-        
-        try {
+        for( SubCategorias2 subCategoria2 : listaSub2 ){
             
-            String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = "+ idSubCat2 +"  ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-                
-            while ( resultSet.next()) {
-                
-                subCategorias3.setId(resultSet.getInt("id"));
-                subCategorias3.setIdSubCategoria2(resultSet.getInt("idSubCategoria2"));
-                subCategorias3.setNombre(resultSet.getString("nombre"));
-                subCategorias3.setActivo(resultSet.getBoolean("activo"));
-                
-                Boolean activo = subCategorias3.isActivo();
-                
-                if( activo == true ){
-                    subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre() + " - Activado");
-                    subNodo2.add(subNodo3);
-                }else{
-                    subNodo3 = new DefaultMutableTreeNode(subCategorias3.getNombre() + " - Desactivado");
-                    subNodo2.add(subNodo3);
-                }
-                
+            SubCategorias2 temp = new SubCategorias2();
+            temp.setId(subCategoria2.getId());
+            temp.setIdSubCategoria1(subCategoria2.getIdSubCategoria1());
+            temp.setNombre(subCategoria2.getNombre());
+            temp.setActivo(subCategoria2.isActivo());
+              
+            Boolean activo = temp.isActivo();
+               
+            if( activo == true ){
+                subNodo2 = new DefaultMutableTreeNode(temp.getNombre() + " - Activado");
+                subNodo1.add(subNodo2);
+            }else{
+                subNodo2 = new DefaultMutableTreeNode(temp.getNombre() + " - Desactivado");
+                subNodo1.add(subNodo2);
             }
-        } catch (SQLException ex) {
-             System.out.println(ex.getMessage());
+                
+            obtenerSub3(temp.getId());
+                
         }
-    }
+    } //Ya
+
+    private void obtenerSub3(Integer sub2Id ) throws Exception {
+        
+        SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+        List<SubCategorias3> listaSub3 = subCategoria3DaoImp.listar(sub2Id);
+
+        for( SubCategorias3 subCategorias3 : listaSub3 ){
+            
+            SubCategorias3 temp = new SubCategorias3();
+            temp.setId(subCategorias3.getId());
+            temp.setIdSubCategoria2(subCategorias3.getIdSubCategoria2());
+            temp.setNombre(subCategorias3.getNombre());
+            temp.setActivo(subCategorias3.isActivo());
+            
+            Boolean activo = temp.isActivo();
+            
+            if( activo == true ){
+                subNodo3 = new DefaultMutableTreeNode(temp.getNombre() + " - Activado");
+                subNodo2.add(subNodo3);
+            }else{
+                subNodo3 = new DefaultMutableTreeNode(temp.getNombre() + " - Desactivado");
+                subNodo2.add(subNodo3);
+            }
+
+        }
+    } //Ya
     
     //Agregar
 
-    private void agregarCateroria() {
+    private void agregarCateroria() throws Exception {
         
         System.out.println("\nVa a agregar una cateroria");
         
         //Primero: Hay que obtener el nombre de la categoria = categoria
-        String categoria = JOptionPane.showInputDialog("Nombre de la Categoriaa");
+        String categoria = JOptionPane.showInputDialog("Nombre de la categoría");
         
         //Segundo: Hay que comprobar que categoria != vacio
         if( categoria.isEmpty()){
@@ -500,393 +493,441 @@ public class ListarCategorias extends javax.swing.JFrame {
         }else{
             
             //Tercero: Hay qur comprobar que categoria no exista ya
+            CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             System.out.println("Comprobando si la categoria "+categoria+" existe");
             boolean resultado = categoriaDaoImp.existe(categoria);
             
             if( resultado == false ){
+                
+                System.out.println("La categoria "+categoria+" no existe");
                 
                 //Cuarto: Agregar categoria a la DB
                 System.out.println("Guardando la categoria "+categoria);
                 boolean guardado = categoriaDaoImp.guardar(categoria);
 
                 if( guardado == true ){
-
-                    JOptionPane.showMessageDialog(null, "Categoria guardada");
+                    
+                    System.out.println("Categoría " + categoria + " guardada");
+                    JOptionPane.showMessageDialog(null, "Categoria "+categoria+" guardada");
                     actualizar();
 
                 }else{
-                    JOptionPane.showMessageDialog(null, "Categoria no guardada");
+                    JOptionPane.showMessageDialog(null, "Hubo un error al guardar la categoría");
                 }
             }else{
+                System.out.println("La categoria "+categoria+" ya existe");
                 JOptionPane.showMessageDialog(null, "La categoria "+categoria+" ya existe");
             }
         }
     } //Ya
 
-    private void agregarSubCateroria1(String nombreCompleto) {
+    private void agregarSubCateroria1(String nombreCompleto) throws Exception {
         
-        //Primero: Obtener el nombre de la categoria a la que se va a agregar la sub categoria 1 = categoriaNombre
+        //1.- Obtener el nombre de la caregoria
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
+            
             String categoriaNombre = nombreCompleto.substring(0,localizado);
             System.out.println("\nVa a agregar una sub categoria 1 a la cateroria: " + categoriaNombre);
             
-            //Segundo: Obtener el id de la Categoria
+            //2.- Obtener el id de la categoria
+            CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             System.out.println("Obteniendo el id de la categoria "+categoriaNombre);
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
-            System.out.println("El id de la categoria "+categoriaNombre+" es = "+categoriaId);
+            System.out.println("Categoria nombre = "+categoriaNombre+", categoria id = "+categoriaId);
             
-            //Tercero: Obtener el nombre de la Sub Categoria 1 = subSategoria1
-            String sub1Nombre = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 1");
-
-            if( sub1Nombre.isEmpty()){
-                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
-            }else{
+            //3.- Obtener el nombre de la sub categoria 1 a agregar
+            String sub1Nombre = JOptionPane.showInputDialog("Nombre de la sub categoría 1");
+            
+            if( sub1Nombre.isEmpty() == false ){
                 
-                System.out.println("Va a agregar la sub categoria 1 "+sub1Nombre);
-                
-                //Cuarto: Comprobar que esa sub categoria 1 no exista ya en esa categoria
-                System.out.println("Comprobando que la sub categoria 1 "+sub1Nombre+" no exista en la categoria "+categoriaNombre);
-                boolean existe = subCategoria1DaoImp.existe(sub1Nombre, categoriaId);
+                //4.- Comprobar que no existe ya
+                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                System.out.println("Comprobando si la sub categoria 1 "+sub1Nombre+" existe en la categoria "+categoriaNombre);
+                Boolean existe = subCategoria1DaoImp.existe(sub1Nombre, categoriaId);
                 
                 if( existe == false ){
                     
-                    //Quinto: Guardar la sub categoria 1
-                    System.out.println("Guardado la sub categoria 1 "+sub1Nombre+" en la categoria "+categoriaNombre);
-                    boolean guardado = subCategoria1DaoImp.guardar(sub1Nombre, categoriaId);
+                    System.out.println("La sub categoria 1 " + sub1Nombre + " no existe ne la categoria "+categoriaNombre);
                     
-                    //Sexto: Comprobar que si se guardo
+                    //5.- guarda la sub categoria
+                    System.out.println("Guardando la sub categoria 1 "+sub1Nombre+" en la categoria "+categoriaNombre);
+                    Boolean guardado = subCategoria1DaoImp.guardar(sub1Nombre,categoriaId);
+                    
                     if( guardado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 guardada");
+                        
+                        System.out.println("Sub categoria 1 "+sub1Nombre+" guardada en la categoria "+categoriaNombre);
+                        JOptionPane.showMessageDialog(null, "Sub categoria 1 "+sub1Nombre+" guardada en la categoria "+categoriaNombre);
                         actualizar();
+                        
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 no guardada");
+                        System.out.println("Hubo un error al guardar la sub categoría 1 "+sub1Nombre);
+                        JOptionPane.showMessageDialog(null, "Hubo un error al guardar la sub categoría 1 "+sub1Nombre);
                     }
                     
                 }else{
-                    JOptionPane.showMessageDialog(null, "La sub categoria 1 "+sub1Nombre+" ya existe en la categoria "+categoriaNombre);
+                    System.out.println("La sub categoria 1 " + sub1Nombre + " ya existe en la categoria " + categoriaNombre);
+                    JOptionPane.showMessageDialog(null, "La sub categoria 1 " + sub1Nombre + " ya existe en la categoria " + categoriaNombre);
                 }
+                
+            }else{
+                System.out.println("No se ah ingersado un nombre");
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
             }
             
         }else{
+            System.out.println("No se puede agregar a un elemento desactivado");
             JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
         }
     } //Ya
 
-    private void agregarSubCateroria2(String nombreCompleto) {
+    private void agregarSubCateroria2(String nombreCompleto) throws Exception {
         
-        //Primero: Obtener el nombre de la sub categoria 1 a la que se va a agregar la sub categoria 2 = sub1Nombre
+        //1.- Obtener el nombre de la sub caregoria 1
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
+            
             String sub1Nombre = nombreCompleto.substring(0,localizado);
             System.out.println("\nVa a agregar una sub categoria 2 a la sub cateroria 1: " + sub1Nombre);
             
-            //Segundo: Obtener el id de la sub categoria 1
-            System.out.println("Obteniendo el id de la sub categoria 1 "+sub1Nombre);
-            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
-            System.out.println("El id de la sub categoria 1 "+sub1Nombre+" es = "+sub1Id);
+            //1.1.- Obtener la Categoria correspondiente a la sub categoria 1 que se le quiere agregar una sub categoria 2
+            DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+            String categoriaNombreCompleto = arbol.getParent().toString();
             
-            //Tercero: Obtener el nombre de la Sub Categoria 2 = subSategoria2
-            String subSategoria2 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 2");
-
-            if( subSategoria2.isEmpty()){
-                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
-            }else{
+            Integer localizarCategoria = categoriaNombreCompleto.indexOf(" - Activado");
+            String categoriaNombre = categoriaNombreCompleto.substring(0,localizarCategoria);
+            
+            //1.2.- Obtener el id de la categoria
+            CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+            System.out.println("Obteniendo el id de la categoria "+categoriaNombre);
+            Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoria nombre = "+categoriaNombre+", categoria id = "+categoriaId);
+            
+            //2.- Obtener el id (avanzado) de la sub categoria 1
+            SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+            System.out.println("Obteniendo el id de la sub categoria 1 "+sub1Nombre);
+            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub 1 nombre = "+sub1Nombre+", sub 1 id = "+sub1Id);
+            
+            //3.- Obtener el nombre de la sub categoria 2 a agregar
+            String sub2Nombre = JOptionPane.showInputDialog("Nombre de la sub categoría 2");
+            
+            if( sub2Nombre.isEmpty() == false ){
                 
-                System.out.println("Va a agregar la sub categoria 2 "+subSategoria2);
-                
-                //Cuarto: Comprobar que esa sub categoria 2 no exista ya en esa sub categoria 1
-                System.out.println("Comprobando que la sub categoria 2 "+subSategoria2+" no exista en la sub categoria 1 "+sub1Nombre);
-                boolean existe = subCategoria2DaoImp.existe(subSategoria2, sub1Id);
+                //4.- Comprobar que no existe ya
+                SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+                System.out.println("Comprobando si la sub categoria 2 "+sub2Nombre+" existe en la sub categoria 1 "+sub1Nombre);
+                Boolean existe = subCategoria2DaoImp.existe(sub2Nombre, sub1Id);
                 
                 if( existe == false ){
                     
-                    //Quinto: Guardar la sub categoria 2
-                    System.out.println("Guardado la sub categoria 2 "+subSategoria2+" en la sub categoria 1 "+sub1Nombre);
-                    boolean guardado = subCategoria2DaoImp.guardar(subSategoria2, sub1Id);
+                    System.out.println("La sub categoria 2 " + sub2Nombre + " no existe ne la sub categoria 1 "+sub1Nombre);
                     
-                    //Sexto: Comprobar que si se guardo
+                    //5.- guarda la sub categoria
+                    System.out.println("Guardando la sub categoria 2 "+sub2Nombre+" en la sub categoria 1 "+sub1Nombre);
+                    Boolean guardado = subCategoria2DaoImp.guardar(sub2Nombre,sub1Id);
+                    
                     if( guardado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 2 guardada");
+                        
+                        System.out.println("Sub categoria 2 "+sub2Nombre+" guardada en la sub categoria 1 "+sub1Nombre);
+                        JOptionPane.showMessageDialog(null, "Sub categoria 2 "+sub2Nombre+" guardada en la sub categoria 1 "+sub1Nombre);
                         actualizar();
+                        
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 2 no guardada");
+                        System.out.println("Hubo un error al guardar la sub categoría 2 "+sub2Nombre);
+                        JOptionPane.showMessageDialog(null, "Hubo un error al guardar la sub categoría 2 "+sub2Nombre);
                     }
                     
                 }else{
-                    JOptionPane.showMessageDialog(null, "La sub categoria 2 "+subSategoria2+" ya existe en la sub categoria 1 "+sub1Nombre);
+                    System.out.println("La sub categoria 2 " + sub2Nombre + " ya existe en la sub categoria 1 " + sub1Nombre);
+                    JOptionPane.showMessageDialog(null, "La sub categoria 2 " + sub2Nombre + " ya existe en la sub categoria 1 " + sub1Nombre);
                 }
+                
+            }else{
+                System.out.println("No se ah ingersado un nombre");
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
             }
             
         }else{
+            System.out.println("No se puede agregar a un elemento desactivado");
             JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
-        }        
+        }
     } //Ya
 
-    private void agregarSubCateroria3(String nombreCompleto) {
+    private void agregarSubCateroria3(String nombreCompleto) throws Exception {
         
-        //Primero: Obtener el nombre de la sub categoria 2 a la que se va a agregar la sub categoria 3 = sub2Nombre
-        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        //1.- Obtener toda la ruta (Categoria, sub categoria 1 y sub categoria 2)
+        Integer localizarActivado = nombreCompleto.indexOf(" - Activado");
         
-        if( localizado > 0 ){
-            String sub2Nombre = nombreCompleto.substring(0,localizado);
+        if( localizarActivado > 0 ){
+            
+            String sub2Nombre = nombreCompleto.substring(0,localizarActivado);
+            
+            DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+            String raizNombre = arbol.getRoot().toString();
+            String sub1NombreCompleto = arbol.getParent().toString();
+            TreeNode[] ruta = arbol.getPath();
+                
+            String sub1Nombre = sub1NombreCompleto.substring(0,localizarActivado);
+            
+            Integer localizarCategoriaPt1 = Arrays.toString(ruta).indexOf(" - Activado, "+sub1Nombre+" - Activado, "+sub2Nombre+" - Activado]");
+            String categoriaNombrePt1 = Arrays.toString(ruta).substring(0, localizarCategoriaPt1);
+            String categoriaNombre = categoriaNombrePt1.substring(raizNombre.length()+3 , categoriaNombrePt1.length());
+            
             System.out.println("\nVa a agregar una sub categoria 3 a la sub cateroria 2: " + sub2Nombre);
             
-            //1.1: Obtener el nombre del padre de la sub categoria 2 (nombre de la Sub categoria 1) = sub1Nombre
-            DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-            String sub1NombreCompleto = arbol.getParent().toString();
+            //2.- Obtener el id de la categoria
+            CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+            System.out.println("Obteniendo el id de la categoria "+categoriaNombre);
+            Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoria nombre = "+categoriaNombre+", categoria id = "+categoriaId);
             
-            Integer localizandoSub1 = sub1NombreCompleto.indexOf(" - Activado");
-            String sub1Nombre = sub1NombreCompleto.substring(0,localizandoSub1);
-            
-            //1.2: Obtener el id de la Sub categoria 1 = sub1Id
+            //3.- Obtener el id (avanzado) de la Sub categoria 1
+            SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             System.out.println("Obteniendo el id de la sub categoria 1 "+sub1Nombre);
-            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
-            System.out.println("El id de la sub categoria 1 "+sub1Nombre+" es = "+sub1Id);
+            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub 1 nombre = "+sub1Nombre+", sub 1 id = "+sub1Id);
             
-            //Segundo: Obtener el id de la sub categoria 2
+            //3.- Obtener el id (avanzado) de la Sub categoria 2
+            SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
             System.out.println("Obteniendo el id de la sub categoria 2 "+sub2Nombre);
             Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
-            System.out.println("El id de la sub categoria 2 "+sub2Nombre+" es = "+sub2Id);
+            System.out.println("Sub 2 nombre = "+sub2Nombre+", sub 2 id = "+sub2Id);
             
-            //Tercero: Obtener el nombre de ña sub categoria 3 = subSategoria3
-            String subSategoria3 = JOptionPane.showInputDialog("Nombre de la Sub Categoriaa 3");
-
-            if( subSategoria3.isEmpty()){
-                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
-            }else{
+            //5.- Obtener el nombre de la sub categoria 3
+            String sub3Nombre = JOptionPane.showInputDialog("Nombre de la sub categoría 3");
+            
+            if( sub3Nombre.isEmpty() == false ){
                 
-                System.out.println("Va a agregar la sub categoria 3 "+subSategoria3);
-                
-                //Cuarto: Comprobar que esa sub categoria 3 no exista ya en esa sub categoria 2
-                System.out.println("Comprobando que la sub categoria 3 "+subSategoria3+" no exista en la sub categoria 2 "+sub2Nombre);
-                boolean existe = subCategoria3DaoImp.existe(subSategoria3, sub2Id);
+                //6.- Comprobar que dicha sub categoria 3 no exista en la sub categoria 2
+                SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+                System.out.println("Comprobando que la sub categoria 3 "+sub3Nombre+" no exista en la sub categoria 2 "+sub2Nombre);
+                Boolean existe = subCategoria3DaoImp.existe(sub3Nombre, sub2Id);
                 
                 if( existe == false ){
                     
-                    //Quinto: Guardar la sub categoria 3
-                    System.out.println("Guardado la sub categoria 3 "+subSategoria3+" en la sub categoria 2 "+sub2Nombre);
-                    boolean guardado = subCategoria3DaoImp.guardar(subSategoria3, sub2Id);
+                    System.out.println("La sub categoria 3 " + sub3Nombre + " no existe en la sub categoria 2 " + sub2Nombre);
                     
-                    //Sexto: Comprobar que si se guardo
+                    //7.- Guardar la sub categoria 3 en la sub categoria 2
+                    Boolean guardado = subCategoria3DaoImp.guardar(sub3Nombre, sub2Id);
+                    
                     if( guardado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 3 guardada");
+                        
+                        System.out.println("Sub categoria 3 "+sub3Nombre+" guardada en la sub categoria 2 "+sub2Nombre);
+                        JOptionPane.showMessageDialog(null, "Sub categoria 3 "+sub3Nombre+" guardada en la sub categoria 2 "+sub2Nombre);
                         actualizar();
+                        
                     }else{
-                        JOptionPane.showMessageDialog(null, "Sub categoria 3 no guardada");
+                        System.out.println("Hubo un error al guardar la sub categoría 3 "+sub3Nombre);
+                        JOptionPane.showMessageDialog(null, "Hubo un error al guardar la sub categoría 3 "+sub3Nombre);
                     }
-                    
+                
                 }else{
-                    JOptionPane.showMessageDialog(null, "La sub categoria 3 "+subSategoria3+" ya existe en la sub categoria 2 "+sub2Nombre);
+                    System.out.println("La sub categoria 3 " + sub3Nombre + " ya existe en la sub categoria 2 " + sub2Nombre);
+                    JOptionPane.showMessageDialog(null, "La sub categoria 3 " + sub3Nombre + " ya existe en la sub categoria 2 " + sub2Nombre);
                 }
+                
+            }else{
+                System.out.println("No se ah ingersado un nombre");
+                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
             }
             
         }else{
+            System.out.println("No se puede agregar a un elemento desactivado");
             JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
-        }  
+        }
     } //Ya
     
     //Modificar
     
-    private void modificarCategoria(String nombreCompleto) {
+    private void modificarCategoria(String nombreCompleto) throws Exception {
         
-        //Primero: Hay que obtener el nombre seleccionado (Sin estado activado) = nombre
+        //1.- Hay que obtener el nombre seleccionado (Sin estado activado) = nombre
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
-            String nombre = nombreCompleto.substring(0,localizado);
-            System.out.println("\nVa a modificar la categoria " + nombre);
-
-            //Segundo: hay que obtener el id de nombre = categoriaId
-            System.out.println("Obteniendo la id de la categoria "+nombre);
-            Integer categoriaId = categoriaDaoImp.obtenerId(nombre);
-            System.out.println("El id de la categoria "+nombre+" es = "+categoriaId);
+            String categoriaOldNave = nombreCompleto.substring(0,localizado);
+            System.out.println("\nVa a modificar la categoria " + categoriaOldNave);
             
-            //Tercero: hay que obtener el nuevo nombre = nvoNombre
-            String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+nombre);
-
-            //Cuarto: Hay que comprobar que nvoNombre no este vacio
-            if( nvoNombre.isEmpty()){
-                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
-            }else{
+            //2.- Obtener el nuevo nombe
+            String categoriaNewName = JOptionPane.showInputDialog("Nuevo nombre de la categoría "+categoriaOldNave);
+            
+            if( categoriaNewName.isEmpty() == false ){
                 
-                //Quinto: Hay que ver que el nvoNombre no exista 
-                System.out.println("Comprobando si la categoria "+nombre+" existe");
-                boolean existe = categoriaDaoImp.existe(nvoNombre);
+                //3.- Comprbar que no exista
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                System.out.println("Comprobando si la categoria "+categoriaNewName+" existe");
+                Boolean existe = categoriaDaoImp.existe(categoriaNewName);
                 
-                if( existe ==  false){
+                if( existe == false ){
                     
-                    //Sexto: modificar la categoria nombre a nvoNombre
-                    System.out.println("Modificando la categoria "+nombre+" a "+nvoNombre);
-                    boolean modificado = categoriaDaoImp.modificar(categoriaId, nvoNombre);
+                    System.out.println("La categoria "+categoriaNewName+" no existe");
                     
-                    //Septimo: comprobar que si se modifico
+                    //4.- Obtener elid de la categoria a modificar
+                    System.out.println("Obteniendo el id de ña categoria "+categoriaOldNave);
+                    Integer categoriaId = categoriaDaoImp.obtenerId(categoriaOldNave);
+                    System.out.println("Categoria nombre = "+categoriaOldNave+", categoria id = "+categoriaId);
+                    
+                    //X.- modificar la categoria
+                    System.out.println("Modificando la cattegoria de "+categoriaOldNave+" a "+categoriaNewName);
+                    Boolean modificado = categoriaDaoImp.modificar(categoriaId, categoriaNewName);
+                    
                     if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Categoria modificada");
+                        System.out.println("Categoria "+categoriaOldNave+" modificada con éxito");
+                        JOptionPane.showMessageDialog(this, "Categoria "+categoriaOldNave+" modificada con éxito");
                         actualizar();
                     }else{
-                        JOptionPane.showMessageDialog(null, "Categoria no modificada");
+                        System.out.println("Hubo un error al modificar la categoria "+categoriaOldNave);
+                        JOptionPane.showMessageDialog(this, "Hubo un error al modificar la categoría "+categoriaOldNave);
                     }
                     
                 }else{
-                    JOptionPane.showMessageDialog(null, "La categoria "+nvoNombre+" ya existe");
+                    System.out.println("La categoria "+categoriaNewName+" ya existe");
+                    JOptionPane.showMessageDialog(null, "La categoria "+categoriaNewName+" ya existe");
                 }
+            
+            }else{
+                System.out.println("No se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
             
         }else{
+            System.out.println("No se puede modificar un elemento desactivado");
             JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
         }    
     } //Ya
 
-    private void modificarSubCategoria1(String nombreCompleto) {
+    private void modificarSubCategoria1(String nombreCompleto) throws Exception {
         
-        //1.- Obtener el nombre seleccionado sin "Activado" = sub1Nombre
-        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        //1.- comprobar si la categoria esta activa
+        DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        String categoriaNombreCompleto = arbol.getParent().toString();
         
-        if( localizado > 0 ){
-            String sub1Nombre = nombreCompleto.substring(0,localizado);
-            System.out.println("\n Va a modificar la sub categoria 1 "+sub1Nombre);
+        Integer locCategoria = categoriaNombreCompleto.indexOf(" - Activado");
+        
+        if( locCategoria > 0 ){
             
-            //2.- Obtener el id de la sub categoria 1 = sub1Id
-            System.out.println("Obteniendo la id de la sub categoria 1 "+sub1Nombre);
-            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
-            System.out.println("El id de la sub categoria 1 "+sub1Nombre+" es = "+sub1Id);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             
-            //3.- Ahora hay que obtener el nuevo nombre de la subcategoria1 = nvoNombre
-            String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+sub1Nombre);
+            //2.- Comprobar que la sub categoria 1 este activa
+            Integer locSub1 = nombreCompleto.indexOf(" - Activado");
             
-            //3.1.- Comprobar que nvoNombre no este vacio
-            if( nvoNombre.isEmpty()){
-                JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
-            }else{
+            if( locSub1 > 0 ){
                 
-                //4.- Obtener el nombre de la categoria a la que pertenece la sub categoria 1 = categoriaNombre
-                System.out.println("Obteniendo la categoria a la que pertenece la sub categoria 1 "+nvoNombre);
-                DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-                String categoriaNombreCompleto = arbol.getParent().toString();
-            
-                Integer localizandoCateg = categoriaNombreCompleto.indexOf(" - Activado");
-                String categoriaNombre = categoriaNombreCompleto.substring(0,localizandoCateg);
-                System.out.println("La categoria a la que pertnece la sub categoria 1 es "+categoriaNombre);
+                String sub1OldName = nombreCompleto.substring(0, locSub1);
                 
-                //4.1.- Obtener el id de la categoria = categoriaId
-                System.out.println("Obteniendo el id de la categoria "+categoriaNombre);
-                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
-                System.out.println("El id de "+categoriaNombre+" es "+categoriaId);
+                //3.- Obtener el nuevo nombre de la sub categoria 1
+                String sub1NewName = JOptionPane.showInputDialog("Nuevo nombre de la sub categoría 1 "+sub1OldName);
                 
-                //5.- Comprobar que el nvoNombre no exista en la categoria
-                System.out.println("Comprobando si "+nvoNombre+" existe en "+categoriaNombre);
-                boolean existe = subCategoria1DaoImp.existe(nvoNombre, categoriaId);
+                if( sub1NewName.isEmpty() == false ){
                 
-                if( existe == false ){
+                    //4.- Obtener el id de la categoria
+                    CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                    System.out.println("Obteniendo el id de la categoria = "+categoriaNombre);
+                    Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                    System.out.println("Categoria id = "+categoriaId);
+
+                    //5.- Obtener el id de la sub categoria 1 de forma avanzada
+                    SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                    System.out.println("Obteniendo el id de sub categoria = "+sub1OldName);
+                    Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1OldName, categoriaId);
+                    System.out.println("Sub categoria 1 id = "+sub1Id);
+
+                    //6.- Comprobar que el nuevo nombre no exista en la categoria
+                    System.out.println("Comprobando si la sub categoría 1 "+sub1NewName+" existe");
+                    Boolean existe = subCategoria1DaoImp.existe(sub1NewName, categoriaId);
                     
-                    //6.- modificar la sub categoria 1
-                    System.out.println("Modificando de "+sub1Nombre+" a "+nvoNombre);
-                    Boolean modificado = subCategoria1DaoImp.modificar(sub1Id, nvoNombre);
+                    if( existe == false ){
+                        
+                        System.out.println("La sub categoria 1 "+sub1NewName+" no existe");
+                        
+                        //7.- modificar la sub categoria 1
+                        System.out.println("Modificando la sub categoria 1 de "+sub1OldName+" a "+sub1NewName);
+                        Boolean modificado = subCategoria1DaoImp.modificar(sub1Id, sub1NewName);
+                        
+                        if( modificado == true ){
+                            
+                            System.out.println("La sub categoía 1 "+sub1OldName+" modificada a "+sub1NewName);
+                            JOptionPane.showMessageDialog(null, "La sub categoía 1 "+sub1OldName+" modificada a "+sub1NewName);
+                            
+                        }else{
+                            System.out.println("La sub categoía 1 "+sub1OldName+" no se pudo modificada");
+                            JOptionPane.showMessageDialog(null, "La sub categoía 1 "+sub1OldName+" no se pudo modificada");
+                        }
                     
-                    //7.- Comprobar que si se modifico
-                    if( modificado == true ){
-                        JOptionPane.showMessageDialog(null, "Sub categoria 1 modificada");
-                        actualizar();
                     }else{
-                        JOptionPane.showMessageDialog(null, "Categoria no modificada");
+                        System.out.println("La sub categoía 1 "+sub1NewName+" ya existe en la categoría "+categoriaNombre);
+                        JOptionPane.showMessageDialog(null, "La sub categoía 1 "+sub1NewName+" ya existe en la categoría "+categoriaNombre);
                     }
-                
+                    
                 }else{
-                    JOptionPane.showMessageDialog(null, "La sub categoria 1 "+nvoNombre+" ya existe");
+                    System.out.println("No se ingreso un nombre");
+                    JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
                 }
-            }
             
+            }else{
+                System.out.println("No se puede modificar un elemento desactivada");
+                JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivada");
+            }
+        
         }else{
-            JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
+            System.out.println("No se puede modificar por que la categoria de esta sub categoria 1 esta desactivada");
+            JOptionPane.showMessageDialog(null, "No se puede modificar por que la categoria de esta sub categoria 1 esta desactivada");
         }
     } //Ya
 
-    private void modificarSubCategoria2(String nombreCompleto) {
+    private void modificarSubCategoria2(String nombreCompleto) throws Exception {
         
-        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        //1.- Obtener la ruta completa y separar los elementos
         
-        if( localizado > 0 ){
-            String nombre = nombreCompleto.substring(0,localizado);
+        DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+        TreeNode[] rutaComplet = arbol.getPath();
+        String ruta = Arrays.toString(rutaComplet);
+        String raiz = arbol.getRoot().toString();
+        String sub1NombreCompelto = arbol.getParent().toString();
+        String sub2NombreCompleto = nombreCompleto;
         
-            //Primero hay que obtener el id
-
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            ResultSet resultSet;
-
-            try {
-
-                ConexionBD.obtenerConexion();
-                String sql = "SELECT id, nombre FROM subcategorias2 WHERE nombre = ?";
-                preparedStatement = conexion.prepareCall(sql);
-                preparedStatement.setString(1, nombre);
-                resultSet = preparedStatement.executeQuery();
-
-                while( resultSet.next() ){
-                    subCategorias2.setId(resultSet.getInt(("id")));
-                    subCategorias2.setNombre(resultSet.getString(("nombre")));
-
-                    Integer categoriaId = subCategorias2.getId();
-                    String categoriaNombte = subCategorias2.getNombre();
-
-                    //Ahora hay que obtener el nuevo nombre de la subcategoria2
-
-                    String nvoNombre = JOptionPane.showInputDialog("Cambiear nombre de "+categoriaNombte);
-                    Boolean modificado = true;
-
-                    if( nvoNombre.isEmpty()){
-                        JOptionPane.showMessageDialog(null, "No se ah ingersado un nombre");
-                    }else{
-
-                        if( nvoNombre.equals(categoriaNombte) ){
-                            JOptionPane.showMessageDialog(null, "Ya tiene ese nombre");
-                        }else{
-
-                            try {
-
-                                ConexionBD.obtenerConexion();
-                                preparedStatement = conexion.prepareStatement("UPDATE subcategorias2 SET nombre = ? WHERE id = ?");
-                                preparedStatement.setString(1, nvoNombre);
-                                preparedStatement.setInt(2, categoriaId);
-                                preparedStatement.executeUpdate();
-
-                                modificado = true;
-                                System.out.println("Sub categoria 2 " + categoriaNombte + " modificada a " + nvoNombre);
-
-                                conexion = ConexionBD.cerrarConexion();
-
-                            } catch (SQLException ex) {
-                                System.out.println(ex.getMessage());
-
-                            } catch (ClassNotFoundException ex) {
-                                System.out.println(ex.getMessage());
-                            }
-
-                            if( modificado == true ){
-                                JOptionPane.showMessageDialog(null, "Sub categoria 2 modificada" );
-
-                                actualizar();
-
-                            }else{
-                                JOptionPane.showMessageDialog(null, "Sub categoria 2 no modificada");
-                            }
-                        }
-                    }
-                }
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+        String reduccion1 = ruta.substring(raiz.length()+3, ruta.length());
+        Integer localizarCategoriaNombreCompleto = reduccion1.indexOf(", "+sub1NombreCompelto+", "+sub2NombreCompleto);
+        String categoriaNombreCompleto = reduccion1.substring(0, localizarCategoriaNombreCompleto);
+        
+        //2.- Comprobar si los elementos estan activados
+        
+        Integer localizarCategoria = categoriaNombreCompleto.indexOf(" - Activado");
+        Integer localizarSub1 = sub1NombreCompelto.indexOf(" - Activado");
+        Integer localizarSub2 = sub2NombreCompleto.indexOf(" - Activado");
+        
+        if( ( localizarCategoria > 0 ) && ( localizarSub1 > 0 ) && ( localizarSub2 > 0 ) ){
+            
+            String categoriaId = categoriaNombreCompleto.substring(0,localizarCategoria);
+            String sub1Nombre = sub1NombreCompelto.substring(0, localizarSub1);
+            String sub2OldName = sub2NombreCompleto.substring(0, localizarSub2);
+            
+            //3.- Obtener el nuevo nombre de la sub categoría 2
+            String sub2NewName = JOptionPane.showInputDialog("Nuevo nombre de la sub categoría 2 "+sub2OldName);
+            
+            if( sub2NewName.isEmpty() == false ){
+                
+                
+            
+            }else{
+                System.out.println("No se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
             
         }else{
-            JOptionPane.showMessageDialog(null, "No se puede agregar a un elemento desactivado");
-        } 
+            System.out.println("No se puede modificar si la categoría, sub categoría 1 o sub categoría 2 estan desactivadas");
+            JOptionPane.showMessageDialog(null, "No se puede modificar si: "
+                    + "\n    1.- La categoría esta descativada "
+                    + "\n    2.- La sub categoría 1 esta desactivada "
+                    + "\n    3.- La sub categoría 2 esta desactivada "
+                    + "\nCompruebe que esten activadas");
+        }
     }
 
-    private void modificarSubCategoria3(String nombreCompleto) {
+    private void modificarSubCategoria3(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
@@ -895,6 +936,7 @@ public class ListarCategorias extends javax.swing.JFrame {
         
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -908,6 +950,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias2 subCategorias2 = new SubCategorias2();
                     subCategorias2.setId(resultSet.getInt(("id")));
                     subCategorias2.setNombre(resultSet.getString(("nombre")));
 
@@ -970,7 +1013,7 @@ public class ListarCategorias extends javax.swing.JFrame {
     
     //Desactivaciones
 
-    private void desactivarCategoria(String nombreCompleto) {
+    private void desactivarCategoria(String nombreCompleto) throws Exception {
         
         //Primero hay que obtener el nombre real = nombre (Esta parte tambien comprueba que el elemento este activado)
         Integer localizado = nombreCompleto.indexOf(" - Activado");
@@ -981,6 +1024,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             System.out.println("\nVa a desactivar la cateroria " + nombre);
             
             //Segundo hay que obtener el id de nombre
+            CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             System.out.println("Obteniendo la id de la categoria "+nombre);
             Integer categoriaId = categoriaDaoImp.obtenerId(nombre);
             System.out.println("El id de la categoria "+nombre+" es = "+categoriaId);
@@ -1000,9 +1044,9 @@ public class ListarCategorias extends javax.swing.JFrame {
         }else{
             JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
-    } //Ya
+    } 
 
-    private void desactivarSubCategoria1(String nombreCompleto) {
+    private void desactivarSubCategoria1(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
@@ -1013,6 +1057,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -1026,6 +1071,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias1 subCategorias1 = new SubCategorias1();
                     subCategorias1.setId(resultSet.getInt(("id")));
                     subCategorias1.setNombre(resultSet.getString(("nombre")));
                     subCategorias1.setActivo(resultSet.getBoolean("activo"));
@@ -1082,7 +1128,7 @@ public class ListarCategorias extends javax.swing.JFrame {
         }
     }
 
-    private void desactivarSubCategoria2(String nombreCompleto) {
+    private void desactivarSubCategoria2(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
@@ -1093,6 +1139,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -1106,6 +1153,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias2 subCategorias2 = new SubCategorias2();
                     subCategorias2.setId(resultSet.getInt(("id")));
                     subCategorias2.setNombre(resultSet.getString(("nombre")));
                     subCategorias2.setActivo(resultSet.getBoolean("activo"));
@@ -1161,7 +1209,7 @@ public class ListarCategorias extends javax.swing.JFrame {
         }
     }
 
-    private void desactivarSubCategoria3(String nombreCompleto) {
+    private void desactivarSubCategoria3(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
@@ -1172,6 +1220,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -1185,6 +1234,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias3 subCategorias3 = new SubCategorias3();
                     subCategorias3.setId(resultSet.getInt(("id")));
                     subCategorias3.setNombre(resultSet.getString(("nombre")));
                     subCategorias3.setActivo(resultSet.getBoolean("activo"));
@@ -1243,39 +1293,40 @@ public class ListarCategorias extends javax.swing.JFrame {
     
     //Activaciones
 
-    private void activarCategoria(String nombreCompleto) {
+    private void activarCategoria(String nombreCompleto) throws Exception {
         
-        //Primero hay que obtener el nombre real = nombre (Esta parte tambien comprueba que el elemento este desactivado)
+        //1.- hay que obtener el nombre de la categoria 
         Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
         if( localizado > 0 ){
             
-            String nombre = nombreCompleto.substring(0,localizado);
-            System.out.println("\nVa a activar la cateroria " + nombre);
+            CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             
-            //Segundo hay que obtener el id de nombre
-            System.out.println("Obteniendo la id de la categoria "+nombre);
-            Integer categoriaId = categoriaDaoImp.obtenerId(nombre);
-            System.out.println("El id de la categoria "+nombre+" es = "+categoriaId);
+            String categoriaNombre = nombreCompleto.substring(0,localizado);
+            System.out.println("\nVa a activar la cateroria " + categoriaNombre);
             
-            //Tercero: activar la categoria
-            System.out.println("Activando la categoria "+nombre);
+            //2.- hay que obtener el id de la categoria
+            System.out.println("Obteniendo la id de la categoria "+categoriaNombre);
+            Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("El id de la categoria "+categoriaNombre+" es = "+categoriaId);
+            
+            //3.- activar la categoria
+            System.out.println("Activando la categoria "+categoriaNombre);
             boolean activado = categoriaDaoImp.activar(categoriaId);
             
-            //Cuarto: Comprobar que si se desactivo
             if( activado == true ){
-                JOptionPane.showMessageDialog(null, "Categoria "+nombre+" activada");
+                JOptionPane.showMessageDialog(null, "Categoria "+categoriaNombre+" activada");
                 actualizar();
             }else{
-                JOptionPane.showMessageDialog(null, "La categoria "+nombre+" no se activo");
+                JOptionPane.showMessageDialog(null, "La categoria "+categoriaNombre+" no se activo");
             }
             
         }else{
             JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
-    } //Ya
+    } 
 
-    private void activarSubCategoria1(String nombreCompleto) {
+    private void activarSubCategoria1(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
@@ -1285,6 +1336,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             System.out.println("Va a activar la sub cateroria 1 " + nombre);
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -1298,6 +1350,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias1 subCategorias1 = new SubCategorias1();
                     subCategorias1.setId(resultSet.getInt(("id")));
                     subCategorias1.setNombre(resultSet.getString(("nombre")));
                     subCategorias1.setActivo(resultSet.getBoolean("activo"));
@@ -1355,7 +1408,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
     }
 
-    private void activarSubCategoria2(String nombreCompleto) {
+    private void activarSubCategoria2(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
@@ -1365,6 +1418,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             System.out.println("Va a activar la sub cateroria 2 " + nombre);
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -1378,6 +1432,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias2 subCategorias2 = new SubCategorias2();
                     subCategorias2.setId(resultSet.getInt(("id")));
                     subCategorias2.setNombre(resultSet.getString(("nombre")));
                     subCategorias2.setActivo(resultSet.getBoolean("activo"));
@@ -1432,7 +1487,7 @@ public class ListarCategorias extends javax.swing.JFrame {
         }
     }
 
-    private void activarSubCategoria3(String nombreCompleto) {
+    private void activarSubCategoria3(String nombreCompleto) throws Exception {
         
         Integer localizado = nombreCompleto.indexOf(" - Desactivado");
         
@@ -1442,6 +1497,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             System.out.println("Va a desactivar la sub cateroria 3 " + nombre);
             //Primero hay que obtener el id
 
+            Connection conexion = null;
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
@@ -1455,6 +1511,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 resultSet = preparedStatement.executeQuery();
 
                 while( resultSet.next() ){
+                    SubCategorias3 subCategorias3 = new SubCategorias3();
                     subCategorias3.setId(resultSet.getInt(("id")));
                     subCategorias3.setNombre(resultSet.getString(("nombre")));
                     subCategorias3.setActivo(resultSet.getBoolean("activo"));
@@ -1512,7 +1569,7 @@ public class ListarCategorias extends javax.swing.JFrame {
     
     //Ayudas
     
-    private void actualizar() {
+    private void actualizar() throws Exception {
         this.dispose();
         new ListarCategorias().setVisible(true);
     }

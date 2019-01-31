@@ -52,6 +52,46 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
         return sub3Id;
         
     }
+    
+    @Override
+    public Integer obtenetIdAvanzado(String nombre, Integer sub2Id) {
+        
+        Integer sub3d = 0;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        System.out.println("Ejecutando: SELECT id FROM subCategorias3 WHERE nombre = '"+nombre+"' AND idSubCategoria2 = '"+sub2Id+"'");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            
+            preparedStatement = conexion.prepareCall("SELECT id FROM subCategorias3 WHERE nombre = ? AND idSubCategoria2 = ?");
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setInt(2, sub2Id);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                SubCategorias3 subCategorias3 = new SubCategorias3();
+                subCategorias3.setId(resultSet.getInt("id"));
+                
+                sub3d = subCategorias3.getId();
+                
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return sub3d;
+        
+    }
 
     @Override
     public String obtenerNombre(Integer id) {
@@ -209,15 +249,13 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
         List<SubCategorias3> listar = null;
         listar = new ArrayList<>();
         
-        System.out.println("Ejecutando: SELECT * FROM subCategorias3 WHERE idSubCategoria2 = '"+sub2Id+"'");
-        
         try {
             
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
             
-            String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = '"+sub2Id+"'";
+            String sql = "SELECT * FROM subCategorias3 WHERE idSubCategoria2 = '"+sub2Id+"' ORDER BY nombre ASC;";
             preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             

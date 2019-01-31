@@ -6,10 +6,11 @@ import tablas.SubCategorias1;
 public interface SubCategoria1Dao {
     
     public Integer obtenerId(String nombre);
+    public Integer obtenetIdAvanzado(String nombre, Integer categoriaId);
     public String obtenerNombre(Integer id);
-    public boolean existe(String nombre, Integer catId);
+    public boolean existe(String nombre, Integer categoriaId);
     
-    public boolean guardar(String nombre, Integer catId);
+    public boolean guardar(String nombre, Integer categoriaId);
     public boolean modificar(Integer id, String nvoNombre);
     public List<SubCategorias1> listar(Integer categoriaId) throws Exception;
     

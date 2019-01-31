@@ -143,12 +143,17 @@ public class Inicio extends javax.swing.JFrame {
     }//GEN-LAST:event_btnBorrarActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
-        // TODO add your handling code here:
-        ListarCategorias jFrame = null;
-        jFrame = new ListarCategorias();
-        //this.setVisible(false);
-        System.out.println("\n----- Abriendo ventana: categorías -----");
-        jFrame.setVisible(true);
+        try {
+            
+            ListarCategorias jFrame = null;
+            jFrame = new ListarCategorias();
+            
+            System.out.println("\n----- Abriendo ventana: categorías -----");
+            jFrame.setVisible(true);
+            
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     private void btnFuentesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnFuentesActionPerformed

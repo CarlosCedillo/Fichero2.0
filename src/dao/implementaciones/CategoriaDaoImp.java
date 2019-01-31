@@ -205,7 +205,7 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
         try {
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
-            String sql = "SELECT * FROM categorias WHERE activo = true ORDER BY nombre ASC;";
+            String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
             PreparedStatement preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             

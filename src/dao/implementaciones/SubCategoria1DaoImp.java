@@ -52,6 +52,46 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
         return sub1Id;
         
     }
+    
+    @Override
+    public Integer obtenetIdAvanzado(String nombre, Integer categoriaId) {
+        
+        Integer sub2Id = 0;
+        
+        Connection conexion;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        
+        System.out.println("Ejecutando: SELECT id FROM subCategorias1 WHERE nombre = '"+nombre+"' AND idCategoria = '"+categoriaId+"'");
+        
+        try {
+            
+            conexion = ConexionBD.obtenerConexion();
+            
+            preparedStatement = conexion.prepareCall("SELECT id FROM subCategorias1 WHERE nombre = ? AND idCategoria = ?");
+            preparedStatement.setString(1, nombre);
+            preparedStatement.setInt(2, categoriaId);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                SubCategorias1 subCategorias1 = new SubCategorias1();
+                subCategorias1.setId(resultSet.getInt("id"));
+                
+                sub2Id = subCategorias1.getId();
+                
+            }
+            
+            conexion = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException | ClassNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+        
+        return sub2Id;
+        
+    }
 
     @Override
     public String obtenerNombre(Integer id) {
@@ -206,15 +246,13 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
         List<SubCategorias1> listar = null;
         listar = new ArrayList<>();
         
-        System.out.println("Ejecutando: SELECT * FROM subCategorias1 WHERE idCategoria = '"+categoriaId+"'");
-        
         try {
             
             conexion = ConexionBD.obtenerConexion();
             PreparedStatement preparedStatement;
             ResultSet resultSet;
             
-            String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = '"+categoriaId+"'";
+            String sql = "SELECT * FROM subCategorias1 WHERE idCategoria = '"+categoriaId+"' ORDER BY nombre ASC;";
             preparedStatement = conexion.prepareStatement(sql);
             resultSet = preparedStatement.executeQuery();
             
