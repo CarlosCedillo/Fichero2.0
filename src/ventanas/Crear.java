@@ -277,7 +277,7 @@ public class Crear extends javax.swing.JFrame {
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 sub1Nombre = cbSub1.getSelectedItem().toString();
                 
-                sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
+                sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, catrgoriaId);
                 
             }else{
                 sub1Id = 0;
@@ -288,7 +288,7 @@ public class Crear extends javax.swing.JFrame {
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
                 sub2Nombre = cbSub2.getSelectedItem().toString();
                 
-                Sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre);
+                Sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
                 
             }else{
                 Sub2Id = 0;
@@ -299,7 +299,7 @@ public class Crear extends javax.swing.JFrame {
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
                 sub3Nombre = cbSub3.getSelectedItem().toString();
                 
-                Sub3Id = subCategoria3DaoImp.obtenerId(sub3Nombre);
+                Sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, Sub2Id);
                 
             }else{
                 Sub3Id = 0;

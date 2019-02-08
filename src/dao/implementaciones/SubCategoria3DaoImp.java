@@ -158,10 +158,8 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
             }
             
             if( registros == 0 ){
-                System.out.println("Laa sub categorias 3 "+nombre+" no existe");
                 existe = false;
             }else{
-                System.out.println("Laa sub categorias 3 "+nombre+" si existe");
                 existe = true;
             }
             
@@ -198,7 +196,6 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
             preparedStatement.executeUpdate();
                 
             guardado = true;
-            System.out.println("Sub categorias 3 giardada" );
                 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();

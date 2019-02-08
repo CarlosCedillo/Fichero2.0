@@ -60,7 +60,7 @@
                   </Group>
               </Group>
           </Group>
-          <Component id="jLabel2" alignment="0" pref="484" max="32767" attributes="0"/>
+          <Component id="jLabel2" alignment="0" pref="527" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
@@ -81,7 +81,7 @@
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="btnRegresar" min="-2" max="-2" attributes="0"/>
                   </Group>
-                  <Component id="jScrollPane2" pref="334" max="32767" attributes="0"/>
+                  <Component id="jScrollPane2" pref="514" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
