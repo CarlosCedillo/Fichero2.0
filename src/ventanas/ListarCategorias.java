@@ -209,9 +209,10 @@ public class ListarCategorias extends javax.swing.JFrame {
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
 
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-        String nombre = modificar.toString();
         
         if( modificar != null ){
+            
+            String nombre = modificar.toString();
             
              try {
                 
@@ -255,9 +256,10 @@ public class ListarCategorias extends javax.swing.JFrame {
     private void btnDesactivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDesactivarActionPerformed
 
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-        String nombre = modificar.toString();
         
         if( modificar != null ){
+            
+            String nombre = modificar.toString();
             
             try {
                 
@@ -300,9 +302,10 @@ public class ListarCategorias extends javax.swing.JFrame {
     private void btnActivarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActivarActionPerformed
 
         DefaultMutableTreeNode modificar = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-        String nombre = modificar.toString();
         
         if( modificar != null ){
+            
+            String nombre = modificar.toString();
             
             try {
                 
@@ -735,7 +738,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 System.out.println("Comprobando la existencia de la sub categoría 3 "+sub3Nombre);
                 Boolean existe = subCategoria3DaoImp.existe(sub3Nombre, sub2Id);
                 
-                if( existe == true ){
+                if( existe == false ){
                     
                     System.out.println("La sub categoría 3 no existe");
                     
@@ -778,7 +781,9 @@ public class ListarCategorias extends javax.swing.JFrame {
         Integer localizado = nombreCompleto.indexOf(" - Activado");
         
         if( localizado > 0 ){
+            
             String categoriaOldNave = nombreCompleto.substring(0,localizado);
+            System.out.println("\nVa a modificar la categoría "+categoriaOldNave);
             
             //2.- Obtener el nuevo nombe
             String categoriaNewName = JOptionPane.showInputDialog("Nuevo nombre de la categoría "+categoriaOldNave);
@@ -787,89 +792,126 @@ public class ListarCategorias extends javax.swing.JFrame {
                 
                 //3.- Comprbar que no exista
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                System.out.println("Comprobando la existencia de la categoría "+categoriaNewName);
                 Boolean existe = categoriaDaoImp.existe(categoriaNewName);
                 
                 if( existe == false ){
                     
-                    //4.- Obtener elid de la categoria a modificar
+                    System.out.println("La categoria no existe");
+                    
+                    //4.- Obtener el id de la categoria a modificar
                     Integer categoriaId = categoriaDaoImp.obtenerId(categoriaOldNave);
+                    System.out.println("Categoria id = "+categoriaId);
                     
                     //X.- modificar la categoria
+                    System.out.println("Modificando la categoría");
                     Boolean modificado = categoriaDaoImp.modificar(categoriaId, categoriaNewName);
                     
                     if( modificado == true ){
+                        
+                        System.out.println("Categoría modificada con éxito");
+                        JOptionPane.showMessageDialog(null, "Categoría "+categoriaOldNave+" modificada con éxito");
                         actualizar();
+                        
                     }else{
+                        System.out.println("La categoría no se pudo guardar");
+                        JOptionPane.showMessageDialog(null, "La categoría "+categoriaOldNave+" no se pudo modificar");
                     }
                     
                 }else{
+                    System.out.println("La categoría ya existe");
+                    JOptionPane.showMessageDialog(null, "La categoría "+categoriaNewName+" ya existe");
                 }
             
             }else{
+                System.out.println("\nNo se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
             
         }else{
+            System.out.println("\nNo se puede modificar un elemento desactivado");
+            JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
         }    
-    } 
+    } //Ya
 
     private void modificarSubCategoria1(String nombreCompleto) throws Exception {
         
-        //1.- comprobar si la categoria esta activa
-        DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-        String categoriaNombreCompleto = arbol.getParent().toString();
+        //1.- Primero hay que ver si la sub categoria 1 esta activada
+        String sub1NombreCompleto = nombreCompleto;
+        Integer localizado = sub1NombreCompleto.indexOf(" - Activado");
         
-        Integer locCategoria = categoriaNombreCompleto.indexOf(" - Activado");
-        
-        if( locCategoria > 0 ){
+        if( localizado > 0 ){
             
-            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
+            String sub1OldName = sub1NombreCompleto.substring(0, localizado);
+            System.out.println("\nVa a modificar la sub categoría 1 "+sub1OldName);
             
-            //2.- Comprobar que la sub categoria 1 este activa
-            Integer locSub1 = nombreCompleto.indexOf(" - Activado");
+            //2.- Obtener el nuevo nombre de la sub categoria 1
+            String sub1NewName = JOptionPane.showInputDialog("Nuevo nombre de la sub categoría 1 "+sub1OldName);
             
-            if( locSub1 > 0 ){
-                
-                String sub1OldName = nombreCompleto.substring(0, locSub1);
-                
-                //3.- Obtener el nuevo nombre de la sub categoria 1
-                String sub1NewName = JOptionPane.showInputDialog("Nuevo nombre de la sub categoría 1 "+sub1OldName);
-                
-                if( sub1NewName.isEmpty() == false ){
-                
-                    //4.- Obtener el id de la categoria
-                    CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-                    Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            if( sub1NewName.isEmpty() == false ){
+            
+                //3.- Obtener el nombre y el id de la categoria
+                DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+                String categoriaNombreCompleto = arbol.getParent().toString();
 
-                    //5.- Obtener el id de la sub categoria 1 de forma avanzada
-                    SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+                Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+                Integer locCategoria;
+
+                if( categoriaAct > categoriaDes ){
+                    locCategoria = categoriaAct;
+                }else{
+                    locCategoria = categoriaDes;
+                }
+
+                String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                System.out.println("Categoría nombre =  "+categoriaNombre+", categoria id = "+categoriaId);
+                
+                //4.- Comprobar que la sub cayegoria 1 no exista
+                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                System.out.println("Comprobanso la existencia de la sub categoría 1 "+sub1NewName);
+                Boolean existe = subCategoria1DaoImp.existe(sub1NewName, categoriaId);
+                
+                if( existe == false ){
+                    
+                    System.out.println("La sub categoria 1 no existe");
+                    
+                    //5.- Obtener el id de la sub actegoria 1
                     Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1OldName, categoriaId);
-
-                    //6.- Comprobar que el nuevo nombre no exista en la categoria
-                    Boolean existe = subCategoria1DaoImp.existe(sub1NewName, categoriaId);
+                    System.out.println("Sub categoría 1 id = "+sub1Id);
                     
-                    if( existe == false ){
-                        
-                        //7.- modificar la sub categoria 1
-                        Boolean modificado = subCategoria1DaoImp.modificar(sub1Id, sub1NewName);
-                        
-                        if( modificado == true ){
-                            
-                            
-                        }else{
-                        }
+                    //6.- Modificar la sub categoria 1
+                    System.out.println("Modificando la sub categoría 1");
+                    Boolean modificado = subCategoria1DaoImp.modificar(sub1Id, sub1NewName);
                     
+                    if( modificado == true ){
+                        
+                        System.out.println("Sub categoría 1 modificada con éxito");
+                        JOptionPane.showMessageDialog(null, "Sub categoría 1 "+sub1OldName+" modificada con éxito");
+                        actualizar();
+                        
                     }else{
+                        System.out.println("La sub categoría 1 no se pudo guardar");
+                        JOptionPane.showMessageDialog(null, "La sub categoría 1 "+sub1OldName+" no se pudo modificar");
                     }
                     
                 }else{
+                    System.out.println("La sub categoría 1 ya existe");
+                    JOptionPane.showMessageDialog(null, "La sub categoría 1 "+sub1NewName+" ya existe");
                 }
             
             }else{
+                System.out.println("\nNo se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
-        
+            
         }else{
+            System.out.println("\nNo se puede modificar un elemento desactivado");
+            JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
         }
-    } 
+    } //Ya
 
     private void modificarSubCategoria2(String nombreCompleto) throws Exception {
         
@@ -886,59 +928,95 @@ public class ListarCategorias extends javax.swing.JFrame {
         Integer localizarCategoriaNombreCompleto = reduccion1.indexOf(", "+sub1NombreCompelto+", "+sub2NombreCompleto);
         String categoriaNombreCompleto = reduccion1.substring(0, localizarCategoriaNombreCompleto);
         
-        //2.- Comprobar si los elementos estan activados
+        //2.- Comprobar si la sub categoria 2 esta activada
         
-        Integer localizarCategoria = categoriaNombreCompleto.indexOf(" - Activado");
-        Integer localizarSub1 = sub1NombreCompelto.indexOf(" - Activado");
         Integer localizarSub2 = sub2NombreCompleto.indexOf(" - Activado");
         
-        if( ( localizarCategoria > 0 ) && ( localizarSub1 > 0 ) && ( localizarSub2 > 0 ) ){
+        if( localizarSub2 > 0 ){
             
-            String categoriNombre = categoriaNombreCompleto.substring(0,localizarCategoria);
-            String sub1Nombre = sub1NombreCompelto.substring(0, localizarSub1);
             String sub2OldName = sub2NombreCompleto.substring(0, localizarSub2);
+            System.out.println("\nVa a modificar la sub categoría 2 "+sub2OldName);
             
             //3.- Obtener el nuevo nombre de la sub categoría 2
             String sub2NewName = JOptionPane.showInputDialog("Nuevo nombre de la sub categoría 2 "+sub2OldName);
             
             if( sub2NewName.isEmpty() == false ){
                 
-                //4.-Ahora ay que obtener el id de la categoría
-                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-                Integer categoriaId = categoriaDaoImp.obtenerId(categoriNombre);
+                //4.-Ahora ay que obtener el nombre y el id de la categoría
+                Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+                Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+                Integer locCategoria;
                 
-                //5.- Obtener el id de sub categoria 1
+                if( categoriaAct > categoriaDes ){
+                    locCategoria = categoriaAct;
+                }else{
+                    locCategoria = categoriaDes;
+                }
+                
+                String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                System.out.println("Categoría nombre =  "+categoriaNombre+", categoria id = "+categoriaId);
+                
+                //5.- Obtener el nombre y el id de sub categoria 1
+                Integer sub1Act = sub1NombreCompelto.indexOf(" - Activado");
+                Integer sub1Des = sub1NombreCompelto.indexOf(" - Desactivado");
+                Integer locSub1;
+                
+                if( sub1Act > sub1Des ){
+                    locSub1 = sub1Act;
+                }else{
+                    locSub1 = sub1Des;
+                }
+                
+                String sub1Nombre = sub1NombreCompelto.substring(0, locSub1);
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+                System.out.println("Sub categoria 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
                 
                 //6.- Comprobar que el nuevo nombre exista
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+                System.out.println("Comprobanso la existencia de la sub categoría 2 "+sub2NewName);
                 Boolean existe = subCategoria2DaoImp.existe(sub2NewName, sub1Id);
                 
                 if( existe == false ){
                     
+                    System.out.println("La sub categoria 2 no existe");
+                    
                     //7.- Obtener el id de la sub categoria 2
                     Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2OldName, sub1Id);
+                    System.out.println("Sub categoría 2 id = "+sub2Id);
                     
                     //8.- Modificar la sub categoria 2
+                    System.out.println("Modificando la sub categoría 2");
                     Boolean modificado = subCategoria2DaoImp.modificar(sub2Id, sub2NewName);
                     
                     if( modificado == true ){
                         
+                        System.out.println("Sub categoría 2 modificada con éxito");
+                        JOptionPane.showMessageDialog(null, "Sub categoría 2 "+sub2OldName+" modificada con éxito");
                         actualizar();
                         
                     }else{
+                        System.out.println("La sub categoría 2 no se pudo guardar");
+                        JOptionPane.showMessageDialog(null, "La sub categoría 2 "+sub2OldName+" no se pudo modificar");
                     }
                     
                 }else{
+                    System.out.println("La sub categoría 2 ya existe");
+                    JOptionPane.showMessageDialog(null, "La sub categoría 2 "+sub2NewName+" ya existe");
                 }
             
             }else{
+                System.out.println("\nNo se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
             
         }else{
+            System.out.println("\nNo se puede modificar un elemento desactivado");
+            JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
         }
-    } 
+    } //Ya
 
     private void modificarSubCategoria3(String nombreCompleto) throws Exception {
         
@@ -947,27 +1025,25 @@ public class ListarCategorias extends javax.swing.JFrame {
         TreeNode[] rutaComplet = arbol.getPath();
         String ruta = Arrays.toString(rutaComplet);
         String raiz = arbol.getRoot().toString();
-        String sub2NombreCompleto = arbol.getParent().toString();
+        String sub2NombreCompelto = arbol.getParent().toString();
         String sub3NombreCompleto = nombreCompleto;
         
         String reduccion1 = ruta.substring(raiz.length()+3, ruta.length());
-        Integer loc1 = reduccion1.indexOf(", "+sub2NombreCompleto+", "+sub3NombreCompleto+"]");
+        Integer loc1 = reduccion1.indexOf(", "+sub2NombreCompelto+", "+sub3NombreCompleto+"]");
         String reduccion2 = reduccion1.substring(0, loc1);
         
         Integer locSeparacion = reduccion2.indexOf(", ");
         String categoriaNombreCompleto = reduccion2.substring(0, locSeparacion);
-        String sub1NombreCompleto = reduccion2.substring(categoriaNombreCompleto.length()+2, reduccion2.length());
+        String sub1NombreCompelto = reduccion2.substring(categoriaNombreCompleto.length()+2, reduccion2.length());
         
-        //2.- Comprobar que esten activadas
-        Integer localizarCategoria = categoriaNombreCompleto.indexOf(" - Activado");
-        Integer localizarSub1 = sub1NombreCompleto.indexOf(" - Activado");
-        Integer localizarSub2 = sub2NombreCompleto.indexOf(" - Activado");
+        //2.- Comprobar que la sub categoría 3 esta activada
         Integer localizarSub3 = sub3NombreCompleto.indexOf(" - Activado");
         
-        if( ( localizarCategoria > 0 ) && ( localizarSub1 > 0 ) && ( localizarSub2 > 0 ) && ( localizarSub3 > 0 ) ){
+        if( localizarSub3 > 0 ){
             
             //3.- obtener el nombre viejo de la sub categoria 3
             String sub3OldName = sub3NombreCompleto.substring(0, localizarSub3);
+            System.out.println("\nVa a modificar la sub categoría 3 "+sub3OldName);
             
             //4.- obtener el nuevo nombre de la sub categoria 3
             String sub3NewName = JOptionPane.showInputDialog("Nuevo nombre de la sub categoría 3 "+sub3OldName);
@@ -975,48 +1051,96 @@ public class ListarCategorias extends javax.swing.JFrame {
             if( sub3NewName.isEmpty() == false ){
                 
                 //5.- Obtener nombre y el id de la categoria
-                String categoriaNombre = categoriaNombreCompleto.substring(0, localizarCategoria);
+                Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+                Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+                Integer locCategoria;
+                
+                if( categoriaAct > categoriaDes ){
+                    locCategoria = categoriaAct;
+                }else{
+                    locCategoria = categoriaDes;
+                }
+                
+                String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                System.out.println("Categoría nombre =  "+categoriaNombre+", categoria id = "+categoriaId);
                 
                 //6.- Obteenr el nombre y el id de la sub categoria 1
-                String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+                Integer sub1Act = sub1NombreCompelto.indexOf(" - Activado");
+                Integer sub1Des = sub1NombreCompelto.indexOf(" - Desactivado");
+                Integer locSub1;
+                
+                if( sub1Act > sub1Des ){
+                    locSub1 = sub1Act;
+                }else{
+                    locSub1 = sub1Des;
+                }
+                
+                String sub1Nombre = sub1NombreCompelto.substring(0, locSub1);
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+                System.out.println("Sub categoria 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
                 
                 //7.- Obteenr el nombre y el id de la sub categoria 2
-                String sub2Nombre = sub2NombreCompleto.substring(0, localizarSub2);
+                Integer sub2Act = sub2NombreCompelto.indexOf(" - Activado");
+                Integer sub2Des = sub2NombreCompelto.indexOf(" - Desactivado");
+                Integer locSub2;
+                
+                if( sub2Act > sub2Des ){
+                    locSub2 = sub2Act;
+                }else{
+                    locSub2 = sub2Des;
+                }
+                
+                String sub2Nombre = sub2NombreCompelto.substring(0, locSub2);
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
                 Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
-                
-                //8.- Obteenr el id de la sub categoria 3
-                SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-                Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3OldName, sub2Id);
+                System.out.println("Sub categoria 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
                 
                 //9.- Comprobar que el nuevo nombre de la sub categoria 3 existe
+                SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+                System.out.println("Comprobanso la existencia de la sub categoría 3 "+sub3NewName);
                 boolean existe = subCategoria3DaoImp.existe(sub3NewName, sub2Id);
                 
                 if( existe == false ){
                     
+                    System.out.println("La sub categoria 3 no existe");
+                    
+                    //8.- Obteenr el id de la sub categoria 3
+                    Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3OldName, sub2Id);
+                    System.out.println("Sub categoría 3 id = "+sub3Id);
+                    
                     //10.- Modificar la sub categoria 3
+                    System.out.println("Modificando la sub categoría 3");
                     Boolean modificada = subCategoria3DaoImp.modificar(sub3Id, sub3NewName);
                     
                     if( modificada == true ){
                         
+                        System.out.println("Sub categoría 3 modificada con éxito");
+                        JOptionPane.showMessageDialog(null, "Sub categoría 3 "+sub3OldName+" modificada con éxito");
                         actualizar();
                         
                     }else{
+                        System.out.println("La sub categoría 3 no se pudo guardar");
+                        JOptionPane.showMessageDialog(null, "La sub categoría 3 "+sub3OldName+" no se pudo modificar");
                     }
                 
                 }else{
+                    System.out.println("La sub categoría 3 ya existe");
+                    JOptionPane.showMessageDialog(null, "La sub categoría 3 "+sub3NewName+" ya existe");
                 }
             
             }else{
+                System.out.println("\nNo se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
         
         }else{
+            System.out.println("\nNo se puede modificar un elemento desactivado");
+            JOptionPane.showMessageDialog(null, "No se puede modificar un elemento desactivado");
         }
-    } 
+    } //Ya
     
     //Desactivaciones
 
