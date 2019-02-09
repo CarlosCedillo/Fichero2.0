@@ -1146,475 +1146,544 @@ public class ListarCategorias extends javax.swing.JFrame {
 
     private void desactivarCategoria(String nombreCompleto) throws Exception {
         
-        //1.- hay que obtener el nombre real = nombre (Esta parte tambien comprueba que el elemento este activado)
-        Integer localizado = nombreCompleto.indexOf(" - Activado");
+        //1.- comprobar si la categoria esta activo
+        String categoriaNombreCompleto = nombreCompleto;
+        Integer locActivado = categoriaNombreCompleto.indexOf(" - Activado");
         
-        if( localizado > 0 ){
+        if( locActivado > 0 ){
             
-            String categoriaNombre = nombreCompleto.substring(0,localizado);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locActivado);
+            System.out.println("\nVa a desactivar la categoría "+categoriaNombre);
             
-            //2.- hay que obtener el id de nombre
+            //2.- Obteenr el id de la categoria
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoria id = "+categoriaId);
             
-            //3.- desactivar la categoria
-            boolean desactivado = categoriaDaoImp.desactivar(categoriaId);
+            //3.- Desactivar la categoria
+            System.out.println("Desactivando la categpria");
+            Boolean desactivado = categoriaDaoImp.desactivar(categoriaId);
             
-            //4.- Comprobar que si se desactivo
             if( desactivado == true ){
+                
+                System.out.println("Categoría desactivada con éxito");
+                JOptionPane.showMessageDialog(null, "Categoría "+categoriaNombre+" desactivada con éxito");
                 actualizar();
+                
             }else{
+                System.out.println("No se pudo desactivar la categoría");
+                JOptionPane.showMessageDialog(null, "No se pudo desactivar la ategoría "+categoriaNombre);
             }
-            
+        
         }else{
+            System.out.println("\nEste elemento ya esta desactivado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
-    } 
+    } //Ya
 
     private void desactivarSubCategoria1(String nombreCompleto) throws Exception {
         
-        //1.- Comprobar si la sub categoría 1 estan activadas.
+        //1.- Comprobar si la sub categoria 1 esta activada
         String sub1NombreCompleto = nombreCompleto;
+        Integer locSub1 = sub1NombreCompleto.indexOf(" - Activado");
         
-        Integer localizarSub1 = sub1NombreCompleto.indexOf(" - Activado");
-        
-        if( localizarSub1 > 0 ){
+        if( locSub1 > 0 ){
+            
+            String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
+            System.out.println("\nVa a desactivar la sub categoría 1 "+sub1Nombre);
             
             DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+            
+            //2.- Obtener el nombre y el id de la categoria
             String categoriaNombreCompleto = arbol.getParent().toString();
+            Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+            Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+            Integer locCategoria;
             
-            //2.- Hay que obtener l localizar mayor por que ese es el estado de la categoria
-            Integer localizarCategoria;
-            Integer localizarCategoriaActivada = categoriaNombreCompleto.indexOf(" - Activado");
-            Integer localizarCategoriaDesactivada = categoriaNombreCompleto.indexOf(" - Desactivado");
-            
-            if( localizarCategoriaActivada > localizarCategoriaDesactivada ){
-                localizarCategoria = localizarCategoriaActivada;
+            if( categoriaAct > categoriaDes ){
+                locCategoria = categoriaAct;
             }else{
-                localizarCategoria = localizarCategoriaDesactivada;
+                locCategoria = categoriaDes;
             }
             
-            //3.- Obtener el nombre y el id de la categoria
-            String categoriaNombre = categoriaNombreCompleto.substring(0, localizarCategoria);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoría nombre = "+categoriaNombre+", categoría id = "+categoriaId);
             
-            //4.- Obtener el nombre y el id de la sub categoria 1
-            String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+            //3.- Obteenr el id de la sub categoria 1
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub categoria 1 id = "+sub1Id);
             
-            //5.- Desactivar sub categoria 1
+            //4.- desactivar la sub categoria 1
+            System.out.println("Desactivando la sub categpria 1");
             Boolean desactivado = subCategoria1DaoImp.desactivar(sub1Id);
             
             if( desactivado == true ){
                 
+                System.out.println("Sub ategoría 1 desactivada con éxito");
+                JOptionPane.showMessageDialog(null, "Sub categoría 1 "+sub1Nombre+" desactivada con éxito");
                 actualizar();
                 
             }else{
+                System.out.println("No se pudo desactivar la sub categoría 1");
+                JOptionPane.showMessageDialog(null, "No se pudo desactivar la sub ategoría 1 "+sub1Nombre);
             }
-        
+            
         }else{
+            System.out.println("\nEste elemento ya esta desactivado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
-    } 
+    } //Ya
 
     private void desactivarSubCategoria2(String nombreCompleto) throws Exception {
         
-        //1.- Primero ahy que comprobar que la sub categoria 2 este activada
+        //1.- comprobar si la sub categoria 2 esta activada
         String sub2NombreCompleto = nombreCompleto;
-        Integer localizarSub2 = sub2NombreCompleto.indexOf(" - Activado");
+        Integer locSub2 = sub2NombreCompleto.indexOf(" - Activado");
         
-        if( localizarSub2 > 0 ){
+        if( locSub2 > 0 ){
+            
+            String sub2Nombre = sub2NombreCompleto.substring(0, locSub2);
+            System.out.println("\nVa a desactivar la sub categoría 2 "+sub2Nombre);
             
             DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-            TreeNode[] rutaTreeNode = arbol.getPath();
-            String ruta = Arrays.toString(rutaTreeNode);
+            String ruta = Arrays.toString(arbol.getPath());
             String raiz = arbol.getRoot().toString();
+            String sub1NombreCompleto = arbol.getParent().toString();
+            String categoriaNombreCompleto = ruta.substring( raiz.length()+3 , ruta.length() - ( ( sub1NombreCompleto.length()+2 ) + ( sub2NombreCompleto.length()+3 ) ) );
             
-            String reduccion1 = ruta.substring( raiz.length()+3 , ruta.length());
+            //2.- Obtener el nombre y el id de la categoria
+            Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+            Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+            Integer locCategoria;
             
-            Integer locPt1 = reduccion1.indexOf(", "+sub2NombreCompleto+"]");
-            String reduccion2 = reduccion1.substring(0, locPt1);
-            
-            Integer locPt2 = reduccion2.indexOf(", ");
-            String categoriaNombreCopleto = reduccion2.substring(0, locPt2);
-            String sub1NombreCompleto = reduccion2.substring( categoriaNombreCopleto.length()+2 ,  reduccion2.length() );
-            
-            //2.- Obtner el nombre y el id de la categoria
-            Integer localizarCategoriaActivada = categoriaNombreCopleto.indexOf(" - Activado");
-            Integer localizarCategoriaDesactivada = categoriaNombreCopleto.indexOf(" - Desactivado");
-            Integer localizarCategoria;
-            
-            if( localizarCategoriaActivada > localizarCategoriaDesactivada ){
-                localizarCategoria = localizarCategoriaActivada;
+            if( categoriaAct > categoriaDes ){
+                locCategoria = categoriaAct;
             }else{
-                localizarCategoria = localizarCategoriaDesactivada;
+                locCategoria = categoriaDes;
             }
             
-            String categoriaNombre = categoriaNombreCopleto.substring(0, localizarCategoria);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoría nombre = "+categoriaNombre+", categoría id = "+categoriaId);
             
-            //2.- Obtene rel nombre y el id de la sub categoria 1
-            Integer localizarSub1Activada = sub1NombreCompleto.indexOf(" - Activado");
-            Integer localizarSub1Desactivada = sub1NombreCompleto.indexOf(" - Desactivado");
-            Integer localizarSub1;
+            //2.- Obtener el nombre y el id de la sub categoria 1
+            Integer sub1Act = sub1NombreCompleto.indexOf(" - Activado");
+            Integer sub1Des = sub1NombreCompleto.indexOf(" - Desactivado");
+            Integer locSub1;
             
-            if( localizarSub1Activada > localizarCategoriaDesactivada ){
-                localizarSub1 = localizarSub1Activada;
+            if( sub1Act > sub1Des ){
+                locSub1 = sub1Act;
             }else{
-                localizarSub1 = localizarSub1Desactivada;
+                locSub1 = sub1Des;
             }
             
-            String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+            String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
-            //4.- Obtener el noombre y el id de la sub categoria 2
-            String sub2Nombre = sub2NombreCompleto.substring(0, localizarSub2);
+            //3.- Obtener el id de la sub categoria 2
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
             Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            System.out.println("Sub categoria 2 id = "+sub2Id);
             
-            //5.- Desactivar sub categoria 2
-            Boolean descativado = subCategoria2DaoImp.desactivar(sub2Id);
+            //4.- Desactivar la sub categoria 2
+            System.out.println("Desactivando la sub categpria 2");
+            Boolean desactivado = subCategoria2DaoImp.desactivar(sub2Id);
             
-            if( descativado == true ){
+            if( desactivado == true ){
+                
+                System.out.println("Sub ategoría 2 desactivada con éxito");
+                JOptionPane.showMessageDialog(null, "Sub categoría 2 "+sub2Nombre+" desactivada con éxito");
                 actualizar();
+                
             }else{
+                System.out.println("No se pudo desactivar la sub categoría 2");
+                JOptionPane.showMessageDialog(null, "No se pudo desactivar la sub ategoría 2 "+sub2Nombre);
             }
             
         }else{
+            System.out.println("\nEste elemento ya esta desactivado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
-    } 
+    } //Ya
 
     private void desactivarSubCategoria3(String nombreCompleto) throws Exception {
         
-        //1.- Primero hay que ver si la sub categoria 3 esta activada
+        //1.- Comprobar si ña sub categoria 3 esta activada
         String sub3NombreCompleto = nombreCompleto;
-        Integer localizarActivado = sub3NombreCompleto.indexOf(" - Activado");
+        Integer locSub3 = sub3NombreCompleto.indexOf(" - Activado");
         
-        if( localizarActivado > 0 ){
+        if( locSub3 > 0 ){
             
-            //2.- Obteenr la categoria, sub 1, sub 2 y sub 3 (nombre completo)
+            String sub3Nombre = sub3NombreCompleto.substring(0, locSub3);
+            System.out.println("\nVa a desactivar la sub categoría 3 "+sub3Nombre);
+            
             DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-            TreeNode[] tn = arbol.getPath();
-            String ruta = Arrays.toString(tn);
+            String ruta = Arrays.toString(arbol.getPath());
             String raiz = arbol.getRoot().toString();
             String sub2NombreCompleto = arbol.getParent().toString();
+            String catSub1 = ruta.substring( raiz.length() + 3 , ruta.length() - ( ( sub2NombreCompleto.length() + 2 ) + ( sub3NombreCompleto.length() + 3 ) ) );
             
-            String reduccion1 = ruta.substring( raiz.length()+3 , ruta.length() );
-            Integer locPt1 = reduccion1.indexOf(", "+sub2NombreCompleto+", "+sub3NombreCompleto+"]");
-            String reduccion2 = reduccion1.substring(0, locPt1);
+            Integer locPt1 = catSub1.indexOf(", ");
+            String categoriaNombreCompleto = catSub1.substring(0, locPt1);
+            String sub1NombreCompleto = catSub1.substring(locPt1+2, catSub1.length());
             
-            Integer locDiv = reduccion2.indexOf(", ");
-            String categoriaNombreCompleto = reduccion2.substring(0, locDiv);
-            String sub1NombreCompleto = reduccion2.substring(categoriaNombreCompleto.length()+2, reduccion2.length());
+            //2.- Obtener el nombre y el id de la categoria
+            Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+            Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+            Integer locCategoria;
             
-            //3.- Obtener el nombre y el id de la categoria
-            Integer locCatA = categoriaNombreCompleto.indexOf(" - Activado");
-            Integer locCatD = categoriaNombreCompleto.indexOf(" - Desactivado");
-            Integer localizarCategoria;
-            
-            if( locCatA > locCatD ){
-                localizarCategoria = locCatA;
+            if( categoriaAct > categoriaDes ){
+                locCategoria = categoriaAct;
             }else{
-                localizarCategoria = locCatD;
+                locCategoria = categoriaDes;
             }
             
-            String categoriNombre = categoriaNombreCompleto.substring(0, localizarCategoria);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-            Integer categoriaId = categoriaDaoImp.obtenerId(categoriNombre);
+            Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoría nombre = "+categoriaNombre+", categoría id = "+categoriaId);
             
-            //4.- Obtener el nombre y el id de la sub categoria 1
-            Integer locSub1A = sub1NombreCompleto.indexOf(" - Activado");
-            Integer locSub1D = sub1NombreCompleto.indexOf(" - Desactivado");
-            Integer localizarSub1;
+            //3.- Obtener el nombre y el id de la sub categoria 1 
+            Integer sub1Act = sub1NombreCompleto.indexOf(" - Activado");
+            Integer sub1Des = sub1NombreCompleto.indexOf(" - Desactivado");
+            Integer locSub1;
             
-            if( locSub1A > locSub1D ){
-                localizarSub1 = locSub1A;
+            if( sub1Act > sub1Des ){
+                locSub1 = sub1Act;
             }else{
-                localizarSub1 = locSub1D;
+                locSub1 = sub1Des;
             }
             
-            String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+            String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
-            //5.- Obtener el nombre y el id de la sub categoria 2
-            Integer locSub2A = sub2NombreCompleto.indexOf(" - Activado");
-            Integer locSub2D = sub2NombreCompleto.indexOf(" - Desactivado");
-            Integer localizarSub2;
+            //4.- Obtener el nombre y el id de la sub categoria 2
+            Integer sub2Act = sub2NombreCompleto.indexOf(" - Activado");
+            Integer sub2Des = sub2NombreCompleto.indexOf(" - Desactivado");
+            Integer locSub2;
             
-            if( locSub2A > locSub2D ){
-                localizarSub2 = locSub2A;
+            if( sub2Act > sub2Des ){
+                locSub2 = sub2Act;
             }else{
-                localizarSub2 = locSub2D;
+                locSub2 = sub2Des;
             }
             
-            String sub2Nombre = sub2NombreCompleto.substring(0, localizarSub2);
+            String sub2Nombre = sub2NombreCompleto.substring(0, locSub2);
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
             Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            System.out.println("Sub categoría 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
             
-            //6.- Obtener el nombre y el id de la sub categoria 3
-            String sub3Nombre = sub3NombreCompleto.substring(0, localizarActivado);
+            //5.- Obtener el nombre y el id de la sub categoria 3
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
             Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, sub2Id);
+            System.out.println("Sub categoria 3 id = "+sub3Id);
             
-            //7.- desactivar la sub categoria 3
+            //6.- Desactivar sub categoria 3
+            System.out.println("Desactivando la sub categpria 3");
             Boolean desactivado = subCategoria3DaoImp.desactivar(sub3Id);
             
             if( desactivado == true ){
                 
+                System.out.println("Sub ategoría 3 desactivada con éxito");
+                JOptionPane.showMessageDialog(null, "Sub categoría 3 "+sub3Nombre+" desactivada con éxito");
                 actualizar();
                 
             }else{
+                System.out.println("No se pudo desactivar la sub categoría 3");
+                JOptionPane.showMessageDialog(null, "No se pudo desactivar la sub ategoría 3 "+sub3Nombre);
             }
             
         }else{
+            System.out.println("\nEste elemento ya esta desactivado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta desactivado");
         }
-    } 
+    } //Ya
     
     //Activaciones
 
     private void activarCategoria(String nombreCompleto) throws Exception {
         
-        //1.- hay que obtener el nombre de la categoria 
-        Integer localizado = nombreCompleto.indexOf(" - Desactivado");
+        //1.- comprobar si la categoria esta desactivada
+        String categoriaNombreCompleto = nombreCompleto;
+        Integer locDesctivado = categoriaNombreCompleto.indexOf(" - Desactivado");
         
-        if( localizado > 0 ){
+        if( locDesctivado > 0 ){
             
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locDesctivado);
+            System.out.println("\nVa a activar la categoría "+categoriaNombre);
+            
+            //2.- Obteenr el id de la categoria
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-            
-            String categoriaNombre = nombreCompleto.substring(0,localizado);
-            
-            //2.- hay que obtener el id de la categoria
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoria id = "+categoriaId);
             
-            //3.- activar la categoria
-            boolean activado = categoriaDaoImp.activar(categoriaId);
+            //3.- Desactivar la categoria
+            System.out.println("Activando la categpria");
+            Boolean activado = categoriaDaoImp.activar(categoriaId);
             
             if( activado == true ){
+                
+                System.out.println("Categoría activada con éxito");
+                JOptionPane.showMessageDialog(null, "Categoría "+categoriaNombre+" activada con éxito");
                 actualizar();
+                
             }else{
+                System.out.println("No se pudo activar la categoría");
+                JOptionPane.showMessageDialog(null, "No se pudo activar la ategoría "+categoriaNombre);
             }
-            
+        
         }else{
+            System.out.println("\nEste elemento ya esta activado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
-    } 
+    } //Ya
 
     private void activarSubCategoria1(String nombreCompleto) throws Exception {
         
-        //1.- Comprobar si la sub categoría 1 estan desactivadas.
-        DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-        String categoriaNombreCompleto = arbol.getParent().toString();
+        //1.- Comprobar si la sub categoria 1 esta desactivada
         String sub1NombreCompleto = nombreCompleto;
+        Integer locSub1 = sub1NombreCompleto.indexOf(" - Desactivado");
         
-        Integer localizarSub1 = sub1NombreCompleto.indexOf(" - Desactivado");
-        
-        if( localizarSub1 > 0 ){
+        if( locSub1 > 0 ){
             
-            //2.- Hay que obtener l localizar mayor por que ese es el estado de la categoria
-            Integer localizarCategoria;
-            Integer localizarCategoriaActivada = categoriaNombreCompleto.indexOf(" - Activado");
-            Integer localizarCategoriaDesactivada = categoriaNombreCompleto.indexOf(" - Desactivado");
+            String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
+            System.out.println("\nVa a activar la sub categoría 1 "+sub1Nombre);
             
-            if( localizarCategoriaActivada > localizarCategoriaDesactivada ){
-                localizarCategoria = localizarCategoriaActivada;
+            DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
+            
+            //2.- Obtener el nombre y el id de la categoria
+            String categoriaNombreCompleto = arbol.getParent().toString();
+            Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+            Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+            Integer locCategoria;
+            
+            if( categoriaAct > categoriaDes ){
+                locCategoria = categoriaAct;
             }else{
-                localizarCategoria = localizarCategoriaDesactivada;
+                locCategoria = categoriaDes;
             }
             
-            //3.- Obtener el nombre y el id de la categoria
-            String categoriaNombre = categoriaNombreCompleto.substring(0, localizarCategoria);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoría nombre = "+categoriaNombre+", categoría id = "+categoriaId);
             
-            //4.- Obtener el nombre y el id de la sub categoria 1
-            String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+            //3.- Obteenr el nombre y el id de la sub categoria 1
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub categoria 1 id = "+sub1Id);
             
-            //5.- Activar sub categoria 1
+            //4.- activar la sub categoria 1
+            System.out.println("Activando la sub categpria 1");
             Boolean activado = subCategoria1DaoImp.activar(sub1Id);
             
             if( activado == true ){
                 
+                System.out.println("Sub ategoría 1 activada con éxito");
+                JOptionPane.showMessageDialog(null, "Sub categoría 1 "+sub1Nombre+" activada con éxito");
                 actualizar();
                 
             }else{
+                System.out.println("No se pudo activar la sub categoría 1");
+                JOptionPane.showMessageDialog(null, "No se pudo activar la sub ategoría 1 "+sub1Nombre);
             }
-        
+            
         }else{
+            System.out.println("\nEste elemento ya esta activado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
-    } 
+    } //Ya
 
     private void activarSubCategoria2(String nombreCompleto) throws Exception {
         
-        //1.- Primero ahy que comprobar que la sub categoria 2 este desactivada
+        //1.- comprobar si la sub categoria 2 esta desactivada
         String sub2NombreCompleto = nombreCompleto;
-        Integer localizarSub2 = sub2NombreCompleto.indexOf(" - Desactivado");
+        Integer locSub2 = sub2NombreCompleto.indexOf(" - Desactivado");
         
-        if( localizarSub2 > 0 ){
+        if( locSub2 > 0 ){
+            
+            String sub2Nombre = sub2NombreCompleto.substring(0, locSub2);
+            System.out.println("\nVa a activar la sub categoría 2 "+sub2Nombre);
             
             DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-            TreeNode[] rutaTreeNode = arbol.getPath();
-            String ruta = Arrays.toString(rutaTreeNode);
+            String ruta = Arrays.toString(arbol.getPath());
             String raiz = arbol.getRoot().toString();
+            String sub1NombreCompleto = arbol.getParent().toString();
+            String categoriaNombreCompleto = ruta.substring( raiz.length()+3 , ruta.length() - ( ( sub1NombreCompleto.length()+2 ) + ( sub2NombreCompleto.length()+3 ) ) );
             
-            String reduccion1 = ruta.substring( raiz.length()+3 , ruta.length());
+            //2.- Obtener el nombre y el id de la categoria
+            Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+            Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+            Integer locCategoria;
             
-            Integer locPt1 = reduccion1.indexOf(", "+sub2NombreCompleto+"]");
-            String reduccion2 = reduccion1.substring(0, locPt1);
-            
-            Integer locPt2 = reduccion2.indexOf(", ");
-            String categoriaNombreCopleto = reduccion2.substring(0, locPt2);
-            String sub1NombreCompleto = reduccion2.substring( categoriaNombreCopleto.length()+2 ,  reduccion2.length() );
-            
-            //2.- Obtner el nombre y el id de la categoria
-            Integer localizarCategoriaActivada = categoriaNombreCopleto.indexOf(" - Activado");
-            Integer localizarCategoriaDesactivada = categoriaNombreCopleto.indexOf(" - Desactivado");
-            Integer localizarCategoria;
-            
-            if( localizarCategoriaActivada > localizarCategoriaDesactivada ){
-                localizarCategoria = localizarCategoriaActivada;
+            if( categoriaAct > categoriaDes ){
+                locCategoria = categoriaAct;
             }else{
-                localizarCategoria = localizarCategoriaDesactivada;
+                locCategoria = categoriaDes;
             }
             
-            String categoriaNombre = categoriaNombreCopleto.substring(0, localizarCategoria);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
             Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoría nombre = "+categoriaNombre+", categoría id = "+categoriaId);
             
-            //2.- Obtene rel nombre y el id de la sub categoria 1
-            Integer localizarSub1Activada = sub1NombreCompleto.indexOf(" - Activado");
-            Integer localizarSub1Desactivada = sub1NombreCompleto.indexOf(" - Desactivado");
-            Integer localizarSub1;
+            //2.- Obtener el nombre y el id de la sub categoria 1
+            Integer sub1Act = sub1NombreCompleto.indexOf(" - Activado");
+            Integer sub1Des = sub1NombreCompleto.indexOf(" - Desactivado");
+            Integer locSub1;
             
-            if( localizarSub1Activada > localizarCategoriaDesactivada ){
-                localizarSub1 = localizarSub1Activada;
+            if( sub1Act > sub1Des ){
+                locSub1 = sub1Act;
             }else{
-                localizarSub1 = localizarSub1Desactivada;
+                locSub1 = sub1Des;
             }
             
-            String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+            String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
-            //4.- Obtener el noombre y el id de la sub categoria 2
-            String sub2Nombre = sub2NombreCompleto.substring(0, localizarSub2);
+            //3.- Obtener el id de la sub categoria 2
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
             Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            System.out.println("Sub categoria 2 id = "+sub2Id);
             
-            //5.- Activar sub categoria 2
-            Boolean acativado = subCategoria2DaoImp.activar(sub2Id);
+            //4.- activar la sub categoria 2
+            System.out.println("Activando la sub categpria 2");
+            Boolean activado = subCategoria2DaoImp.activar(sub2Id);
             
-            if( acativado == true ){
+            if( activado == true ){
+                
+                System.out.println("Sub ategoría 2 activada con éxito");
+                JOptionPane.showMessageDialog(null, "Sub categoría 2 "+sub2Nombre+" activada con éxito");
                 actualizar();
+                
             }else{
+                System.out.println("No se pudo activar la sub categoría 2");
+                JOptionPane.showMessageDialog(null, "No se pudo activar la sub ategoría 2 "+sub2Nombre);
             }
             
         }else{
+            System.out.println("\nEste elemento ya esta activado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
-    } 
+    } //Ya
 
     private void activarSubCategoria3(String nombreCompleto) throws Exception {
         
-        //1.- Primero hay que ver si la sub categoria 3 esta activada
+        //1.- Comprobar si ña sub categoria 3 esta desactivada
         String sub3NombreCompleto = nombreCompleto;
-        Integer localizarActivado = sub3NombreCompleto.indexOf(" - Desactivado");
+        Integer locSub3 = sub3NombreCompleto.indexOf(" - Desactivado");
         
-        if( localizarActivado > 0 ){
+        if( locSub3 > 0 ){
             
-            //2.- Obteenr la categoria, sub 1, sub 2 y sub 3 (nombre completo)
+            String sub3Nombre = sub3NombreCompleto.substring(0, locSub3);
+            System.out.println("\nVa a activar la sub categoría 3 "+sub3Nombre);
+            
             DefaultMutableTreeNode arbol = (DefaultMutableTreeNode) treeCategorias.getLastSelectedPathComponent();
-            TreeNode[] tn = arbol.getPath();
-            String ruta = Arrays.toString(tn);
+            String ruta = Arrays.toString(arbol.getPath());
             String raiz = arbol.getRoot().toString();
             String sub2NombreCompleto = arbol.getParent().toString();
+            String catSub1 = ruta.substring( raiz.length() + 3 , ruta.length() - ( ( sub2NombreCompleto.length() + 2 ) + ( sub3NombreCompleto.length() + 3 ) ) );
             
-            String reduccion1 = ruta.substring( raiz.length()+3 , ruta.length() );
-            Integer locPt1 = reduccion1.indexOf(", "+sub2NombreCompleto+", "+sub3NombreCompleto+"]");
-            String reduccion2 = reduccion1.substring(0, locPt1);
+            Integer locPt1 = catSub1.indexOf(", ");
+            String categoriaNombreCompleto = catSub1.substring(0, locPt1);
+            String sub1NombreCompleto = catSub1.substring(locPt1+2, catSub1.length());
             
-            Integer locDiv = reduccion2.indexOf(", ");
-            String categoriaNombreCompleto = reduccion2.substring(0, locDiv);
-            String sub1NombreCompleto = reduccion2.substring(categoriaNombreCompleto.length()+2, reduccion2.length());
+            //2.- Obtener el nombre y el id de la categoria
+            Integer categoriaAct = categoriaNombreCompleto.indexOf(" - Activado");
+            Integer categoriaDes = categoriaNombreCompleto.indexOf(" - Desactivado");
+            Integer locCategoria;
             
-            //3.- Obtener el nombre y el id de la categoria
-            Integer locCatA = categoriaNombreCompleto.indexOf(" - Activado");
-            Integer locCatD = categoriaNombreCompleto.indexOf(" - Desactivado");
-            Integer localizarCategoria;
-            
-            if( locCatA > locCatD ){
-                localizarCategoria = locCatA;
+            if( categoriaAct > categoriaDes ){
+                locCategoria = categoriaAct;
             }else{
-                localizarCategoria = locCatD;
+                locCategoria = categoriaDes;
             }
             
-            String categoriNombre = categoriaNombreCompleto.substring(0, localizarCategoria);
+            String categoriaNombre = categoriaNombreCompleto.substring(0, locCategoria);
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-            Integer categoriaId = categoriaDaoImp.obtenerId(categoriNombre);
+            Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+            System.out.println("Categoría nombre = "+categoriaNombre+", categoría id = "+categoriaId);
             
-            //4.- Obtener el nombre y el id de la sub categoria 1
-            Integer locSub1A = sub1NombreCompleto.indexOf(" - Activado");
-            Integer locSub1D = sub1NombreCompleto.indexOf(" - Desactivado");
-            Integer localizarSub1;
+            //3.- Obtener el nombre y el id de la sub categoria 1 
+            Integer sub1Act = sub1NombreCompleto.indexOf(" - Activado");
+            Integer sub1Des = sub1NombreCompleto.indexOf(" - Desactivado");
+            Integer locSub1;
             
-            if( locSub1A > locSub1D ){
-                localizarSub1 = locSub1A;
+            if( sub1Act > sub1Des ){
+                locSub1 = sub1Act;
             }else{
-                localizarSub1 = locSub1D;
+                locSub1 = sub1Des;
             }
             
-            String sub1Nombre = sub1NombreCompleto.substring(0, localizarSub1);
+            String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
             Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
-            //5.- Obtener el nombre y el id de la sub categoria 2
-            Integer locSub2A = sub2NombreCompleto.indexOf(" - Activado");
-            Integer locSub2D = sub2NombreCompleto.indexOf(" - Desactivado");
-            Integer localizarSub2;
+            //4.- Obtener el nombre y el id de la sub categoria 2
+            Integer sub2Act = sub2NombreCompleto.indexOf(" - Activado");
+            Integer sub2Des = sub2NombreCompleto.indexOf(" - Desactivado");
+            Integer locSub2;
             
-            if( locSub2A > locSub2D ){
-                localizarSub2 = locSub2A;
+            if( sub2Act > sub2Des ){
+                locSub2 = sub2Act;
             }else{
-                localizarSub2 = locSub2D;
+                locSub2 = sub2Des;
             }
             
-            String sub2Nombre = sub2NombreCompleto.substring(0, localizarSub2);
+            String sub2Nombre = sub2NombreCompleto.substring(0, locSub2);
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
             Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            System.out.println("Sub categoría 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
             
-            //6.- Obtener el nombre y el id de la sub categoria 3
-            String sub3Nombre = sub3NombreCompleto.substring(0, localizarActivado);
+            //5.- Obtener el nombre y el id de la sub categoria 3
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
             Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, sub2Id);
+            System.out.println("Sub categoria 3 id = "+sub3Id);
             
-            //7.- desactivar la sub categoria 3
+            //6.- Activar sub categoria 3
+            System.out.println("Activando la sub categpria 3");
             Boolean activado = subCategoria3DaoImp.activar(sub3Id);
             
             if( activado == true ){
                 
+                System.out.println("Sub ategoría 3 activada con éxito");
+                JOptionPane.showMessageDialog(null, "Sub categoría 3 "+sub3Nombre+" activada con éxito");
                 actualizar();
                 
             }else{
+                System.out.println("No se pudo activar la sub categoría 3");
+                JOptionPane.showMessageDialog(null, "No se pudo activar la sub ategoría 3 "+sub3Nombre);
             }
             
         }else{
+            System.out.println("\nEste elemento ya esta activado");
+            JOptionPane.showMessageDialog(null, "Este elemento ya esta activado");
         }
-    } 
+    } //Ya
     
     //Ayudas
     
     private void actualizar() throws Exception {
         
         Point localizacion = this.getLocationOnScreen();
-        Integer alto = this.getHeight();
         Integer ancho = this.getWidth();
+        Integer alto = this.getHeight();
         this.dispose();
         
         ListarCategorias listarCategorias = new ListarCategorias();
         listarCategorias.setLocation(localizacion);
-        listarCategorias.setSize(alto, ancho);
+        listarCategorias.setSize(ancho, alto);
         listarCategorias.setVisible(true);
     }
 }
