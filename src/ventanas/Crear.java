@@ -498,6 +498,8 @@ public class Crear extends javax.swing.JFrame {
             
         } catch (ClassNotFoundException ex) {
             System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         
     }//GEN-LAST:event_btnFuentesActionPerformed

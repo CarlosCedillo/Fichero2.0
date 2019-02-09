@@ -1,21 +1,21 @@
 package ventanas;
 
-import conexion.ConexionBD;
+import dao.implementaciones.FuenteDaoImp;
+import java.awt.Point;
 import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
+import tablas.Fuentes;
 
 public class ListarFuente extends javax.swing.JFrame {
     
     Connection conexion = null;
     
-    public ListarFuente() throws ClassNotFoundException {
+    public ListarFuente() throws ClassNotFoundException, Exception {
+        
         initComponents();
         setTitle("Fichero 2.0 / Fuentes");
         this.setLocationRelativeTo(null);
@@ -135,167 +135,90 @@ public class ListarFuente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+        
         this.dispose();
         System.out.println("Cerrando: fuentes");
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnNuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNuevoActionPerformed
-        // TODO add your handling code here:
+        try {
         
-        String nombre = JOptionPane.showInputDialog(null, "Nombre de la nueva Fuente");
-        
-        if( nombre.isEmpty()){
-            JOptionPane.showMessageDialog(null, "No se ingeso una fuente");
-        }else{
-            
-            System.out.println("Guardando fuente: " + nombre );
-            
-            conexion = ConexionBD.obtenerConexion();
-            Statement statement = null;
-            PreparedStatement preparedStatement;
-            boolean guardado = false;
-            
-            try {
-                
-                ConexionBD.obtenerConexion();
-                preparedStatement = conexion.prepareStatement("INSERT INTO fuentes (nombre) VALUES (?)");
-                preparedStatement.setString(1, nombre);
-                preparedStatement.executeUpdate();
-                
-                guardado = true;
-                System.out.println("Fuente " + nombre + " giardada" );
-                
-                conexion = ConexionBD.cerrarConexion();
-                
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-                
-            } catch (ClassNotFoundException ex) {
-                System.out.println(ex.getMessage());
-            }
-            
-            if( guardado == true ){
-                JOptionPane.showMessageDialog(null, "Fuente guardada");
-                
-                actualizar();
-                
+            System.out.println("\nVa a agregar una fuente");
+
+            //1.- Obteenr el nombre de la fuente
+            String fuenteNombre = JOptionPane.showInputDialog("Nombre de la fuente");
+
+            if( fuenteNombre.isEmpty() == false ){
+
+                //2.- comprobar que la fuente no exista
+                FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+                System.out.println("Comprobando la existencia de la fuente "+fuenteNombre);
+                Boolean existe = fuenteDaoImp.existe(fuenteNombre);
+
+                if( existe == false ){
+
+                    System.out.println("La fuente no existe");
+
+                    //3.- guardar la fuente
+                    boolean guardado = fuenteDaoImp.guardar(fuenteNombre);
+
+                    if( guardado == true ){
+
+                        System.out.println("Fuente guardada con éxito");
+                        JOptionPane.showMessageDialog(null, "Fuente "+fuenteNombre+" guardada con éxito");
+                        actualizar();
+                            
+                    }else{
+                        System.out.println("No se pudo guardar la fuente");
+                        JOptionPane.showMessageDialog(null, "No se pudo guardar la fuente "+fuenteNombre);
+                    }
+
+                }else{
+                    System.out.println("La fuente ya existe");
+                    JOptionPane.showMessageDialog(null, "La fuente "+fuenteNombre+" ya existe");
+                }
+
             }else{
-                JOptionPane.showMessageDialog(null, "Fuente no guardada");
+                System.out.println("\nNo se ingreso un nombre");
+                JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
             }
+        
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
     }//GEN-LAST:event_btnNuevoActionPerformed
 
     private void tblFuentesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblFuentesMouseClicked
-        // TODO add your handling code here:
         
         if( evt.getClickCount() == 2 ){
             
             DefaultTableModel modeloFuente  = (DefaultTableModel) tblFuentes.getModel();
         
-            String nombre = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(),1));
-            String id = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(), 0));
-        
-            System.out.println("Fuente a modificar: "+nombre);
+            String fuenteOldName = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(),1));
             
-            String nvoNombre = JOptionPane.showInputDialog(null, "Mofificar fuente: "+nombre);
+            FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+            System.out.println("\nObteneindo el id de la fuente "+fuenteOldName);
+            Integer fuenteId = fuenteDaoImp.obtenerId(fuenteOldName);
             
-            if( nvoNombre.isEmpty() == true || nvoNombre.equals(nombre) ){
-                JOptionPane.showMessageDialog(null, "No se modifico Fuente "+nombre);
-            }else{
-                
-                conexion = ConexionBD.obtenerConexion();
-                Statement statement = null;
-                PreparedStatement preparedStatement;
-                boolean mofificado = false;
-                
-                System.out.println("Modificando fuente de "+ nombre + " a "+ nvoNombre );
+            modificarFuente(fuenteOldName, fuenteId);
             
-                try {
-
-                    Integer columnaId = Integer.parseInt(id);
-
-                    ConexionBD.obtenerConexion();
-                    preparedStatement = conexion.prepareStatement("UPDATE fuentes SET nombre = ? WHERE id = ?");
-                    preparedStatement.setString(1, nvoNombre);
-                    preparedStatement.setInt(2, columnaId);
-                    preparedStatement.executeUpdate();
-
-                    mofificado = true;
-
-                    conexion = ConexionBD.cerrarConexion();
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-
-                } catch (ClassNotFoundException ex) {
-                    System.out.println(ex.getMessage());
-                }
-
-                if( mofificado == true ){
-
-                    JOptionPane.showMessageDialog(null, "Fuente modificada");
-                    actualizar();
-
-                }else{
-                    JOptionPane.showMessageDialog(null, "Fuente no modificada");
-                }
-            }
         }
+        
     }//GEN-LAST:event_tblFuentesMouseClicked
 
     private void btnModificarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModificarActionPerformed
-        // TODO add your handling code here:
+
         DefaultTableModel modeloFuente  = (DefaultTableModel) tblFuentes.getModel();
         
-            String nombre = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(),1));
-            String id = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(), 0));
+        String fuenteOldName = String.valueOf(modeloFuente.getValueAt(tblFuentes.getSelectedRow(),1));
         
-            System.out.println("Fuente a modificar: "+nombre);
-            
-            String nvoNombre = JOptionPane.showInputDialog(null, "Mofificar fuente: "+nombre);
-            
-            if( nvoNombre.isEmpty() == true || nvoNombre.equals(nombre) ){
-                JOptionPane.showMessageDialog(null, "No se modifico Fuente "+nombre);
-            }else{
-                
-                conexion = ConexionBD.obtenerConexion();
-                Statement statement = null;
-                PreparedStatement preparedStatement;
-                boolean mofificado = false;
-                
-                System.out.println("Modificando fuente de "+ nombre + " a "+ nvoNombre );
-            
-                try {
-
-                    Integer columnaId = Integer.parseInt(id);
-
-                    ConexionBD.obtenerConexion();
-                    preparedStatement = conexion.prepareStatement("UPDATE fuentes SET nombre = ? WHERE id = ?");
-                    preparedStatement.setString(1, nvoNombre);
-                    preparedStatement.setInt(2, columnaId);
-                    preparedStatement.executeUpdate();
-
-                    mofificado = true;
-
-                    conexion = ConexionBD.cerrarConexion();
-
-                } catch (SQLException ex) {
-                    System.out.println(ex.getMessage());
-
-                } catch (ClassNotFoundException ex) {
-                    System.out.println(ex.getMessage());
-                }
-
-                if( mofificado == true ){
-
-                    JOptionPane.showMessageDialog(null, "Fuente modificada");
-                    actualizar();
-
-                }else{
-                    JOptionPane.showMessageDialog(null, "Fuente no modificada");
-                }
-            }
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+        System.out.println("\nObteneindo el id de la fuente "+fuenteOldName);
+        Integer fuenteId = fuenteDaoImp.obtenerId(fuenteOldName);
+        
+        modificarFuente(fuenteOldName, fuenteId);
+        
     }//GEN-LAST:event_btnModificarActionPerformed
 
     public static void main(String args[]) {
@@ -305,6 +228,8 @@ public class ListarFuente extends javax.swing.JFrame {
                 try {
                     new ListarFuente().setVisible(true);
                 } catch (ClassNotFoundException ex) {
+                    Logger.getLogger(ListarFuente.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (Exception ex) {
                     Logger.getLogger(ListarFuente.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
@@ -323,40 +248,89 @@ public class ListarFuente extends javax.swing.JFrame {
     private javax.swing.JTable tblFuentes;
     // End of variables declaration//GEN-END:variables
 
-    private void listarFuentes() throws ClassNotFoundException {
+    private void listarFuentes() throws ClassNotFoundException, Exception {
         
-        Connection conexion = null;
+        DefaultTableModel modeloTabla = (DefaultTableModel) tblFuentes.getModel();
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
         
-        try {
-            conexion = ConexionBD.obtenerConexion();
-            ResultSet resultSet;
-            String datos[] = new String[2];
-            DefaultTableModel modelo = (DefaultTableModel) tblFuentes.getModel();
+        List<Fuentes> listaFuentes = fuenteDaoImp.listar();
+        
+        for( Fuentes fuentes : listaFuentes ){
             
-            String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
-            PreparedStatement preparedStatement = conexion.prepareStatement(sql);
-            resultSet = preparedStatement.executeQuery();
-            conexion = ConexionBD.cerrarConexion();
+            Fuentes temp = new Fuentes();
+            temp.setId(fuentes.getId());
+            temp.setNombre(fuentes.getNombre());
             
-            while (resultSet.next()) {
-                datos[0] = resultSet.getString(1);
-                datos[1] = resultSet.getString(2);
-                modelo.addRow(datos);
-            }
+            String[] fuenteDatos = new String[2];
+            fuenteDatos[0] = temp.getId().toString();
+            fuenteDatos[1] = temp.getNombre();
             
-        } catch (SQLException ex) {
-            System.out.println(ex.getErrorCode());
+            modeloTabla.addRow(fuenteDatos);
+            
         }
+    }
     
+    private void actualizar() throws Exception{
+        
+        Point localizacion = this.getLocationOnScreen();
+        Integer ancho = this.getWidth();
+        Integer alto = this.getHeight();
+        this.dispose();
+        
+        ListarFuente listarFuente = new ListarFuente();
+        listarFuente.setLocation(localizacion);
+        listarFuente.setSize(ancho, alto);
+        listarFuente.setVisible(true);
+        
     }
 
-    private void actualizar() {
+    private void modificarFuente(String fuenteOldName, Integer fuenteId) {
         
-        this.setVisible(false);
-        try {
-            new ListarFuente().setVisible(true);
-        } catch (ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
+        System.out.println("\nVa a modificar la fuente "+fuenteOldName);
+        
+        //1.- Obtener el nuevo nombre
+        String fuenteNewName = JOptionPane.showInputDialog("Nuevo nombre de la fuente "+fuenteOldName);
+        
+        if( fuenteNewName.isEmpty() == false ){
+            
+            //2.- Comprobando la existencia de el nuevo nombre
+            FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+            System.out.println("Comprobando la existencia del nuevo nombre = "+fuenteNewName);
+            boolean existe = fuenteDaoImp.existe(fuenteNewName);
+            
+            if( existe == false ){
+                
+                System.out.println("La fuente no existe");
+                
+                //3.- modificar la fuente
+                System.out.println("Modificando la fuente");
+                boolean modificada = fuenteDaoImp.modificar(fuenteId, fuenteNewName);
+                
+                if( modificada == true ){
+                
+                    try {
+                        
+                        System.out.println("Fuente modificada con éxito");
+                        JOptionPane.showMessageDialog(null, "Fuente "+fuenteOldName+" modificada con éxito");
+                        actualizar();
+                        
+                    } catch (Exception ex) {
+                        System.out.println(ex.getMessage());
+                    }
+                    
+                }else{
+                    System.out.println("No se pudo modificar la fuente");
+                    JOptionPane.showMessageDialog(null, "No se pudo modificar la fuente");
+                }
+                
+            }else{
+                System.out.println("La fuente ya existe");
+                JOptionPane.showMessageDialog(null, "La fuente "+fuenteNewName+" ya existe");
+            }
+        
+        }else{
+            System.out.println("\nNo se ingreso un nombre");
+            JOptionPane.showMessageDialog(null, "No se ingreso un nombre");
         }
         
     }

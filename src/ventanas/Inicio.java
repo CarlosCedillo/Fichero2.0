@@ -165,7 +165,9 @@ public class Inicio extends javax.swing.JFrame {
             System.out.println("\n----- Abriendo ventana: fuentes -----");
             jFrame.setVisible(true);
         } catch (ClassNotFoundException ex) {
-            Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
+            System.out.println(ex.getMessage());
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
         }
         
     }//GEN-LAST:event_btnFuentesActionPerformed
