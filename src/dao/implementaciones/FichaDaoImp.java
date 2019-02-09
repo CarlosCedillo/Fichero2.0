@@ -37,10 +37,12 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             preparedStatement.setInt(4, sub2Id);
             preparedStatement.setInt(5, sub3Id);
             preparedStatement.setInt(6, fuenteId);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
                 
-            guardado = true;
-                
+            if( comp == 1 ){
+                guardado = true;
+            }
+            
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
                 
@@ -311,10 +313,12 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             preparedStatement.setInt(5, sub3Id);
             preparedStatement.setInt(6, fuenteId);
             preparedStatement.setInt(7, id);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
 
-            modificado = true;
-
+            if( comp == 1 ){
+                modificado = true;
+            }
+            
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
 
@@ -342,9 +346,11 @@ public class FichaDaoImp extends ConexionBD implements FichaDao{
             
             preparedStatement = conexion.prepareStatement("DELETE * FROM fichas WHERE id = ?");
             preparedStatement.setInt(1, id);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
             
-            borrado = true;
+            if( comp == 1 ){
+                borrado = true;
+            }
 
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());

@@ -193,9 +193,11 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             preparedStatement.setInt(1, catId);
             preparedStatement.setString(2, nombre);
             preparedStatement.setBoolean(3, true);
-            preparedStatement.executeUpdate();
-                
-            guardado = true;
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp == 1 ){
+                guardado = true;
+            }
                 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
@@ -224,9 +226,11 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET nombre = ? WHERE id = ?");
             preparedStatement.setString(1, nvoNombre);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
 
-            modificado = true;
+            if( comp == 1 ){
+                modificado = true;
+            }
 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
@@ -293,9 +297,11 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
             preparedStatement.setBoolean(1, true);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-
-            activado = true;
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp == 1 ){
+                activado = true;
+            }
 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
@@ -324,9 +330,11 @@ public class SubCategoria1DaoImp extends ConexionBD implements SubCategoria1Dao{
             preparedStatement = conexion.prepareStatement("UPDATE subCategorias1 SET activo = ? WHERE id = ?");
             preparedStatement.setBoolean(1, false);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-
-            desactivado = true;
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp == 1 ){
+                desactivado = true;
+            }
 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();

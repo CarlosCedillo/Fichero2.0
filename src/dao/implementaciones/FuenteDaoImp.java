@@ -108,9 +108,11 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
             
             preparedStatement = conexion.prepareStatement("INSERT INTO fuentes (nombre) VALUES (?)");
             preparedStatement.setString(1, nombre);
-            preparedStatement.executeUpdate();
-                
-            guardado = true;
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp == 1 ){
+                guardado = true;
+            }
                 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
@@ -172,9 +174,11 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
             preparedStatement = conexion.prepareStatement("UPDATE fuentes SET nombre = ? WHERE id = ?");
             preparedStatement.setString(1, nvoNombre);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
-
-            modificado = true;
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp == 1 ){
+                modificado = true;
+            }
 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();

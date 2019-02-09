@@ -149,10 +149,12 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             preparedStatement = conexion.prepareStatement("INSERT INTO categorias (nombre, activo) VALUES (?,?)");
             preparedStatement.setString(1, nombre);
             preparedStatement.setBoolean(2, true);
-            preparedStatement.executeUpdate();
-                
-            guardado = true;
-                
+            Integer comp = preparedStatement.executeUpdate();
+            
+            if( comp == 1 ){
+                guardado = true;
+            }
+            
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
                 
@@ -180,10 +182,12 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             preparedStatement = conexion.prepareStatement("UPDATE categorias SET nombre = ? WHERE id = ?");
             preparedStatement.setString(1, nvoNombre);
             preparedStatement.setInt(2, categoriaId);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
 
-            modificado = true;
-
+            if( comp == 1 ){
+                modificado = true;
+            }
+            
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
 
@@ -245,10 +249,12 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
             preparedStatement.setBoolean(1, true);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
 
-            activado = true;
-
+            if( comp == 1 ){
+                activado = true;
+            }
+            
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
 
@@ -276,9 +282,11 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
             preparedStatement = conexion.prepareStatement("UPDATE categorias SET activo = ? WHERE id = ?");
             preparedStatement.setBoolean(1, false);
             preparedStatement.setInt(2, id);
-            preparedStatement.executeUpdate();
+            Integer comp = preparedStatement.executeUpdate();
 
-            desactivado = true;
+            if( comp == 1 ){
+                desactivado = true;
+            }
 
             conexion = ConexionBD.cerrarConexion();
             preparedStatement.close();
