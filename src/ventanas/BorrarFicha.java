@@ -20,12 +20,12 @@ import tablas.Categorias;
 import tablas.Fichas;
 import tablas.Fuentes;
 
-public class Borrar extends javax.swing.JFrame {
+public class BorrarFicha extends javax.swing.JFrame {
     
     Integer indice, tottal;
     List<Fichas> fichasLista;
     
-    public Borrar() {
+    public BorrarFicha() {
         initComponents();
         setTitle("Fichero 2.0 / buscar");
         this.setLocationRelativeTo(null);
@@ -375,7 +375,7 @@ public class Borrar extends javax.swing.JFrame {
                         buscarCategoria(parametro);
                         
                     } catch (Exception ex) {
-                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                 }else{
@@ -387,7 +387,7 @@ public class Borrar extends javax.swing.JFrame {
                             buscarFuente(parametro);
                             
                         } catch (Exception ex) {
-                            Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                            Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
                         }
                         
                     }else{
@@ -414,7 +414,7 @@ public class Borrar extends javax.swing.JFrame {
                         buscarNoficha(parametro);
                         
                     } catch (Exception ex) {
-                        Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                        Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
                     }
                     
                 }else{
@@ -435,7 +435,7 @@ public class Borrar extends javax.swing.JFrame {
                 mostrar(fichasLista.get(indice));
                 
             } catch (BadLocationException ex) {
-                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -452,7 +452,7 @@ public class Borrar extends javax.swing.JFrame {
                 mostrar(fichasLista.get(indice));
                 
             } catch (BadLocationException ex) {
-                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -487,7 +487,7 @@ public class Borrar extends javax.swing.JFrame {
                 mostrar(fichasLista.get(indice));
                 
             } catch (BadLocationException ex) {
-                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -504,7 +504,7 @@ public class Borrar extends javax.swing.JFrame {
                 mostrar(fichasLista.get(indice));
                 
             } catch (BadLocationException ex) {
-                Logger.getLogger(Borrar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BorrarFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -576,7 +576,7 @@ public class Borrar extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Borrar().setVisible(true);
+                new BorrarFicha().setVisible(true);
             }
         });
     }
@@ -773,7 +773,7 @@ public class Borrar extends javax.swing.JFrame {
 
     private void actualizar() {
         
-        Borrar borrar = new Borrar();
+        BorrarFicha borrar = new BorrarFicha();
         this.dispose();
         borrar.setVisible(true);
         

@@ -34,12 +34,12 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class Buscar extends javax.swing.JFrame {
+public class BuscarFicha extends javax.swing.JFrame {
     
     Integer indice, tottal;
     List<Fichas> fichasLista;
     
-    public Buscar() {
+    public BuscarFicha() {
         
         initComponents();
         setTitle("Fichero 2.0 / buscar");
@@ -613,18 +613,18 @@ public class Buscar extends javax.swing.JFrame {
             
             try {
                 
-            Modificar jFrame = new Modificar();
+            ModificarFicha jFrame = new ModificarFicha();
             this.setVisible(true);
             System.out.println("Va modificar la ficha");
             jFrame.setVisible(true);
             
-            Modificar.txtId.setText(txtNoFicha.getText());
-            Modificar.txtCategoria.setText(txtCategoria.getText());
-            Modificar.txtSub1.setText(txtSub1.getText());
-            Modificar.txtSub2.setText(txtSub2.getText());
-            Modificar.txtSub3.setText(txtSub3.getText());
-            Modificar.txtFuente.setText(txtFuente.getText());
-            Modificar.txtFicha.setText(txtTexto.getText());
+            ModificarFicha.txtId.setText(txtNoFicha.getText());
+            ModificarFicha.txtCategoria.setText(txtCategoria.getText());
+            ModificarFicha.txtSub1.setText(txtSub1.getText());
+            ModificarFicha.txtSub2.setText(txtSub2.getText());
+            ModificarFicha.txtSub3.setText(txtSub3.getText());
+            ModificarFicha.txtFuente.setText(txtFuente.getText());
+            ModificarFicha.txtFicha.setText(txtTexto.getText());
             
             } catch (ClassNotFoundException ex) {
                 System.out.println(ex.getMessage());
@@ -974,7 +974,7 @@ public class Buscar extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BuscarFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -1021,7 +1021,7 @@ public class Buscar extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(Buscar.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(BuscarFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -1075,7 +1075,7 @@ public class Buscar extends javax.swing.JFrame {
 
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Buscar().setVisible(true);
+                new BuscarFicha().setVisible(true);
             }
         });
     }
@@ -1173,7 +1173,7 @@ public class Buscar extends javax.swing.JFrame {
         }
     }
     
-    // Buscar
+    // BuscarFicha
 
     private void buscarNoficha(String parametro) throws Exception {
         

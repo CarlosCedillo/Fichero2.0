@@ -111,7 +111,7 @@ public class Inicio extends javax.swing.JFrame {
     private void btnBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBuscarActionPerformed
         // TODO add your handling code here:
         
-        Buscar jFrame = new Buscar();
+        BuscarFicha jFrame = new BuscarFicha();
         //this.setVisible(false);
         System.out.println("\n----- Abriendo ventana: Buscar -----");
         jFrame.setVisible(true);
@@ -120,9 +120,9 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnCrearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCrearActionPerformed
         // TODO add your handling code here:
-        Crear crear = null;
+        CrearFicha crear = null;
         try {
-            crear = new Crear();
+            crear = new CrearFicha();
         } catch (ClassNotFoundException ex) {
             Logger.getLogger(Inicio.class.getName()).log(Level.SEVERE, null, ex);
         } catch (Exception ex) {
@@ -135,8 +135,8 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnBorrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBorrarActionPerformed
         // TODO add your handling code here:
-        Borrar jFrame = null;
-        jFrame = new Borrar();
+        BorrarFicha jFrame = null;
+        jFrame = new BorrarFicha();
         //this.setVisible(false);
         System.out.println("\n----- Abriendo ventana: Eliminar -----");
         jFrame.setVisible(true);

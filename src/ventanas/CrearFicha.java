@@ -17,11 +17,11 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class Crear extends javax.swing.JFrame {
+public class CrearFicha extends javax.swing.JFrame {
     
     Connection conexion = null;
 
-    public Crear() throws ClassNotFoundException, Exception {
+    public CrearFicha() throws ClassNotFoundException, Exception {
         initComponents();
         setTitle("Fichero 2.0 / Crear ");
         this.setLocationRelativeTo(null);
@@ -386,7 +386,7 @@ public class Crear extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -433,7 +433,7 @@ public class Crear extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -480,7 +480,7 @@ public class Crear extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
+                Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
         
@@ -599,12 +599,12 @@ public class Crear extends javax.swing.JFrame {
             
             this.dispose();
             
-            Crear jframe = new Crear();
+            CrearFicha jframe = new CrearFicha();
             System.out.println("Actualizando crear fichas");
             jframe.setVisible(true);
             
         } catch (Exception ex) {
-            Logger.getLogger(Crear.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
     

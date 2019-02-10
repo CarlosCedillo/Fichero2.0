@@ -1,6 +1,11 @@
 package ventanas;
 
 import conexion.ConexionBD;
+import dao.implementaciones.CategoriaDaoImp;
+import dao.implementaciones.SubCategoria1DaoImp;
+import dao.implementaciones.SubCategoria2DaoImp;
+import dao.implementaciones.SubCategoria3DaoImp;
+import dao.implementaciones.FuenteDaoImp;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,13 +18,13 @@ import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
 
-public class Modificar extends javax.swing.JFrame {
+public class ModificarFicha extends javax.swing.JFrame {
     
     Connection conexion = null;
     Fichas fichas = new Fichas();
     String tabla, nombre;
 
-    public Modificar() throws ClassNotFoundException {
+    public ModificarFicha() throws ClassNotFoundException {
         initComponents();
         setTitle("Fichero 2.0 / Modificar ");
         this.setLocationRelativeTo(null);
@@ -268,9 +273,9 @@ public class Modificar extends javax.swing.JFrame {
             fichaIdT = txtId.getText();
             int fichaId = Integer.parseInt(fichaIdT);
             fichaCategoriaId = obtenerCategoriaId(txtCategoria.getText());
-            fichaSub1Id = obtenerSub1Id(txtSub1.getText());
-            fichaSub2Id = obtenerSub2Id(txtSub2.getText());
-            fichaSub3Id = obtenerSub3Id(txtSub3.getText());
+            fichaSub1Id = obtenerSub1Id(txtSub1.getText(), fichaCategoriaId);
+            fichaSub2Id = obtenerSub2Id(txtSub2.getText(), fichaSub1Id);
+            fichaSub3Id = obtenerSub3Id(txtSub3.getText(), fichaSub2Id);
             fichaFuenteId = obtenerFuenteId(txtFuente.getText());
             fichaTexto = txtFicha.getText();
             
@@ -719,96 +724,41 @@ public class Modificar extends javax.swing.JFrame {
 
     private Integer obtenerCategoriaId(String categoriaNombre) throws SQLException {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        Statement statement = conexion.createStatement();
-        Integer idCategoria = 0;
-        
-        String sql = "SELECT id FROM categorias WHERE nombre = '"+categoriaNombre+"'";
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        if( resultSet.next() ){
-            idCategoria = resultSet.getInt(1);
-        }
-        
-        statement.close();
-        return  idCategoria;
+        CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+        Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+        return categoriaId;
         
     }
 
-    private Integer obtenerSub1Id(String sub1Nombre) throws SQLException {
+    private Integer obtenerSub1Id(String sub1Nombre, Integer fichaCategoriaId) throws SQLException {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        Statement statement = conexion.createStatement();
-        Integer idSubCategoria1 = 0;
-        
-        String sql = "SELECT id FROM subCategorias1 WHERE nombre = '"+sub1Nombre+"'";
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        if( resultSet.next() ){
-            idSubCategoria1 = resultSet.getInt(1);
-        }
-        
-        statement.close();
-        return  idSubCategoria1;
+        SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+        Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, fichaCategoriaId);
+        return sub1Id;
         
     }
 
-    private Integer obtenerSub2Id(String sub2Nombre) throws SQLException {
+    private Integer obtenerSub2Id(String sub2Nombre, Integer fichaSub1Id) throws SQLException {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        Statement statement = conexion.createStatement();
-        Integer idSubCategoria2 = 0;
-        
-        String sql = "SELECT id FROM subCategorias2 WHERE nombre = '"+sub2Nombre+"'";
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        if( resultSet.next() ){
-            idSubCategoria2 = resultSet.getInt(1);
-        }
-        
-        statement.close();
-        return  idSubCategoria2;
+        SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+        Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, fichaSub1Id);
+        return sub2Id;
         
     }
 
-    private Integer obtenerSub3Id(String sub3Nombre) throws SQLException {
+    private Integer obtenerSub3Id(String sub3Nombre, Integer fichaSub2Id) throws SQLException {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        Statement statement = conexion.createStatement();
-        Integer idSubCategoria3 = 0;
-        
-        String sql = "SELECT id FROM subCategorias3 WHERE nombre = '"+sub3Nombre+"'";
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        if( resultSet.next() ){
-            idSubCategoria3 = resultSet.getInt(1);
-        }
-        
-        statement.close();
-        return  idSubCategoria3;
+        SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
+        Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, fichaSub2Id);
+        return sub3Id;
         
     }
 
     private Integer obtenerFuenteId(String fuenteNombre) throws SQLException {
         
-        conexion = ConexionBD.obtenerConexion();
-        PreparedStatement preparedStatement;
-        Statement statement = conexion.createStatement();
-        Integer idFuente = 0;
-        
-        String sql = "SELECT id FROM fuentes WHERE nombre = '"+fuenteNombre+"'";
-        ResultSet resultSet = statement.executeQuery(sql);
-
-        if( resultSet.next() ){
-            idFuente = resultSet.getInt(1);
-        }
-        
-        statement.close();
-        return  idFuente;
+        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
+        Integer fuenteId = fuenteDaoImp.obtenerId(fuenteNombre);
+        return fuenteId;
         
     }
 }
