@@ -257,8 +257,6 @@ public class CrearFicha extends javax.swing.JFrame {
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
         
-        // TODO add your handling code here:
-        
         if( cbCategoria.getSelectedIndex()== 0 || cbFuente.getSelectedIndex()== 0 || txtTexto.getText().isEmpty()){
             JOptionPane.showMessageDialog(null, "Debe seleccionar mínimo una categoría y una fuente y llenar el campo de texto de la ficha");
         }else{
@@ -274,6 +272,7 @@ public class CrearFicha extends javax.swing.JFrame {
             
             //2.- Obtener el id de la sub categoria 1
             if( cbSub1.getSelectedIndex() > 0 ){
+                
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 sub1Nombre = cbSub1.getSelectedItem().toString();
                 
@@ -285,6 +284,7 @@ public class CrearFicha extends javax.swing.JFrame {
             
             //3.- Obtener el id de la sub categoria 2
             if( cbSub2.getSelectedIndex() > 0 ){
+                
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
                 sub2Nombre = cbSub2.getSelectedItem().toString();
                 
@@ -296,6 +296,7 @@ public class CrearFicha extends javax.swing.JFrame {
             
             //4.- Obtener el id de la sub categoria 3
             if( cbSub3.getSelectedIndex() > 0 ){
+                
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
                 sub3Nombre = cbSub3.getSelectedItem().toString();
                 

@@ -1297,19 +1297,19 @@ public class BuscarFicha extends javax.swing.JFrame {
         //2.- obtener id de la sub categoria 1
         if( sub1Nombre.equals("0") == false ){
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
+            sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
         }
         
         //3.- obtener id de la sub categoria 2
         if( sub2Nombre.equals("0") == false ){
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-            sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre);
+            sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
         }
         
         //4.- obtener id de la sub categoria 3
         if( sub3Nombre.equals("0") == false ){
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            sub3Id = subCategoria3DaoImp.obtenerId(sub3Nombre);
+            sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, sub2Id);
         }
         
         //5.- obtener id de la fuente
