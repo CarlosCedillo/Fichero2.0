@@ -310,7 +310,7 @@ public class ModificarFicha extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Ficha modificada");
             this.dispose();
             
-            Buscar jFrame = new Buscar();
+            BuscarFicha jFrame = new BuscarFicha();
             System.out.println("Regresando a ventana Buscar");
             jFrame.setVisible(true);
             
@@ -328,7 +328,7 @@ public class ModificarFicha extends javax.swing.JFrame {
         // TODO add your handling code here:
         this.dispose();
         System.out.println("Regresando a buscar");
-        Buscar buscar = new Buscar();
+        BuscarFicha buscar = new BuscarFicha();
         buscar.setVisible(true);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
