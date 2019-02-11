@@ -33,9 +33,6 @@ public class ListarCategorias extends javax.swing.JFrame {
         
         obtenerCategorias();
         
-        for( int i = 0 ; i < treeCategorias.getRowCount() ; i++ ){
-            treeCategorias.expandRow(i);
-        }
     }
 
     @SuppressWarnings("unchecked")

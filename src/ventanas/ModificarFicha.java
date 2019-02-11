@@ -2,6 +2,7 @@ package ventanas;
 
 import conexion.ConexionBD;
 import dao.implementaciones.CategoriaDaoImp;
+import dao.implementaciones.FichaDaoImp;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
@@ -11,6 +12,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
 import tablas.Fichas;
@@ -265,20 +268,20 @@ public class ModificarFicha extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnGuardarActionPerformed
+            
         try {
             
             Integer fichaCategoriaId, fichaSub1Id, fichaSub2Id, fichaSub3Id, fichaFuenteId;
             String fichaTexto, fichaIdT;
             
             fichaIdT = txtId.getText();
-            int fichaId = Integer.parseInt(fichaIdT);
+            Integer fichaId = Integer.parseInt(fichaIdT);
             fichaCategoriaId = obtenerCategoriaId(txtCategoria.getText());
             fichaSub1Id = obtenerSub1Id(txtSub1.getText(), fichaCategoriaId);
             fichaSub2Id = obtenerSub2Id(txtSub2.getText(), fichaSub1Id);
             fichaSub3Id = obtenerSub3Id(txtSub3.getText(), fichaSub2Id);
             fichaFuenteId = obtenerFuenteId(txtFuente.getText());
             fichaTexto = txtFicha.getText();
-            
             
             System.out.println("Informacion de la ficha "+fichaId+":");
             System.out.println("Categoria: "+txtCategoria.getText()+" con id: "+fichaCategoriaId);
@@ -288,39 +291,27 @@ public class ModificarFicha extends javax.swing.JFrame {
             System.out.println("Contenido / texto: "+fichaTexto);
             System.out.println("Fuente: "+txtFuente.getText()+" con id: "+fichaFuenteId);
             
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            Statement statement = conexion.createStatement();
-            boolean modificado = false;
-
-            String sql = "UPDATE fichas SET texto = ?, categoria = ?, subCategoria1 = ?, subCategoria2 = ?, subCategoria3 = ?, fuente = ? WHERE id = ?";
-            preparedStatement = conexion.prepareCall(sql);
-            preparedStatement.setString(1, fichaTexto);
-            preparedStatement.setInt(2, fichaCategoriaId);
-            preparedStatement.setInt(3, fichaSub1Id);
-            preparedStatement.setInt(4, fichaSub2Id);
-            preparedStatement.setInt(5, fichaSub3Id);
-            preparedStatement.setInt(6, fichaFuenteId);
-            preparedStatement.setInt(7, fichaId);
-            preparedStatement.executeUpdate();
+            FichaDaoImp fichaDaoImp = new FichaDaoImp();
+            boolean modificada = fichaDaoImp.modificar(fichaId, fichaCategoriaId, fichaSub1Id, fichaSub2Id, fichaSub3Id, fichaFuenteId, fichaTexto);
             
-            modificado = true;
-            conexion = ConexionBD.cerrarConexion();
-            
-            JOptionPane.showMessageDialog(null, "Ficha modificada");
-            this.dispose();
-            
-            BuscarFicha jFrame = new BuscarFicha();
-            System.out.println("Regresando a ventana Buscar");
-            jFrame.setVisible(true);
+            if( modificada == true ){
+                
+                System.out.println("Ficha modificada con éxito");
+                JOptionPane.showMessageDialog(null, "Ficha No. "+fichaId+" modificada con éxito");
+                this.dispose();
+                
+                BuscarFicha buscarFicha = new BuscarFicha();
+                buscarFicha.setVisible(true);
+                
+            }else{
+                System.out.println("No se pudo modificar la ficha");
+                JOptionPane.showMessageDialog(null, "No se pudo modificar la ficha No. "+fichaId);
+            }
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Ficha no modificada");
-            System.out.println(ex.getMessage());
-        } catch (ClassNotFoundException ex) {
-            JOptionPane.showMessageDialog(null, "Ficha no modificada");
             System.out.println(ex.getMessage());
         }
+            
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
