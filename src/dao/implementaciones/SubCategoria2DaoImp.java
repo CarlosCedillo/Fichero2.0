@@ -1,7 +1,6 @@
 package dao.implementaciones;
 
 import conexion.ConexionBD;
-import dao.interfaceses.SubCategoria2Dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,52 +8,14 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import tablas.SubCategorias2;
+import dao.interfaceses.SubCategoria2Dao;
 
 public class SubCategoria2DaoImp extends ConexionBD implements SubCategoria2Dao{
     
     //subCategorias2
-
-    @Override
-    public Integer obtenerId(String nombre) {
-        
-        Integer sub2Id = 0;
-        
-        Connection conexion;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        System.out.println("Ejecutando: SELECT id FROM subCategorias2 WHERE nombre = '"+nombre+"'");
-        
-        try {
-            
-            conexion = ConexionBD.obtenerConexion();
-            
-            preparedStatement = conexion.prepareCall("SELECT id FROM subCategorias2 WHERE nombre = ?");
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                SubCategorias2 subCategorias2 = new SubCategorias2();
-                subCategorias2.setId(resultSet.getInt("id"));
-                
-                sub2Id = subCategorias2.getId();
-                
-            }
-            
-            conexion = ConexionBD.cerrarConexion();
-            preparedStatement.close();
-            resultSet.close();
-            
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-        return sub2Id;
-        
-    }
     
     @Override
-    public Integer obtenetIdAvanzado(String nombre, Integer sub1Id) {
+    public Integer obtenerId(String nombre, Integer sub1Id) {
         
         Integer sub2Id = 0;
         

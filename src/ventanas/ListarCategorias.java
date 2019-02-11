@@ -630,7 +630,7 @@ public class ListarCategorias extends javax.swing.JFrame {
 
                 //5.- Obtener el id (avanzado) de la sub categoria 1
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
                 
                 //6.- Comprobar que no existe ya
@@ -725,12 +725,12 @@ public class ListarCategorias extends javax.swing.JFrame {
                 
                 String sub1Nombre = sub1NombreCompleto.substring(0, locsub1);
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
 
                 //5.- Obtener el id de la sub categoría 2
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-                Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+                Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
                 System.out.println("Sub categoría 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
                 
                 //6.- Comprobar si la sub categoria 3 existe
@@ -879,7 +879,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                     System.out.println("La sub categoria 1 no existe");
                     
                     //5.- Obtener el id de la sub actegoria 1
-                    Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1OldName, categoriaId);
+                    Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1OldName, categoriaId);
                     System.out.println("Sub categoría 1 id = "+sub1Id);
                     
                     //6.- Modificar la sub categoria 1
@@ -971,7 +971,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 
                 String sub1Nombre = sub1NombreCompelto.substring(0, locSub1);
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 System.out.println("Sub categoria 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
                 
                 //6.- Comprobar que el nuevo nombre exista
@@ -984,7 +984,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                     System.out.println("La sub categoria 2 no existe");
                     
                     //7.- Obtener el id de la sub categoria 2
-                    Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2OldName, sub1Id);
+                    Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2OldName, sub1Id);
                     System.out.println("Sub categoría 2 id = "+sub2Id);
                     
                     //8.- Modificar la sub categoria 2
@@ -1079,7 +1079,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 
                 String sub1Nombre = sub1NombreCompelto.substring(0, locSub1);
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 System.out.println("Sub categoria 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
                 
                 //7.- Obteenr el nombre y el id de la sub categoria 2
@@ -1095,7 +1095,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                 
                 String sub2Nombre = sub2NombreCompelto.substring(0, locSub2);
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-                Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+                Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
                 System.out.println("Sub categoria 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
                 
                 //9.- Comprobar que el nuevo nombre de la sub categoria 3 existe
@@ -1108,7 +1108,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                     System.out.println("La sub categoria 3 no existe");
                     
                     //8.- Obteenr el id de la sub categoria 3
-                    Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3OldName, sub2Id);
+                    Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3OldName, sub2Id);
                     System.out.println("Sub categoría 3 id = "+sub3Id);
                     
                     //10.- Modificar la sub categoria 3
@@ -1213,7 +1213,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //3.- Obteenr el id de la sub categoria 1
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
             System.out.println("Sub categoria 1 id = "+sub1Id);
             
             //4.- desactivar la sub categoria 1
@@ -1283,12 +1283,12 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
             System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
             //3.- Obtener el id de la sub categoria 2
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-            Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
             System.out.println("Sub categoria 2 id = "+sub2Id);
             
             //4.- Desactivar la sub categoria 2
@@ -1362,7 +1362,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
             System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
             //4.- Obtener el nombre y el id de la sub categoria 2
@@ -1378,12 +1378,12 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             String sub2Nombre = sub2NombreCompleto.substring(0, locSub2);
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-            Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
             System.out.println("Sub categoría 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
             
             //5.- Obtener el nombre y el id de la sub categoria 3
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, sub2Id);
+            Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, sub2Id);
             System.out.println("Sub categoria 3 id = "+sub3Id);
             
             //6.- Desactivar sub categoria 3
@@ -1478,7 +1478,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //3.- Obteenr el nombre y el id de la sub categoria 1
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
             System.out.println("Sub categoria 1 id = "+sub1Id);
             
             //4.- activar la sub categoria 1
@@ -1548,12 +1548,12 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
             System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
             //3.- Obtener el id de la sub categoria 2
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-            Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
             System.out.println("Sub categoria 2 id = "+sub2Id);
             
             //4.- activar la sub categoria 2
@@ -1627,7 +1627,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             String sub1Nombre = sub1NombreCompleto.substring(0, locSub1);
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
             System.out.println("Sub categoría 1 nombre = "+sub1Nombre+", sub categoría 1 id = "+sub1Id);
             
             //4.- Obtener el nombre y el id de la sub categoria 2
@@ -1643,12 +1643,12 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             String sub2Nombre = sub2NombreCompleto.substring(0, locSub2);
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-            Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
             System.out.println("Sub categoría 2 nombre = "+sub2Nombre+", sub categoría 2 id = "+sub2Id);
             
             //5.- Obtener el nombre y el id de la sub categoria 3
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, sub2Id);
+            Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, sub2Id);
             System.out.println("Sub categoria 3 id = "+sub3Id);
             
             //6.- Activar sub categoria 3

@@ -733,7 +733,7 @@ public class ModificarFicha extends javax.swing.JFrame {
     private Integer obtenerSub1Id(String sub1Nombre, Integer fichaCategoriaId) throws SQLException {
         
         SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-        Integer sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, fichaCategoriaId);
+        Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, fichaCategoriaId);
         return sub1Id;
         
     }
@@ -741,7 +741,7 @@ public class ModificarFicha extends javax.swing.JFrame {
     private Integer obtenerSub2Id(String sub2Nombre, Integer fichaSub1Id) throws SQLException {
         
         SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-        Integer sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, fichaSub1Id);
+        Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, fichaSub1Id);
         return sub2Id;
         
     }
@@ -749,7 +749,7 @@ public class ModificarFicha extends javax.swing.JFrame {
     private Integer obtenerSub3Id(String sub3Nombre, Integer fichaSub2Id) throws SQLException {
         
         SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-        Integer sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, fichaSub2Id);
+        Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, fichaSub2Id);
         return sub3Id;
         
     }

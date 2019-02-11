@@ -5,8 +5,7 @@ import tablas.SubCategorias1;
 
 public interface SubCategoria1Dao {
     
-    public Integer obtenerId(String nombre);
-    public Integer obtenetIdAvanzado(String nombre, Integer categoriaId);
+    public Integer obtenerId(String nombre, Integer categoriaId);
     public String obtenerNombre(Integer id);
     public boolean existe(String nombre, Integer categoriaId);
     

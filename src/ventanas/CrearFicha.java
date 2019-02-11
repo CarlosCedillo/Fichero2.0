@@ -276,7 +276,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 sub1Nombre = cbSub1.getSelectedItem().toString();
                 
-                sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, catrgoriaId);
+                sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, catrgoriaId);
                 
             }else{
                 sub1Id = 0;
@@ -288,7 +288,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
                 sub2Nombre = cbSub2.getSelectedItem().toString();
                 
-                Sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+                Sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
                 
             }else{
                 Sub2Id = 0;
@@ -300,7 +300,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
                 sub3Nombre = cbSub3.getSelectedItem().toString();
                 
-                Sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, Sub2Id);
+                Sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, Sub2Id);
                 
             }else{
                 Sub3Id = 0;
@@ -400,6 +400,10 @@ public class CrearFicha extends javax.swing.JFrame {
             
             try {
                 
+                String categoriaNombre = cbCategoria.getSelectedItem().toString();
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                
                 cbSub2.enable();
                 cbSub2.removeAllItems();
                 
@@ -409,7 +413,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 
                 System.out.println("\nObteniendo el id de la sub categoria 1 "+sub1Nombre);
-                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 System.out.println("la sub categoria 1 "+sub1Nombre+" tiene el id "+sub1Id);
                 
                 //2.- Obtener las sub categorias 2 correspondientes a la sub categoria 1
@@ -447,16 +451,22 @@ public class CrearFicha extends javax.swing.JFrame {
                 
             try {
                 
+                String categoriaNombre = cbCategoria.getSelectedItem().toString();
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                
                 cbSub3.enable();
                 cbSub3.removeAllItems();
                 
                 String sub2Nombre = cbSub2.getSelectedItem().toString();
                 
                 //1.- Obtener el id de la sub categoria 2 seleccionada
+                String sub1Nombre = cbSub1.getSelectedItem().toString();
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+                Integer sub1Id = subCategoria2DaoImp.obtenerId(sub1Nombre, categoriaId);
                 
                 System.out.println("\nObteniendo el id de la sub categoria 2 "+sub2Nombre);
-                Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre);
+                Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
                 System.out.println("la sub categoria 2 "+sub2Nombre+" tiene el id "+sub2Id);
                 
                 //2.- Obtener las sub categorias 3 correspondientes a la sub categoria 2

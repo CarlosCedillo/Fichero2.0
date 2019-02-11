@@ -940,6 +940,10 @@ public class BuscarFicha extends javax.swing.JFrame {
             
             try {
                 
+                String categoriaNombre = cbCategoriaAvz.getSelectedItem().toString();
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                
                 cbSub2Avz.enable();
                 cbSub2Avz.removeAllItems();
                 
@@ -949,7 +953,7 @@ public class BuscarFicha extends javax.swing.JFrame {
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 
                 System.out.println("\nObteniendo el id de la sub categoria 1 "+sub1Nombre);
-                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre);
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 System.out.println("la sub categoria 1 "+sub1Nombre+" tiene el id "+sub1Id);
                 
                 //2.- Obtener las sub categorias 2 correspondientes a la sub categoria 1
@@ -987,16 +991,22 @@ public class BuscarFicha extends javax.swing.JFrame {
             
             try {
                 
+                String categoriaNombre = cbCategoriaAvz.getSelectedItem().toString();
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                
                 cbSub3Avz.enable();
                 cbSub3Avz.removeAllItems();
                 
                 String sub2Nombre = cbSub2Avz.getSelectedItem().toString();
                 
                 //1.- Obtener el id de la sub categoria 2 seleccionada
+                String sub1Nombre = cbSub1Avz.getSelectedItem().toString();
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
+                Integer sub1Id = subCategoria2DaoImp.obtenerId(sub1Nombre, categoriaId);
                 
                 System.out.println("\nObteniendo el id de la sub categoria 2 "+sub2Nombre);
-                Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre);
+                Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
                 System.out.println("la sub categoria 2 "+sub2Nombre+" tiene el id "+sub2Id);
                 
                 //2.- Obtener las sub categorias 3 correspondientes a la sub categoria 2
@@ -1289,27 +1299,24 @@ public class BuscarFicha extends javax.swing.JFrame {
         
         //1.- obtener id de la Categoria
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-        
-        System.out.println("\nObteniendo el id de la categoria "+categoriaNombre);
         categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
-        System.out.println("la categoria "+categoriaNombre+" tiene el id "+categoriaId);
         
         //2.- obtener id de la sub categoria 1
         if( sub1Nombre.equals("0") == false ){
             SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-            sub1Id = subCategoria1DaoImp.obtenetIdAvanzado(sub1Nombre, categoriaId);
+            sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
         }
         
         //3.- obtener id de la sub categoria 2
         if( sub2Nombre.equals("0") == false ){
             SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-            sub2Id = subCategoria2DaoImp.obtenetIdAvanzado(sub2Nombre, sub1Id);
+            sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
         }
         
         //4.- obtener id de la sub categoria 3
         if( sub3Nombre.equals("0") == false ){
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            sub3Id = subCategoria3DaoImp.obtenetIdAvanzado(sub3Nombre, sub2Id);
+            sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, sub2Id);
         }
         
         //5.- obtener id de la fuente

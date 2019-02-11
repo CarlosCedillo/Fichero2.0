@@ -15,46 +15,7 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
     //subCategorias3    
 
     @Override
-    public Integer obtenerId(String nombre) {
-        
-        Integer sub3Id = 0;
-        
-        Connection conexion;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        System.out.println("Ejecutando: SELECT id FROM subCategorias3 WHERE nombre = '"+nombre+"'");
-        
-        try {
-            
-            conexion = ConexionBD.obtenerConexion();
-            
-            preparedStatement = conexion.prepareCall("SELECT id FROM subCategorias3 WHERE nombre = ?");
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                SubCategorias3 subCategorias3 = new SubCategorias3();
-                subCategorias3.setId(resultSet.getInt("id"));
-                
-                sub3Id = subCategorias3.getId();
-                
-            }
-            
-            conexion = ConexionBD.cerrarConexion();
-            preparedStatement.close();
-            resultSet.close();
-            
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-        return sub3Id;
-        
-    }
-    
-    @Override
-    public Integer obtenetIdAvanzado(String nombre, Integer sub2Id) {
+    public Integer obtenetId(String nombre, Integer sub2Id) {
         
         Integer sub3d = 0;
         
