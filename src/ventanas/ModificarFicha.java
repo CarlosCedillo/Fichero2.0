@@ -12,8 +12,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
 import tablas.Fichas;
@@ -311,16 +309,16 @@ public class ModificarFicha extends javax.swing.JFrame {
         } catch (SQLException ex) {
             System.out.println(ex.getMessage());
         }
-            
         
     }//GEN-LAST:event_btnGuardarActionPerformed
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        // TODO add your handling code here:
+
         this.dispose();
         System.out.println("Regresando a buscar");
         BuscarFicha buscar = new BuscarFicha();
         buscar.setVisible(true);
+        
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnModCatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModCatActionPerformed

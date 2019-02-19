@@ -45,7 +45,6 @@ public class CrearFicha extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtTexto = new javax.swing.JTextArea();
@@ -63,12 +62,10 @@ public class CrearFicha extends javax.swing.JFrame {
         cbSub2 = new javax.swing.JComboBox();
         btnCategorias = new javax.swing.JButton();
         btnFuentes = new javax.swing.JButton();
-        btnLimpiar = new javax.swing.JButton();
         btnActualizar = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
-
-        jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
         txtTexto.setColumns(20);
         txtTexto.setRows(5);
@@ -130,13 +127,6 @@ public class CrearFicha extends javax.swing.JFrame {
             }
         });
 
-        btnLimpiar.setText("Limpiar");
-        btnLimpiar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnLimpiarActionPerformed(evt);
-            }
-        });
-
         btnActualizar.setText("Actualizar");
         btnActualizar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -148,59 +138,50 @@ public class CrearFicha extends javax.swing.JFrame {
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnActualizar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGap(90, 90, 90)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(btnLimpiar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnRegresar)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnGuardar))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGap(33, 33, 33)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGap(31, 31, 31)
                                         .addComponent(lblCategoria)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbCategoria, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(cbCategoria, 0, 222, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(lblFuente)
                                             .addComponent(lblSub2))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cbFuente, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(cbSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                            .addComponent(cbFuente, 0, 222, Short.MAX_VALUE)
+                                            .addComponent(cbSub2, 0, 222, Short.MAX_VALUE))))
+                                .addGap(12, 12, 12)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                        .addGap(97, 97, 97)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGap(98, 98, 98)
                                         .addComponent(lblSub3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbSub3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                            .addComponent(btnFuentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnCategorias, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(lblSub1)
-                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                                .addComponent(cbSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                                .addGap(100, 100, 100)
-                                                .addComponent(btnActualizar)
-                                                .addGap(0, 0, Short.MAX_VALUE)))))))
-                        .addGap(17, 17, 17))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(69, 69, 69)
-                        .addComponent(jScrollPane1)))
-                .addGap(83, 83, 83))
+                                            .addComponent(cbSub1, 0, 222, Short.MAX_VALUE)
+                                            .addComponent(cbSub3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                            .addComponent(btnFuentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                            .addComponent(btnCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addComponent(lblSub1))))
+                            .addComponent(jScrollPane1))))
+                .addGap(90, 90, 90))
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -222,27 +203,25 @@ public class CrearFicha extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cbFuente, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblFuente)
-                    .addComponent(btnFuentes)
-                    .addComponent(btnActualizar))
+                    .addComponent(btnFuentes))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 255, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnRegresar)
-                    .addComponent(btnGuardar)
-                    .addComponent(btnLimpiar))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(15, 15, 15))
         );
+
+        jLabel2.setText("Fichero 2.0 creado por Carlos Gerado Cedillo Alcántar");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
             .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -438,7 +417,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         }
         
@@ -451,29 +430,28 @@ public class CrearFicha extends javax.swing.JFrame {
                 
             try {
                 
+                //1.- Obtener el nombre y el id de la categoria seleccionada
                 String categoriaNombre = cbCategoria.getSelectedItem().toString();
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
                 
-                cbSub3.enable();
-                cbSub3.removeAllItems();
-                
-                String sub2Nombre = cbSub2.getSelectedItem().toString();
-                
-                //1.- Obtener el id de la sub categoria 2 seleccionada
+                //2.- Obteenr el nombre y el id de la sub categoria 1
                 String sub1Nombre = cbSub1.getSelectedItem().toString();
+                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
+                
+                //3.- Obteenr el nombre y el id de la sub categoria 2
+                String sub2Nombre = cbSub2.getSelectedItem().toString();
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-                Integer sub1Id = subCategoria2DaoImp.obtenerId(sub1Nombre, categoriaId);
-                
-                System.out.println("\nObteniendo el id de la sub categoria 2 "+sub2Nombre);
                 Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
-                System.out.println("la sub categoria 2 "+sub2Nombre+" tiene el id "+sub2Id);
                 
-                //2.- Obtener las sub categorias 3 correspondientes a la sub categoria 2
+                //4.- Prepara el comboBox (activar y eliminar lo que haya ahi)
+                cbSub3.removeAllItems();
+                cbSub3.enable();
+                
+                //5.- obtener el listado de sub 3 de la sub2 seleccionada
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-                
-                System.out.println("\nObteniendo las sub categoria 3 de la sub categoria 2 "+sub2Nombre);
-                List<SubCategorias3>  listaSub3 = subCategoria3DaoImp.listar(sub2Id);
+                List<SubCategorias3> listaSub3 = subCategoria3DaoImp.listar(sub2Id);
                 
                 cbSub3.addItem("--Seleccione--");
                 
@@ -491,7 +469,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
         }
         
@@ -515,26 +493,11 @@ public class CrearFicha extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnFuentesActionPerformed
 
-    private void btnLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLimpiarActionPerformed
+    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
+
+        actualizar();
         
-        cbCategoria.setSelectedIndex(0);
-        
-        cbSub1.setSelectedIndex(-1);
-        cbSub1.disable();
-        
-        cbSub2.setSelectedIndex(-1);
-        cbSub2.disable();
-        
-        cbSub3.setSelectedIndex(-1);
-        cbSub3.disable();
-        
-        cbFuente.setSelectedIndex(0);
-        
-        txtTexto.setText("");
-        
-        System.out.println("Limpiando ventana crear");
-        
-    }//GEN-LAST:event_btnLimpiarActionPerformed
+    }//GEN-LAST:event_btnActualizarActionPerformed
 
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         
@@ -550,16 +513,11 @@ public class CrearFicha extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-        actualizar();
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnFuentes;
     private javax.swing.JButton btnGuardar;
-    private javax.swing.JButton btnLimpiar;
     private javax.swing.JButton btnRegresar;
     private javax.swing.JComboBox cbCategoria;
     private javax.swing.JComboBox cbFuente;
@@ -606,17 +564,9 @@ public class CrearFicha extends javax.swing.JFrame {
     }
 
     private void actualizar() {
-        try {
-            
-            this.dispose();
-            
-            CrearFicha jframe = new CrearFicha();
-            System.out.println("Actualizando crear fichas");
-            jframe.setVisible(true);
-            
-        } catch (Exception ex) {
-            Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        
+        
+        
     }
     
 }

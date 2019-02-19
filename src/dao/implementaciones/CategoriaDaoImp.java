@@ -202,11 +202,12 @@ public class CategoriaDaoImp  extends ConexionBD implements CategoriaDao{
     @Override
     public List<Categorias> listar() throws Exception {
         
-        Connection conexion = null;
-        List<Categorias> listaCategorias = null;
+        Connection conexion;
+        List<Categorias> listaCategorias;
         listaCategorias = new ArrayList<>();
         
         try {
+            
             conexion = ConexionBD.obtenerConexion();
             ResultSet resultSet;
             String sql = "SELECT * FROM categorias ORDER BY nombre ASC;";
