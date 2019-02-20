@@ -10,7 +10,7 @@ public class Inicio extends javax.swing.JFrame {
         setTitle("Fichero 2.0");
         this.setLocationRelativeTo(null);
         this.setExtendedState(MAXIMIZED_BOTH);
-        System.out.println("Iniciando alpicacion Fichero2.0 creada por Carlos Gerardo Cedillo Alcántar");
+        System.out.println("Iniciando alpicacion Fichero2.0 creada por Carlos Gerardo Cedillo Alcántar\n");
     }
 
     @SuppressWarnings("unchecked")

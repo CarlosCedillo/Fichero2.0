@@ -62,7 +62,6 @@ public class CrearFicha extends javax.swing.JFrame {
         cbSub2 = new javax.swing.JComboBox();
         btnCategorias = new javax.swing.JButton();
         btnFuentes = new javax.swing.JButton();
-        btnActualizar = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
@@ -127,13 +126,6 @@ public class CrearFicha extends javax.swing.JFrame {
             }
         });
 
-        btnActualizar.setText("Actualizar");
-        btnActualizar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnActualizarActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
@@ -142,9 +134,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(btnActualizar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 79, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnGuardar, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(jPanel2Layout.createSequentialGroup()
@@ -156,28 +146,28 @@ public class CrearFicha extends javax.swing.JFrame {
                                         .addGap(31, 31, 31)
                                         .addComponent(lblCategoria)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                        .addComponent(cbCategoria, 0, 222, Short.MAX_VALUE))
+                                        .addComponent(cbCategoria, 0, 214, Short.MAX_VALUE))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                             .addComponent(lblFuente)
                                             .addComponent(lblSub2))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cbFuente, 0, 222, Short.MAX_VALUE)
-                                            .addComponent(cbSub2, 0, 222, Short.MAX_VALUE))))
-                                .addGap(12, 12, 12)
+                                            .addComponent(cbFuente, 0, 214, Short.MAX_VALUE)
+                                            .addComponent(cbSub2, 0, 214, Short.MAX_VALUE))))
+                                .addGap(15, 15, 15)
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGap(98, 98, 98)
+                                        .addGap(111, 111, 111)
                                         .addComponent(lblSub3)
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                            .addComponent(cbSub1, 0, 222, Short.MAX_VALUE)
+                                            .addComponent(cbSub1, 0, 214, Short.MAX_VALUE)
                                             .addComponent(cbSub3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                                     .addGroup(jPanel2Layout.createSequentialGroup()
-                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                            .addComponent(btnFuentes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                            .addComponent(btnCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(btnCategorias, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(btnFuentes, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE))
                                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                         .addComponent(lblSub1))))
                             .addComponent(jScrollPane1))))
@@ -209,8 +199,7 @@ public class CrearFicha extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnActualizar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(btnGuardar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(15, 15, 15))
         );
 
@@ -286,10 +275,7 @@ public class CrearFicha extends javax.swing.JFrame {
             }
             
             //5.- Obtener el id de la fuente
-            FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
-            fuenteNombre = cbFuente.getSelectedItem().toString();
             
-            fuenteId = fuenteDaoImp.obtenerId(fuenteNombre);
             
             //6.- Obtener el contenido de la ficha
             texto = txtTexto.getText();
@@ -493,12 +479,6 @@ public class CrearFicha extends javax.swing.JFrame {
         
     }//GEN-LAST:event_btnFuentesActionPerformed
 
-    private void btnActualizarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnActualizarActionPerformed
-
-        actualizar();
-        
-    }//GEN-LAST:event_btnActualizarActionPerformed
-
     private void btnCategoriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCategoriasActionPerformed
         
         try {
@@ -514,7 +494,6 @@ public class CrearFicha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnCategoriasActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnActualizar;
     private javax.swing.JButton btnCategorias;
     private javax.swing.JButton btnFuentes;
     private javax.swing.JButton btnGuardar;
@@ -549,18 +528,13 @@ public class CrearFicha extends javax.swing.JFrame {
                 cbCategoria.addItem(temp);
             }
         }
+        
     }
     
     private void enlistarFuentes() throws ClassNotFoundException, Exception {
         
-        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
         
-        for( Fuentes fuentes : fuenteDaoImp.listar() ){
-            Fuentes temp = new Fuentes();
-            temp.setId(fuentes.getId());
-            temp.setNombre(fuentes.getNombre());
-            cbFuente.addItem(temp);
-        }
+        
     }
 
     private void actualizar() {

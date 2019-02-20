@@ -10,7 +10,6 @@ import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import dao.implementaciones.CategoriaDaoImp;
 import dao.implementaciones.FichaDaoImp;
-import dao.implementaciones.FuenteDaoImp;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
@@ -29,7 +28,6 @@ import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import tablas.Categorias;
 import tablas.Fichas;
-import tablas.Fuentes;
 import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
@@ -177,17 +175,17 @@ public class BuscarFicha extends javax.swing.JFrame {
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBusquedaLayout.createSequentialGroup()
-                .addContainerGap(200, Short.MAX_VALUE)
+                .addContainerGap(212, Short.MAX_VALUE)
                 .addComponent(rbuNoficha)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(rbuTexto)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(rbuCategoria)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(rbuFuente)
-                .addGap(20, 20, 20)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
                 .addComponent(rbuAvanzado)
-                .addGap(193, 193, 193))
+                .addContainerGap(212, Short.MAX_VALUE))
         );
         pnlBusquedaLayout.setVerticalGroup(
             pnlBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -319,23 +317,23 @@ public class BuscarFicha extends javax.swing.JFrame {
                     .addComponent(txtSub1)
                     .addComponent(txtFuente))
                 .addGap(30, 30, 30))
-            .addGroup(pnlResultadosLayout.createSequentialGroup()
-                .addGap(50, 50, 50)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlResultadosLayout.createSequentialGroup()
                 .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(pnlResultadosLayout.createSequentialGroup()
-                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnExportar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnModificar)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnModificar))
                     .addGroup(pnlResultadosLayout.createSequentialGroup()
+                        .addGap(50, 50, 50)
                         .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPrimero))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(15, 15, 15)
                         .addComponent(jScrollPane1)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUltimo, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(btnSig, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -365,18 +363,18 @@ public class BuscarFicha extends javax.swing.JFrame {
                         .addGap(20, 20, 20)
                         .addComponent(jScrollPane1))
                     .addGroup(pnlResultadosLayout.createSequentialGroup()
-                        .addGap(128, 128, 128)
-                        .addComponent(btnSig, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnUltimo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(74, 74, 74))
-                    .addGroup(pnlResultadosLayout.createSequentialGroup()
-                        .addGap(123, 123, 123)
-                        .addComponent(btnAnt, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(btnPrimero, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(79, 79, 79)))
-                .addGap(20, 20, 20)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)
+                        .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(pnlResultadosLayout.createSequentialGroup()
+                                .addComponent(btnSig, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnUltimo, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(pnlResultadosLayout.createSequentialGroup()
+                                .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(btnPrimero, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 98, Short.MAX_VALUE)))
+                .addGap(8, 8, 8)
                 .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnRegresar)
                     .addComponent(btnModificar)
@@ -445,14 +443,14 @@ public class BuscarFicha extends javax.swing.JFrame {
                     .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
                         .addComponent(lblSub1Avz)
                         .addGap(20, 20, 20)
-                        .addComponent(cbSub1Avz, 0, 200, Short.MAX_VALUE))
+                        .addComponent(cbSub1Avz, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
                         .addComponent(lblSub3Avz)
                         .addGap(20, 20, 20)
-                        .addComponent(cbSub3Avz, 0, 200, Short.MAX_VALUE))
+                        .addComponent(cbSub3Avz, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAvanzasdoLayout.createSequentialGroup()
-                        .addGap(216, 216, 216)
-                        .addComponent(btnBusquedaAbanzada, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(btnBusquedaAbanzada, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(100, 100, 100))
         );
         pnlAvanzasdoLayout.setVerticalGroup(
@@ -495,7 +493,7 @@ public class BuscarFicha extends javax.swing.JFrame {
                 .addComponent(pnlAvanzasdo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(pnlResultados, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGap(8, 8, 8)
                 .addComponent(lblInfo))
         );
 
@@ -505,7 +503,7 @@ public class BuscarFicha extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         
         this.setVisible(false);
-        System.out.println("\n----- Cerrando ventana buscar -----");
+        System.out.println("\n----- Cerrando ventana: buscar -----");
         
     }//GEN-LAST:event_btnRegresarActionPerformed
 
@@ -615,7 +613,7 @@ public class BuscarFicha extends javax.swing.JFrame {
                 
             ModificarFicha jFrame = new ModificarFicha();
             this.setVisible(true);
-            System.out.println("Va modificar la ficha");
+            System.out.println("Va modificar la ficha "+txtNoFicha.getText());
             jFrame.setVisible(true);
             
             ModificarFicha.txtId.setText(txtNoFicha.getText());
@@ -1165,22 +1163,6 @@ public class BuscarFicha extends javax.swing.JFrame {
 
     private void listarFuentes() throws Exception {
         
-        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
-        
-        for( Fuentes fuentes : fuenteDaoImp.listar() ){
-            
-            Fuentes temp = new Fuentes();
-            temp.setId(fuentes.getId());
-            temp.setNombre(fuentes.getNombre());
-            
-            if( rbuFuente.isSelected() == true ){
-                cbBuscar.addItem(temp);
-            }
-        
-            if( rbuAvanzado.isSelected() == true ){
-                cbFuenteAvz.addItem(temp);
-            }
-        }
     }
     
     // BuscarFicha
@@ -1267,28 +1249,6 @@ public class BuscarFicha extends javax.swing.JFrame {
         
         System.out.println("\n--- Buscando por fuente: "+parametro+" ---");
         
-        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
-        
-        //1.- Obtener el id de la fuente
-        System.out.println("\nObteniendo el id de la fuente "+parametro);
-        Integer fuenteId = fuenteDaoImp.obtenerId(parametro);
-        System.out.println("la fuente "+parametro+" tiene de id = "+fuenteId);
-        
-        //2.- obtener las fichas con dicha fuenteId
-        FichaDaoImp fichaDaoImp = new FichaDaoImp();
-        fichasLista = fichaDaoImp.buscarFuente(fuenteId);
-        
-        if( fichasLista.isEmpty() ){
-            System.out.println("No hay fichas con fuente "+parametro);
-            JOptionPane.showMessageDialog(null, "No hay fichas encontradas");
-        }else{
-            
-            indice = 0;
-            tottal = fichasLista.size() - 1;
-            mostrar(fichasLista.get(indice));
-            
-        }
-        
     }
 
     private void busquedaAvanzada(String categoriaNombre, String sub1Nombre, String sub2Nombre, String sub3Nombre, String fuenteNombre) throws Exception {
@@ -1321,8 +1281,6 @@ public class BuscarFicha extends javax.swing.JFrame {
         
         //5.- obtener id de la fuente
         if( fuenteNombre.equals("0") == false ){
-            FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
-            fuenteId = fuenteDaoImp.obtenerId(fuenteNombre);
         }
         
         System.out.println("\nParametros de busqueda avanzada");
@@ -1436,15 +1394,6 @@ public class BuscarFicha extends javax.swing.JFrame {
     }
 
     private void obtenerFuenteNombre(Integer fuenteId) {
-        
-        FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
-        
-        System.out.println("\nObteniendo el nombre de la fuente con id = "+fuenteId);
-        String fuenteNombre = fuenteDaoImp.obtenerNombre(fuenteId);
-        System.out.println("la fuente "+fuenteId+" tiene de nombre "+fuenteNombre);
-        
-        txtFuente.setText(fuenteNombre);
-        
     }
     
     // Resaltar busqueda

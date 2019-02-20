@@ -19,13 +19,13 @@ public class DetalleFuentesDaoImp extends ConexionBD implements DetalleFuentesDa
         PreparedStatement preparedStatement;
         boolean guardado = false;
         
-        System.out.println("Ejecutando: INSERT INTO detalleFuentes (fuenteId, titulo, detalle, activo) "
+        System.out.println("Ejecutando: INSERT INTO detalleFuentes (fuenteId, titulo, detalle) "
                 + "VALUES ('"+detalleFuentes.getFuenteId()+"','"+detalleFuentes.getTitulo()+"','"+detalleFuentes.getDetalle()+"')");
         
         try {
             
             conectar = ConexionBD.obtenerConexion();
-            preparedStatement = conectar.prepareStatement("INSERT INTO detalleFuentes (fuenteId, titulo, detalle, activo) VALUES (?,?,?,?)");
+            preparedStatement = conectar.prepareStatement("INSERT INTO detalleFuentes (fuenteId, titulo, detalle) VALUES (?,?,?)");
             preparedStatement.setInt(1, detalleFuentes.getFuenteId());
             preparedStatement.setString(2, detalleFuentes.getTitulo());
             preparedStatement.setString(3, detalleFuentes.getDetalle());
@@ -47,7 +47,7 @@ public class DetalleFuentesDaoImp extends ConexionBD implements DetalleFuentesDa
     }
 
     @Override
-    public List<DetalleFuentes> listaDetalles(Integer fuenteId) {
+    public List<DetalleFuentes> listaDetalles() {
         
         Connection conectar;
         PreparedStatement preparedStatement;
@@ -97,11 +97,11 @@ public class DetalleFuentesDaoImp extends ConexionBD implements DetalleFuentesDa
         try {
             
             conectar = ConexionBD.obtenerConexion();
-            preparedStatement = conectar.prepareStatement("UPDATE detalleFuentes SET fuenteId = ?, titulo = ?, detalle = ?, activo = ? WHERE id = ?");
+            preparedStatement = conectar.prepareStatement("UPDATE detalleFuentes SET fuenteId = ?, titulo = ?, detalle = ? WHERE id = ?");
             preparedStatement.setInt(1, detalleFuentes.getFuenteId());
             preparedStatement.setString(2, detalleFuentes.getTitulo());
             preparedStatement.setString(3, detalleFuentes.getDetalle());
-            preparedStatement.setInt(5, detalleFuentes.getId());
+            preparedStatement.setInt(4, detalleFuentes.getId());
             Integer comp = preparedStatement.executeUpdate();
             
             if( comp == 1 ){
@@ -120,30 +120,29 @@ public class DetalleFuentesDaoImp extends ConexionBD implements DetalleFuentesDa
     }
 
     @Override
-    public Integer obtenerId(String titulo, String detalle) {
+    public Integer obtenerId(Integer fuenteId, String titulo, String detalle) {
         
         Connection conectar;
         PreparedStatement preparedStatement;
         ResultSet resultSet;
         Integer detalleId = 0;
         
-        System.out.println("Ejecutando: SELECT id FROM detalleFuentes WHERE titulo = '"+titulo+"' AND detalle = '"+detalle+"' ORDER BY titulo ASC;");
+        System.out.println("Ejecutando: SELECT id FROM detalleFuentes "
+                + "WHERE fuenteId = '"+fuenteId+"' AND titulo = '"+titulo+"' AND detalle = '"+detalle+"'");
         
         try {
             
             conectar = ConexionBD.obtenerConexion();
-            preparedStatement = conectar.prepareStatement("SELECT id FROM detalleFuentes WHERE titulo = ? AND detalle = ? ORDER BY titulo ASC;");
-            preparedStatement.setString(1, titulo);
-            preparedStatement.setString(2, detalle);
+            preparedStatement = conectar.prepareStatement("SELECT id FROM detalleFuentes WHERE fuenteId = ? AND titulo = ? AND detalle = ?");
+            preparedStatement.setInt(1, fuenteId);
+            preparedStatement.setString(2, titulo);
+            preparedStatement.setString(3, detalle);
             resultSet = preparedStatement.executeQuery();
             
             while( resultSet.next() ){
                 
                 DetalleFuentes detalleFuentes = new DetalleFuentes();
                 detalleFuentes.setId(resultSet.getInt("id"));
-                detalleFuentes.setFuenteId(resultSet.getInt("fuenteId"));
-                detalleFuentes.setTitulo(resultSet.getString("titulo"));
-                detalleFuentes.setDetalle(resultSet.getString("detalle"));
                 detalleId = detalleFuentes.getId();
                 
             }
@@ -157,6 +156,47 @@ public class DetalleFuentesDaoImp extends ConexionBD implements DetalleFuentesDa
         }
                 
         return detalleId;
+        
+    }
+
+    @Override
+    public boolean existe(Integer fuenteId, String titulo, String detalle) {
+        
+        Connection conectar;
+        PreparedStatement preparedStatement;
+        ResultSet resultSet;
+        boolean existe = false;
+        Integer contador = 0;
+        
+        System.out.println("Ejecutando: SELECT * FROM detalleFuentes "
+                + "WHERE fuenteId = '"+fuenteId+"' AND titulo = '"+titulo+"' AND detalle = '"+detalle+"' ORDER BY titulo ASC;");
+        
+        try {
+            
+            conectar = ConexionBD.obtenerConexion();
+            preparedStatement = conectar.prepareStatement("SELECT * FROM detalleFuentes WHERE fuenteId = ? AND titulo = ? AND detalle = ? ORDER BY titulo ASC;");
+            preparedStatement.setInt(1, fuenteId);
+            preparedStatement.setString(2, titulo);
+            preparedStatement.setString(3, detalle);
+            resultSet = preparedStatement.executeQuery();
+            
+            while( resultSet.next() ){
+                contador = contador + 1;
+            }
+            
+            if( contador > 0 ){
+                existe = true;
+            }
+            
+            conectar = ConexionBD.cerrarConexion();
+            preparedStatement.close();
+            resultSet.close();
+            
+        } catch (SQLException | ClassNotFoundException e) {
+            System.out.println(e.getMessage());
+        }
+                
+        return existe;
         
     }
 

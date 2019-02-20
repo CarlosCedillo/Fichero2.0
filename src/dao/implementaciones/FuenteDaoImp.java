@@ -93,48 +93,6 @@ public class FuenteDaoImp extends ConexionBD implements FuentesDao{
     }
     
     @Override
-    public boolean existe(String nombre) {
-        
-        boolean existe = false;
-        Integer registros = 0;
-        
-        Connection conexion;
-        PreparedStatement preparedStatement;
-        ResultSet resultSet;
-        
-        System.out.println("Ejecutando: SELECT * FROM fuentes WHERE nombre = '"+nombre+"'");
-        
-        try {
-            
-            conexion = ConexionBD.obtenerConexion();
-            
-            preparedStatement = conexion.prepareCall("SELECT * FROM fuentes WHERE nombre = ?");
-            preparedStatement.setString(1, nombre);
-            resultSet = preparedStatement.executeQuery();
-            
-            while( resultSet.next() ){
-                registros = registros + 1;
-            }
-            
-            if( registros == 0 ){
-                existe = false;
-            }else{
-                existe = true;
-            }
-            
-            conexion = ConexionBD.cerrarConexion();
-            preparedStatement.close();
-            resultSet.close();
-            
-        } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println(ex.getMessage());
-        }
-        
-        return existe;
-        
-    }
-
-    @Override
     public boolean guardar(String nombre) {
         
         boolean guardado = false;

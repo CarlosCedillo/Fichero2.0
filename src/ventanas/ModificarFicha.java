@@ -158,47 +158,41 @@ public class ModificarFicha extends javax.swing.JFrame {
                         .addComponent(btnGuardar))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblNoFicha5)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtFuente, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addComponent(lblNoFicha4)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(txtSub3, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                .addGroup(jPanel2Layout.createSequentialGroup()
-                                    .addGap(0, 0, Short.MAX_VALUE)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(lblNoFicha2)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtSub1, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(jPanel2Layout.createSequentialGroup()
-                                            .addComponent(lblNoFicha3)
-                                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                            .addComponent(txtSub2, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
-                                    .addGap(17, 17, 17)
-                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(lblNoFicha)
-                                        .addComponent(lblNoFicha1))
-                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                            .addComponent(lblNoFicha5)
+                                            .addComponent(lblNoFicha4))
+                                        .addGap(12, 12, 12)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtSub3)
+                                            .addComponent(txtFuente)))
+                                    .addGroup(jPanel2Layout.createSequentialGroup()
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                                .addComponent(lblNoFicha2)
+                                                .addComponent(lblNoFicha)
+                                                .addComponent(lblNoFicha1))
+                                            .addComponent(lblNoFicha3))
+                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                            .addComponent(txtSub2)
+                                            .addComponent(txtId)
+                                            .addComponent(txtCategoria)
+                                            .addComponent(txtSub1))))
+                                .addGap(25, 25, 25)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(txtCategoria)
-                                        .addComponent(txtId)))))
-                        .addGap(62, 62, 62)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnModFue)
-                                .addComponent(btnModSub3))
-                            .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnModCat)
-                                .addComponent(btnModSub2)
-                                .addComponent(btnModSub1)))
-                        .addGap(121, 121, 121)
-                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addComponent(btnModFue)
+                                        .addComponent(btnModSub3))
+                                    .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnModCat)
+                                        .addComponent(btnModSub2)
+                                        .addComponent(btnModSub1))))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 435, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(73, 73, 73)
+                        .addComponent(lblMensaje, javax.swing.GroupLayout.PREFERRED_SIZE, 248, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap())
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 569, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -240,14 +234,14 @@ public class ModificarFicha extends javax.swing.JFrame {
                             .addComponent(btnModFue))
                         .addGap(27, 27, 27)
                         .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGap(15, 15, 15)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(btnRegresar)
                             .addComponent(btnGuardar)))
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addGap(209, 209, 209)
                         .addComponent(lblMensaje)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
                 .addComponent(jLabel2))
         );
 
@@ -255,11 +249,11 @@ public class ModificarFicha extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 548, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
@@ -555,51 +549,8 @@ public class ModificarFicha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnModSub3ActionPerformed
 
     private void btnModFueActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnModFueActionPerformed
-        // TODO add your handling code here:
-        tabla = "fuentes"; 
-        nombre = "";
-        Integer x;
         
-        try {
-            
-            x = contarRegistros(tabla, nombre);
-            Object[] listarFuentes = new Object[x];
-            
-            conexion = ConexionBD.obtenerConexion();
-            PreparedStatement preparedStatement;
-            ResultSet resultSet;
-
-            try {
-
-                ConexionBD.obtenerConexion();
-                String sql = "SELECT * FROM fuentes ORDER BY nombre ASC;";
-                preparedStatement = conexion.prepareCall(sql);
-                resultSet = preparedStatement.executeQuery();
-                
-                for( int i = 1; resultSet.next(); i++ ){
-                    Categorias categorias = new Categorias();
-                    categorias.setNombre(resultSet.getString("nombre"));
-                    String categoriaNombre = categorias.getNombre();
-                    listarFuentes[i] = categoriaNombre;
-                }
-                
-                listarFuentes[0] = "--Seleccione--";
-                
-                Object selectFuente = JOptionPane.showInputDialog(null,"Selecciona una fuente", "Fuentes",JOptionPane.QUESTION_MESSAGE,null,listarFuentes, listarFuentes[0]);
-                
-                if( selectFuente.equals("--Seleccione--") ){
-                    JOptionPane.showMessageDialog(null, "Noupe");
-                }else{
-                    txtFuente.setText(selectFuente.toString());
-                }
-
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
-            }
-            
-        } catch (SQLException ex) {
-            System.out.println(ex.getMessage());
-        }
+        
         
     }//GEN-LAST:event_btnModFueActionPerformed
 

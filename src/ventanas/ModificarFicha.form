@@ -23,12 +23,12 @@
   <Layout>
     <DimensionLayout dim="0">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel2" min="-2" pref="548" max="-2" attributes="0"/>
+          <Component id="jPanel2" pref="548" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="jPanel2" min="-2" max="-2" attributes="0"/>
+          <Component id="jPanel2" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -49,62 +49,55 @@
                       </Group>
                       <Group type="102" alignment="0" attributes="0">
                           <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblNoFicha5" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtFuente" min="-2" pref="158" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="102" alignment="1" attributes="0">
-                                  <Component id="lblNoFicha4" min="-2" max="-2" attributes="0"/>
-                                  <EmptySpace max="-2" attributes="0"/>
-                                  <Component id="txtSub3" min="-2" pref="158" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" groupAlignment="1" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="lblNoFicha2" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtSub1" min="-2" pref="158" max="-2" attributes="0"/>
+                              <Group type="102" alignment="0" attributes="0">
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="1" attributes="0">
+                                              <Component id="lblNoFicha5" min="-2" max="-2" attributes="0"/>
+                                              <Component id="lblNoFicha4" min="-2" max="-2" attributes="0"/>
                                           </Group>
-                                          <Group type="102" alignment="1" attributes="0">
-                                              <Component id="lblNoFicha3" min="-2" max="-2" attributes="0"/>
-                                              <EmptySpace max="-2" attributes="0"/>
-                                              <Component id="txtSub2" min="-2" pref="158" max="-2" attributes="0"/>
+                                          <EmptySpace min="-2" pref="12" max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtSub3" max="32767" attributes="0"/>
+                                              <Component id="txtFuente" max="32767" attributes="0"/>
+                                          </Group>
+                                      </Group>
+                                      <Group type="102" attributes="0">
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Group type="103" alignment="0" groupAlignment="1" attributes="0">
+                                                  <Component id="lblNoFicha2" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblNoFicha" min="-2" max="-2" attributes="0"/>
+                                                  <Component id="lblNoFicha1" min="-2" max="-2" attributes="0"/>
+                                              </Group>
+                                              <Component id="lblNoFicha3" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          </Group>
+                                          <EmptySpace max="-2" attributes="0"/>
+                                          <Group type="103" groupAlignment="0" attributes="0">
+                                              <Component id="txtSub2" max="32767" attributes="0"/>
+                                              <Component id="txtId" max="32767" attributes="0"/>
+                                              <Component id="txtCategoria" max="32767" attributes="0"/>
+                                              <Component id="txtSub1" max="32767" attributes="0"/>
                                           </Group>
                                       </Group>
                                   </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <EmptySpace min="-2" pref="17" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="1" attributes="0">
-                                          <Component id="lblNoFicha" min="-2" max="-2" attributes="0"/>
-                                          <Component id="lblNoFicha1" min="-2" max="-2" attributes="0"/>
+                                  <EmptySpace min="-2" pref="25" max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="1" attributes="0">
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="btnModFue" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnModSub3" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="txtCategoria" max="32767" attributes="0"/>
-                                          <Component id="txtId" max="32767" attributes="0"/>
+                                      <Group type="103" alignment="1" groupAlignment="0" attributes="0">
+                                          <Component id="btnModCat" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnModSub2" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="btnModSub1" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
+                              <Component id="jScrollPane1" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
                           </Group>
-                          <EmptySpace min="-2" pref="62" max="-2" attributes="0"/>
-                          <Group type="103" groupAlignment="1" attributes="0">
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="btnModFue" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnModSub3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <Group type="103" alignment="1" groupAlignment="0" attributes="0">
-                                  <Component id="btnModCat" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnModSub2" alignment="0" min="-2" max="-2" attributes="0"/>
-                                  <Component id="btnModSub1" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                          </Group>
-                          <EmptySpace min="-2" pref="121" max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="73" max="-2" attributes="0"/>
                           <Component id="lblMensaje" min="-2" pref="248" max="-2" attributes="0"/>
                       </Group>
-                      <Component id="jScrollPane1" alignment="0" min="-2" pref="435" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" max="-2" attributes="0"/>
               </Group>
@@ -156,7 +149,7 @@
                           </Group>
                           <EmptySpace min="-2" pref="27" max="-2" attributes="0"/>
                           <Component id="jScrollPane1" min="-2" pref="164" max="-2" attributes="0"/>
-                          <EmptySpace max="-2" attributes="0"/>
+                          <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="btnRegresar" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="btnGuardar" alignment="3" min="-2" max="-2" attributes="0"/>
@@ -167,7 +160,7 @@
                           <Component id="lblMensaje" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
-                  <EmptySpace pref="47" max="32767" attributes="0"/>
+                  <EmptySpace pref="15" max="32767" attributes="0"/>
                   <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
               </Group>
           </Group>

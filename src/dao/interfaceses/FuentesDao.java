@@ -7,7 +7,6 @@ public interface FuentesDao {
     
     public Integer obtenerId(String nombre);
     public String obtenerNombre(Integer id);
-    public boolean existe(String nombre);
     
     //CRYD (Create, Read, Update, Delete)
     
