@@ -217,15 +217,12 @@ public class ListarFuente extends javax.swing.JFrame {
             
             DefaultTableModel defaultTableModel = (DefaultTableModel) tblFuentes.getModel();
             DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
-            FuenteDaoImp fuenteDaoImp = new FuenteDaoImp();
             
             String fuenteNombre = (String) defaultTableModel.getValueAt(tblFuentes.getSelectedRow(), 0);
             String titulo = (String) defaultTableModel.getValueAt(tblFuentes.getSelectedRow(), 1);
             String detalle = (String) defaultTableModel.getValueAt(tblFuentes.getSelectedRow(), 2);
             
-            Integer fuenteId = fuenteDaoImp.obtenerId(fuenteNombre);
-            Integer detalleId = detalleFuentesDaoImp.obtenerId(fuenteId, titulo, detalle);
-            
+            Integer detalleId = detalleFuentesDaoImp.obtenerId(titulo);
             
             ModificarFuente modificarFuente = new ModificarFuente();
             ModificarFuente.txtFuenteNombre.setText(fuenteNombre);

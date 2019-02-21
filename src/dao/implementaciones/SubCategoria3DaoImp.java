@@ -15,7 +15,7 @@ public class SubCategoria3DaoImp extends ConexionBD implements SubCategoria3Dao{
     //subCategorias3    
 
     @Override
-    public Integer obtenetId(String nombre, Integer sub2Id) {
+    public Integer obtenerId(String nombre, Integer sub2Id) {
         
         Integer sub3d = 0;
         

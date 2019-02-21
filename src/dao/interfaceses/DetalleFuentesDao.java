@@ -9,7 +9,9 @@ public interface DetalleFuentesDao {
     public List<DetalleFuentes> listaDetalles();
     public boolean modificar(DetalleFuentes detalleFuentes);
     
-    public Integer obtenerId(Integer fuenteId, String titulo, String detalle);
+    public Integer obtenerId(String titulo);
     public boolean existe(Integer fuenteId, String titulo, String detalle);
+    public String obtenerTitulo(Integer detalleId);
+    public String obtenerDetalle(Integer detalleId);
     
 }

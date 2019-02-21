@@ -1,21 +1,20 @@
 package ventanas;
 
 import dao.implementaciones.CategoriaDaoImp;
-import dao.implementaciones.FuenteDaoImp;
+import dao.implementaciones.DetalleFuentesDaoImp;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
 import dao.implementaciones.FichaDaoImp;
+import java.awt.Point;
 import java.sql.Connection;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import tablas.Categorias;
-import tablas.Fuentes;
 import tablas.SubCategorias1;
 import tablas.SubCategorias2;
 import tablas.SubCategorias3;
+import tablas.DetalleFuentes;
 
 public class CrearFicha extends javax.swing.JFrame {
     
@@ -230,7 +229,7 @@ public class CrearFicha extends javax.swing.JFrame {
         }else{
             
             Integer catrgoriaId, sub1Id, Sub2Id, Sub3Id, fuenteId;
-            String texto, categoriaNombre, sub1Nombre = null, sub2Nombre = null, sub3Nombre = null, fuenteNombre;
+            String texto, categoriaNombre, sub1Nombre = null, sub2Nombre = null, sub3Nombre = null, fuenteTitulo;
             
             //1.- Obtener el id de la categoria
             CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
@@ -268,14 +267,17 @@ public class CrearFicha extends javax.swing.JFrame {
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
                 sub3Nombre = cbSub3.getSelectedItem().toString();
                 
-                Sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, Sub2Id);
+                Sub3Id = subCategoria3DaoImp.obtenerId(sub3Nombre, Sub2Id);
                 
             }else{
                 Sub3Id = 0;
             }
             
             //5.- Obtener el id de la fuente
+            DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+            fuenteTitulo = cbFuente.getSelectedItem().toString();
             
+            fuenteId = detalleFuentesDaoImp.obtenerId(fuenteTitulo);
             
             //6.- Obtener el contenido de la ficha
             texto = txtTexto.getText();
@@ -286,7 +288,7 @@ public class CrearFicha extends javax.swing.JFrame {
             System.out.println("    Sub categoria 1 = "+sub1Nombre+" Id = "+sub1Id);
             System.out.println("    Sub categoria 2 = "+sub2Nombre+" Id = "+Sub2Id);
             System.out.println("    Sub categoria 3 = "+sub3Nombre+" Id = "+Sub3Id);
-            System.out.println("    Fuente = "+fuenteNombre+" Id = "+fuenteId);
+            System.out.println("    Fuente = "+fuenteTitulo+" Id = "+fuenteId);
             System.out.println("    Texto = "+texto+"\n");
             
             //8.- Guardar la ficha
@@ -294,8 +296,14 @@ public class CrearFicha extends javax.swing.JFrame {
             Boolean guardado = fichaDaoImp.guardar(catrgoriaId, sub1Id, Sub2Id, Sub3Id, fuenteId, texto);
             
             if( guardado == true ){
-                JOptionPane.showMessageDialog(null, "Ficha guardada con éxito");
-                actualizar();
+                try {
+                    
+                    JOptionPane.showMessageDialog(null, "Ficha guardada con éxito");
+                    actualizar();
+                    
+                } catch (Exception ex) {
+                    System.out.println(ex.getMessage());
+                }
             }else{
                 JOptionPane.showMessageDialog(null, "Hubo un error al guardar la ficha");
             }
@@ -311,32 +319,23 @@ public class CrearFicha extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void cbCategoriaItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaItemStateChanged
-        // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
         
-        if( cbCategoria.getSelectedIndex() == 0 ){
-        }else{
+        if( cbCategoria.getSelectedIndex() > 0 ){
             
             try {
                 
-                cbSub1.enable();
                 cbSub1.removeAllItems();
-                
-                String categoriaNombre = cbCategoria.getSelectedItem().toString();
-                
-                //1.- Obtener el id de la categoria seleccionada
-                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-                
-                System.out.println("\nObteniendo el id de la categoria "+categoriaNombre);
-                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
-                System.out.println("la categoria "+categoriaNombre+" tiene el id = "+categoriaId);
-                
-                //2.- Obtener las sub categorias 1 correspondientes a la categoria
-                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                
-                System.out.println("\nObteniendo las sub categoria 1 de la categoria "+categoriaNombre);
-                List<SubCategorias1> listaSub1 = subCategoria1DaoImp.listar(categoriaId);
-                
+                cbSub1.enable();
                 cbSub1.addItem("--Seleccione--");
+                
+                //Obtener el id de categoria
+                String categoriaNombre = cbCategoria.getSelectedItem().toString();
+                CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
+                Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
+                
+                //Obtener las sub 1 de la categoria
+                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                List<SubCategorias1> listaSub1 = subCategoria1DaoImp.listar(categoriaId);
                 
                 for( SubCategorias1 subCategorias1 : listaSub1 ){
                     
@@ -349,45 +348,40 @@ public class CrearFicha extends javax.swing.JFrame {
                     if( temp.isActivo() == true ){
                         cbSub1.addItem(temp);
                     }
+                    
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(CrearFicha.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
+        
         }
         
     }//GEN-LAST:event_cbCategoriaItemStateChanged
 
     private void cbSub1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1ItemStateChanged
-        // Esto es para cuando se seleccione una subcategoria1 se activen las subcategorias2 correspondientes
         
-        if( cbSub1.isEnabled() == true && cbSub1.getSelectedIndex() > 0 ){
+        if( cbSub1.getSelectedIndex() > 0 ){
             
             try {
                 
+                cbSub2.removeAllItems();
+                cbSub2.enable();
+                cbSub2.addItem("--Seleccione--");
+                
+                //Obtener el id de categoria
                 String categoriaNombre = cbCategoria.getSelectedItem().toString();
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
                 
-                cbSub2.enable();
-                cbSub2.removeAllItems();
-                
+                //2.- Obtener el id de la sub categoria 1
                 String sub1Nombre = cbSub1.getSelectedItem().toString();
-                
-                //1.- Obtener el id de la sub categoria 1 seleccionada
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                
-                System.out.println("\nObteniendo el id de la sub categoria 1 "+sub1Nombre);
                 Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
-                System.out.println("la sub categoria 1 "+sub1Nombre+" tiene el id "+sub1Id);
                 
-                //2.- Obtener las sub categorias 2 correspondientes a la sub categoria 1
+                //3.- Obtener las sub 2 de la sub 1
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-                
-                System.out.println("\nObteniendo las sub categoria 2 de la sub categoria 1 "+sub1Nombre);
-                List<SubCategorias2>  listaSub2 = subCategoria2DaoImp.listar(sub1Id);
-                
-                cbSub2.addItem("--Seleccione--");
+                List<SubCategorias2> listaSub2 = subCategoria2DaoImp.listar(sub1Id);
                 
                 for( SubCategorias2 subCategorias2 : listaSub2 ){
                     
@@ -400,46 +394,45 @@ public class CrearFicha extends javax.swing.JFrame {
                     if( temp.isActivo() == true ){
                         cbSub2.addItem(temp);
                     }
+                    
                 }
                 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+        
         }
         
     }//GEN-LAST:event_cbSub1ItemStateChanged
 
     private void cbSub2ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub2ItemStateChanged
-        // Esto es para cuando se seleccione una subcategoria2 se activen las subcategorias3 correspondientes
         
-        if( cbSub2.isEnabled() == true && cbSub2.getSelectedIndex() > 0 ){
-                
+        if( cbSub2.getSelectedIndex() > 0 ){
+            
             try {
                 
-                //1.- Obtener el nombre y el id de la categoria seleccionada
+                cbSub3.removeAllItems();
+                cbSub3.enable();
+                cbSub3.addItem("--Seleccione--");
+                
+                //Obtener el id de categoria
                 String categoriaNombre = cbCategoria.getSelectedItem().toString();
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
                 
-                //2.- Obteenr el nombre y el id de la sub categoria 1
+                //2.- Obtener el id de la sub categoria 1
                 String sub1Nombre = cbSub1.getSelectedItem().toString();
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
                 
-                //3.- Obteenr el nombre y el id de la sub categoria 2
+                //3.- Obtener el id de la sub categoria 2
                 String sub2Nombre = cbSub2.getSelectedItem().toString();
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
                 Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
                 
-                //4.- Prepara el comboBox (activar y eliminar lo que haya ahi)
-                cbSub3.removeAllItems();
-                cbSub3.enable();
-                
-                //5.- obtener el listado de sub 3 de la sub2 seleccionada
+                //4.- Obtener las sub 3 de la sub 2
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
                 List<SubCategorias3> listaSub3 = subCategoria3DaoImp.listar(sub2Id);
-                
-                cbSub3.addItem("--Seleccione--");
                 
                 for( SubCategorias3 subCategorias3 : listaSub3 ){
                     
@@ -452,11 +445,13 @@ public class CrearFicha extends javax.swing.JFrame {
                     if( temp.isActivo() == true ){
                         cbSub3.addItem(temp);
                     }
+                    
                 }
                 
             } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
+        
         }
         
     }//GEN-LAST:event_cbSub2ItemStateChanged
@@ -519,6 +514,7 @@ public class CrearFicha extends javax.swing.JFrame {
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
         
         for( Categorias categorias : categoriaDaoImp.listar() ){
+            
             Categorias temp = new Categorias();
             temp.setId(categorias.getId());
             temp.setNombre(categorias.getNombre());
@@ -527,19 +523,37 @@ public class CrearFicha extends javax.swing.JFrame {
             if( temp.isActivo() == true ){
                 cbCategoria.addItem(temp);
             }
+            
         }
-        
     }
     
     private void enlistarFuentes() throws ClassNotFoundException, Exception {
         
+        DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
         
-        
+        for( DetalleFuentes detalleFuentes : detalleFuentesDaoImp.listaDetalles() ){
+            
+            DetalleFuentes temp = new DetalleFuentes();
+            temp.setId(detalleFuentes.getId());
+            temp.setFuenteId(detalleFuentes.getFuenteId());
+            temp.setTitulo(detalleFuentes.getTitulo());
+            temp.setDetalle(detalleFuentes.getDetalle());
+            cbFuente.addItem(temp);
+            
+        }
     }
 
-    private void actualizar() {
+    private void actualizar() throws Exception {
         
+        Point localizacion = this.getLocationOnScreen();
+        Integer ancho = this.getWidth();
+        Integer alto = this.getHeight();
+        this.dispose();
         
+        CrearFicha crearFicha = new CrearFicha();
+        crearFicha.setLocation(localizacion);
+        crearFicha.setSize(ancho, alto);
+        crearFicha.setVisible(true);
         
     }
     

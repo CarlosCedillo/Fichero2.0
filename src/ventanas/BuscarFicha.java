@@ -1,6 +1,7 @@
 package ventanas;
 
 import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Paragraph;
 import com.itextpdf.text.Phrase;
@@ -9,16 +10,17 @@ import com.itextpdf.text.pdf.PdfPCell;
 import com.itextpdf.text.pdf.PdfPTable;
 import com.itextpdf.text.pdf.PdfWriter;
 import dao.implementaciones.CategoriaDaoImp;
+import dao.implementaciones.DetalleFuentesDaoImp;
 import dao.implementaciones.FichaDaoImp;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
 import dao.implementaciones.SubCategoria3DaoImp;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import javax.swing.JFileChooser;
@@ -27,6 +29,7 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import tablas.Categorias;
+import tablas.DetalleFuentes;
 import tablas.Fichas;
 import tablas.SubCategorias1;
 import tablas.SubCategorias2;
@@ -175,17 +178,17 @@ public class BuscarFicha extends javax.swing.JFrame {
                 .addComponent(btnBuscar, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(100, 100, 100))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlBusquedaLayout.createSequentialGroup()
-                .addContainerGap(212, Short.MAX_VALUE)
+                .addContainerGap(226, Short.MAX_VALUE)
                 .addComponent(rbuNoficha)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(rbuTexto)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(rbuCategoria)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addComponent(rbuFuente)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
                 .addComponent(rbuAvanzado)
-                .addContainerGap(212, Short.MAX_VALUE))
+                .addContainerGap(226, Short.MAX_VALUE))
         );
         pnlBusquedaLayout.setVerticalGroup(
             pnlBusquedaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -323,16 +326,16 @@ public class BuscarFicha extends javax.swing.JFrame {
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnRegresar, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnExportar)
+                        .addComponent(btnModificar)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(btnModificar))
+                        .addComponent(btnExportar))
                     .addGroup(pnlResultadosLayout.createSequentialGroup()
                         .addGap(50, 50, 50)
                         .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(btnAnt, javax.swing.GroupLayout.PREFERRED_SIZE, 46, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(btnPrimero))
                         .addGap(15, 15, 15)
-                        .addComponent(jScrollPane1)))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 710, Short.MAX_VALUE)))
                 .addGap(15, 15, 15)
                 .addGroup(pnlResultadosLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(btnUltimo, javax.swing.GroupLayout.Alignment.TRAILING)
@@ -426,29 +429,27 @@ public class BuscarFicha extends javax.swing.JFrame {
             .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
                 .addGap(100, 100, 100)
                 .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                    .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
-                        .addComponent(lblFuenteAvz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGap(20, 20, 20)
-                        .addComponent(cbFuenteAvz, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
-                        .addComponent(lblSub2Avz)
-                        .addGap(20, 20, 20)
-                        .addComponent(cbSub2Avz, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
-                        .addComponent(lblCategoriaAvz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbCategoriaAvz, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(20, 20, 20)
+                    .addComponent(lblFuenteAvz, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblSub2Avz, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(lblCategoriaAvz, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(10, 10, 10)
+                .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(cbSub2Avz, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(cbCategoriaAvz, javax.swing.GroupLayout.Alignment.LEADING, 0, 270, Short.MAX_VALUE)
+                    .addComponent(cbFuenteAvz, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
-                        .addComponent(lblSub1Avz)
                         .addGap(20, 20, 20)
-                        .addComponent(cbSub1Avz, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlAvanzasdoLayout.createSequentialGroup()
+                                .addComponent(lblSub3Avz)
+                                .addGap(10, 10, 10)
+                                .addComponent(cbSub3Avz, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
+                                .addComponent(lblSub1Avz)
+                                .addGap(10, 10, 10)
+                                .addComponent(cbSub1Avz, 0, 270, Short.MAX_VALUE))))
                     .addGroup(pnlAvanzasdoLayout.createSequentialGroup()
-                        .addComponent(lblSub3Avz)
-                        .addGap(20, 20, 20)
-                        .addComponent(cbSub3Avz, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlAvanzasdoLayout.createSequentialGroup()
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btnBusquedaAbanzada, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(100, 100, 100))
@@ -461,13 +462,13 @@ public class BuscarFicha extends javax.swing.JFrame {
                     .addComponent(lblCategoriaAvz)
                     .addComponent(cbCategoriaAvz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub1Avz)
-                    .addComponent(cbSub1Avz))
+                    .addComponent(cbSub1Avz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblSub2Avz)
                     .addComponent(cbSub2Avz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(lblSub3Avz)
-                    .addComponent(cbSub3Avz))
+                    .addComponent(cbSub3Avz, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(pnlAvanzasdoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lblFuenteAvz)
@@ -611,26 +612,30 @@ public class BuscarFicha extends javax.swing.JFrame {
             
             try {
                 
-            ModificarFicha jFrame = new ModificarFicha();
-            this.setVisible(true);
-            System.out.println("Va modificar la ficha "+txtNoFicha.getText());
-            jFrame.setVisible(true);
-            
-            ModificarFicha.txtId.setText(txtNoFicha.getText());
-            ModificarFicha.txtCategoria.setText(txtCategoria.getText());
-            ModificarFicha.txtSub1.setText(txtSub1.getText());
-            ModificarFicha.txtSub2.setText(txtSub2.getText());
-            ModificarFicha.txtSub3.setText(txtSub3.getText());
-            ModificarFicha.txtFuente.setText(txtFuente.getText());
-            ModificarFicha.txtFicha.setText(txtTexto.getText());
-            
+                this.dispose();
+                
+                ModificarFicha modificarFicha = new ModificarFicha();
+                System.out.println("\n----- Abriendo ventana: Modificar ficha -----\n");
+                System.out.println("Va modificar la ficha "+txtNoFicha.getText());
+
+                ModificarFicha.txtId.setText(txtNoFicha.getText());
+                ModificarFicha.txtCategoria.setText(txtCategoria.getText());
+                ModificarFicha.txtSub1.setText(txtSub1.getText());
+                ModificarFicha.txtSub2.setText(txtSub2.getText());
+                ModificarFicha.txtSub3.setText(txtSub3.getText());
+                ModificarFicha.txtFuente.setText(txtFuente.getText());
+                ModificarFicha.txtFicha.setText(txtTexto.getText());
+                
+                modificarFicha.setVisible(true);
+
             } catch (ClassNotFoundException ex) {
+                System.out.println(ex.getMessage());
+            } catch (Exception ex) {
                 System.out.println(ex.getMessage());
             }
             
-            this.dispose();
-            
         }else{
+            System.out.println("\nNo hay ficha para modificar");
             JOptionPane.showMessageDialog(null, "No hay ficha que modificar");
         }
     }//GEN-LAST:event_btnModificarActionPerformed
@@ -808,7 +813,11 @@ public class BuscarFicha extends javax.swing.JFrame {
                 //INICIO parametros de los parrafos
                 Paragraph espacio = new Paragraph("\n");
                 
-                Paragraph fuente = new Paragraph(fichaFuente);
+                DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+                Integer detalleId = detalleFuentesDaoImp.obtenerId(fichaFuente);
+                String fuenteDetalle = detalleFuentesDaoImp.obtenerDetalle(detalleId);
+                
+                Paragraph fuente = new Paragraph(fichaFuente+": "+fuenteDetalle);
                 fuente.setAlignment(Element.ALIGN_RIGHT);
                 
                 PdfPTable table = new PdfPTable(2);
@@ -842,7 +851,7 @@ public class BuscarFicha extends javax.swing.JFrame {
                 
                 JOptionPane.showMessageDialog(null, "Ficha guardada con éxito");
                 
-            } catch (Exception e) {
+            } catch (DocumentException | HeadlessException | FileNotFoundException e) {
                 System.out.println(e.getMessage());
             }
         
@@ -884,33 +893,24 @@ public class BuscarFicha extends javax.swing.JFrame {
     }//GEN-LAST:event_rbuAvanzadoItemStateChanged
 
     private void cbCategoriaAvzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbCategoriaAvzItemStateChanged
-        try {
+        
+        if( cbCategoriaAvz.getSelectedIndex() > 0 ){
             
-            // Esto es para cuando se seleccione una categoria se activen las subcategorias1 correspondientes
-            
-            if( cbCategoriaAvz.getSelectedIndex() == 0  ){
-            }else{
+            try {
                 
-                cbSub1Avz.enable();
                 cbSub1Avz.removeAllItems();
+                cbSub1Avz.enable();
+                cbSub1Avz.addItem("--Seleccione--");
                 
+                //1.- Obtener el id de la categoria
                 String categoriaNombre = cbCategoriaAvz.getSelectedItem().toString();
-
-                //1.- Obtener el id de la categoria seleccionada
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
-                
-                System.out.println("\nObteniendo el id de la categoria "+categoriaNombre);
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
-                System.out.println("la categoria "+categoriaNombre+" tiene el id = "+categoriaId);
-
-                //2.- Obtener las sub categorias 1 correspondientes a la categoria
-                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 
-                System.out.println("\nObteniendo las sub categoria 1 de la categoria "+categoriaNombre);
+                //2.- Obtener las sub 1 de la categoria
+                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
                 List<SubCategorias1> listaSub1 = subCategoria1DaoImp.listar(categoriaId);
                 
-                cbSub1Avz.addItem("--Seleccione--");
-
                 for( SubCategorias1 subCategorias1 : listaSub1 ){
                     
                     SubCategorias1 temp = new SubCategorias1();
@@ -922,98 +922,91 @@ public class BuscarFicha extends javax.swing.JFrame {
                     if( temp.isActivo() == true ){
                         cbSub1Avz.addItem(temp);
                     }
+                    
                 }
+                
+            } catch (Exception ex) {
+                System.out.println(ex.getMessage());
             }
             
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
         }
         
     }//GEN-LAST:event_cbCategoriaAvzItemStateChanged
 
     private void cbSub1AvzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub1AvzItemStateChanged
-        // Esto es para cuando se seleccione una subcategoria1 se activen las subcategorias2 correspondientes
         
-        if( cbSub1Avz.isEnabled() == true && cbSub1Avz.getSelectedIndex() > 0 ){
+        if( cbSub1Avz.getSelectedIndex() > 0 ){
             
             try {
                 
+                cbSub2Avz.removeAllItems();
+                cbSub2Avz.enable();
+                cbSub2Avz.addItem("--Seleccione--");
+                
+                //1.- Obtener el id de la categoria
                 String categoriaNombre = cbCategoriaAvz.getSelectedItem().toString();
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
                 
-                cbSub2Avz.enable();
-                cbSub2Avz.removeAllItems();
-                
+                //2.- Obtener el id de la sub 1
                 String sub1Nombre = cbSub1Avz.getSelectedItem().toString();
-                
-                //1.- Obtener el id de la sub categoria 1 seleccionada
                 SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
-                
-                System.out.println("\nObteniendo el id de la sub categoria 1 "+sub1Nombre);
                 Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
-                System.out.println("la sub categoria 1 "+sub1Nombre+" tiene el id "+sub1Id);
                 
-                //2.- Obtener las sub categorias 2 correspondientes a la sub categoria 1
+                //3.- obtener las sub 2 de la sub 1
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-                
-                System.out.println("\nObteniendo las sub categoria 2 de la sub categoria 1 "+sub1Nombre);
-                List<SubCategorias2>  listaSub2 = subCategoria2DaoImp.listar(sub1Id);
-                
-                cbSub2Avz.addItem("--Seleccione--");
+                List<SubCategorias2> listaSub2 = subCategoria2DaoImp.listar(sub1Id);
                 
                 for( SubCategorias2 subCategorias2 : listaSub2 ){
-                    
+                
                     SubCategorias2 temp = new SubCategorias2();
                     temp.setId(subCategorias2.getId());
                     temp.setIdSubCategoria1(subCategorias2.getIdSubCategoria1());
                     temp.setNombre(subCategorias2.getNombre());
                     temp.setActivo(subCategorias2.isActivo());
-                    
+                
                     if( temp.isActivo() == true ){
                         cbSub2Avz.addItem(temp);
                     }
+                    
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(BuscarFicha.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
+            
         }
         
     }//GEN-LAST:event_cbSub1AvzItemStateChanged
 
     private void cbSub2AvzItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_cbSub2AvzItemStateChanged
-        // Esto es para cuando se seleccione una subcategoria2 se activen las subcategorias3 correspondientes
         
-        if( cbSub2Avz.isEnabled() == true && cbSub2Avz.getSelectedIndex() > 0 ){
+        if( cbSub2Avz.getSelectedIndex() > 0 ){
             
             try {
                 
+                cbSub3Avz.removeAllItems();
+                cbSub3Avz.enable();
+                cbSub3Avz.addItem("--Seleccione--");
+                
+                //1.- Obtener el id de la categoria
                 String categoriaNombre = cbCategoriaAvz.getSelectedItem().toString();
                 CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
                 Integer categoriaId = categoriaDaoImp.obtenerId(categoriaNombre);
                 
-                cbSub3Avz.enable();
-                cbSub3Avz.removeAllItems();
-                
-                String sub2Nombre = cbSub2Avz.getSelectedItem().toString();
-                
-                //1.- Obtener el id de la sub categoria 2 seleccionada
+                //2.- Obtener el id de la sub 1
                 String sub1Nombre = cbSub1Avz.getSelectedItem().toString();
+                SubCategoria1DaoImp subCategoria1DaoImp = new SubCategoria1DaoImp();
+                Integer sub1Id = subCategoria1DaoImp.obtenerId(sub1Nombre, categoriaId);
+                
+                //3.- Obtener el id de la sub 2
+                String sub2Nombre = cbSub2Avz.getSelectedItem().toString();
                 SubCategoria2DaoImp subCategoria2DaoImp = new SubCategoria2DaoImp();
-                Integer sub1Id = subCategoria2DaoImp.obtenerId(sub1Nombre, categoriaId);
-                
-                System.out.println("\nObteniendo el id de la sub categoria 2 "+sub2Nombre);
                 Integer sub2Id = subCategoria2DaoImp.obtenerId(sub2Nombre, sub1Id);
-                System.out.println("la sub categoria 2 "+sub2Nombre+" tiene el id "+sub2Id);
                 
-                //2.- Obtener las sub categorias 3 correspondientes a la sub categoria 2
+                //4.- Obtener las sub 3 de la sub 2
                 SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-                
-                System.out.println("\nObteniendo las sub categoria 3 de la sub categoria 2 "+sub2Nombre);
-                List<SubCategorias3>  listaSub3 = subCategoria3DaoImp.listar(sub2Id);
-                
-                cbSub3Avz.addItem("--Seleccione--");
+                List<SubCategorias3> listaSub3 = subCategoria3DaoImp.listar(sub2Id);
                 
                 for( SubCategorias3 subCategorias3 : listaSub3 ){
                     
@@ -1026,11 +1019,13 @@ public class BuscarFicha extends javax.swing.JFrame {
                     if( temp.isActivo() == true ){
                         cbSub3Avz.addItem(temp);
                     }
+                    
                 }
                 
             } catch (Exception ex) {
-                Logger.getLogger(BuscarFicha.class.getName()).log(Level.SEVERE, null, ex);
+                System.out.println(ex.getMessage());
             }
+            
         }
         
     }//GEN-LAST:event_cbSub2AvzItemStateChanged
@@ -1144,6 +1139,7 @@ public class BuscarFicha extends javax.swing.JFrame {
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
         
         for( Categorias categorias : categoriaDaoImp.listar() ){
+            
             Categorias temp = new Categorias();
             temp.setId(categorias.getId());
             temp.setNombre(categorias.getNombre());
@@ -1159,9 +1155,29 @@ public class BuscarFicha extends javax.swing.JFrame {
                 }
             }
         }
+        
     }
 
     private void listarFuentes() throws Exception {
+        
+        DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+        
+        for( DetalleFuentes detalleFuentes : detalleFuentesDaoImp.listaDetalles() ){
+            
+            DetalleFuentes temp =  new DetalleFuentes();
+            temp.setId(detalleFuentes.getId());
+            temp.setFuenteId(detalleFuentes.getFuenteId());
+            temp.setTitulo(detalleFuentes.getTitulo());
+            temp.setDetalle(detalleFuentes.getDetalle());
+            
+            if( rbuFuente.isSelected() == true ){
+                cbBuscar.addItem(temp);
+            }
+            
+            if( rbuAvanzado.isSelected() == true ){
+                cbFuenteAvz.addItem(temp);
+            }
+        }
         
     }
     
@@ -1249,9 +1265,31 @@ public class BuscarFicha extends javax.swing.JFrame {
         
         System.out.println("\n--- Buscando por fuente: "+parametro+" ---");
         
+        DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+        
+        //1.- Obtener el id del detalle de la fuente
+        System.out.println("\nObteniendo el id de la funete "+parametro);
+        Integer fuenteId = detalleFuentesDaoImp.obtenerId(parametro);
+        System.out.println("La fuente "+parametro+" tiene el id = "+fuenteId);
+        
+        //2.- Obtener las fichas con esa fuente
+        FichaDaoImp fichaDaoImp = new FichaDaoImp();
+        fichasLista = fichaDaoImp.buscarFuente(fuenteId);
+        
+        if( fichasLista.isEmpty() ){
+            System.out.println("No hay fichas con fuente "+parametro);
+            JOptionPane.showMessageDialog(null, "No hay fichas encontradas");
+        }else{
+            
+            indice = 0;
+            tottal = fichasLista.size() - 1;
+            mostrar(fichasLista.get(indice));
+            
+        }
+        
     }
 
-    private void busquedaAvanzada(String categoriaNombre, String sub1Nombre, String sub2Nombre, String sub3Nombre, String fuenteNombre) throws Exception {
+    private void busquedaAvanzada(String categoriaNombre, String sub1Nombre, String sub2Nombre, String sub3Nombre, String detalleTitulo) throws Exception {
         
         System.out.println("\n--- Busqueda avanzada ---");
         
@@ -1276,11 +1314,13 @@ public class BuscarFicha extends javax.swing.JFrame {
         //4.- obtener id de la sub categoria 3
         if( sub3Nombre.equals("0") == false ){
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, sub2Id);
+            sub3Id = subCategoria3DaoImp.obtenerId(sub3Nombre, sub2Id);
         }
         
         //5.- obtener id de la fuente
-        if( fuenteNombre.equals("0") == false ){
+        if( detalleTitulo.equals("0") == false ){
+            DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+            fuenteId = detalleFuentesDaoImp.obtenerId(detalleTitulo);
         }
         
         System.out.println("\nParametros de busqueda avanzada");
@@ -1288,7 +1328,7 @@ public class BuscarFicha extends javax.swing.JFrame {
         System.out.println("Sub categoria 1: "+sub1Nombre+" con id = "+sub1Id);
         System.out.println("Sub categoria 2: "+sub2Nombre+" con id = "+sub2Id);
         System.out.println("Sub categoria 3: "+sub3Nombre+" con id = "+sub3Id);
-        System.out.println("Fuente: "+fuenteNombre+" id = "+fuenteId+"\n");
+        System.out.println("Fuente: "+detalleTitulo+" id = "+fuenteId+"\n");
         
         //6.- obtener la Lista de fichas
         
@@ -1394,6 +1434,15 @@ public class BuscarFicha extends javax.swing.JFrame {
     }
 
     private void obtenerFuenteNombre(Integer fuenteId) {
+        
+        DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+        
+        System.out.println("\nObteniendo el nombre de la fuente con id = "+fuenteId);
+        String fuenteTitulo = detalleFuentesDaoImp.obtenerTitulo(fuenteId);
+        System.out.println("La fuente "+fuenteId+" tiene por titulo "+fuenteTitulo);
+        
+        txtFuente.setText(fuenteTitulo);
+        
     }
     
     // Resaltar busqueda

@@ -19,5 +19,4 @@ public interface FichaDao {
     
     public boolean borrar(Integer id);
     
-    
 }

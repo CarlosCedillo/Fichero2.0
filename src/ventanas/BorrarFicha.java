@@ -1,7 +1,7 @@
 package ventanas;
 
 import dao.implementaciones.CategoriaDaoImp;
-import dao.implementaciones.FuenteDaoImp;
+import dao.implementaciones.DetalleFuentesDaoImp;
 import dao.implementaciones.FichaDaoImp;
 import dao.implementaciones.SubCategoria1DaoImp;
 import dao.implementaciones.SubCategoria2DaoImp;
@@ -17,8 +17,8 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
 import javax.swing.text.Highlighter;
 import tablas.Categorias;
+import tablas.DetalleFuentes;
 import tablas.Fichas;
-import tablas.Fuentes;
 
 public class BorrarFicha extends javax.swing.JFrame {
     
@@ -619,6 +619,7 @@ public class BorrarFicha extends javax.swing.JFrame {
         CategoriaDaoImp categoriaDaoImp = new CategoriaDaoImp();
         
         for( Categorias categorias : categoriaDaoImp.listar() ){
+            
             Categorias temp = new Categorias();
             temp.setId(categorias.getId());
             temp.setNombre(categorias.getNombre());
@@ -627,10 +628,24 @@ public class BorrarFicha extends javax.swing.JFrame {
             if( temp.isActivo() == true ){
                 cbBuscar.addItem(temp);
             }
+            
         }
     }
 
     private void listarFuentes() throws Exception {
+        
+        DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+        
+        for( DetalleFuentes detalleFuentes : detalleFuentesDaoImp.listaDetalles() ){
+            
+            DetalleFuentes temp = new DetalleFuentes();
+            temp.setId(detalleFuentes.getId());
+            temp.setFuenteId(detalleFuentes.getFuenteId());
+            temp.setTitulo(detalleFuentes.getTitulo());
+            temp.setDetalle(detalleFuentes.getDetalle());
+            cbBuscar.addItem(temp);
+            
+        }
     }
     
     //Buscar
@@ -829,6 +844,15 @@ public class BorrarFicha extends javax.swing.JFrame {
     }
 
     private void obtenerFuenteNombre(Integer fuenteId) {
+        
+        DetalleFuentesDaoImp detalleFuentesDaoImp = new DetalleFuentesDaoImp();
+        
+        System.out.println("\nObteniendo el titulo de la funete con id = "+fuenteId);
+        String detalleTitulo = detalleFuentesDaoImp.obtenerTitulo(fuenteId);
+        System.out.println("La fuente "+fuenteId+" tiene de titulo "+detalleTitulo);
+        
+        txtFuente.setText(detalleTitulo);
+        
     }
     
     //Resaltar palabra buscada

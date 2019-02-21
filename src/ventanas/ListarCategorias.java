@@ -1105,7 +1105,7 @@ public class ListarCategorias extends javax.swing.JFrame {
                     System.out.println("La sub categoria 3 no existe");
                     
                     //8.- Obteenr el id de la sub categoria 3
-                    Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3OldName, sub2Id);
+                    Integer sub3Id = subCategoria3DaoImp.obtenerId(sub3OldName, sub2Id);
                     System.out.println("Sub categoría 3 id = "+sub3Id);
                     
                     //10.- Modificar la sub categoria 3
@@ -1380,7 +1380,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //5.- Obtener el nombre y el id de la sub categoria 3
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, sub2Id);
+            Integer sub3Id = subCategoria3DaoImp.obtenerId(sub3Nombre, sub2Id);
             System.out.println("Sub categoria 3 id = "+sub3Id);
             
             //6.- Desactivar sub categoria 3
@@ -1645,7 +1645,7 @@ public class ListarCategorias extends javax.swing.JFrame {
             
             //5.- Obtener el nombre y el id de la sub categoria 3
             SubCategoria3DaoImp subCategoria3DaoImp = new SubCategoria3DaoImp();
-            Integer sub3Id = subCategoria3DaoImp.obtenetId(sub3Nombre, sub2Id);
+            Integer sub3Id = subCategoria3DaoImp.obtenerId(sub3Nombre, sub2Id);
             System.out.println("Sub categoria 3 id = "+sub3Id);
             
             //6.- Activar sub categoria 3
