@@ -22,6 +22,7 @@ public class ListarFuente extends javax.swing.JFrame {
         defaultTableModel.addColumn("Título"); //1
         defaultTableModel.addColumn("Detalle"); //2
         listarFuentes();
+        
     }
 
     @SuppressWarnings("unchecked")
